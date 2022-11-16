@@ -29,6 +29,7 @@
 #6.只保留根目录下的.gitignore.前面加一个/,表示只保留根目录下的.gitignore文件.
 #7.因为.idea文件夹中也包含.gitignore文件,如果想要保留所有,需要配置!/**/.gitignore.
 !/.gitignore
+!.github/**/**
 #8.保留根目录下的README和LICENSE
 !README.md
 !LICENSE.txt
