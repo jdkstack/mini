@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.jdkstack</groupId>
+    <artifactId>mini</artifactId>
+    <version>11</version>
+  </parent>
+  <artifactId>mini-core</artifactId>
+  <dependencies>
+    <dependency>
+      <groupId>org.jdkstack</groupId>
+      <artifactId>mini-api</artifactId>
+      <version>11</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jdkstack</groupId>
+      <artifactId>jdkbean-core</artifactId>
+      <version>11.0.11</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jdkstack</groupId>
+      <artifactId>jdkringbuffer-core</artifactId>
+      <version>11.0.12</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <!-- 覆盖父类的jar打包,并增加自动模块名称,导入依赖包,解决Unable to derive module descriptor for.-->
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <Automatic-Module-Name>org.jdkstack.logging.mini.core</Automatic-Module-Name>
+            </manifestEntries>
+          </archive>
+        </configuration>
+        <!-- https://maven.apache.org/plugins/maven-jar-plugin/examples/include-exclude.html-->
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.3.0</version>
+      </plugin>
+    </plugins>
+  </build>
+</project>
