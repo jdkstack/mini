@@ -13,13 +13,13 @@ import org.jdkstack.logging.mini.core.pool.StringBuilderPool;
  *
  * <p>Another description after blank line.
  *
- * @param <T> 泛型对象.
+ * @param <E> 泛型对象.
  * @author admin
  */
-public abstract class AbstractQueue<T> implements Queue<T> {
+public abstract class AbstractQueue<E> implements Queue<E> {
 
   /** 有界数组阻塞队列. */
-  private final MpmcBlockingQueueV3<T> queue;
+  private final MpmcBlockingQueueV3<E> queue;
 
   /**
    * 建一个容量capacity的队列,默认容量2048.
@@ -30,7 +30,7 @@ public abstract class AbstractQueue<T> implements Queue<T> {
    * @author admin
    */
   protected AbstractQueue(final int capacity) {
-    this.queue = new MpmcBlockingQueueV3<>(capacity, new RecordEventFactory());
+    this.queue = new MpmcBlockingQueueV3<>(capacity, new RecordEventFactory<>());
   }
 
   /**
@@ -42,7 +42,7 @@ public abstract class AbstractQueue<T> implements Queue<T> {
    * @author admin
    */
   @Override
-  public final T take() {
+  public final E take() {
     try {
       // 使用阻塞方法从队列获取元素. 天然的背压方式,当队列空时阻塞.
       return this.queue.take();

@@ -6,6 +6,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.LockSupport;
 import org.jdkstack.jdkringbuffer.api.RingBufferBlockingQueue;
 
+/**
+ * .
+ *
+ * <p>Another description after blank line.
+ *
+ * @param <E> .
+ * @author admin
+ */
 public abstract class AbstractLockBlockingQueueV1<E> extends AbstractBlockingQueue<E>
     implements BlockingQueue<E>, RingBufferBlockingQueue {
 
@@ -22,7 +30,6 @@ public abstract class AbstractLockBlockingQueueV1<E> extends AbstractBlockingQue
 
   protected AbstractLockBlockingQueueV1(final int capacity) {
     super(capacity, capacity - 1);
-    // jdk 泛型数组,会有检查异常,但不影响什么,用unchecked关闭检查.
     this.ringBuffer = (E[]) new Object[capacity];
   }
 

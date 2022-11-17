@@ -15,15 +15,38 @@ import org.jdkstack.jdkringbuffer.core.Power2;
  */
 public class SpmcBlockingQueueV4<E> extends AbstractLockBlockingQueueV4<E> {
 
-
+  /**
+   * This is a class description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param eventFactory .
+   * @author admin
+   */
   public SpmcBlockingQueueV4(final EventFactory eventFactory) {
     super(eventFactory);
   }
 
+  /**
+   * This is a class description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param capacity     .
+   * @param eventFactory .
+   * @author admin
+   */
   public SpmcBlockingQueueV4(final int capacity, final EventFactory eventFactory) {
     super(Power2.power2(capacity), eventFactory);
   }
 
+  /**
+   * This is a class description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @author admin
+   */
   @Override
   public final E publish() {
     final int tailSeq = this.tail.get();

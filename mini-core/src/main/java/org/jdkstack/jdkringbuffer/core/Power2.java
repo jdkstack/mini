@@ -1,5 +1,12 @@
 package org.jdkstack.jdkringbuffer.core;
 
+/**
+ * .
+ *
+ * <p>Another description after blank line.
+ *
+ * @author admin
+ */
 public final class Power2 {
 
   private Power2() {

@@ -5,6 +5,14 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
 import org.jdkstack.jdkringbuffer.api.RingBufferBlockingQueue;
 
+/**
+ * .
+ *
+ * <p>Another description after blank line.
+ *
+ * @param <E> .
+ * @author admin
+ */
 public abstract class AbstractLockBlockingQueueV4<E> extends AbstractBlockingQueue<E>
     implements BlockingQueue<E>, RingBufferBlockingQueue {
 
@@ -16,6 +24,7 @@ public abstract class AbstractLockBlockingQueueV4<E> extends AbstractBlockingQue
    *
    * <p>Another description after blank line.
    *
+   * @param eventFactory .
    * @author admin
    */
   protected AbstractLockBlockingQueueV4(final EventFactory<E> eventFactory) {
@@ -27,6 +36,7 @@ public abstract class AbstractLockBlockingQueueV4<E> extends AbstractBlockingQue
    *
    * <p>Another description after blank line.
    *
+   * @param eventFactory .
    * @param capacity 容量必须是2的幂次方,比如2,4,8,16,32.
    * @author admin
    */
@@ -54,6 +64,14 @@ public abstract class AbstractLockBlockingQueueV4<E> extends AbstractBlockingQue
     throw new UnsupportedOperationException("未实现.");
   }
 
+  /**
+   * .
+   *
+   * <p>Another description after blank line.
+   *
+   * @return E .
+   * @author admin
+   */
   public E publish() {
     int tailSeq = this.tail.get();
     while (true) {

@@ -5,6 +5,14 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
 import org.jdkstack.jdkringbuffer.api.RingBufferBlockingQueue;
 
+/**
+ * .
+ *
+ * <p>Another description after blank line.
+ *
+ * @param <E> .
+ * @author admin
+ */
 public abstract class AbstractLockBlockingQueueV2<E> extends AbstractBlockingQueue<E>
     implements BlockingQueue<E>, RingBufferBlockingQueue {
 

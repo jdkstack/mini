@@ -2,13 +2,31 @@ package org.jdkstack.jdkbean.core.bean;
 
 import org.jdkstack.jdkbean.api.bean.Bean;
 
+/**
+ * .
+ *
+ * <p>Another description after blank line.
+ *
+ * @author admin
+ */
 public class BeanService implements Bean {
 
+  /** . */
   private boolean singleton;
+  /** . */
   private Object obj;
+  /** . */
   private Class<?> classObj;
+  /** . */
   private String name;
 
+  /**
+   * .
+   *
+   * <p>Another description after blank line.
+   *
+   * @author admin
+   */
   public BeanService() {
     //
   }

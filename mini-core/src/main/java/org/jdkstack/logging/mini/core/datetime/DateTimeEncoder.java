@@ -156,6 +156,15 @@ public final class DateTimeEncoder implements Encoder {
     return sb;
   }
 
+  /**
+   * This is a class description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param millis .
+   * @return StringBuilder .
+   * @author admin
+   */
   public static StringBuilder encoder(final long millis) {
     return encoder(millis, 0);
   }
@@ -214,6 +223,7 @@ public final class DateTimeEncoder implements Encoder {
    * <p>Another description after blank line.
    *
    * @param millis .
+   * @param offset .
    * @return long .
    * @author admin
    */
@@ -233,6 +243,15 @@ public final class DateTimeEncoder implements Encoder {
     return yoe + era * Constants.N400;
   }
 
+  /**
+   * This is a class description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param millis .
+   * @return StringBuilder .
+   * @author admin
+   */
   public static long year(final long millis) {
     return year(millis, 0);
   }
@@ -243,6 +262,7 @@ public final class DateTimeEncoder implements Encoder {
    * <p>Another description after blank line.
    *
    * @param millis .
+   * @param offset .
    * @return long .
    * @author admin
    */
@@ -267,6 +287,15 @@ public final class DateTimeEncoder implements Encoder {
     return mp - Constants.N9;
   }
 
+  /**
+   * This is a class description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param millis .
+   * @return StringBuilder .
+   * @author admin
+   */
   public static long month(final long millis) {
     return month(millis, 0);
   }
@@ -277,6 +306,7 @@ public final class DateTimeEncoder implements Encoder {
    * <p>Another description after blank line.
    *
    * @param millis .
+   * @param offset .
    * @return long .
    * @author admin
    */
@@ -298,6 +328,15 @@ public final class DateTimeEncoder implements Encoder {
     return doy - (Constants.N153 * mp + Constants.N2) / Constants.N5 + Constants.N1;
   }
 
+  /**
+   * This is a class description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param millis .
+   * @return StringBuilder .
+   * @author admin
+   */
   public static long day(final long millis) {
     return day(millis, 0);
   }
@@ -308,6 +347,7 @@ public final class DateTimeEncoder implements Encoder {
    * <p>Another description after blank line.
    *
    * @param millis .
+   * @param offset .
    * @return long .
    * @author admin
    */
@@ -320,6 +360,15 @@ public final class DateTimeEncoder implements Encoder {
     return nanoOfDay / Constants.NANOS_PER_HOUR;
   }
 
+  /**
+   * This is a class description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param millis .
+   * @return StringBuilder .
+   * @author admin
+   */
   public static long hours(final long millis) {
     return hours(millis, 0);
   }
@@ -330,6 +379,7 @@ public final class DateTimeEncoder implements Encoder {
    * <p>Another description after blank line.
    *
    * @param millis .
+   * @param offset .
    * @return long .
    * @author admin
    */
@@ -344,6 +394,15 @@ public final class DateTimeEncoder implements Encoder {
     return nanoOfDay / Constants.NANOS_PER_MINUTE;
   }
 
+  /**
+   * This is a class description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param millis .
+   * @return StringBuilder .
+   * @author admin
+   */
   public static long minutes(final long millis) {
     return minutes(millis, 0);
   }
@@ -354,6 +413,7 @@ public final class DateTimeEncoder implements Encoder {
    * <p>Another description after blank line.
    *
    * @param millis .
+   * @param offset .
    * @return long .
    * @author admin
    */
@@ -370,6 +430,15 @@ public final class DateTimeEncoder implements Encoder {
     return nanoOfDay / Constants.NANOS_PER_SECOND;
   }
 
+  /**
+   * This is a class description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param millis .
+   * @return StringBuilder .
+   * @author admin
+   */
   public static long seconds(final long millis) {
     return seconds(millis, 0);
   }
@@ -380,6 +449,7 @@ public final class DateTimeEncoder implements Encoder {
    * <p>Another description after blank line.
    *
    * @param millis .
+   * @param offset .
    * @return long .
    * @author admin
    */
@@ -398,6 +468,15 @@ public final class DateTimeEncoder implements Encoder {
     return nanoOfDay / Constants.NANOS_PER_MILLI;
   }
 
+  /**
+   * This is a class description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param millis .
+   * @return StringBuilder .
+   * @author admin
+   */
   public static long millisecond(final long millis) {
     return millisecond(millis, 0);
   }

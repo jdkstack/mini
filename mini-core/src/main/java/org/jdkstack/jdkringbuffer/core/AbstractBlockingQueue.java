@@ -53,6 +53,13 @@ public abstract class AbstractBlockingQueue<E> extends AbstractQueue<E> {
     }
   }
 
+  /**
+   * .
+   *
+   * <p>Another description after blank line.
+   *
+   * @author admin
+   */
   public final void emptyAwait() {
     final Thread t = Thread.currentThread();
     while (this.isEmpty() && !t.isInterrupted()) {
@@ -76,6 +83,13 @@ public abstract class AbstractBlockingQueue<E> extends AbstractQueue<E> {
     }
   }
 
+  /**
+   * .
+   *
+   * <p>Another description after blank line.
+   *
+   * @author admin
+   */
   public final void fullAwait() {
     final Thread t = Thread.currentThread();
     while (this.isFull() && !t.isInterrupted()) {

@@ -1,6 +1,22 @@
 package org.jdkstack.jdkringbuffer.core;
 
-public interface EventFactory<T> {
+/**
+ * .
+ *
+ * <p>Another description after blank line.
+ *
+ * @param <E> .
+ * @author admin
+ */
+public interface EventFactory<E> {
 
-  T newInstance();
+  /**
+   * This is a class description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @return E .
+   * @author admin
+   */
+  E newInstance();
 }

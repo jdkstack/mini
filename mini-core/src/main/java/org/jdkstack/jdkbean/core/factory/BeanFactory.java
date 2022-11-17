@@ -5,8 +5,16 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.jdkstack.jdkbean.api.bean.Bean;
 import org.jdkstack.jdkbean.api.factory.Factory;
 
+/**
+ * .
+ *
+ * <p>Another description after blank line.
+ *
+ * @author admin
+ */
 public class BeanFactory implements Factory {
 
+  /** . */
   private final Map<String, Bean> beansMap = new ConcurrentHashMap<>(256);
 
   @Override

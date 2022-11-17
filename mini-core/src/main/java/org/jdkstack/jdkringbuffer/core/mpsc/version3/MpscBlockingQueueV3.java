@@ -15,11 +15,28 @@ import org.jdkstack.jdkringbuffer.core.Power2;
 public class MpscBlockingQueueV3<E> extends AbstractLockBlockingQueueV3<E> {
 
 
-  public MpscBlockingQueueV3(final EventFactory eventFactory) {
+  /**
+   * This is a class description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param eventFactory .
+   * @author admin
+   */
+  public MpscBlockingQueueV3(final EventFactory<E> eventFactory) {
     super(eventFactory);
   }
 
-  public MpscBlockingQueueV3(final int capacity, final EventFactory eventFactory) {
+  /**
+   * This is a class description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param capacity     .
+   * @param eventFactory .
+   * @author admin
+   */
+  public MpscBlockingQueueV3(final int capacity, final EventFactory<E> eventFactory) {
     super(Power2.power2(capacity), eventFactory);
   }
 

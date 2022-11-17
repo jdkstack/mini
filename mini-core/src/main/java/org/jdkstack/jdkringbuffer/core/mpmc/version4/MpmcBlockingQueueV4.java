@@ -14,11 +14,28 @@ import org.jdkstack.jdkringbuffer.core.Power2;
  */
 public class MpmcBlockingQueueV4<E> extends AbstractLockBlockingQueueV4<E> {
 
-  public MpmcBlockingQueueV4(final EventFactory eventFactory) {
+  /**
+   * This is a class description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param eventFactory .
+   * @author admin
+   */
+  public MpmcBlockingQueueV4(final EventFactory<E> eventFactory) {
     super(eventFactory);
   }
 
-  public MpmcBlockingQueueV4(final int capacity, final EventFactory eventFactory) {
+  /**
+   * This is a class description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param capacity     .
+   * @param eventFactory .
+   * @author admin
+   */
+  public MpmcBlockingQueueV4(final int capacity, final EventFactory<E> eventFactory) {
     super(Power2.power2(capacity), eventFactory);
   }
 }

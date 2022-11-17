@@ -6,6 +6,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.LockSupport;
 import org.jdkstack.jdkringbuffer.api.RingBufferBlockingQueue;
 
+/**
+ * .
+ *
+ * <p>Another description after blank line.
+ *
+ * @param <E> .
+ * @author admin
+ */
 public abstract class AbstractLockBlockingQueueV3<E> extends AbstractBlockingQueue<E>
     implements BlockingQueue<E>, RingBufferBlockingQueue {
 
@@ -24,7 +32,8 @@ public abstract class AbstractLockBlockingQueueV3<E> extends AbstractBlockingQue
     super(capacity, capacity - 1);
     // jdk 泛型数组,会有检查异常,但不影响什么,用unchecked关闭检查.
     this.ringBuffer = (E[]) new Object[capacity];
-    for (int i = 0; i < this.ringBuffer.length; i++) {
+    final int length = this.ringBuffer.length;
+    for (int i = 0; i < length; i++) {
       this.ringBuffer[i] = eventFactory.newInstance();
     }
   }
@@ -43,6 +52,14 @@ public abstract class AbstractLockBlockingQueueV3<E> extends AbstractBlockingQue
     throw new UnsupportedOperationException("未实现.");
   }
 
+  /**
+   * .
+   *
+   * <p>Another description after blank line.
+   *
+   * @return E .
+   * @author admin
+   */
   public E publish() {
     while (true) {
       // 环形数组一共设置的元素的总个数(自增+1).
@@ -66,10 +83,24 @@ public abstract class AbstractLockBlockingQueueV3<E> extends AbstractBlockingQue
     }
   }
 
+  /**
+   * .
+   *
+   * <p>Another description after blank line.
+   *
+   * @author admin
+   */
   public final void start() {
     this.tail.getAndIncrement();
   }
 
+  /**
+   * .
+   *
+   * <p>Another description after blank line.
+   *
+   * @author admin
+   */
   public final void end() {
     // poll计数.
     this.head.getAndIncrement();
@@ -100,7 +131,14 @@ public abstract class AbstractLockBlockingQueueV3<E> extends AbstractBlockingQue
     }
   }
 
-
+  /**
+   * .
+   *
+   * <p>Another description after blank line.
+   *
+   * @return E .
+   * @author admin
+   */
   public final E pub() {
     E publish = this.publish();
 

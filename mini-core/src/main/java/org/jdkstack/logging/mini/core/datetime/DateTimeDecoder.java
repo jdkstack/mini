@@ -81,6 +81,15 @@ public final class DateTimeDecoder implements Decoder {
     return msSecond;
   }
 
+  /**
+   * .
+   *
+   * <p>Another description after blank line.
+   *
+   * @param dateTime .
+   * @return long     .
+   * @author admin
+   */
   public static long decoder(final StringBuilder dateTime) {
     return decoder(dateTime, 0);
   }

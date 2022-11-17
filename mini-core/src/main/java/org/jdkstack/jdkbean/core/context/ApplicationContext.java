@@ -11,8 +11,16 @@ import org.jdkstack.jdkbean.core.annotation.ConstructorResource;
 import org.jdkstack.jdkbean.core.bean.BeanService;
 import org.jdkstack.jdkbean.core.factory.BeanFactory;
 
+/**
+ * .
+ *
+ * <p>Another description after blank line.
+ *
+ * @author admin
+ */
 public class ApplicationContext implements Context {
 
+  /** . */
   private final Factory beanFactory = new BeanFactory();
 
   @Override
