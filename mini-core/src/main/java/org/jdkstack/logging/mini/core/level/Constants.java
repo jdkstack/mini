@@ -39,7 +39,7 @@ public final class Constants {
   public static final String MIN = "MIN";
 
   /** 最大级别日志. */
-  public static final int MAX_VALUE = Integer.MIN_VALUE;
+  public static final int MAX_VALUE = Integer.MAX_VALUE;
   /** 非常致命 . */
   public static final int SEVERE_VALUE = 1100;
   /** 致命 . */

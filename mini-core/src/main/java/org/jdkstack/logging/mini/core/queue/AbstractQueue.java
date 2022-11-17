@@ -71,35 +71,30 @@ public abstract class AbstractQueue<T> implements Queue<T> {
       final int lineNumber,
       final StringBuilder message) {
     // 使用阻塞方法将元素插入队列. 天然的背压方式,当队列满后阻塞.
-    try {
-      // 需要放到多线程中。
-      final Record lr = (Record) this.queue.pub();
-      lr.setClassName(className);
-      lr.setClassMethod(classMethod);
-      lr.setLineNumber(lineNumber);
-      lr.setLevel(logLevel);
-      lr.setMessage(message);
-      // 默认时区获取当前系统的日期.
-      final long current = System.currentTimeMillis();
-      lr.setSb(DateTimeEncoder.encoder(current));
-      final long year = DateTimeEncoder.year(current);
-      lr.setYear(year);
-      final long month = DateTimeEncoder.month(current);
-      lr.setMonth(month);
-      final long day = DateTimeEncoder.day(current);
-      lr.setDay(day);
-      final long hours = DateTimeEncoder.hours(current);
-      lr.setHours(hours);
-      final long minute = DateTimeEncoder.minutes(current);
-      lr.setMinute(minute);
-      final long second = DateTimeEncoder.seconds(current);
-      lr.setSecond(second);
-      final long mills = DateTimeEncoder.millisecond(current);
-      lr.setMills(mills);
-    } catch (final InterruptedException e) {
-      Thread.currentThread().interrupt();
-      throw new LogRuntimeException(e);
-    }
+    // 需要放到多线程中。
+    final Record lr = (Record) this.queue.pub();
+    lr.setClassName(className);
+    lr.setClassMethod(classMethod);
+    lr.setLineNumber(lineNumber);
+    lr.setLevel(logLevel);
+    lr.setMessage(message);
+    // 默认时区获取当前系统的日期.
+    final long current = System.currentTimeMillis();
+    lr.setSb(DateTimeEncoder.encoder(current));
+    final long year = DateTimeEncoder.year(current);
+    lr.setYear(year);
+    final long month = DateTimeEncoder.month(current);
+    lr.setMonth(month);
+    final long day = DateTimeEncoder.day(current);
+    lr.setDay(day);
+    final long hours = DateTimeEncoder.hours(current);
+    lr.setHours(hours);
+    final long minute = DateTimeEncoder.minutes(current);
+    lr.setMinute(minute);
+    final long second = DateTimeEncoder.seconds(current);
+    lr.setSecond(second);
+    final long mills = DateTimeEncoder.millisecond(current);
+    lr.setMills(mills);
   }
 
   @Override
@@ -110,36 +105,31 @@ public abstract class AbstractQueue<T> implements Queue<T> {
       final int lineNumber,
       final StringBuilder message) {
     // 使用阻塞方法将元素插入队列. 天然的背压方式,当队列满后阻塞.
-    try {
-      // 需要放到多线程中。
-      final Record lr = (Record) this.queue.pub();
-      lr.setClassName(className);
-      lr.setClassMethod(classMethod);
-      lr.setLineNumber(lineNumber);
-      lr.setLevel(logLevel);
-      lr.setMessage(message);
-      // 默认时区获取当前系统的日期.
-      final StringBuilder current = StringBuilderPool.poll();
-      current.append(datetime);
-      lr.setSb(current);
-      final long year = DateTimeDecoder.year(current);
-      lr.setYear(year);
-      final long month = DateTimeDecoder.month(current);
-      lr.setMonth(month);
-      final long day = DateTimeDecoder.day(current);
-      lr.setDay(day);
-      final long hours = DateTimeDecoder.hours(current);
-      lr.setHours(hours);
-      final long minute = DateTimeDecoder.minutes(current);
-      lr.setMinute(minute);
-      final long second = DateTimeDecoder.seconds(current);
-      lr.setSecond(second);
-      final long mills = DateTimeDecoder.millisecond(current);
-      lr.setMills(mills);
-    } catch (final InterruptedException e) {
-      Thread.currentThread().interrupt();
-      throw new LogRuntimeException(e);
-    }
+    // 需要放到多线程中。
+    final Record lr = (Record) this.queue.pub();
+    lr.setClassName(className);
+    lr.setClassMethod(classMethod);
+    lr.setLineNumber(lineNumber);
+    lr.setLevel(logLevel);
+    lr.setMessage(message);
+    // 默认时区获取当前系统的日期.
+    final StringBuilder current = StringBuilderPool.poll();
+    current.append(datetime);
+    lr.setSb(current);
+    final long year = DateTimeDecoder.year(current);
+    lr.setYear(year);
+    final long month = DateTimeDecoder.month(current);
+    lr.setMonth(month);
+    final long day = DateTimeDecoder.day(current);
+    lr.setDay(day);
+    final long hours = DateTimeDecoder.hours(current);
+    lr.setHours(hours);
+    final long minute = DateTimeDecoder.minutes(current);
+    lr.setMinute(minute);
+    final long second = DateTimeDecoder.seconds(current);
+    lr.setSecond(second);
+    final long mills = DateTimeDecoder.millisecond(current);
+    lr.setMills(mills);
   }
 
   @Override

@@ -1,7 +1,7 @@
 package org.jdkstack.logging.mini.core.resource;
 
-import org.jdkstack.logging.jdkbean.core.annotation.Component;
-import org.jdkstack.logging.jdkbean.core.annotation.ConstructorResource;
+import org.jdkstack.jdkbean.core.annotation.Component;
+import org.jdkstack.jdkbean.core.annotation.ConstructorResource;
 import org.jdkstack.logging.mini.api.filter.Filter;
 import org.jdkstack.logging.mini.api.resource.FilFactory;
 import org.jdkstack.logging.mini.core.filter.LogFilter;

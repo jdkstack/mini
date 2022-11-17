@@ -118,33 +118,33 @@ public final class DateTimeEncoder implements Encoder {
     check(sb, minute, ':');
     check(sb, second, ':');
     check2(sb, millisecond);
-    long h = offset / 3_600;
-    long s = offset % 3_600;
-    long m = s / 60;
-    if (offset > 0) {
+    final long h = offset / 3_600;
+    final long s = offset % 3_600;
+    final long m = s / 60;
+    if (0 < offset) {
       sb.append('+');
-      if (h < 10) {
+      if (10 > h) {
         sb.append('0');
         sb.append(h);
       } else {
         sb.append(h);
       }
       sb.append(':');
-      if (m < 10) {
+      if (10 > m) {
         sb.append('0');
         sb.append(m);
       } else {
         sb.append(m);
       }
-    } else if (offset < 0) {
-      if (h < -10) {
+    } else if (0 > offset) {
+      if (-10 > h) {
         sb.append(h);
       } else {
         sb.append('0');
         sb.append(h);
       }
       sb.append(':');
-      if (m < -10) {
+      if (-10 > m) {
         sb.append(m);
       } else {
         sb.append('0');

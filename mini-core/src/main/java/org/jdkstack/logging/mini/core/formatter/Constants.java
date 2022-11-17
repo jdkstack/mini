@@ -10,6 +10,7 @@ package org.jdkstack.logging.mini.core.formatter;
  * @author admin
  */
 public final class Constants {
+
   /** . */
   public static final int N0 = 0;
   /** . */

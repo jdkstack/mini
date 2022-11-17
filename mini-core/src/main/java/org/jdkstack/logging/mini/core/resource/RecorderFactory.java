@@ -2,7 +2,7 @@ package org.jdkstack.logging.mini.core.resource;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import org.jdkstack.logging.jdkbean.core.annotation.Component;
+import org.jdkstack.jdkbean.core.annotation.Component;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.api.resource.ReFactory;
 import org.jdkstack.logging.mini.core.option.Constants;

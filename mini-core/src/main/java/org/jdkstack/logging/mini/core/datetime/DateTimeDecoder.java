@@ -193,11 +193,11 @@ public final class DateTimeDecoder implements Decoder {
     int y = 0;
     // 获取一个原始字符.
     final char c1 = dateTime.charAt(index);
-    if (c1 == '+') {
+    if ('+' == c1) {
       index++;
       x = 1;
     }
-    if (c1 == '-') {
+    if ('-' == c1) {
       index++;
       x = -1;
     }
@@ -213,34 +213,34 @@ public final class DateTimeDecoder implements Decoder {
       final char c = dateTime.charAt(index);
       switch (c) {
         case 'T':
-          if (state == 2) {
+          if (2 == state) {
             // 月结束,日开始.
             value = total;
             total = 0;
             state = 3;
-            if (type == 3) {
+            if (3 == type) {
               index = len;
             }
           }
           break;
         case ':':
-          if (state == 3) {
+          if (3 == state) {
             // 小时结束,分钟开始.
             value = total;
             total = 0;
             state = 4;
-            if (type == 4) {
+            if (4 == type) {
               index = len;
             }
-          } else if (state == 4) {
+          } else if (4 == state) {
             // 分钟结束,秒开始.
             value = total;
             total = 0;
             state = 5;
-            if (type == 5) {
+            if (5 == type) {
               index = len;
             }
-          } else if (state == 7) {
+          } else if (7 == state) {
             // 时区小时开始.
             total = total * 3600;
             value = total;
@@ -249,73 +249,73 @@ public final class DateTimeDecoder implements Decoder {
           }
           break;
         case '.':
-          if (state == 5) {
+          if (5 == state) {
             // 秒结束,毫秒开始.
             value = total;
             total = 0;
             state = 6;
-            if (type == 6) {
+            if (6 == type) {
               index = len;
             }
           }
           break;
         case '+':
-          if (state == 6) {
+          if (6 == state) {
             // 毫秒结束,时区开始.
             y = 1;
             value = total;
             total = 0;
             state = 7;
-            if (type == 7) {
+            if (7 == type) {
               index = len;
             }
           }
           break;
         case '-':
-          if (state == 0) {
+          if (0 == state) {
             // 年结束,月开始.
             state = 1;
-            if (x == 1) {
+            if (1 == x) {
               value = +total;
             }
-            if (x == -1) {
+            if (-1 == x) {
               value = -total;
             }
-            if (x == 0) {
+            if (0 == x) {
               value = +total;
             }
             total = 0;
-            if (type == 1) {
+            if (1 == type) {
               index = len;
             }
-          } else if (state == 1) {
+          } else if (1 == state) {
             // 月结束,日开始.
             state = 2;
             value = total;
             total = 0;
-            if (type == 2) {
+            if (2 == type) {
               index = len;
             }
-          } else if (state == 6) {
+          } else if (6 == state) {
             // 毫秒结束,时区开始.
             y = -1;
             state = 7;
             value = total;
             total = 0;
-            if (type == 7) {
+            if (7 == type) {
               index = len;
             }
           }
           break;
         case 'Z':
-          if (state == 6) {
+          if (6 == state) {
             // 毫秒结束,时区开始.
             y = 0;
             state = 10;
             // 时区结束.
             value = total;
             total = 0;
-            if (type == 7) {
+            if (7 == type) {
               index = len;
             }
           }
@@ -327,25 +327,25 @@ public final class DateTimeDecoder implements Decoder {
       }
       index++;
     }
-    if (state == 10) {
+    if (10 == state) {
       value = value;
     }
-    if (state == 8) {
+    if (8 == state) {
       // 时区分钟开始.
       total = total * 60;
       // 时区结束.
       value = value + total;
       total = 0;
-      if (type == 8) {
+      if (8 == type) {
         index = len;
       }
-      if (y == 1) {
+      if (1 == y) {
         value = value;
       }
-      if (y == -1) {
+      if (-1 == y) {
         value = -value;
       }
-      if (y == 0) {
+      if (0 == y) {
         value = 0;
       }
     }
