@@ -16,7 +16,7 @@ A lightweight, high performance, open source, application layer log service fram
 在生产能力足够的情况下，理论上能达到磁盘IO的最大写入峰值。
 
 动机：基于以下几点原因。
-1.日志框架代码轻量，仅实现核心功能，仅8000行代码。
+1.日志框架代码轻量，仅实现核心功能，目前不到5000行代码，预期最多10000行代码。
 2.日志框架没有临时对象被创建，不会发生GC。
 3.日志框架非核心功能可以基于日志核心来扩展。
 4.日志框架业务逻辑非常简单，任何人都可以看懂，可以贡献。
@@ -34,5 +34,44 @@ A lightweight, high performance, open source, application layer log service fram
 ```
 
 **当前存在的问题：
-1.写文件切换时，切换逻辑有一点问题(时间非线性增长)。
-2.StringBuilder缓存池不支持多线程(多线程获取时，线程不安全)。**
+1.写文件切换时，切换逻辑有一点问题(时间非线性增长)。**
+
+例子:
+
+```java
+public class Examples {
+private static final Recorder LOG = LogFactory.getLog(Examples.class);
+public static void main(String[] args) {
+ LOG.log(Constants.INFO, "INFO {} {}{}", to(1), to(1L), to("1"));
+ LOG.log(Constants.ERROR, "ERROR {1} ", to(1D));
+ LOG.log(Constants.DEBUG, 类路径, 方法名, 行号, "ERROR {1}", to(1D));
+ }
+}
+```
+
+动态创建Handler和Recorder:
+
+```java
+Bean recorderManagerBean = StartApplication.context().getBean("recorderManager");
+Bean handlerManagerBean = StartApplication.context().getBean("handlerManager");
+HandlerManager handlerManager = (HandlerManager) handlerManagerBean.getObj();
+handlerManager.create(new LogHandlerOption());
+RecorderManager recorderManager = (RecorderManager) recorderManagerBean.getObj();
+recorderManager.create(new LogRecorderOption());
+```
+
+动态创建Filter和Formatter:
+
+```java
+Bean formatterManagerBean = StartApplication.context().getBean("formatterManager");
+FormatterManager formatterManager = (FormatterManager) formatterManagerBean.getObj();
+Bean filterManagerBean = StartApplication.context().getBean("filterManager");
+FilterManager filterManager = (FilterManager) filterManagerBean.getObj();
+```
+
+动态创建Level:
+
+```java
+Bean levelManagerBean = StartApplication.context().getBean("levelManager");
+LevelManager levelManager = (LevelManager) levelManagerBean.getObj();
+```

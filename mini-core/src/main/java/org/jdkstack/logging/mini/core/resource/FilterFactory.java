@@ -70,7 +70,7 @@ public class FilterFactory implements FilFactory<Filter> {
    */
   @Override
   public void delete(final String key) {
-    //
+    this.filters.remove(key);
   }
 
   /**
@@ -84,7 +84,7 @@ public class FilterFactory implements FilFactory<Filter> {
    */
   @Override
   public void update(final String key, final Filter t) {
-    //
+    this.filters.put(key, t);
   }
 
   /**
