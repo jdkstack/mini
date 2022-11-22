@@ -39,29 +39,6 @@ public abstract class AbstractContext implements Context {
   }
 
   /**
-   * 用于在执行方法前后增加开始时间和结束时间.
-   *
-   * <p>用于监控方法的执行时间.
-   *
-   * @param handler 一个Runnable任务,用于执行具体业务逻辑.
-   * @author admin
-   */
-  @Override
-  public final void dispatch(final Runnable handler) {
-    try {
-      // 增加开始时间.
-      this.beginDispatch();
-      // 执行具体业务.
-      handler.run();
-    } catch (final Exception e) {
-      throw new LogRuntimeException("dispatch异常", e);
-    } finally {
-      // 增加结束时间.
-      this.endDispatch();
-    }
-  }
-
-  /**
    * 首先判断,当前线程是不是LogThread.
    *
    * <p>不处理main线程.
@@ -100,15 +77,4 @@ public abstract class AbstractContext implements Context {
       th.endEmission();
     }
   }
-
-  /**
-   * 在当前上下文上运行.
-   *
-   * <p>.
-   *
-   * @param handler 处理任务.
-   * @param <T>     .
-   * @author admin
-   */
-  abstract <T> void runAsContext(final T event, Worker<T> handler);
 }

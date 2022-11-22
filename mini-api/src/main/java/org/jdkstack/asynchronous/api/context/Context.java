@@ -28,16 +28,6 @@ public interface Context {
    *
    * <p>Another description after blank line.
    *
-   * @param handler 处理业务的Runnable.
-   * @author admin
-   */
-  void dispatch(Runnable handler);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
    * @author admin
    */
   void beginDispatch();

@@ -1,6 +1,5 @@
 package org.jdkstack.asynchronous.api.context;
 
-import java.util.concurrent.ScheduledExecutorService;
 import org.jdkstack.asynchronous.api.worker.Worker;
 
 /**
@@ -11,16 +10,6 @@ import org.jdkstack.asynchronous.api.worker.Worker;
  * @author admin
  */
 public interface WorkerContext {
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param task 任务.
-   * @author admin
-   */
-  void executeInExecutorService(Runnable task);
 
   /**
    * This is a method description.

@@ -2,10 +2,6 @@ package org.jdkstack.asynchronous.core.thread;
 
 
 import org.jdkstack.asynchronous.api.thread.LogThread;
-import org.jdkstack.asynchronous.core.TaskWorker;
-import org.jdkstack.logging.mini.api.ringbuffer.RingBuffer;
-import org.jdkstack.logging.mini.core.pool.Constants;
-import org.jdkstack.logging.mini.core.ringbuffer.StringBuilderRingBuffer;
 
 /**
  * 自定义线程,便于系统内线程的监控.
@@ -18,11 +14,6 @@ public final class CustomLogThread extends Thread implements LogThread {
 
   /** 线程开始运行的时间(毫秒). */
   private long execStart;
-
-  private TaskWorker tr = new TaskWorker();
-
-  /** . */
-  private final RingBuffer<StringBuilder> buffer = new StringBuilderRingBuffer(Constants.CAPACITY);
 
   /**
    * 自定义线程.
@@ -87,9 +78,5 @@ public final class CustomLogThread extends Thread implements LogThread {
   public void endEmission() {
     // 设置执行结束时间.
     this.executeEnd();
-  }
-
-  public TaskWorker getTr() {
-    return this.tr;
   }
 }

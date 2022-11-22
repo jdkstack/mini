@@ -15,7 +15,7 @@ import org.jdkstack.logging.mini.api.record.Record;
 public class ConsumerWorker implements ConWork<Handler> {
 
   /** 从哪一个队列消费数据. */
-  private final Queue<Record> queue;
+  private Queue<Record> queue;
 
   /**
    * This is a method description.
@@ -25,8 +25,8 @@ public class ConsumerWorker implements ConWork<Handler> {
    * @param queue 放入队列中的元素.
    * @author admin
    */
-  public ConsumerWorker(final Queue<Record> queue) {
-    this.queue = queue;
+  public ConsumerWorker() {
+    //
   }
 
   /**
@@ -43,5 +43,9 @@ public class ConsumerWorker implements ConWork<Handler> {
     final Record logRecord = this.queue.take();
     event.process(logRecord);
     this.queue.end();
+  }
+
+  public void setQueue(final Queue<Record> queue) {
+    this.queue = queue;
   }
 }
