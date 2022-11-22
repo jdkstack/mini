@@ -1,6 +1,6 @@
 package org.jdkstack.logging.mini.core.factory;
 
-import org.jdkstack.jdkbean.api.bean.Bean;
+import org.jdkstack.bean.api.bean.Bean;
 import org.jdkstack.logging.mini.api.factory.Factory;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.api.resource.ReFactory;

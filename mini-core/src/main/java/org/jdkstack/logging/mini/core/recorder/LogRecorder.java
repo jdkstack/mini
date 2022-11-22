@@ -2,7 +2,7 @@ package org.jdkstack.logging.mini.core.recorder;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.jdkstack.jdkbean.api.bean.Bean;
+import org.jdkstack.bean.api.bean.Bean;
 import org.jdkstack.logging.mini.api.level.Level;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.api.resource.HaFactory;

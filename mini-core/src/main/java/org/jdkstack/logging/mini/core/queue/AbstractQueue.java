@@ -1,6 +1,6 @@
 package org.jdkstack.logging.mini.core.queue;
 
-import org.jdkstack.jdkringbuffer.core.mpmc.version3.MpmcBlockingQueueV3;
+import org.jdkstack.ringbuffer.core.mpmc.version3.MpmcBlockingQueueV3;
 import org.jdkstack.logging.mini.api.queue.Queue;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.core.datetime.DateTimeDecoder;
