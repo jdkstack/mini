@@ -89,7 +89,7 @@
             <!-- 使用指定版本的checkstyle. -->
             <artifactId>checkstyle</artifactId>
             <groupId>com.puppycrawl.tools</groupId>
-            <version>10.3.3</version>
+            <version>10.5.0</version>
           </dependency>
         </dependencies>
         <executions>
