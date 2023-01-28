@@ -1,7 +1,7 @@
 package org.jdkstack.logging.mini.core.resource;
 
-import org.jdkstack.jdkbean.core.annotation.Component;
-import org.jdkstack.jdkbean.core.annotation.ConstructorResource;
+import org.jdkstack.bean.core.annotation.Component;
+import org.jdkstack.bean.core.annotation.ConstructorResource;
 import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.option.HandlerOption;
 import org.jdkstack.logging.mini.api.resource.HaFactory;

@@ -1,6 +1,6 @@
 package org.jdkstack.logging.mini.core.ringbuffer;
 
-import org.jdkstack.jdkringbuffer.core.Power2;
+import org.jdkstack.ringbuffer.core.Power2;
 import org.jdkstack.logging.mini.api.ringbuffer.RingBuffer;
 
 /**

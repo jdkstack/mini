@@ -1,6 +1,6 @@
 package org.jdkstack.logging.mini.core.resource;
 
-import org.jdkstack.jdkbean.core.annotation.Component;
+import org.jdkstack.bean.core.annotation.Component;
 
 /**
  * .

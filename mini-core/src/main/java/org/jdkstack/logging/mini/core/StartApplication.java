@@ -1,10 +1,10 @@
 package org.jdkstack.logging.mini.core;
 
-import org.jdkstack.jdkbean.api.context.Context;
-import org.jdkstack.jdkbean.core.annotation.ComponentScan;
-import org.jdkstack.jdkbean.core.annotation.Filter;
-import org.jdkstack.jdkbean.core.application.Application;
-import org.jdkstack.jdkbean.core.context.ApplicationContext;
+import org.jdkstack.bean.api.context.Context;
+import org.jdkstack.bean.core.annotation.ComponentScan;
+import org.jdkstack.bean.core.annotation.Filter;
+import org.jdkstack.bean.core.application.Application;
+import org.jdkstack.bean.core.context.ApplicationContext;
 
 /**
  * 启动类,扫描要管理的Bean.
