@@ -3,7 +3,7 @@ package org.jdkstack.logging.mini.core.resource;
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import org.jdkstack.jdkbean.core.annotation.Component;
+import org.jdkstack.bean.core.annotation.Component;
 import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.resource.HaFactory;
 

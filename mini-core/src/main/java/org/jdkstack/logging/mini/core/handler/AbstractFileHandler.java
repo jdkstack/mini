@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
-import org.jdkstack.jdkbean.api.bean.Bean;
+import org.jdkstack.bean.api.bean.Bean;
 import org.jdkstack.logging.mini.api.option.HandlerOption;
 import org.jdkstack.logging.mini.api.queue.Queue;
 import org.jdkstack.logging.mini.api.record.Record;
