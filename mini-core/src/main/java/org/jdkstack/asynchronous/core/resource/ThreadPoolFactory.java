@@ -3,7 +3,7 @@ package org.jdkstack.asynchronous.core.resource;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
-import org.jdkstack.jdkbean.core.annotation.Component;
+import org.jdkstack.bean.core.annotation.Component;
 
 /**
  * .

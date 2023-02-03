@@ -5,7 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.jdkstack.asynchronous.api.context.WorkerContext;
 import org.jdkstack.asynchronous.api.thread.LogThread;
 import org.jdkstack.asynchronous.core.Constants;
-import org.jdkstack.jdkbean.core.annotation.Component;
+import org.jdkstack.bean.core.annotation.Component;
 
 /**
  * 定时检查线程的运行时间.

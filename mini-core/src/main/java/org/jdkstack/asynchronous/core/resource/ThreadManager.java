@@ -1,7 +1,7 @@
 package org.jdkstack.asynchronous.core.resource;
 
-import org.jdkstack.jdkbean.core.annotation.Component;
-import org.jdkstack.jdkbean.core.annotation.ConstructorResource;
+import org.jdkstack.bean.core.annotation.Component;
+import org.jdkstack.bean.core.annotation.ConstructorResource;
 
 /**
  * .
