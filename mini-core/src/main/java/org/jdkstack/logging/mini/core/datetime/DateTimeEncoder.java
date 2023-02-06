@@ -37,9 +37,9 @@ public final class DateTimeEncoder implements Encoder {
 
 
   /**
-   * 忽略了本地时区(生成了大量的临时对象).
+   * 不支持时区.
    *
-   * <p>offset计算目前存在阔年错误问题，暂时只支持offset=0。
+   * <p>offset计算目前存在跨年错误问题，暂时只支持offset=0。
    *
    * @param millis 必须是1970年开始UTC时区的毫秒.
    * @param offset 时区偏移量*3600秒(例如时区是+8:00,则offset=+8*3600).

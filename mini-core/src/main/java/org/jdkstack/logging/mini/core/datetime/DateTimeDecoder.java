@@ -35,7 +35,7 @@ public final class DateTimeDecoder implements Decoder {
   }
 
   /**
-   * 忽略了dateTime时区(生成了大量的临时对象).
+   * 不支持时区.
    *
    * <p>offset计算目前存在阔年错误问题，暂时只支持offset=0。
    *
