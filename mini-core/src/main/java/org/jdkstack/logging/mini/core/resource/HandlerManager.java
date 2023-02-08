@@ -38,6 +38,7 @@ public class HandlerManager {
   }
 
   private void init() {
+    // 指定默认位置。
     final HandlerOption handlerOption = new LogHandlerOption();
     this.create(handlerOption);
   }

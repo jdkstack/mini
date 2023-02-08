@@ -37,7 +37,7 @@ public abstract class AbstractFileHandler extends AbstractHandler {
   /** 日志文件名. */
   private String logFileName;
   /** 日志文件名中的时间. */
-  protected String format1;
+  protected String format1 = "log";
   /** 批量. */
   protected final int batchSize;
   /** . */

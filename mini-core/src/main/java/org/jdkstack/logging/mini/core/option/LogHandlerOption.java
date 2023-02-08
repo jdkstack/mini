@@ -15,8 +15,8 @@ public class LogHandlerOption implements HandlerOption {
   private String name = Constants.DEFAULT;
   /** . */
   private String level = "MAX";
-  /** . */
-  private String directory = "logs";
+  /** 随机一个目录. */
+  private String directory = "logs" + System.currentTimeMillis();
   /** . */
   private String prefix = Constants.DEFAULT;
   /** . */
