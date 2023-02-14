@@ -6,10 +6,9 @@ import java.nio.ByteOrder;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 
-public class MmapWriter extends AbstractByteArrayWriter {
+public class MmapByteArrayWriter extends AbstractByteArrayWriter {
 
-  private static final long DEFAULT_REGION_LENGTH = 1L << 30;
-  private static final int MAX_REMAP_COUNT = 10;
+  public static final long DEFAULT_REGION_LENGTH = 1L << 30;
   /** . */
   private RandomAccessFile randomAccessFile;
 
@@ -77,5 +76,4 @@ public class MmapWriter extends AbstractByteArrayWriter {
     }
     this.mappedBuffer.put(bytes, offset, length);
   }
-
 }

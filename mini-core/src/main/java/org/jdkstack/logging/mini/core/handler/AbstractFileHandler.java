@@ -24,7 +24,7 @@ import org.jdkstack.logging.mini.core.resource.FormatterFactory;
  */
 public abstract class AbstractFileHandler extends AbstractHandler {
 
-  /** 日志文件切换,按时间. */
+  /** 日志文件切换开关. */
   protected final AtomicLong policy = new AtomicLong(-1L);
   /** 批量flush. */
   protected final AtomicLong atomicLong = new AtomicLong(0L);
