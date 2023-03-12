@@ -1,79 +1,73 @@
 package org.jdkstack.logging.mini.core.buffer;
 
-import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.nio.ByteOrder;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import jdk.internal.ref.Cleaner;
+import org.jdkstack.logging.mini.api.option.HandlerOption;
+import org.jdkstack.logging.mini.core.exception.LogRuntimeException;
+import sun.nio.ch.DirectBuffer;
 
-public class MmapByteArrayWriter extends AbstractByteArrayWriter {
+public class MmapByteArrayWriter extends ByteArrayWriter {
 
+  /** MMAP文件固定1GB大小. */
   public static final long DEFAULT_REGION_LENGTH = 1L << 30;
-  /** . */
-  private RandomAccessFile randomAccessFile;
 
   private MappedByteBuffer mappedBuffer;
 
-
-  @Override
-  public void writeToDestination(final byte[] bytes, final int offset, final int length) {
-    try {
-      this.write(bytes, offset, length);
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
+  public MmapByteArrayWriter(final HandlerOption handlerOption) {
+    super(handlerOption);
+    this.remap();
   }
 
   @Override
-  public void setRandomAccessFile(RandomAccessFile randomAccessFile) {
-    this.randomAccessFile = randomAccessFile;
-    remap();
-  }
-
-  public MappedByteBuffer mmap(final FileChannel fileChannel, final long start, final long size) {
-    final MappedByteBuffer map;
+  public final void writeToDestination(final byte[] bytes, final int offset, final int length) {
     try {
-      map = fileChannel.map(FileChannel.MapMode.READ_WRITE, start, size);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-    map.order(ByteOrder.nativeOrder());
-    return map;
-  }
-
-  private void remap() {
-    try {
-      if (this.mappedBuffer != null) {
-        unsafeUnmap(this.mappedBuffer);
-        this.flush();
+      // 数据的长度.
+      int len = length;
+      // 偏移量.
+      int off = offset;
+      // 剩余空间.
+      int chunk = this.mappedBuffer.remaining();
+      // 数据长度大于剩余空间,分段写.
+      while (len > chunk) {
+        // 一旦文件达到了上限(不能完整存储一条日志,只能存储半条)，重新打开一个文件.
+        this.remap();
+        //写一次数据.
+        this.mappedBuffer.put(bytes, off, chunk);
+        // 偏移量增加写入的数据大小.
+        off += chunk;
+        // 数据长度减去写入的数据大小.
+        len -= chunk;
+        // 重新获取一次剩余空间.
+        chunk = this.mappedBuffer.remaining();
       }
-      this.mappedBuffer = this.mmap(this.randomAccessFile.getChannel(), 0, DEFAULT_REGION_LENGTH);
+      // 数据长度小于等于剩余空间,直接写.
+      this.mappedBuffer.put(bytes, off, len);
+    } catch (final Exception e) {
+      throw new LogRuntimeException(e);
+    }
+  }
+
+  @Override
+  public final void remap() {
+    try {
+      if (null != this.mappedBuffer) {
+        // 强制刷新.
+        this.mappedBuffer.force();
+        // 断开文件句柄.
+        final Cleaner cleaner = ((DirectBuffer) this.mappedBuffer).cleaner();
+        if (null != cleaner) {
+          cleaner.clean();
+        }
+      }
+      super.remap();
+      // 重新映射文件.
+      this.mappedBuffer = this.randomAccessFile.getChannel().
+          map(FileChannel.MapMode.READ_WRITE, 0, DEFAULT_REGION_LENGTH);
+      this.mappedBuffer.order(ByteOrder.nativeOrder());
     } catch (final Exception ex) {
-      System.out.println("Unable to remap" + ex.getMessage());
+      throw new LogRuntimeException(ex);
     }
-  }
-
-  private static void unsafeUnmap(final MappedByteBuffer mbb) throws Exception {
-/*     final Method getCleanerMethod = mbb.getClass().getMethod("cleaner");
-     getCleanerMethod.setAccessible(true);
-     final Object cleaner = getCleanerMethod.invoke(mbb); // sun.misc.Cleaner instance
-     final Method cleanMethod = cleaner.getClass().getMethod("clean");
-    cleanMethod.invoke(cleaner);*/
-  }
-
-  public final void flush() {
-    super.flush();
-    this.mappedBuffer.force();
-  }
-
-  protected void write(final byte[] bytes, int offset, int length) throws Exception {
-    while (length > this.mappedBuffer.remaining()) {
-      final int chunk = this.mappedBuffer.remaining();
-      this.mappedBuffer.put(bytes, offset, chunk);
-      offset += chunk;
-      length -= chunk;
-      this.remap();
-    }
-    this.mappedBuffer.put(bytes, offset, length);
   }
 }

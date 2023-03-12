@@ -15,7 +15,7 @@ import org.jdkstack.logging.mini.api.codec.Encoder;
  *
  * @author admin
  */
-public class StringBuilderEncoder implements Encoder<StringBuilder> {
+public class CharArrayEncoder implements Encoder<StringBuilder> {
 
   /** . */
   private final Charset charset;
@@ -34,7 +34,7 @@ public class StringBuilderEncoder implements Encoder<StringBuilder> {
    * @param charset .
    * @author admin
    */
-  public StringBuilderEncoder(final Charset charset) {
+  public CharArrayEncoder(final Charset charset) {
     this(charset, Constants.SOURCE, Constants.DESTINATION);
   }
 
@@ -48,7 +48,7 @@ public class StringBuilderEncoder implements Encoder<StringBuilder> {
    * @param byteBufferSize .
    * @author admin
    */
-  public StringBuilderEncoder(final Charset charset, final int charBufferSize, final int byteBufferSize) {
+  public CharArrayEncoder(final Charset charset, final int charBufferSize, final int byteBufferSize) {
     this.charset = charset;
     this.charsetEncoder = this.charset.newEncoder().onMalformedInput(CodingErrorAction.REPLACE)
         .onUnmappableCharacter(CodingErrorAction.REPLACE);

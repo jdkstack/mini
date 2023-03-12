@@ -16,7 +16,7 @@ public abstract class AbstractByteArrayWriter implements ByteWriter {
   protected final ByteBuffer byteBuffer = ByteBuffer.allocate(Constants.N256 << Constants.N10);
 
   @Override
-  public void flush() {
+  public final void flush() {
     this.flush(this.byteBuffer);
   }
 
