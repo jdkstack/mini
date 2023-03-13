@@ -15,7 +15,7 @@ import org.jdkstack.logging.mini.api.codec.Encoder;
  *
  * @author admin
  */
-public class CharArrayEncoder implements Encoder<char[]> {
+public class CharArrayEncoderV2 implements Encoder<CharBuffer> {
 
   /** . */
   private final Charset charset;
@@ -34,7 +34,7 @@ public class CharArrayEncoder implements Encoder<char[]> {
    * @param charset .
    * @author admin
    */
-  public CharArrayEncoder(final Charset charset) {
+  public CharArrayEncoderV2(final Charset charset) {
     this(charset, Constants.SOURCE, Constants.DESTINATION);
   }
 
@@ -48,7 +48,7 @@ public class CharArrayEncoder implements Encoder<char[]> {
    * @param byteBufferSize .
    * @author admin
    */
-  public CharArrayEncoder(final Charset charset, final int charBufferSize, final int byteBufferSize) {
+  public CharArrayEncoderV2(final Charset charset, final int charBufferSize, final int byteBufferSize) {
     this.charset = charset;
     this.charsetEncoder = this.charset.newEncoder().onMalformedInput(CodingErrorAction.REPLACE)
         .onUnmappableCharacter(CodingErrorAction.REPLACE);
@@ -66,7 +66,7 @@ public class CharArrayEncoder implements Encoder<char[]> {
    * @author admin
    */
   @Override
-  public final void encode(final char[] source, final ByteWriter destination) {
+  public final void encode(final CharBuffer source, final ByteWriter destination) {
     try {
       encodeText(this.charsetEncoder, this.charBuffer, this.byteBuffer, source, destination);
     } catch (final Exception e) {
@@ -84,7 +84,7 @@ public class CharArrayEncoder implements Encoder<char[]> {
    * @param destination .
    * @author admin
    */
-  public final void encodeTextFallBack(final Throwable e, final char[] text,
+  public final void encodeTextFallBack(final Throwable e, final CharBuffer text,
       final ByteWriter destination) {
     final String message = e.getMessage();
     //text.append(message);
@@ -106,12 +106,12 @@ public class CharArrayEncoder implements Encoder<char[]> {
    * @author admin
    */
   public static void encodeText(final CharsetEncoder ce, final CharBuffer charBuf, final ByteBuffer byteBuf,
-      final char[] text, final ByteWriter destination) {
+      final CharBuffer text, final ByteWriter destination) {
     ce.reset();
     charBuf.clear();
-    charBuf.put(text, 0, text.length);
+    charBuf.put(text.array(), text.arrayOffset(), text.remaining());
     // 结束位置.
-    charBuf.limit(text.length);
+    charBuf.limit(text.remaining());
     // 开始位置.
     charBuf.position(0);
     //将字符数组编码成字节数组.

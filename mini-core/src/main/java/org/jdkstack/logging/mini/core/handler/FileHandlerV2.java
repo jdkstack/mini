@@ -1,12 +1,14 @@
 package org.jdkstack.logging.mini.core.handler;
 
+import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.codec.Encoder;
 import org.jdkstack.logging.mini.api.option.HandlerOption;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
-import org.jdkstack.logging.mini.core.codec.CharArrayEncoder;
+import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
+import org.jdkstack.logging.mini.core.codec.Constants;
 import org.jdkstack.logging.mini.core.exception.LogRuntimeException;
 
 /**
@@ -18,10 +20,12 @@ import org.jdkstack.logging.mini.core.exception.LogRuntimeException;
  */
 public class FileHandlerV2 extends AbstractHandler {
 
+  private final CharBuffer charBuf = CharBuffer.allocate(Constants.SOURCE);
   /** . */
-  public final Encoder<StringBuilder> textEncoder = new CharArrayEncoder(Charset.defaultCharset());
+  private final Encoder<CharBuffer> textEncoder = new CharArrayEncoderV2(Charset.defaultCharset());
+
   /** . */
-  public final ByteWriter destination;
+  private final ByteWriter destination;
 
   /**
    * This is a method description.
@@ -51,7 +55,12 @@ public class FileHandlerV2 extends AbstractHandler {
       // 格式化日志对象.
       final StringBuilder logMessage = this.format(logRecord);
       // 写入缓存.
-      this.textEncoder.encode(logMessage, this.destination);
+      this.charBuf.clear();
+      logMessage.getChars(0, logMessage.length(), this.charBuf.array(), this.charBuf.arrayOffset());
+      this.charBuf.limit(logMessage.length());
+      // 开始位置.
+      this.charBuf.position(0);
+      this.textEncoder.encode(this.charBuf, this.destination);
       // 单条刷新到磁盘.
       this.destination.flush();
     } catch (final Exception e) {

@@ -33,7 +33,7 @@ public class ByteArrayRingBuffer implements RingBuffer<byte[]> {
     this.mask = size - 1;
     this.rb = new Object[size];
     for (int i = 0; i < size; i++) {
-      this.rb[i] = new byte[Constants.CAPACITY];
+      this.rb[i] = new byte[17];
     }
   }
 
