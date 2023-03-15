@@ -107,22 +107,30 @@ public class CharArrayEncoderV2 implements Encoder<CharBuffer> {
    */
   public static void encodeText(final CharsetEncoder ce, final CharBuffer charBuf, final ByteBuffer byteBuf,
       final CharBuffer text, final ByteWriter destination) {
+    //重置字符编码器.
     ce.reset();
+    // 清除缓存.
     charBuf.clear();
+    // 将数据写入缓存.
     charBuf.put(text.array(), text.arrayOffset(), text.remaining());
-    // 结束位置.
+    // 结束读取位置.
     charBuf.limit(text.remaining());
-    // 开始位置.
+    // 开始读取位置.
     charBuf.position(0);
     //将字符数组编码成字节数组.
     ce.encode(charBuf, byteBuf, true);
+    // 刷新一下缓存.
     ce.flush(byteBuf);
     // 原来用!=比较.
     if (!byteBuf.equals(destination.getByteBuffer())) {
+      //
       byteBuf.flip();
+      // 如果有可读取的数据.
       if (0 != byteBuf.remaining()) {
+        // 开始将数据写入目的地.
         writeTo(byteBuf, destination);
       }
+      // 清除缓存.
       byteBuf.clear();
     }
   }
@@ -137,14 +145,22 @@ public class CharArrayEncoderV2 implements Encoder<CharBuffer> {
    * @author admin
    */
   public static void writeTo(final ByteBuffer source, final ByteWriter destination) {
+    // 得到字节数组数据.
     final ByteBuffer destBuff = destination.getByteBuffer();
+    // 如果空间不足,分批写入.
     while (source.remaining() > destBuff.remaining()) {
+      //
       final int originalLimit = source.limit();
+      //
       source.limit(Math.min(source.limit(), source.position() + destBuff.remaining()));
+      //
       destBuff.put(source);
+      //
       source.limit(originalLimit);
+      //
       destination.flush(destBuff);
     }
+    // 如果空间足够,直接写入.
     destBuff.put(source);
   }
 }
