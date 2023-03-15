@@ -1,6 +1,5 @@
 package org.jdkstack.logging.mini.api.buffer;
 
-import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 
 /**
@@ -52,14 +51,4 @@ public interface ByteWriter {
    * @author admin
    */
   void writeToDestination(final byte[] bytes, final int offset, final int length);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param randomAccessFile .
-   * @author admin
-   */
-  void setRandomAccessFile(RandomAccessFile randomAccessFile);
 }

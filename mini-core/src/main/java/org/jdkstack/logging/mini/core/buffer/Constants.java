@@ -15,7 +15,6 @@ public final class Constants {
   public static final int N10 = 10;
   /** . */
   public static final int N256 = 256;
-
   /** . */
   public static final String SECOND = "second";
   /** . */
@@ -30,7 +29,14 @@ public final class Constants {
   public static final int SIZE = 10;
   /** . */
   public static final int CAPACITY = 1024;
-
+  /** . */
+  public static final String LINES = "line";
+  /** . */
+  public static final String SIZES = "size";
+  /** . */
+  public static final int LC = 1000000;
+  /** . */
+  public static final int SC = 104857600;
   /** . */
   public static final String SEPARATOR = "-";
 

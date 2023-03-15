@@ -1,6 +1,5 @@
 package org.jdkstack.logging.mini.api.buffer;
 
-import java.io.BufferedWriter;
 import java.nio.CharBuffer;
 
 /**
@@ -52,14 +51,4 @@ public interface CharWriter {
    * @author admin
    */
   void readToDestination(final char[] bytes, final int offset, final int length);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param bufferedWriter .
-   * @author admin
-   */
-  void setBufferedWriter(BufferedWriter bufferedWriter);
 }

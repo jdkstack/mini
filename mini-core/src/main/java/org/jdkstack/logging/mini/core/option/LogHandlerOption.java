@@ -21,8 +21,8 @@ public class LogHandlerOption implements HandlerOption {
   private String prefix = Constants.DEFAULT;
   /** . */
   private String encoding = "UTF-8";
-  /** . */
-  private String type = "second";
+  /** line,size,second,minute,hour,day. */
+  private String type = "size";
   /** . */
   private String className = "org.jdkstack.logging.mini.core.handler.FileHandlerV2";
   /** . */
