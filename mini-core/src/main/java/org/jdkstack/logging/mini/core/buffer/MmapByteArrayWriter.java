@@ -23,6 +23,7 @@ public class MmapByteArrayWriter extends ByteArrayWriter {
   @Override
   public final void writeToDestination(final byte[] bytes, final int offset, final int length) {
     try {
+      //切换日志文件规则只有一种,按size切换.
       // 数据的长度.
       int len = length;
       // 偏移量.
@@ -61,6 +62,7 @@ public class MmapByteArrayWriter extends ByteArrayWriter {
           cleaner.clean();
         }
       }
+      // 调用父方法,先重新创建文件流.
       super.remap();
       // 重新映射文件.
       this.mappedBuffer = this.randomAccessFile.getChannel().

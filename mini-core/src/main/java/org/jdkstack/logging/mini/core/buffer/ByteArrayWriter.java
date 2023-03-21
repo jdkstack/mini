@@ -42,7 +42,7 @@ public class ByteArrayWriter extends AbstractByteArrayWriter {
     try {
       //切换日志文件规则.
       final String type = this.handlerOption.getType();
-      // 按line切换.
+      // 1.按line切换.
       if (Constants.LINES.equals(type)) {
         final int lines = this.lines.incrementAndGet();
         //100W行切换一次.
@@ -50,7 +50,7 @@ public class ByteArrayWriter extends AbstractByteArrayWriter {
           this.remap();
           this.lines.set(1);
         }
-        //按size切换.
+        //2.按size切换.
       } else {
         final int sizes = this.sizes.addAndGet(length);
         // 100MB切换一次.
@@ -59,6 +59,7 @@ public class ByteArrayWriter extends AbstractByteArrayWriter {
           this.sizes.set(length);
         }
       }
+      // 3.按照日期时间规则.
       this.randomAccessFile.write(bytes, offset, length);
     } catch (final IOException e) {
       throw new LogRuntimeException("", e);
@@ -73,7 +74,7 @@ public class ByteArrayWriter extends AbstractByteArrayWriter {
         this.flush();
         this.randomAccessFile.close();
       }
-      // 重新计算文件名(创建临时对象?).
+      // 重新计算文件名(创建临时对象?应该放到公共的地方.).
       final File dir = new File(this.handlerOption.getDirectory() + File.separator + this.handlerOption.getPrefix());
       // 不存在,创建目录和子目录.
       if (!dir.exists()) {
