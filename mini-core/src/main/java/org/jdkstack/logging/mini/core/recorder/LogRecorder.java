@@ -6,10 +6,10 @@ import org.jdkstack.bean.api.bean.Bean;
 import org.jdkstack.logging.mini.api.level.Level;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.api.resource.HaFactory;
+import org.jdkstack.logging.mini.api.resource.LeFactory;
 import org.jdkstack.logging.mini.core.StartApplication;
 import org.jdkstack.logging.mini.core.formatter.LogFormatter;
 import org.jdkstack.logging.mini.core.pool.StringBuilderPool;
-import org.jdkstack.logging.mini.core.resource.LevelFactory;
 
 /**
  * 提供所有日志的方法.
@@ -58,7 +58,7 @@ public class LogRecorder implements Recorder {
   public final boolean doFilter(final String logLevels) {
     final Bean logInfos = StartApplication.context().getBean("levelFactory");
     final Object obj3 = logInfos.getObj();
-    final LevelFactory info = (LevelFactory) obj3;
+    final LeFactory info = (LeFactory) obj3;
     return info.doFilter(logLevels, this.maxLevel, this.minLevel);
   }
 

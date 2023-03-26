@@ -82,8 +82,7 @@ public class ByteArrayWriter extends AbstractByteArrayWriter {
       }
       //重新打开流.
       this.randomAccessFile = new RandomAccessFile(new File(dir, System.currentTimeMillis() + ".log"), "rw");
-    } catch (
-        final Exception ex) {
+    } catch (final Exception ex) {
       System.out.println("Unable to remap" + ex.getMessage());
     }
   }
