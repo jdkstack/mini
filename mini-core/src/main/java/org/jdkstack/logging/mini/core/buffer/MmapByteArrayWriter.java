@@ -17,12 +17,14 @@ public class MmapByteArrayWriter extends ByteArrayWriter {
 
   public MmapByteArrayWriter(final HandlerOption handlerOption) {
     super(handlerOption);
-    this.remap();
   }
 
   @Override
   public final void writeToDestination(final byte[] bytes, final int offset, final int length) {
     try {
+      if (null == this.mappedBuffer) {
+        this.remap();
+      }
       //切换日志文件规则只有一种,按size切换.
       // 数据的长度.
       int len = length;
@@ -65,8 +67,8 @@ public class MmapByteArrayWriter extends ByteArrayWriter {
       // 调用父方法,先重新创建文件流.
       super.remap();
       // 重新映射文件.
-      this.mappedBuffer = this.randomAccessFile.getChannel().
-          map(FileChannel.MapMode.READ_WRITE, 0, DEFAULT_REGION_LENGTH);
+      this.mappedBuffer = this.channel.map(FileChannel.MapMode.READ_WRITE, 0, DEFAULT_REGION_LENGTH);
+      // 设置写顺序.
       this.mappedBuffer.order(ByteOrder.nativeOrder());
     } catch (final Exception ex) {
       throw new LogRuntimeException(ex);
