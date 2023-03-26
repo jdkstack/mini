@@ -25,10 +25,9 @@ public class CharArrayRingBuffer implements RingBuffer<char[]> {
     final int size = Power2.power2(capacity);
     this.mask = size - 1;
     this.rb = new char[size][];
-    final String lineSeparator = System.lineSeparator();
-
     for (int i = 0; i < size; i++) {
-      this.rb[i] = new char[160 + lineSeparator.length()];
+      // 容量 2048 ,直接写入会导致写入大量的空.
+      this.rb[i] = new char[Constants.CAPACITY];
     }
   }
 

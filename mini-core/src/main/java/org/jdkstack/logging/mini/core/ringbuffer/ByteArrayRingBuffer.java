@@ -1,8 +1,8 @@
 package org.jdkstack.logging.mini.core.ringbuffer;
 
 import java.util.Arrays;
-import org.jdkstack.ringbuffer.core.Power2;
 import org.jdkstack.logging.mini.api.ringbuffer.RingBuffer;
+import org.jdkstack.ringbuffer.core.Power2;
 
 /**
  * byte[] 字节数组环形数组，用来缓存byte[]字节数组.
@@ -33,7 +33,8 @@ public class ByteArrayRingBuffer implements RingBuffer<byte[]> {
     this.mask = size - 1;
     this.rb = new Object[size];
     for (int i = 0; i < size; i++) {
-      this.rb[i] = new byte[17];
+      // 容量 2048 ,直接写入会导致写入大量的空.
+      this.rb[i] = new byte[Constants.CAPACITY];
     }
   }
 
