@@ -24,7 +24,7 @@ public class LogHandlerOption implements HandlerOption {
   /** line,size,second,minute,hour,day. */
   private String type = "size";
   /** . */
-  private String className = "org.jdkstack.logging.mini.core.handler.MmapFileHandlerV2";
+  private String className = "org.jdkstack.logging.mini.core.handler.FileHandlerV2";
   /** . */
   private String minLevel = "MIN";
   /** . */
