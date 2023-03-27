@@ -26,7 +26,7 @@
         <!-- Resources插件处理将项目资源复制到输出目录的问题-->
         <artifactId>maven-resources-plugin</artifactId>
         <groupId>org.apache.maven.plugins</groupId>
-        <version>3.3.0</version>
+        <version>3.3.1</version>
       </plugin>
       <plugin>
         <!-- 编译-->
