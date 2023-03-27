@@ -15,11 +15,26 @@ public abstract class AbstractByteArrayWriter implements ByteWriter {
   /** 256KB. */
   protected final ByteBuffer byteBuffer = ByteBuffer.allocate(Constants.N256 << Constants.N10);
 
+  /**
+   * .
+   *
+   * <p>Another description after blank line.
+   *
+   * @author admin
+   */
   @Override
   public final void flush() {
     this.flush(this.byteBuffer);
   }
 
+  /**
+   * .
+   *
+   * <p>Another description after blank line.
+   *
+   * @param buf b.
+   * @author admin
+   */
   @Override
   public void flush(final ByteBuffer buf) {
     try {
@@ -35,6 +50,14 @@ public abstract class AbstractByteArrayWriter implements ByteWriter {
     }
   }
 
+  /**
+   * .
+   *
+   * <p>Another description after blank line.
+   *
+   * @return ByteBuffer .
+   * @author admin
+   */
   @Override
   public final ByteBuffer getByteBuffer() {
     return this.byteBuffer;

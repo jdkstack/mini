@@ -2,14 +2,14 @@ package org.jdkstack.bean.core.context;
 
 import java.lang.reflect.Executable;
 import java.util.Locale;
+import org.jdkstack.bean.api.bean.Bean;
+import org.jdkstack.bean.api.context.Context;
+import org.jdkstack.bean.api.factory.Factory;
 import org.jdkstack.bean.core.annotation.Component;
 import org.jdkstack.bean.core.annotation.ComponentScan;
 import org.jdkstack.bean.core.annotation.ConstructorResource;
 import org.jdkstack.bean.core.bean.BeanService;
 import org.jdkstack.bean.core.factory.BeanFactory;
-import org.jdkstack.bean.api.bean.Bean;
-import org.jdkstack.bean.api.context.Context;
-import org.jdkstack.bean.api.factory.Factory;
 
 /**
  * .

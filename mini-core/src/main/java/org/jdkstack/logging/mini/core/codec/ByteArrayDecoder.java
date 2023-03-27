@@ -65,29 +65,7 @@ public class ByteArrayDecoder implements Decoder<byte[]> {
    */
   @Override
   public final void decode(final byte[] source, final CharWriter reader) {
-    try {
-      encodeText(this.charsetDecoder, this.charBuffer, this.byteBuffer, source, reader);
-    } catch (final Exception e) {
-      this.encodeTextFallBack(e, source, reader);
-    }
-  }
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param e           .
-   * @param text        .
-   * @param destination .
-   * @author admin
-   */
-  public final void encodeTextFallBack(final Throwable e, final byte[] text,
-      final CharWriter destination) {
-    final String sb = new String(text, this.charset);
-    final String message = e.getMessage();
-    final String msg = sb + message;
-    destination.readToDestination(msg.toCharArray(), 0, msg.length());
+    encodeText(this.charsetDecoder, this.charBuffer, this.byteBuffer, source, reader);
   }
 
   /**

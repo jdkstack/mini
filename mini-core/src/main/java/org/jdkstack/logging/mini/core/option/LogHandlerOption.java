@@ -24,7 +24,7 @@ public class LogHandlerOption implements HandlerOption {
   /** line,size,second,minute,hour,day. */
   private String type = "size";
   /** . */
-  private String className = "org.jdkstack.logging.mini.core.handler.FileHandlerV2";
+  private String className = "org.jdkstack.logging.mini.core.handler.MmapFileHandlerV2";
   /** . */
   private String minLevel = "MIN";
   /** . */
@@ -121,7 +121,7 @@ public class LogHandlerOption implements HandlerOption {
    * @author admin
    */
   @Override
-  public final String getDirectory() {
+  public String getDirectory() {
     return this.directory;
   }
 
@@ -135,7 +135,7 @@ public class LogHandlerOption implements HandlerOption {
    * @author admin
    */
   @Override
-  public final void setDirectory(final String directory) {
+  public void setDirectory(final String directory) {
     this.directory = directory;
   }
 
@@ -149,7 +149,7 @@ public class LogHandlerOption implements HandlerOption {
    * @author admin
    */
   @Override
-  public final String getPrefix() {
+  public String getPrefix() {
     return this.prefix;
   }
 
@@ -163,7 +163,7 @@ public class LogHandlerOption implements HandlerOption {
    * @author admin
    */
   @Override
-  public final void setPrefix(final String prefix) {
+  public void setPrefix(final String prefix) {
     this.prefix = prefix;
   }
 

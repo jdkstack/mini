@@ -1,12 +1,11 @@
 package org.jdkstack.logging.mini.core.queue;
 
-import org.jdkstack.ringbuffer.core.mpmc.version3.MpmcBlockingQueueV3;
 import org.jdkstack.logging.mini.api.queue.Queue;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.core.datetime.DateTimeDecoder;
 import org.jdkstack.logging.mini.core.datetime.DateTimeEncoder;
-import org.jdkstack.logging.mini.core.exception.LogRuntimeException;
 import org.jdkstack.logging.mini.core.pool.StringBuilderPool;
+import org.jdkstack.ringbuffer.core.mpmc.version3.MpmcBlockingQueueV3;
 
 /**
  * 日志消息阻塞队列,主要用于消息的短暂缓冲.
@@ -43,13 +42,8 @@ public abstract class AbstractQueue<E> implements Queue<E> {
    */
   @Override
   public final E take() {
-    try {
-      // 使用阻塞方法从队列获取元素. 天然的背压方式,当队列空时阻塞.
-      return this.queue.take();
-    } catch (final Exception e) {
-      Thread.currentThread().interrupt();
-      throw new LogRuntimeException(e);
-    }
+    // 使用阻塞方法从队列获取元素. 天然的背压方式,当队列空时阻塞.
+    return this.queue.take();
   }
 
   @Override

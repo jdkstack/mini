@@ -6,10 +6,10 @@ import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.codec.Encoder;
 import org.jdkstack.logging.mini.api.option.HandlerOption;
 import org.jdkstack.logging.mini.api.record.Record;
+import org.jdkstack.logging.mini.core.Internal;
 import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
 import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
 import org.jdkstack.logging.mini.core.codec.Constants;
-import org.jdkstack.logging.mini.core.exception.LogRuntimeException;
 
 /**
  * 日志写入文件.
@@ -67,7 +67,7 @@ public class FileHandlerV2 extends AbstractHandler {
       // 单条刷新到磁盘.
       this.destination.flush();
     } catch (final Exception e) {
-      throw new LogRuntimeException("bufferedWriter向文件写入数据时异常", e);
+      Internal.log(e);
     } finally {
       this.lock.unlock();
     }

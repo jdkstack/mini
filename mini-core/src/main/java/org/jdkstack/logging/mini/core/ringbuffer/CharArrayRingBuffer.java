@@ -4,6 +4,13 @@ import java.util.Arrays;
 import org.jdkstack.logging.mini.api.ringbuffer.RingBuffer;
 import org.jdkstack.ringbuffer.core.Power2;
 
+/**
+ * This is a method description.
+ *
+ * <p>Another description after blank line.
+ *
+ * @author admin
+ */
 public class CharArrayRingBuffer implements RingBuffer<char[]> {
 
   /** . */

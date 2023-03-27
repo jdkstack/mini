@@ -67,30 +67,7 @@ public class CharArrayEncoderV2 implements Encoder<CharBuffer> {
    */
   @Override
   public final void encode(final CharBuffer source, final ByteWriter destination) {
-    try {
-      encodeText(this.charsetEncoder, this.charBuffer, this.byteBuffer, source, destination);
-    } catch (final Exception e) {
-      this.encodeTextFallBack(e, source, destination);
-    }
-  }
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param e           .
-   * @param text        .
-   * @param destination .
-   * @author admin
-   */
-  public final void encodeTextFallBack(final Throwable e, final CharBuffer text,
-      final ByteWriter destination) {
-    final String message = e.getMessage();
-    //text.append(message);
-    //final byte[] bytes = text.toString().getBytes(this.charset);
-    //destination.writeToDestination(bytes, 0, bytes.length);
-    System.out.println(message);
+    encodeText(this.charsetEncoder, this.charBuffer, this.byteBuffer, source, destination);
   }
 
   /**

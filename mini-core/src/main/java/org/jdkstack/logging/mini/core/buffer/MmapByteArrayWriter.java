@@ -5,20 +5,45 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import jdk.internal.ref.Cleaner;
 import org.jdkstack.logging.mini.api.option.HandlerOption;
-import org.jdkstack.logging.mini.core.exception.LogRuntimeException;
+import org.jdkstack.logging.mini.core.Internal;
 import sun.nio.ch.DirectBuffer;
 
+/**
+ * This is a method description.
+ *
+ * <p>Another description after blank line.
+ *
+ * @author admin
+ */
 public class MmapByteArrayWriter extends ByteArrayWriter {
 
   /** MMAP文件固定1GB大小. */
   public static final long DEFAULT_REGION_LENGTH = 1L << 30;
-
+  /** . */
   private MappedByteBuffer mappedBuffer;
 
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param handlerOption h.
+   * @author admin
+   */
   public MmapByteArrayWriter(final HandlerOption handlerOption) {
     super(handlerOption);
   }
 
+  /**
+   * .
+   *
+   * <p>Another description after blank line.
+   *
+   * @param bytes  b.
+   * @param offset o.
+   * @param length l.
+   * @author admin
+   */
   @Override
   public final void writeToDestination(final byte[] bytes, final int offset, final int length) {
     try {
@@ -48,30 +73,33 @@ public class MmapByteArrayWriter extends ByteArrayWriter {
       // 数据长度小于等于剩余空间,直接写.
       this.mappedBuffer.put(bytes, off, len);
     } catch (final Exception e) {
-      throw new LogRuntimeException(e);
+      Internal.log(e);
     }
   }
 
+  /**
+   * .
+   *
+   * <p>Another description after blank line.
+   *
+   * @author admin
+   */
   @Override
-  public final void remap() {
-    try {
-      if (null != this.mappedBuffer) {
-        // 强制刷新.
-        this.mappedBuffer.force();
-        // 断开文件句柄.
-        final Cleaner cleaner = ((DirectBuffer) this.mappedBuffer).cleaner();
-        if (null != cleaner) {
-          cleaner.clean();
-        }
+  public final void remap() throws Exception {
+    if (null != this.mappedBuffer) {
+      // 强制刷新.
+      this.mappedBuffer.force();
+      // 断开文件句柄.
+      final Cleaner cleaner = ((DirectBuffer) this.mappedBuffer).cleaner();
+      if (null != cleaner) {
+        cleaner.clean();
       }
-      // 调用父方法,先重新创建文件流.
-      super.remap();
-      // 重新映射文件.
-      this.mappedBuffer = this.channel.map(FileChannel.MapMode.READ_WRITE, 0, DEFAULT_REGION_LENGTH);
-      // 设置写顺序.
-      this.mappedBuffer.order(ByteOrder.nativeOrder());
-    } catch (final Exception ex) {
-      throw new LogRuntimeException(ex);
     }
+    // 调用父方法,先重新创建文件流.
+    super.remap();
+    // 重新映射文件.
+    this.mappedBuffer = this.channel.map(FileChannel.MapMode.READ_WRITE, 0, DEFAULT_REGION_LENGTH);
+    // 设置写顺序.
+    this.mappedBuffer.order(ByteOrder.nativeOrder());
   }
 }
