@@ -1,4 +1,4 @@
-package org.jdkstack.logging.mini.core.buffer;
+package org.jdkstack.logging.mini.extension.buffer;
 
 import java.nio.ByteOrder;
 import java.nio.MappedByteBuffer;
@@ -6,6 +6,7 @@ import java.nio.channels.FileChannel;
 import jdk.internal.ref.Cleaner;
 import org.jdkstack.logging.mini.api.option.HandlerOption;
 import org.jdkstack.logging.mini.core.Internal;
+import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
 import sun.nio.ch.DirectBuffer;
 
 /**

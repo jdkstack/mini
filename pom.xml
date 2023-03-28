@@ -10,6 +10,7 @@
   <modules>
     <module>mini-api</module>
     <module>mini-core</module>
+    <module>mini-extension</module>
   </modules>
   <properties>
     <!--  1:统一字符集编码UTF-8 -->
