@@ -7,7 +7,7 @@ import org.jdkstack.logging.mini.core.pool.StringBuilderPool;
 /**
  * <a href="https://howardhinnant.github.io/date_algorithms.html">Howard Hinnant</a>.
  *
- * <p>此工具可以表示公元纪年（0001-9999）,公元前纪年(-N年-0000)，公元后纪年(+10000-+N年).
+ * <p>此工具可以表示公元纪年(0001-9999),公元前纪年(-N年-0000)，公元后纪年(+10000-+N年).
  *
  * <p>目前仅支持UTC毫秒转换成Z时区的日期时间格式.
  *
