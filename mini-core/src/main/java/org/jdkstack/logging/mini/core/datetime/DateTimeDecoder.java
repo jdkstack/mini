@@ -12,7 +12,7 @@ import org.jdkstack.logging.mini.api.datetime.Decoder;
  *
  * <pre>
  *   输入: 2022-11-05T23:05:01.105.000Z(输入的日期格式必须是Z时区,不支持其他时区)
- *   返回: 1667660701105(UTC毫秒)
+ *   返回: 1667660701105(UTC0时区毫秒)
  *   注意：不支持纳秒，必须含有毫秒。
  *
  *   ISO 8601日期表示法：
@@ -46,13 +46,17 @@ public final class DateTimeDecoder implements Decoder {
    * @author admin
    */
   public static long decoder(final StringBuilder dateTime, final long offset) {
-    final long year = year(dateTime);
+    long year = year(dateTime);
     final long mon = month(dateTime);
     final long day = day(dateTime);
     final long hour = hours(dateTime);
     final long min = minutes(dateTime);
     final long sed = seconds(dateTime);
     final long mis = millisecond(dateTime);
+    //如果月份是1月或2月,只需在年份上减1即可完成(因为算法是从3月份开始的，代替1月份).
+    if (mon <= 2) {
+      year -= 1;
+    }
     final long era;
     if (0 <= year) {
       era = year / Constants.N400;

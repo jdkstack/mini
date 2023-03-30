@@ -9,12 +9,12 @@ import org.jdkstack.logging.mini.core.pool.StringBuilderPool;
  *
  * <p>此工具可以表示公元纪年(0001-9999),公元前纪年(-N年-0000)，公元后纪年(+10000-+N年).
  *
- * <p>目前仅支持UTC毫秒转换成Z时区的日期时间格式.
+ * <p>目前仅支持UTC0时区毫秒转换成任意时区的日期时间格式.
  *
  * <pre>
- *   输入: 1667660701105(输入必须UTC毫秒)
- *   返回: 2022-11-05T23:05:01.105.000Z(输出的日期格式必须是Z时区,不支持其他时区)
-*   注意：不支持纳秒，必须含有毫秒。
+ *   输入: 1667660701105(输入必须UTC0时区毫秒)
+ *   返回: 2022-11-05T23:05:01.105.000Z(支持其他时区)
+ *   注意：不支持纳秒，必须含有毫秒。
  *
  *   ISO 8601日期表示法：
  *   公元纪年由4位数组成，公历公元1年为0001，月为2位数(01-12)，日为2位数(01-31).
@@ -22,15 +22,23 @@ import org.jdkstack.logging.mini.core.pool.StringBuilderPool;
  *   公元后纪年由+开头，公历公元后1年为+10000，月为2位数(01-12)，日为2位数(01-31).
  *   ISO 8601时间表示法：
  *   小时(00-23)、分和秒都用2位数表示(00-59)、毫秒必须是3位数(000-999)。
- *   如UTC时间下午2点30分5秒表示为14:30:05.000Z(不支持其他表示)。
+ *   如UTC0时区时间下午2点30分5秒表示为14:30:05.000Z(不支持其他表示)。
  *   ISO 8601日期和时间的组合表示法:
  *   合并表示时，要在时间前面加一大写字母T。
- *   如要表示UTC时间2004年5月3日下午5点30分8秒，可以写成2004-05-03T17:30:08.000Z。
+ *   如要表示UTC0时区时间2004年5月3日下午5点30分8秒，可以写成2004-05-03T17:30:08.000Z。
  * </pre>
  *
  * @author admin
  */
 public final class DateTimeEncoder implements Encoder {
+
+  static final int SECOND_IN_MILLIS = 1000;
+  static final int MINUTE_IN_MILLIS = SECOND_IN_MILLIS * 60;
+  static final int HOUR_IN_MILLIS = MINUTE_IN_MILLIS * 60;
+  static final int DAY_IN_MILLIS = HOUR_IN_MILLIS * 24;
+
+  // The number of days between January 1, 1 and January 1, 1970 (Gregorian)
+  static final int EPOCH_OFFSET = 719163;
 
   private DateTimeEncoder() {
     //
@@ -47,7 +55,7 @@ public final class DateTimeEncoder implements Encoder {
    * @return StringBuilder 返回UTC Z时区的日期时间格式.
    * @author admin
    */
-  public static StringBuilder encoder(final long millis, final long offset) {
+  public static StringBuilder encoder(long millis, final long offset) {
     final StringBuilder sb = StringBuilderPool.poll();
     // millis/1000得到秒.
     final long secondUtc = millis / Constants.MILLS_PER_SECOND;
@@ -84,16 +92,22 @@ public final class DateTimeEncoder implements Encoder {
     final long yoe = temp6 / Constants.N365;
     //得到yp、mp、day（即基于03-01是第一天的值）
     final long yp = era * Constants.N400;
-    final long year = yoe + yp;
-    check3(sb, year);
+    long year = yoe + yp;
     final long doy = doe - (Constants.N365 * yoe + yoe / 4 - yoe / Constants.N100);
     final long mp = (5 * doy + 2) / Constants.N153;
-    final long month;
+    long month;
     if (Constants.N10 > mp) {
       month = mp + Constants.N3;
     } else {
       month = mp - Constants.N9;
     }
+    //如果月份是1月或2月,只需在年份上加1即可完成(因为算法是从3月份开始的，代替1月份).
+    if (month <= 2) {
+      year += 1;
+    }
+    // 检查年.
+    check3(sb, year);
+    // 检查月.
     check(sb, month, '-');
     final long day = doy - (Constants.N153 * mp + 2) / 5 + 1;
     check(sb, day, '-');
@@ -239,9 +253,36 @@ public final class DateTimeEncoder implements Encoder {
     } else {
       era = (zeroDay - Constants.N146096) / Constants.N146097;
     }
-    final long doe = zeroDay - era * Constants.N146097;
-    final long yoe = (doe - doe / Constants.N1460 + doe / Constants.N36524 - doe / Constants.N146096) / Constants.N365;
-    return yoe + era * Constants.N400;
+    // N个四百年的总天数.
+    final long temp1 = era * Constants.N146097;
+    // 减去N个四百年的总天数,得到剩余的天数.
+    final long doe = zeroDay - temp1;
+    // 1460 = 365 * 4， 第4年会多出1天（闰年）.
+    final long temp3 = doe / Constants.N1460;
+    // 35624 = 365 * 100 + 100 / 4 - 1，第100年不是闰年.
+    final long temp4 = doe / Constants.N36524;
+    // 146096 = 365 * 400 + 400 / 4 - 400 / 100，第400年（闰年）.
+    final long temp5 = doe / Constants.N146096;
+    // 剩余的天数减去所有闰年.
+    final long temp6 = doe - temp3 + temp4 - temp5;
+    // 最后剩下的天数/365.
+    final long yoe = temp6 / Constants.N365;
+    //得到yp、mp、day（即基于03-01是第一天的值）
+    final long yp = era * Constants.N400;
+    long year = yoe + yp;
+    final long doy = doe - (Constants.N365 * yoe + yoe / 4 - yoe / Constants.N100);
+    final long mp = (5 * doy + 2) / Constants.N153;
+    final long month;
+    if (Constants.N10 > mp) {
+      month = mp + Constants.N3;
+    } else {
+      month = mp - Constants.N9;
+    }
+    //如果月份是1月或2月,只需在年份上加1即可完成(因为算法是从3月份开始的，代替1月份).
+    if (month <= 2) {
+      year += 1;
+    }
+    return year;
   }
 
   /**
