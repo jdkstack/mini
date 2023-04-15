@@ -36,7 +36,7 @@ public abstract class AbstractByteArrayWriter implements ByteWriter {
    * @author admin
    */
   @Override
-  public void flush(final ByteBuffer buf) {
+  public final void flush(final ByteBuffer buf) {
     try {
       buf.flip();
       //如果有数据.

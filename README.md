@@ -3,30 +3,14 @@ A lightweight, high performance, open source, application layer log service fram
 一个轻量级，高性能，开源，应用层日志服务框架。
 
 ```text
-这是一个日志框架内核，可扩展。现有开源日志框架功能臃肿，代码复杂，BUG非常多，漏洞非常多。
-
-使用单线程模式，阻塞式生产和消费日志数据（虽然多线程性能更佳，为了不分配临时对象，只能舍弃多线程，未来待定）。
-
-每产生一条日志写入文件（每秒写入15W条，每条0.5kb），为了准确性，不丢失数据，只能舍弃批量写入特性。
-
-在生产能力足够的情况下，理论上能达到磁盘IO的最大写入峰值（无法做到，固定性能）。
+这是一个日志框架内核，可扩展，单线程模式，阻塞式生产和消费日志数据。
 
 动机：基于以下几点原因。
-1.代码轻量，仅实现核心功能，目前不到5000行代码，预期最多10000行代码。
-2.没有临时对象被创建，不会发生GC（不包括框架内核之外的代码）。
-3.非核心功能可以基于日志核心来扩展。
-4.业务逻辑非常简单，任何人都可以看懂，可以贡献。
-5.实现代码级别上的动态配置（Level，Filter，Formatter......）。
-6.提供web服务这个非核心功能（页面上的动态配置）。
-7.仅提供将日志数据写入文件中（其他方式例如kafka，控制台，mysql可以扩展实现）。
-8.源码中SonarLint需要修复80%。
-9.源码中CheckStyle Google需要修复80%。
-10.源码中CheckStyle Sun需要修复80%。
-11.源码中IDEA INSPECTION需要修复80%。
-12.只依赖openjdk，没有第三方库。
-13.实现了日期时间工具类，环形队列，Bean管理以及依赖注入。
-14.只支持字符串的输出，不支持对象等。
-15.此外，最重要的一点是，没有一行垃圾代码，哪怕是一个标点符号（如果有，会被删除），不间断的优化代码质量，直到完美。
+1.仅实现核心功能FileHandler，将日志数据写入文件中。
+2.没有临时对象创建，不会发生GC。
+3.代码级别动态配置和web页面上动态配置。
+4.不依赖第三方库，仅仅依赖openJdk。
+5.仅支持输出字符串。
 ```
 
 例子:
@@ -35,6 +19,7 @@ A lightweight, high performance, open source, application layer log service fram
 public class Examples {
 private static final Recorder LOG = LogFactory.getLog(Examples.class);
 public static void main(String[] args) {
+ LOG.log(Constants.INFO,"日期", "INFO {} {}{}", to(1), to(1L), to("1"));
  LOG.log(Constants.INFO, "INFO {} {}{}", to(1), to(1L), to("1"));
  LOG.log(Constants.ERROR, "ERROR {1} ", to(1D));
  LOG.log(Constants.DEBUG, 类路径, 方法名, 行号, "ERROR {1}", to(1D));

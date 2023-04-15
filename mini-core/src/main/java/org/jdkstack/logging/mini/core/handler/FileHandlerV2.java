@@ -49,7 +49,7 @@ public class FileHandlerV2 extends AbstractHandler {
    * @author admin
    */
   @Override
-  public void process(final Record logRecord) {
+  public final void process(final Record logRecord) {
     this.lock.lock();
     try {
       // 格式化日志对象.
