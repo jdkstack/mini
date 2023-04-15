@@ -8,11 +8,12 @@ import org.jdkstack.logging.mini.api.datetime.Decoder;
  *
  * <p>此工具可以表示公元纪年(0001-9999),公元前纪年(-N年-0000),公元后纪年(+10000-+N年).
  *
- * <p>目前仅支持0时区的日期时间格式转换成1970年后的UTC毫秒.
+ * <p>目前仅支持0时区的日期时间格式转换成UTC毫秒.
  *
  * <pre>
- *   输入: 2022-11-05T23:05:01.105Z(输入的日期格式必须是Z时区,不支持其他时区)
- *   返回: 1667660701105(1970年后的UTC毫秒)
+ *   输入: 2022-11-05T23:05:01.105.000Z(输入的日期格式必须是Z时区,不支持其他时区)
+ *   返回: 1667660701105(UTC0时区毫秒)
+ *   注意：不支持纳秒，必须含有毫秒。
  *
  *   ISO 8601日期表示法：
  *   公元纪年由4位数组成，公历公元1年为0001，月为2位数(01-12)，日为2位数(01-31).
@@ -20,10 +21,10 @@ import org.jdkstack.logging.mini.api.datetime.Decoder;
  *   公元后纪年由+开头，公历公元后1年为+10000，月为2位数(01-12)，日为2位数(01-31).
  *   ISO 8601时间表示法：
  *   小时(00-23)、分和秒都用2位数表示(00-59)、毫秒必须是3位数(000-999)。
- *   如UTC时间下午2点30分5秒表示为14:30:05Z(不支持其他表示)。
+ *   如UTC时间下午2点30分5秒表示为14:30:05.000Z(不支持其他表示)。
  *   ISO 8601日期和时间的组合表示法:
  *   合并表示时，要在时间前面加一大写字母T。
- *   如要表示UTC时间2004年5月3日下午5点30分8秒，可以写成2004-05-03T17:30:08Z。
+ *   如要表示UTC时间2004年5月3日下午5点30分8秒，可以写成2004-05-03T17:30:08.000Z。
  * </pre>
  *
  * @author admin
@@ -35,7 +36,7 @@ public final class DateTimeDecoder implements Decoder {
   }
 
   /**
-   * 忽略了dateTime时区(生成了大量的临时对象).
+   * 不支持时区.
    *
    * <p>offset计算目前存在阔年错误问题，暂时只支持offset=0。
    *
@@ -45,13 +46,17 @@ public final class DateTimeDecoder implements Decoder {
    * @author admin
    */
   public static long decoder(final StringBuilder dateTime, final long offset) {
-    final long year = year(dateTime);
+    long year = year(dateTime);
     final long mon = month(dateTime);
     final long day = day(dateTime);
     final long hour = hours(dateTime);
     final long min = minutes(dateTime);
     final long sed = seconds(dateTime);
     final long mis = millisecond(dateTime);
+    //如果月份是1月或2月,只需在年份上减1即可完成(因为算法是从3月份开始的，代替1月份).
+    if (mon <= 2) {
+      year -= 1;
+    }
     final long era;
     if (0 <= year) {
       era = year / Constants.N400;

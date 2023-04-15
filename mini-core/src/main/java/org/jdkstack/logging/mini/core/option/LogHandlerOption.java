@@ -15,14 +15,14 @@ public class LogHandlerOption implements HandlerOption {
   private String name = Constants.DEFAULT;
   /** . */
   private String level = "MAX";
-  /** . */
-  private String directory = "logs";
+  /** 随机一个目录. */
+  private String directory = "logs" + System.currentTimeMillis();
   /** . */
   private String prefix = Constants.DEFAULT;
   /** . */
   private String encoding = "UTF-8";
-  /** . */
-  private String type = "second";
+  /** line,size,second,minute,hour,day. */
+  private String type = "size";
   /** . */
   private String className = "org.jdkstack.logging.mini.core.handler.FileHandlerV2";
   /** . */
@@ -121,7 +121,7 @@ public class LogHandlerOption implements HandlerOption {
    * @author admin
    */
   @Override
-  public final String getDirectory() {
+  public String getDirectory() {
     return this.directory;
   }
 
@@ -135,7 +135,7 @@ public class LogHandlerOption implements HandlerOption {
    * @author admin
    */
   @Override
-  public final void setDirectory(final String directory) {
+  public void setDirectory(final String directory) {
     this.directory = directory;
   }
 
@@ -149,7 +149,7 @@ public class LogHandlerOption implements HandlerOption {
    * @author admin
    */
   @Override
-  public final String getPrefix() {
+  public String getPrefix() {
     return this.prefix;
   }
 
@@ -163,7 +163,7 @@ public class LogHandlerOption implements HandlerOption {
    * @author admin
    */
   @Override
-  public final void setPrefix(final String prefix) {
+  public void setPrefix(final String prefix) {
     this.prefix = prefix;
   }
 

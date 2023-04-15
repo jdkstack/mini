@@ -5,16 +5,16 @@ import org.jdkstack.logging.mini.api.ringbuffer.RingBuffer;
 import org.jdkstack.ringbuffer.core.Power2;
 
 /**
- * byte[] 字节数组环形数组，用来缓存byte[]字节数组.
+ * This is a method description.
  *
- * <p>每次从Object[]循环获取一个byte[]字节数组。
+ * <p>Another description after blank line.
  *
  * @author admin
  */
-public class ByteArrayRingBuffer implements RingBuffer<byte[]> {
+public class CharArrayRingBuffer implements RingBuffer<char[]> {
 
   /** . */
-  private final Object[] rb;
+  private final char[][] rb;
   /** . */
   private int current;
   /** . */
@@ -28,21 +28,21 @@ public class ByteArrayRingBuffer implements RingBuffer<byte[]> {
    * @param capacity .
    * @author admin
    */
-  public ByteArrayRingBuffer(final int capacity) {
+  public CharArrayRingBuffer(final int capacity) {
     final int size = Power2.power2(capacity);
     this.mask = size - 1;
-    this.rb = new Object[size];
+    this.rb = new char[size][];
     for (int i = 0; i < size; i++) {
       // 容量 2048 ,直接写入会导致写入大量的空.
-      this.rb[i] = new byte[Constants.CAPACITY];
+      this.rb[i] = new char[Constants.CAPACITY];
     }
   }
 
   @Override
-  public final byte[] poll() {
+  public final char[] poll() {
     this.current++;
-    final byte[] result = (byte[]) this.rb[this.mask & this.current];
-    Arrays.fill(result, (byte) 0);
+    final char[] result = this.rb[this.mask & this.current];
+    Arrays.fill(result, (char) 0);
     return result;
   }
 }

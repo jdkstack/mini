@@ -1,4 +1,4 @@
-package org.jdkstack.logging.mini.core.handler;
+package org.jdkstack.logging.mini.extension.handler;
 
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
@@ -7,9 +7,10 @@ import org.jdkstack.logging.mini.api.codec.Encoder;
 import org.jdkstack.logging.mini.api.option.HandlerOption;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.core.Internal;
-import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
+import org.jdkstack.logging.mini.extension.buffer.MmapByteArrayWriter;
 import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
 import org.jdkstack.logging.mini.core.codec.Constants;
+import org.jdkstack.logging.mini.core.handler.AbstractHandler;
 
 /**
  * 日志写入文件.
@@ -18,7 +19,7 @@ import org.jdkstack.logging.mini.core.codec.Constants;
  *
  * @author admin
  */
-public class FileHandlerV2 extends AbstractHandler {
+public class MmapFileHandlerV2 extends AbstractHandler {
 
   /** 临时数组. */
   private final CharBuffer charBuf = CharBuffer.allocate(Constants.SOURCE);
@@ -35,10 +36,10 @@ public class FileHandlerV2 extends AbstractHandler {
    * @param handlerOption handlerOption.
    * @author admin
    */
-  public FileHandlerV2(
+  public MmapFileHandlerV2(
       final HandlerOption handlerOption) {
     super(handlerOption);
-    this.destination = new ByteArrayWriter(handlerOption);
+    this.destination = new MmapByteArrayWriter(handlerOption);
   }
 
   /**
@@ -58,10 +59,10 @@ public class FileHandlerV2 extends AbstractHandler {
       this.charBuf.clear();
       // 写入临时数组.
       logMessage.getChars(0, logMessage.length(), this.charBuf.array(), this.charBuf.arrayOffset());
-      // 开始读取的位置.
-      this.charBuf.position(0);
       // 结束读取的位置.
       this.charBuf.limit(logMessage.length());
+      // 开始读取的位置.
+      this.charBuf.position(0);
       // 开始编码.
       this.textEncoder.encode(this.charBuf, this.destination);
       // 单条刷新到磁盘.

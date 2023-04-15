@@ -5,7 +5,6 @@ import org.jdkstack.logging.mini.api.factory.Factory;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.api.resource.ReFactory;
 import org.jdkstack.logging.mini.core.StartApplication;
-import org.jdkstack.logging.mini.core.exception.LogRuntimeException;
 
 /**
  * LogFactory核心类，提供两个静态方法.
@@ -37,25 +36,8 @@ public final class LogFactory implements Factory {
    * @author admin
    */
   public static Recorder getLog(final Class<?> clazz) {
-    try {
-      // 全限定名.
-      final String name = clazz.getName();
-      return getLog(name);
-    } catch (final Exception e) {
-      throw new LogRuntimeException("创建对象时异常", e);
-    }
-  }
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param name 使用简单名称作为日志的标志.
-   * @return 返回一个Log对象.
-   * @author admin
-   */
-  public static Recorder getLog(final String name) {
+    // 全限定名.
+    final String name = clazz.getName();
     final Bean logInfos = StartApplication.context().getBean("recorderFactory");
     final Object obj3 = logInfos.getObj();
     final ReFactory info = (ReFactory) obj3;

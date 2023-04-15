@@ -15,7 +15,7 @@ import org.jdkstack.logging.mini.api.codec.Decoder;
  *
  * @author admin
  */
-public class ByteArrayDecoder implements Decoder<byte[]> {
+public class ByteArrayDecoderV2 implements Decoder<ByteBuffer> {
 
   /** . */
   private final Charset charset;
@@ -34,7 +34,7 @@ public class ByteArrayDecoder implements Decoder<byte[]> {
    * @param charset .
    * @author admin
    */
-  public ByteArrayDecoder(final Charset charset) {
+  public ByteArrayDecoderV2(final Charset charset) {
     this(charset, Constants.DESTINATION, Constants.SOURCE);
   }
 
@@ -48,7 +48,7 @@ public class ByteArrayDecoder implements Decoder<byte[]> {
    * @param byteBufferSize .
    * @author admin
    */
-  public ByteArrayDecoder(final Charset charset, final int charBufferSize, final int byteBufferSize) {
+  public ByteArrayDecoderV2(final Charset charset, final int charBufferSize, final int byteBufferSize) {
     this.charset = charset;
     this.charsetDecoder = this.charset.newDecoder().onMalformedInput(CodingErrorAction.REPLACE)
         .onUnmappableCharacter(CodingErrorAction.REPLACE);
@@ -64,7 +64,7 @@ public class ByteArrayDecoder implements Decoder<byte[]> {
    * @author admin
    */
   @Override
-  public final void decode(final byte[] source, final CharWriter reader) {
+  public final void decode(final ByteBuffer source, final CharWriter reader) {
     encodeText(this.charsetDecoder, this.charBuffer, this.byteBuffer, source, reader);
   }
 
@@ -81,11 +81,11 @@ public class ByteArrayDecoder implements Decoder<byte[]> {
    * @author admin
    */
   public static void encodeText(final CharsetDecoder cd, final CharBuffer charBuf, final ByteBuffer byteBuf,
-      final byte[] text, final CharWriter reader) {
+      final ByteBuffer text, final CharWriter reader) {
     cd.reset();
     byteBuf.clear();
-    byteBuf.put(text, 0, text.length);
-    byteBuf.limit(text.length);
+    byteBuf.put(text.array(), text.arrayOffset(), text.remaining());
+    byteBuf.limit(text.remaining());
     byteBuf.position(0);
     cd.decode(byteBuf, charBuf, true);
     cd.flush(charBuf);

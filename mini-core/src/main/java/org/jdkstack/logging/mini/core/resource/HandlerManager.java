@@ -5,7 +5,7 @@ import org.jdkstack.bean.core.annotation.ConstructorResource;
 import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.option.HandlerOption;
 import org.jdkstack.logging.mini.api.resource.HaFactory;
-import org.jdkstack.logging.mini.core.exception.LogRuntimeException;
+import org.jdkstack.logging.mini.core.Internal;
 import org.jdkstack.logging.mini.core.option.LogHandlerOption;
 
 /**
@@ -38,6 +38,7 @@ public class HandlerManager {
   }
 
   private void init() {
+    // 指定默认位置。
     final HandlerOption handlerOption = new LogHandlerOption();
     this.create(handlerOption);
   }
@@ -60,7 +61,7 @@ public class HandlerManager {
       // 将处理器添加到系统类加载内.
       this.logHs.putIfAbsent(handlerOption.getName(), (Handler) handler);
     } catch (final Exception e) {
-      throw new LogRuntimeException("handler注册异常", e);
+      Internal.log(e);
     }
   }
 }

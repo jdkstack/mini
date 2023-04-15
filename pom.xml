@@ -10,6 +10,7 @@
   <modules>
     <module>mini-api</module>
     <module>mini-core</module>
+    <module>mini-extension</module>
   </modules>
   <properties>
     <!--  1:统一字符集编码UTF-8 -->
@@ -26,7 +27,7 @@
         <!-- Resources插件处理将项目资源复制到输出目录的问题-->
         <artifactId>maven-resources-plugin</artifactId>
         <groupId>org.apache.maven.plugins</groupId>
-        <version>3.3.0</version>
+        <version>3.3.1</version>
       </plugin>
       <plugin>
         <!-- 编译-->
@@ -36,9 +37,13 @@
           <encoding>UTF-8</encoding>
           <source>${maven.compiler.source}</source>
           <target>${maven.compiler.target}</target>
+          <compilerArgs>
+            <arg>--add-exports=java.base/jdk.internal.ref=ALL-UNNAMED</arg>
+            <arg>--add-exports=java.base/sun.nio.ch=ALL-UNNAMED</arg>
+          </compilerArgs>
         </configuration>
         <groupId>org.apache.maven.plugins</groupId>
-        <version>3.10.1</version>
+        <version>3.11.0</version>
       </plugin>
       <plugin>
         <!-- 打包-->
@@ -61,7 +66,7 @@
         <!-- 编译跳过测试用例 mvn install -DskipTests 或者 mvn install -Dmaven.test.skip=true-->
         <!-- 参考 http://maven.apache.org/surefire/maven-surefire-plugin/examples/skipping-test.html-->
         <groupId>org.apache.maven.plugins</groupId>
-        <version>2.22.2</version>
+        <version>3.0.0</version>
       </plugin>
       <plugin>
         <!-- 代码样式检测. -->
@@ -89,7 +94,7 @@
             <!-- 使用指定版本的checkstyle. -->
             <artifactId>checkstyle</artifactId>
             <groupId>com.puppycrawl.tools</groupId>
-            <version>10.3.3</version>
+            <version>10.9.3</version>
           </dependency>
         </dependencies>
         <executions>

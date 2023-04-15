@@ -15,7 +15,7 @@ import org.jdkstack.logging.mini.api.codec.Encoder;
  *
  * @author admin
  */
-public class StringBuilderEncoder implements Encoder<StringBuilder> {
+public class CharArrayEncoder implements Encoder<char[]> {
 
   /** . */
   private final Charset charset;
@@ -34,7 +34,7 @@ public class StringBuilderEncoder implements Encoder<StringBuilder> {
    * @param charset .
    * @author admin
    */
-  public StringBuilderEncoder(final Charset charset) {
+  public CharArrayEncoder(final Charset charset) {
     this(charset, Constants.SOURCE, Constants.DESTINATION);
   }
 
@@ -48,7 +48,7 @@ public class StringBuilderEncoder implements Encoder<StringBuilder> {
    * @param byteBufferSize .
    * @author admin
    */
-  public StringBuilderEncoder(final Charset charset, final int charBufferSize, final int byteBufferSize) {
+  public CharArrayEncoder(final Charset charset, final int charBufferSize, final int byteBufferSize) {
     this.charset = charset;
     this.charsetEncoder = this.charset.newEncoder().onMalformedInput(CodingErrorAction.REPLACE)
         .onUnmappableCharacter(CodingErrorAction.REPLACE);
@@ -66,30 +66,8 @@ public class StringBuilderEncoder implements Encoder<StringBuilder> {
    * @author admin
    */
   @Override
-  public final void encode(final StringBuilder source, final ByteWriter destination) {
-    try {
-      encodeText(this.charsetEncoder, this.charBuffer, this.byteBuffer, source, destination);
-    } catch (final Exception e) {
-      this.encodeTextFallBack(e, source, destination);
-    }
-  }
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param e           .
-   * @param text        .
-   * @param destination .
-   * @author admin
-   */
-  public final void encodeTextFallBack(final Throwable e, final StringBuilder text,
-      final ByteWriter destination) {
-    final String message = e.getMessage();
-    text.append(message);
-    final byte[] bytes = text.toString().getBytes(this.charset);
-    destination.writeToDestination(bytes, 0, bytes.length);
+  public final void encode(final char[] source, final ByteWriter destination) {
+    encodeText(this.charsetEncoder, this.charBuffer, this.byteBuffer, source, destination);
   }
 
   /**
@@ -105,11 +83,15 @@ public class StringBuilderEncoder implements Encoder<StringBuilder> {
    * @author admin
    */
   public static void encodeText(final CharsetEncoder ce, final CharBuffer charBuf, final ByteBuffer byteBuf,
-      final StringBuilder text, final ByteWriter destination) {
+      final char[] text, final ByteWriter destination) {
     ce.reset();
     charBuf.clear();
-    text.getChars(0, text.length(), charBuf.array(), charBuf.arrayOffset());
-    charBuf.limit(text.length());
+    charBuf.put(text, 0, text.length);
+    // 结束位置.
+    charBuf.limit(text.length);
+    // 开始位置.
+    charBuf.position(0);
+    //将字符数组编码成字节数组.
     ce.encode(charBuf, byteBuf, true);
     ce.flush(byteBuf);
     // 原来用!=比较.
