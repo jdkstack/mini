@@ -26,19 +26,18 @@ public abstract class AbstractHandler implements Handler {
 
   /** 批量flush. */
   protected final AtomicLong atomicLong = new AtomicLong(0L);
-  /** 配置文件. */
-  private final HandlerOption handlerOption;
   /** 批量. */
   protected final int batchSize;
   /** . */
   protected final Queue<Record> queue;
+  /** 锁. */
+  protected final Lock lock = new ReentrantLock();
+  /** 配置文件. */
+  private final HandlerOption handlerOption;
   /** 日志级别格式化 . */
   private final Map<String, String> formatters = new HashMap<>(16);
   /** 日志级别过滤器 . */
   private final Map<String, String> filters = new HashMap<>(16);
-
-  /** 锁. */
-  protected final Lock lock = new ReentrantLock();
 
   /**
    * This is a method description.
