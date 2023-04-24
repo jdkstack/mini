@@ -32,6 +32,10 @@ public final class StartApplication {
   /** 上下文环境. */
   private static final Context CONTEXT = new ApplicationContext();
 
+  static {
+    Application.run(StartApplication.class, CONTEXT);
+  }
+
   private StartApplication() {
     //
   }
@@ -46,9 +50,5 @@ public final class StartApplication {
    */
   public static Context context() {
     return CONTEXT;
-  }
-
-  static {
-    Application.run(StartApplication.class, CONTEXT);
   }
 }

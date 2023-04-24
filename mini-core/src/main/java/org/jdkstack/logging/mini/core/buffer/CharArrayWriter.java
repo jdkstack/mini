@@ -18,14 +18,14 @@ import org.jdkstack.logging.mini.core.Internal;
  */
 public class CharArrayWriter extends AbstractCharArrayWriter {
 
-  /** . */
-  private BufferedWriter bufferedWriter;
   /** 按照文件大小切割. */
   protected final AtomicInteger sizes = new AtomicInteger(0);
   /** 按照文件条数切割. */
   protected final AtomicInteger lines = new AtomicInteger(0);
   /** . */
   protected final HandlerOption handlerOption;
+  /** . */
+  private BufferedWriter bufferedWriter;
 
   /**
    * This is a method description.

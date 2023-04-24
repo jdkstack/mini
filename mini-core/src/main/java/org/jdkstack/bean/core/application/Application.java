@@ -32,10 +32,11 @@ public class Application {
    * <p>Another description after blank line.
    *
    * @param application .
+   * @param context .
    * @author admin
    */
-  public final void run(final Class<?> application) {
-    this.context.scan(application);
+  public static void run(final Class<?> application, final Context context) {
+    new Application(context).run(application);
   }
 
   /**
@@ -44,10 +45,9 @@ public class Application {
    * <p>Another description after blank line.
    *
    * @param application .
-   * @param context .
    * @author admin
    */
-  public static void run(final Class<?> application, final Context context) {
-    new Application(context).run(application);
+  public final void run(final Class<?> application) {
+    this.context.scan(application);
   }
 }

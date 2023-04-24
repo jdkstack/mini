@@ -16,9 +16,9 @@ public class CharArrayRingBuffer implements RingBuffer<char[]> {
   /** . */
   private final char[][] rb;
   /** . */
-  private int current;
-  /** . */
   private final int mask;
+  /** . */
+  private int current;
 
   /**
    * This is a method description.

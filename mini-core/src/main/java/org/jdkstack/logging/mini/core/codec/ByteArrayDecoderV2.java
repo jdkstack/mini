@@ -65,18 +65,6 @@ public class ByteArrayDecoderV2 implements Decoder<ByteBuffer> {
    *
    * <p>Another description after blank line.
    *
-   * @author admin
-   */
-  @Override
-  public final void decode(final ByteBuffer source, final CharWriter reader) {
-    encodeText(this.charsetDecoder, this.charBuffer, this.byteBuffer, source, reader);
-  }
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
    * @param cd .
    * @param charBuf .
    * @param byteBuf .
@@ -123,5 +111,17 @@ public class ByteArrayDecoderV2 implements Decoder<ByteBuffer> {
       destination.flush(destBuff);
     }
     destBuff.put(source);
+  }
+
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @author admin
+   */
+  @Override
+  public final void decode(final ByteBuffer source, final CharWriter reader) {
+    encodeText(this.charsetDecoder, this.charBuffer, this.byteBuffer, source, reader);
   }
 }

@@ -65,20 +65,6 @@ public class CharArrayEncoderV2 implements Encoder<CharBuffer> {
    *
    * <p>Another description after blank line.
    *
-   * @param source .
-   * @param destination .
-   * @author admin
-   */
-  @Override
-  public final void encode(final CharBuffer source, final ByteWriter destination) {
-    encodeText(this.charsetEncoder, this.charBuffer, this.byteBuffer, source, destination);
-  }
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
    * @param ce .
    * @param charBuf .
    * @param byteBuf .
@@ -147,5 +133,19 @@ public class CharArrayEncoderV2 implements Encoder<CharBuffer> {
     }
     // 如果空间足够,直接写入.
     destBuff.put(source);
+  }
+
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param source .
+   * @param destination .
+   * @author admin
+   */
+  @Override
+  public final void encode(final CharBuffer source, final ByteWriter destination) {
+    encodeText(this.charsetEncoder, this.charBuffer, this.byteBuffer, source, destination);
   }
 }

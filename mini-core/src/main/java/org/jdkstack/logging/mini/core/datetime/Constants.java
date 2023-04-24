@@ -67,6 +67,10 @@ public final class Constants {
   public static final long DAYS_PER_CYCLE = DAYS_PER_CYCLE1 + LEAP;
   /** 0000-2000多少天. */
   public static final long DAYS_0000_TO_2000 = DAYS_PER_CYCLE * 5L;
+  /** . */
+  public static final long N146097 = DAYS_PER_CYCLE;
+  /** . */
+  public static final long N146096 = DAYS_PER_CYCLE - 1;
   /** 1970-2000多少天,30年. */
   public static final long DAYS_30 = 30L * DAY;
   /** 1970-2000多少天,7个闰年. */
@@ -143,10 +147,6 @@ public final class Constants {
   public static final int N400 = 400;
   /** . */
   public static final int N60 = 60;
-  /** . */
-  public static final long N146097 = DAYS_PER_CYCLE;
-  /** . */
-  public static final long N146096 = DAYS_PER_CYCLE - 1;
   /** . */
   public static final int N1000 = 1000;
   /** . */

@@ -16,9 +16,9 @@ public class ByteArrayRingBuffer implements RingBuffer<byte[]> {
   /** . */
   private final Object[] rb;
   /** . */
-  private int current;
-  /** . */
   private final int mask;
+  /** . */
+  private int current;
 
   /**
    * This is a method description.

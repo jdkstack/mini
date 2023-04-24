@@ -65,20 +65,6 @@ public class CharArrayEncoder implements Encoder<char[]> {
    *
    * <p>Another description after blank line.
    *
-   * @param source .
-   * @param destination .
-   * @author admin
-   */
-  @Override
-  public final void encode(final char[] source, final ByteWriter destination) {
-    encodeText(this.charsetEncoder, this.charBuffer, this.byteBuffer, source, destination);
-  }
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
    * @param ce .
    * @param charBuf .
    * @param byteBuf .
@@ -131,5 +117,19 @@ public class CharArrayEncoder implements Encoder<char[]> {
       destination.flush(destBuff);
     }
     destBuff.put(source);
+  }
+
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param source .
+   * @param destination .
+   * @author admin
+   */
+  @Override
+  public final void encode(final char[] source, final ByteWriter destination) {
+    encodeText(this.charsetEncoder, this.charBuffer, this.byteBuffer, source, destination);
   }
 }

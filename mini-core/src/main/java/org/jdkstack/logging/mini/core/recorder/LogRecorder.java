@@ -24,12 +24,12 @@ public class LogRecorder implements Recorder {
   private final String name;
   /** Recorder类别 . */
   private final String type;
+  /** 日志级别处理器 . */
+  private final Map<String, String> handlers = new HashMap<>(16);
   /** Recorder可以处理最小的日志级别. */
   private Level minLevel;
   /** Recorder可以处理最大的日志级别. */
   private Level maxLevel;
-  /** 日志级别处理器 . */
-  private final Map<String, String> handlers = new HashMap<>(16);
 
   /**
    * .

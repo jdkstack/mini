@@ -16,16 +16,16 @@ import org.jdkstack.logging.mini.core.Internal;
  */
 public class ByteArrayWriter extends AbstractByteArrayWriter {
 
-  /** . */
-  protected RandomAccessFile randomAccessFile;
-  /** . */
-  protected FileChannel channel;
   /** 按照文件大小切割. */
   protected final AtomicInteger sizes = new AtomicInteger(0);
   /** 按照文件条数切割. */
   protected final AtomicInteger lines = new AtomicInteger(0);
   /** . */
   protected final HandlerOption handlerOption;
+  /** . */
+  protected RandomAccessFile randomAccessFile;
+  /** . */
+  protected FileChannel channel;
 
   /**
    * This is a method description.
