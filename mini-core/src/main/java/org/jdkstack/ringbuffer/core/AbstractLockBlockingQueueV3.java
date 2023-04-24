@@ -106,7 +106,6 @@ public abstract class AbstractLockBlockingQueueV3<E> extends AbstractBlockingQue
     this.head.getAndIncrement();
   }
 
-
   /**
    * 阻塞方法消费元素.
    *

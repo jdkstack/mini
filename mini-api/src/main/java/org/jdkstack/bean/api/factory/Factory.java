@@ -1,6 +1,5 @@
 package org.jdkstack.bean.api.factory;
 
-
 import org.jdkstack.bean.api.bean.Bean;
 
 /**
@@ -17,7 +16,7 @@ public interface Factory {
    *
    * <p>Another description after blank line.
    *
-   * @param name     .
+   * @param name .
    * @param bean .
    * @author admin
    */

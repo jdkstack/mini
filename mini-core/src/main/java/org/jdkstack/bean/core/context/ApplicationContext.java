@@ -60,7 +60,8 @@ public class ApplicationContext implements Context {
       // 构造函数注入.
       final Executable[] constructors = classObj.getConstructors();
       for (final Executable constructor : constructors) {
-        final ConstructorResource constructorResource = constructor.getAnnotation(ConstructorResource.class);
+        final ConstructorResource constructorResource =
+            constructor.getAnnotation(ConstructorResource.class);
         Object object = null;
         if (null != constructorResource) {
           final Class<?>[] parameterTypes = constructor.getParameterTypes();

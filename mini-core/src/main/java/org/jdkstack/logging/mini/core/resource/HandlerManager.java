@@ -30,8 +30,7 @@ public class HandlerManager {
    * @author admin
    */
   @ConstructorResource("handlerFactory")
-  public HandlerManager(
-      final HaFactory handlerFactory) {
+  public HandlerManager(final HaFactory handlerFactory) {
     this.logHs = handlerFactory;
     // 初始化default Handler.
     this.init();
@@ -57,7 +56,8 @@ public class HandlerManager {
       final ClassLoader systemClassLoader = Thread.currentThread().getContextClassLoader();
       // 使用当前的类加载器生成类.
       final Class<?> classObj = systemClassLoader.loadClass(handlerOption.getClassName());
-      final Object handler = classObj.getConstructor(HandlerOption.class).newInstance(handlerOption);
+      final Object handler =
+          classObj.getConstructor(HandlerOption.class).newInstance(handlerOption);
       // 将处理器添加到系统类加载内.
       this.logHs.putIfAbsent(handlerOption.getName(), (Handler) handler);
     } catch (final Exception e) {

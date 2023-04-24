@@ -27,7 +27,7 @@ public interface Factory<T> {
    * <p>.
    *
    * @param key .
-   * @param t   .
+   * @param t .
    * @author admin
    */
   void add(String key, T t);
@@ -48,7 +48,7 @@ public interface Factory<T> {
    * <p>.
    *
    * @param key .
-   * @param t   .
+   * @param t .
    * @author admin
    */
   void update(String key, T t);

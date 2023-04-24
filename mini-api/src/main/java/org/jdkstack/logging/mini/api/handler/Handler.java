@@ -26,11 +26,11 @@ public interface Handler {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param className   .
+   * @param logLevel .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
+   * @param lineNumber .
+   * @param message .
    * @author admin
    */
   void execute(
@@ -45,12 +45,12 @@ public interface Handler {
    *
    * <p>Another description after blank line.
    *
-   * @param datetime    .
-   * @param logLevel    .
-   * @param className   .
+   * @param datetime .
+   * @param logLevel .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
+   * @param lineNumber .
+   * @param message .
    * @author admin
    */
   void execute(

@@ -55,7 +55,6 @@ public class LogHandlerOption implements HandlerOption {
     //
   }
 
-
   /**
    * This is a method description.
    *
@@ -68,7 +67,6 @@ public class LogHandlerOption implements HandlerOption {
   public final String getName() {
     return this.name;
   }
-
 
   /**
    * This is a method description.
@@ -83,7 +81,6 @@ public class LogHandlerOption implements HandlerOption {
     this.name = name;
   }
 
-
   /**
    * This is a method description.
    *
@@ -96,7 +93,6 @@ public class LogHandlerOption implements HandlerOption {
   public final String getLevel() {
     return this.level;
   }
-
 
   /**
    * This is a method description.
@@ -111,7 +107,6 @@ public class LogHandlerOption implements HandlerOption {
     this.level = level;
   }
 
-
   /**
    * This is a method description.
    *
@@ -124,7 +119,6 @@ public class LogHandlerOption implements HandlerOption {
   public String getDirectory() {
     return this.directory;
   }
-
 
   /**
    * This is a method description.
@@ -139,7 +133,6 @@ public class LogHandlerOption implements HandlerOption {
     this.directory = directory;
   }
 
-
   /**
    * This is a method description.
    *
@@ -152,7 +145,6 @@ public class LogHandlerOption implements HandlerOption {
   public String getPrefix() {
     return this.prefix;
   }
-
 
   /**
    * This is a method description.
@@ -167,7 +159,6 @@ public class LogHandlerOption implements HandlerOption {
     this.prefix = prefix;
   }
 
-
   /**
    * This is a method description.
    *
@@ -180,7 +171,6 @@ public class LogHandlerOption implements HandlerOption {
   public final String getEncoding() {
     return this.encoding;
   }
-
 
   /**
    * This is a method description.
@@ -195,7 +185,6 @@ public class LogHandlerOption implements HandlerOption {
     this.encoding = encoding;
   }
 
-
   /**
    * This is a method description.
    *
@@ -208,7 +197,6 @@ public class LogHandlerOption implements HandlerOption {
   public final String getType() {
     return this.type;
   }
-
 
   /**
    * This is a method description.
@@ -223,7 +211,6 @@ public class LogHandlerOption implements HandlerOption {
     this.type = type;
   }
 
-
   /**
    * This is a method description.
    *
@@ -236,7 +223,6 @@ public class LogHandlerOption implements HandlerOption {
   public final String getFormatter() {
     return this.formatter;
   }
-
 
   /**
    * This is a method description.
@@ -251,7 +237,6 @@ public class LogHandlerOption implements HandlerOption {
     this.formatter = formatter;
   }
 
-
   /**
    * This is a method description.
    *
@@ -264,7 +249,6 @@ public class LogHandlerOption implements HandlerOption {
   public final String getFilter() {
     return this.filter;
   }
-
 
   /**
    * This is a method description.
@@ -279,7 +263,6 @@ public class LogHandlerOption implements HandlerOption {
     this.filter = filter;
   }
 
-
   /**
    * This is a method description.
    *
@@ -292,7 +275,6 @@ public class LogHandlerOption implements HandlerOption {
   public final String getMinLevel() {
     return this.minLevel;
   }
-
 
   /**
    * This is a method description.
@@ -307,7 +289,6 @@ public class LogHandlerOption implements HandlerOption {
     this.minLevel = minLevel;
   }
 
-
   /**
    * This is a method description.
    *
@@ -320,7 +301,6 @@ public class LogHandlerOption implements HandlerOption {
   public final String getMaxLevel() {
     return this.maxLevel;
   }
-
 
   /**
    * This is a method description.
@@ -335,7 +315,6 @@ public class LogHandlerOption implements HandlerOption {
     this.maxLevel = maxLevel;
   }
 
-
   /**
    * This is a method description.
    *
@@ -348,7 +327,6 @@ public class LogHandlerOption implements HandlerOption {
   public final String getDateTimeFormat() {
     return this.dateTimeFormat;
   }
-
 
   /**
    * This is a method description.
@@ -363,7 +341,6 @@ public class LogHandlerOption implements HandlerOption {
     this.dateTimeFormat = dateTimeFormat;
   }
 
-
   /**
    * This is a method description.
    *
@@ -376,7 +353,6 @@ public class LogHandlerOption implements HandlerOption {
   public final String getInterval() {
     return this.interval;
   }
-
 
   /**
    * This is a method description.
@@ -391,7 +367,6 @@ public class LogHandlerOption implements HandlerOption {
     this.interval = interval;
   }
 
-
   /**
    * This is a method description.
    *
@@ -404,7 +379,6 @@ public class LogHandlerOption implements HandlerOption {
   public final String getIntervalFormatter() {
     return this.intervalFormatter;
   }
-
 
   /**
    * This is a method description.
@@ -419,7 +393,6 @@ public class LogHandlerOption implements HandlerOption {
     this.intervalFormatter = intervalFormatter;
   }
 
-
   /**
    * This is a method description.
    *
@@ -432,7 +405,6 @@ public class LogHandlerOption implements HandlerOption {
   public final String getClassName() {
     return this.className;
   }
-
 
   /**
    * This is a method description.
@@ -447,7 +419,6 @@ public class LogHandlerOption implements HandlerOption {
     this.className = className;
   }
 
-
   /**
    * This is a method description.
    *
@@ -460,7 +431,6 @@ public class LogHandlerOption implements HandlerOption {
   public final String getBatchSize() {
     return this.batchSize;
   }
-
 
   /**
    * This is a method description.
@@ -475,7 +445,6 @@ public class LogHandlerOption implements HandlerOption {
     this.batchSize = batchSize;
   }
 
-
   /**
    * This is a method description.
    *
@@ -488,7 +457,6 @@ public class LogHandlerOption implements HandlerOption {
   public final String getCapacity() {
     return this.capacity;
   }
-
 
   /**
    * This is a method description.

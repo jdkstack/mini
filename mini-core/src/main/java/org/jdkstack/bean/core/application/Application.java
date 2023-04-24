@@ -43,7 +43,7 @@ public class Application {
    *
    * <p>Another description after blank line.
    *
-   * @param application     .
+   * @param application .
    * @param context .
    * @author admin
    */

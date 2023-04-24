@@ -7,10 +7,10 @@ import org.jdkstack.logging.mini.api.codec.Encoder;
 import org.jdkstack.logging.mini.api.option.HandlerOption;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.core.Internal;
-import org.jdkstack.logging.mini.extension.buffer.MmapByteArrayWriter;
 import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
 import org.jdkstack.logging.mini.core.codec.Constants;
 import org.jdkstack.logging.mini.core.handler.AbstractHandler;
+import org.jdkstack.logging.mini.extension.buffer.MmapByteArrayWriter;
 
 /**
  * 日志写入文件.
@@ -36,8 +36,7 @@ public class MmapFileHandlerV2 extends AbstractHandler {
    * @param handlerOption handlerOption.
    * @author admin
    */
-  public MmapFileHandlerV2(
-      final HandlerOption handlerOption) {
+  public MmapFileHandlerV2(final HandlerOption handlerOption) {
     super(handlerOption);
     this.destination = new MmapByteArrayWriter(handlerOption);
   }

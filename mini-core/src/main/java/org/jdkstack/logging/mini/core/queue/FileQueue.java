@@ -20,7 +20,7 @@ public class FileQueue extends AbstractQueue<Record> {
    * <p>Another description after blank line.
    *
    * @param capacity .
-   * @param target   .
+   * @param target .
    * @author admin
    */
   public FileQueue(final int capacity, final String target) {

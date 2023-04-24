@@ -43,15 +43,19 @@ public class CharArrayEncoderV2 implements Encoder<CharBuffer> {
    *
    * <p>Another description after blank line.
    *
-   * @param charset        .
+   * @param charset .
    * @param charBufferSize .
    * @param byteBufferSize .
    * @author admin
    */
-  public CharArrayEncoderV2(final Charset charset, final int charBufferSize, final int byteBufferSize) {
+  public CharArrayEncoderV2(
+      final Charset charset, final int charBufferSize, final int byteBufferSize) {
     this.charset = charset;
-    this.charsetEncoder = this.charset.newEncoder().onMalformedInput(CodingErrorAction.REPLACE)
-        .onUnmappableCharacter(CodingErrorAction.REPLACE);
+    this.charsetEncoder =
+        this.charset
+            .newEncoder()
+            .onMalformedInput(CodingErrorAction.REPLACE)
+            .onUnmappableCharacter(CodingErrorAction.REPLACE);
     this.charBuffer = CharBuffer.allocate(charBufferSize);
     this.byteBuffer = ByteBuffer.allocate(byteBufferSize);
   }
@@ -61,7 +65,7 @@ public class CharArrayEncoderV2 implements Encoder<CharBuffer> {
    *
    * <p>Another description after blank line.
    *
-   * @param source      .
+   * @param source .
    * @param destination .
    * @author admin
    */
@@ -75,16 +79,20 @@ public class CharArrayEncoderV2 implements Encoder<CharBuffer> {
    *
    * <p>Another description after blank line.
    *
-   * @param ce          .
-   * @param charBuf     .
-   * @param byteBuf     .
-   * @param text        .
+   * @param ce .
+   * @param charBuf .
+   * @param byteBuf .
+   * @param text .
    * @param destination .
    * @author admin
    */
-  public static void encodeText(final CharsetEncoder ce, final CharBuffer charBuf, final ByteBuffer byteBuf,
-      final CharBuffer text, final ByteWriter destination) {
-    //重置字符编码器.
+  public static void encodeText(
+      final CharsetEncoder ce,
+      final CharBuffer charBuf,
+      final ByteBuffer byteBuf,
+      final CharBuffer text,
+      final ByteWriter destination) {
+    // 重置字符编码器.
     ce.reset();
     // 清除缓存.
     charBuf.clear();
@@ -94,7 +102,7 @@ public class CharArrayEncoderV2 implements Encoder<CharBuffer> {
     charBuf.limit(text.remaining());
     // 开始读取位置.
     charBuf.position(0);
-    //将字符数组编码成字节数组.
+    // 将字符数组编码成字节数组.
     ce.encode(charBuf, byteBuf, true);
     // 刷新一下缓存.
     ce.flush(byteBuf);
@@ -117,7 +125,7 @@ public class CharArrayEncoderV2 implements Encoder<CharBuffer> {
    *
    * <p>Another description after blank line.
    *
-   * @param source      .
+   * @param source .
    * @param destination .
    * @author admin
    */

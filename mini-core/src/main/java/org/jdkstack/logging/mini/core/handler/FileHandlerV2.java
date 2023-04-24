@@ -35,8 +35,7 @@ public class FileHandlerV2 extends AbstractHandler {
    * @param handlerOption handlerOption.
    * @author admin
    */
-  public FileHandlerV2(
-      final HandlerOption handlerOption) {
+  public FileHandlerV2(final HandlerOption handlerOption) {
     super(handlerOption);
     this.destination = new ByteArrayWriter(handlerOption);
   }

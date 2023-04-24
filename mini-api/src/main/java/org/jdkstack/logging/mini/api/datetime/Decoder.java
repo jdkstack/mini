@@ -8,5 +8,5 @@ package org.jdkstack.logging.mini.api.datetime;
  * @author admin
  */
 public interface Decoder {
-//
+  //
 }

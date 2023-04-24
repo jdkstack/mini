@@ -7,6 +7,4 @@ package org.jdkstack.logging.mini.api.resource;
  *
  * @author admin
  */
-public interface CoFactory {
-
-}
+public interface CoFactory {}

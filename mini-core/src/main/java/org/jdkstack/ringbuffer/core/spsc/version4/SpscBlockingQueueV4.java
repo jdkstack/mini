@@ -32,7 +32,7 @@ public class SpscBlockingQueueV4<E> extends AbstractLockBlockingQueueV4<E> {
    *
    * <p>Another description after blank line.
    *
-   * @param capacity     .
+   * @param capacity .
    * @param eventFactory .
    * @author admin
    */

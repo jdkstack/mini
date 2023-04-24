@@ -48,8 +48,7 @@ public abstract class AbstractHandler implements Handler {
    * @param handlerOption handlerOption.
    * @author admin
    */
-  protected AbstractHandler(
-      final HandlerOption handlerOption) {
+  protected AbstractHandler(final HandlerOption handlerOption) {
     this.handlerOption = handlerOption;
     this.batchSize = Integer.parseInt(this.handlerOption.getBatchSize());
     this.queue = new FileQueue(Constants.CAPACITY, handlerOption.getPrefix());
@@ -66,7 +65,8 @@ public abstract class AbstractHandler implements Handler {
   }
 
   @Override
-  public final void execute(final String logLevel,
+  public final void execute(
+      final String logLevel,
       final String datetime,
       final String className,
       final String classMethod,
@@ -74,7 +74,7 @@ public abstract class AbstractHandler implements Handler {
       final StringBuilder message) {
     // 预发布.
     this.queue.pub(logLevel, datetime, className, classMethod, lineNumber, message);
-    //发布完成.
+    // 发布完成.
     this.queue.start();
     // 预消费.
     final Record logRecord = this.queue.take();
@@ -87,19 +87,20 @@ public abstract class AbstractHandler implements Handler {
       // 执行业务.
       this.process(logRecord);
     }
-    //消费完成.
+    // 消费完成.
     this.queue.end();
   }
 
   @Override
-  public final void execute(final String logLevel,
+  public final void execute(
+      final String logLevel,
       final String className,
       final String classMethod,
       final int lineNumber,
       final StringBuilder message) {
     // 预发布.
     this.queue.pub(logLevel, className, classMethod, lineNumber, message);
-    //发布完成.
+    // 发布完成.
     this.queue.start();
     // 预消费.
     final Record logRecord = this.queue.take();
@@ -113,7 +114,7 @@ public abstract class AbstractHandler implements Handler {
       // 执行业务.
       this.process(logRecord);
     }
-    //消费完成.
+    // 消费完成.
     this.queue.end();
   }
 }

@@ -59,7 +59,8 @@ public abstract class AbstractQueue<E> implements Queue<E> {
    * @author admin
    */
   @Override
-  public final void pub(final String logLevel,
+  public final void pub(
+      final String logLevel,
       final String className,
       final String classMethod,
       final int lineNumber,
@@ -92,7 +93,8 @@ public abstract class AbstractQueue<E> implements Queue<E> {
   }
 
   @Override
-  public final void pub(final String logLevel,
+  public final void pub(
+      final String logLevel,
       final String datetime,
       final String className,
       final String classMethod,

@@ -45,7 +45,7 @@ public interface ByteWriter {
    *
    * <p>Another description after blank line.
    *
-   * @param bytes  .
+   * @param bytes .
    * @param offset .
    * @param length .
    * @author admin

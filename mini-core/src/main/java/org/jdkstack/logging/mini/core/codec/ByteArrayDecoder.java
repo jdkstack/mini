@@ -43,15 +43,19 @@ public class ByteArrayDecoder implements Decoder<byte[]> {
    *
    * <p>Another description after blank line.
    *
-   * @param charset        .
+   * @param charset .
    * @param charBufferSize .
    * @param byteBufferSize .
    * @author admin
    */
-  public ByteArrayDecoder(final Charset charset, final int charBufferSize, final int byteBufferSize) {
+  public ByteArrayDecoder(
+      final Charset charset, final int charBufferSize, final int byteBufferSize) {
     this.charset = charset;
-    this.charsetDecoder = this.charset.newDecoder().onMalformedInput(CodingErrorAction.REPLACE)
-        .onUnmappableCharacter(CodingErrorAction.REPLACE);
+    this.charsetDecoder =
+        this.charset
+            .newDecoder()
+            .onMalformedInput(CodingErrorAction.REPLACE)
+            .onUnmappableCharacter(CodingErrorAction.REPLACE);
     this.charBuffer = CharBuffer.allocate(charBufferSize);
     this.byteBuffer = ByteBuffer.allocate(byteBufferSize);
   }
@@ -73,15 +77,19 @@ public class ByteArrayDecoder implements Decoder<byte[]> {
    *
    * <p>Another description after blank line.
    *
-   * @param cd      .
+   * @param cd .
    * @param charBuf .
    * @param byteBuf .
-   * @param text    .
-   * @param reader  .
+   * @param text .
+   * @param reader .
    * @author admin
    */
-  public static void encodeText(final CharsetDecoder cd, final CharBuffer charBuf, final ByteBuffer byteBuf,
-      final byte[] text, final CharWriter reader) {
+  public static void encodeText(
+      final CharsetDecoder cd,
+      final CharBuffer charBuf,
+      final ByteBuffer byteBuf,
+      final byte[] text,
+      final CharWriter reader) {
     cd.reset();
     byteBuf.clear();
     byteBuf.put(text, 0, text.length);
@@ -101,7 +109,7 @@ public class ByteArrayDecoder implements Decoder<byte[]> {
    *
    * <p>Another description after blank line.
    *
-   * @param source      .
+   * @param source .
    * @param destination .
    * @author admin
    */

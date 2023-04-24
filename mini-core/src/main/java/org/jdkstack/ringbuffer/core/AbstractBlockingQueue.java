@@ -102,9 +102,9 @@ public abstract class AbstractBlockingQueue<E> extends AbstractQueue<E> {
    *
    * <p>Another description after blank line.
    *
-   * @param e       e.
+   * @param e e.
    * @param timeout t.
-   * @param unit    u.
+   * @param unit u.
    * @return boolean e.
    * @author admin
    */
@@ -168,7 +168,7 @@ public abstract class AbstractBlockingQueue<E> extends AbstractQueue<E> {
    *
    * <p>Another description after blank line.
    *
-   * @param c           c.
+   * @param c c.
    * @param maxElements maxElements.
    * @return int e.
    * @author admin

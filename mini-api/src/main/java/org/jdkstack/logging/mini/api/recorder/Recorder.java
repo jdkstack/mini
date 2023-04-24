@@ -36,7 +36,7 @@ public interface Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param key     .
+   * @param key .
    * @param handler .
    * @author admin
    */
@@ -119,12 +119,12 @@ public interface Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param datetime    .
-   * @param className   .
+   * @param logLevel .
+   * @param datetime .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
+   * @param lineNumber .
+   * @param message .
    * @author admin
    */
   void log(
@@ -140,13 +140,13 @@ public interface Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param datetime    .
-   * @param className   .
+   * @param logLevel .
+   * @param datetime .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
-   * @param args1       .
+   * @param lineNumber .
+   * @param message .
+   * @param args1 .
    * @author admin
    */
   void log(
@@ -163,14 +163,14 @@ public interface Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param datetime    .
-   * @param className   .
+   * @param logLevel .
+   * @param datetime .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
-   * @param args1       .
-   * @param args2       .
+   * @param lineNumber .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
    * @author admin
    */
   void log(
@@ -188,15 +188,15 @@ public interface Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param datetime    .
-   * @param className   .
+   * @param logLevel .
+   * @param datetime .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
-   * @param args1       .
-   * @param args2       .
-   * @param args3       .
+   * @param lineNumber .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
    * @author admin
    */
   void log(
@@ -215,16 +215,16 @@ public interface Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param datetime    .
-   * @param className   .
+   * @param logLevel .
+   * @param datetime .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
-   * @param args1       .
-   * @param args2       .
-   * @param args3       .
-   * @param args4       .
+   * @param lineNumber .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
    * @author admin
    */
   void log(
@@ -244,17 +244,17 @@ public interface Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param datetime    .
-   * @param className   .
+   * @param logLevel .
+   * @param datetime .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
-   * @param args1       .
-   * @param args2       .
-   * @param args3       .
-   * @param args4       .
-   * @param args5       .
+   * @param lineNumber .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
    * @author admin
    */
   void log(
@@ -275,18 +275,18 @@ public interface Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param datetime    .
-   * @param className   .
+   * @param logLevel .
+   * @param datetime .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
-   * @param args1       .
-   * @param args2       .
-   * @param args3       .
-   * @param args4       .
-   * @param args5       .
-   * @param args6       .
+   * @param lineNumber .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
+   * @param args6 .
    * @author admin
    */
   void log(
@@ -308,19 +308,19 @@ public interface Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param datetime    .
-   * @param className   .
+   * @param logLevel .
+   * @param datetime .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
-   * @param args1       .
-   * @param args2       .
-   * @param args3       .
-   * @param args4       .
-   * @param args5       .
-   * @param args6       .
-   * @param args7       .
+   * @param lineNumber .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
+   * @param args6 .
+   * @param args7 .
    * @author admin
    */
   void log(
@@ -343,20 +343,20 @@ public interface Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param datetime    .
-   * @param className   .
+   * @param logLevel .
+   * @param datetime .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
-   * @param args1       .
-   * @param args2       .
-   * @param args3       .
-   * @param args4       .
-   * @param args5       .
-   * @param args6       .
-   * @param args7       .
-   * @param args8       .
+   * @param lineNumber .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
+   * @param args6 .
+   * @param args7 .
+   * @param args8 .
    * @author admin
    */
   void log(
@@ -380,21 +380,21 @@ public interface Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param datetime    .
-   * @param className   .
+   * @param logLevel .
+   * @param datetime .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
-   * @param args1       .
-   * @param args2       .
-   * @param args3       .
-   * @param args4       .
-   * @param args5       .
-   * @param args6       .
-   * @param args7       .
-   * @param args8       .
-   * @param args9       .
+   * @param lineNumber .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
+   * @param args6 .
+   * @param args7 .
+   * @param args8 .
+   * @param args9 .
    * @author admin
    */
   void log(
@@ -421,13 +421,10 @@ public interface Recorder {
    *
    * @param logLevel .
    * @param datetime .
-   * @param message  .
+   * @param message .
    * @author admin
    */
-  void log(
-      String logLevel,
-      String datetime,
-      String message);
+  void log(String logLevel, String datetime, String message);
 
   /**
    * This is a method description.
@@ -436,15 +433,11 @@ public interface Recorder {
    *
    * @param logLevel .
    * @param datetime .
-   * @param message  .
-   * @param args1    .
+   * @param message .
+   * @param args1 .
    * @author admin
    */
-  void log(
-      String logLevel,
-      String datetime,
-      String message,
-      StringBuilder args1);
+  void log(String logLevel, String datetime, String message, StringBuilder args1);
 
   /**
    * This is a method description.
@@ -453,17 +446,13 @@ public interface Recorder {
    *
    * @param logLevel .
    * @param datetime .
-   * @param message  .
-   * @param args1    .
-   * @param args2    .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
    * @author admin
    */
   void log(
-      String logLevel,
-      String datetime,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2);
+      String logLevel, String datetime, String message, StringBuilder args1, StringBuilder args2);
 
   /**
    * This is a method description.
@@ -472,10 +461,10 @@ public interface Recorder {
    *
    * @param logLevel .
    * @param datetime .
-   * @param message  .
-   * @param args1    .
-   * @param args2    .
-   * @param args3    .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
    * @author admin
    */
   void log(
@@ -493,11 +482,11 @@ public interface Recorder {
    *
    * @param logLevel .
    * @param datetime .
-   * @param message  .
-   * @param args1    .
-   * @param args2    .
-   * @param args3    .
-   * @param args4    .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
    * @author admin
    */
   void log(
@@ -516,12 +505,12 @@ public interface Recorder {
    *
    * @param logLevel .
    * @param datetime .
-   * @param message  .
-   * @param args1    .
-   * @param args2    .
-   * @param args3    .
-   * @param args4    .
-   * @param args5    .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
    * @author admin
    */
   void log(
@@ -541,13 +530,13 @@ public interface Recorder {
    *
    * @param logLevel .
    * @param datetime .
-   * @param message  .
-   * @param args1    .
-   * @param args2    .
-   * @param args3    .
-   * @param args4    .
-   * @param args5    .
-   * @param args6    .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
+   * @param args6 .
    * @author admin
    */
   void log(
@@ -568,14 +557,14 @@ public interface Recorder {
    *
    * @param logLevel .
    * @param datetime .
-   * @param message  .
-   * @param args1    .
-   * @param args2    .
-   * @param args3    .
-   * @param args4    .
-   * @param args5    .
-   * @param args6    .
-   * @param args7    .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
+   * @param args6 .
+   * @param args7 .
    * @author admin
    */
   void log(
@@ -597,15 +586,15 @@ public interface Recorder {
    *
    * @param logLevel .
    * @param datetime .
-   * @param message  .
-   * @param args1    .
-   * @param args2    .
-   * @param args3    .
-   * @param args4    .
-   * @param args5    .
-   * @param args6    .
-   * @param args7    .
-   * @param args8    .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
+   * @param args6 .
+   * @param args7 .
+   * @param args8 .
    * @author admin
    */
   void log(
@@ -628,16 +617,16 @@ public interface Recorder {
    *
    * @param logLevel .
    * @param datetime .
-   * @param message  .
-   * @param args1    .
-   * @param args2    .
-   * @param args3    .
-   * @param args4    .
-   * @param args5    .
-   * @param args6    .
-   * @param args7    .
-   * @param args8    .
-   * @param args9    .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
+   * @param args6 .
+   * @param args7 .
+   * @param args8 .
+   * @param args9 .
    * @author admin
    */
   void log(
@@ -659,31 +648,26 @@ public interface Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param className   .
+   * @param logLevel .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
+   * @param lineNumber .
+   * @param message .
    * @author admin
    */
-  void log(
-      String logLevel,
-      String className,
-      String classMethod,
-      int lineNumber,
-      String message);
+  void log(String logLevel, String className, String classMethod, int lineNumber, String message);
 
   /**
    * This is a method description.
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param className   .
+   * @param logLevel .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
-   * @param args1       .
+   * @param lineNumber .
+   * @param message .
+   * @param args1 .
    * @author admin
    */
   void log(
@@ -699,13 +683,13 @@ public interface Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param className   .
+   * @param logLevel .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
-   * @param args1       .
-   * @param args2       .
+   * @param lineNumber .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
    * @author admin
    */
   void log(
@@ -722,14 +706,14 @@ public interface Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param className   .
+   * @param logLevel .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
-   * @param args1       .
-   * @param args2       .
-   * @param args3       .
+   * @param lineNumber .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
    * @author admin
    */
   void log(
@@ -747,15 +731,15 @@ public interface Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param className   .
+   * @param logLevel .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
-   * @param args1       .
-   * @param args2       .
-   * @param args3       .
-   * @param args4       .
+   * @param lineNumber .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
    * @author admin
    */
   void log(
@@ -774,16 +758,16 @@ public interface Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param className   .
+   * @param logLevel .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
-   * @param args1       .
-   * @param args2       .
-   * @param args3       .
-   * @param args4       .
-   * @param args5       .
+   * @param lineNumber .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
    * @author admin
    */
   void log(
@@ -803,17 +787,17 @@ public interface Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param className   .
+   * @param logLevel .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
-   * @param args1       .
-   * @param args2       .
-   * @param args3       .
-   * @param args4       .
-   * @param args5       .
-   * @param args6       .
+   * @param lineNumber .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
+   * @param args6 .
    * @author admin
    */
   void log(
@@ -834,18 +818,18 @@ public interface Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param className   .
+   * @param logLevel .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
-   * @param args1       .
-   * @param args2       .
-   * @param args3       .
-   * @param args4       .
-   * @param args5       .
-   * @param args6       .
-   * @param args7       .
+   * @param lineNumber .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
+   * @param args6 .
+   * @param args7 .
    * @author admin
    */
   void log(
@@ -867,19 +851,19 @@ public interface Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param className   .
+   * @param logLevel .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
-   * @param args1       .
-   * @param args2       .
-   * @param args3       .
-   * @param args4       .
-   * @param args5       .
-   * @param args6       .
-   * @param args7       .
-   * @param args8       .
+   * @param lineNumber .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
+   * @param args6 .
+   * @param args7 .
+   * @param args8 .
    * @author admin
    */
   void log(
@@ -902,20 +886,20 @@ public interface Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param className   .
+   * @param logLevel .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
-   * @param args1       .
-   * @param args2       .
-   * @param args3       .
-   * @param args4       .
-   * @param args5       .
-   * @param args6       .
-   * @param args7       .
-   * @param args8       .
-   * @param args9       .
+   * @param lineNumber .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
+   * @param args6 .
+   * @param args7 .
+   * @param args8 .
+   * @param args9 .
    * @author admin
    */
   void log(
@@ -940,12 +924,10 @@ public interface Recorder {
    * <p>Another description after blank line.
    *
    * @param logLevel .
-   * @param message  .
+   * @param message .
    * @author admin
    */
-  void log(
-      String logLevel,
-      String message);
+  void log(String logLevel, String message);
 
   /**
    * This is a method description.
@@ -953,14 +935,11 @@ public interface Recorder {
    * <p>Another description after blank line.
    *
    * @param logLevel .
-   * @param message  .
-   * @param args1    .
+   * @param message .
+   * @param args1 .
    * @author admin
    */
-  void log(
-      String logLevel,
-      String message,
-      StringBuilder args1);
+  void log(String logLevel, String message, StringBuilder args1);
 
   /**
    * This is a method description.
@@ -968,16 +947,12 @@ public interface Recorder {
    * <p>Another description after blank line.
    *
    * @param logLevel .
-   * @param message  .
-   * @param args1    .
-   * @param args2    .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
    * @author admin
    */
-  void log(
-      String logLevel,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2);
+  void log(String logLevel, String message, StringBuilder args1, StringBuilder args2);
 
   /**
    * This is a method description.
@@ -985,10 +960,10 @@ public interface Recorder {
    * <p>Another description after blank line.
    *
    * @param logLevel .
-   * @param message  .
-   * @param args1    .
-   * @param args2    .
-   * @param args3    .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
    * @author admin
    */
   void log(
@@ -1004,11 +979,11 @@ public interface Recorder {
    * <p>Another description after blank line.
    *
    * @param logLevel .
-   * @param message  .
-   * @param args1    .
-   * @param args2    .
-   * @param args3    .
-   * @param args4    .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
    * @author admin
    */
   void log(
@@ -1025,12 +1000,12 @@ public interface Recorder {
    * <p>Another description after blank line.
    *
    * @param logLevel .
-   * @param message  .
-   * @param args1    .
-   * @param args2    .
-   * @param args3    .
-   * @param args4    .
-   * @param args5    .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
    * @author admin
    */
   void log(
@@ -1048,13 +1023,13 @@ public interface Recorder {
    * <p>Another description after blank line.
    *
    * @param logLevel .
-   * @param message  .
-   * @param args1    .
-   * @param args2    .
-   * @param args3    .
-   * @param args4    .
-   * @param args5    .
-   * @param args6    .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
+   * @param args6 .
    * @author admin
    */
   void log(
@@ -1073,14 +1048,14 @@ public interface Recorder {
    * <p>Another description after blank line.
    *
    * @param logLevel .
-   * @param message  .
-   * @param args1    .
-   * @param args2    .
-   * @param args3    .
-   * @param args4    .
-   * @param args5    .
-   * @param args6    .
-   * @param args7    .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
+   * @param args6 .
+   * @param args7 .
    * @author admin
    */
   void log(
@@ -1100,15 +1075,15 @@ public interface Recorder {
    * <p>Another description after blank line.
    *
    * @param logLevel .
-   * @param message  .
-   * @param args1    .
-   * @param args2    .
-   * @param args3    .
-   * @param args4    .
-   * @param args5    .
-   * @param args6    .
-   * @param args7    .
-   * @param args8    .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
+   * @param args6 .
+   * @param args7 .
+   * @param args8 .
    * @author admin
    */
   void log(
@@ -1129,16 +1104,16 @@ public interface Recorder {
    * <p>Another description after blank line.
    *
    * @param logLevel .
-   * @param message  .
-   * @param args1    .
-   * @param args2    .
-   * @param args3    .
-   * @param args4    .
-   * @param args5    .
-   * @param args6    .
-   * @param args7    .
-   * @param args8    .
-   * @param args9    .
+   * @param message .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
+   * @param args6 .
+   * @param args7 .
+   * @param args8 .
+   * @param args9 .
    * @author admin
    */
   void log(

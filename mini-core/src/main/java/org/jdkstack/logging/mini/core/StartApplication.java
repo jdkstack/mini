@@ -15,18 +15,18 @@ import org.jdkstack.bean.core.context.ApplicationContext;
  */
 @ComponentScan(
     value = {
-        "org.jdkstack.logging.mini.core.resource.LevelFactory",
-        "org.jdkstack.logging.mini.core.resource.LevelManager",
-        "org.jdkstack.logging.mini.core.resource.FilterFactory",
-        "org.jdkstack.logging.mini.core.resource.FilterManager",
-        "org.jdkstack.logging.mini.core.resource.FormatterFactory",
-        "org.jdkstack.logging.mini.core.resource.FormatterManager",
-        "org.jdkstack.logging.mini.core.resource.HandlerFactory",
-        "org.jdkstack.logging.mini.core.resource.RecorderFactory",
-        "org.jdkstack.logging.mini.core.resource.HandlerManager",
-        "org.jdkstack.logging.mini.core.resource.RecorderManager"},
-    excludeFilters = {@Filter(String.class), @Filter(String.class)}
-)
+      "org.jdkstack.logging.mini.core.resource.LevelFactory",
+      "org.jdkstack.logging.mini.core.resource.LevelManager",
+      "org.jdkstack.logging.mini.core.resource.FilterFactory",
+      "org.jdkstack.logging.mini.core.resource.FilterManager",
+      "org.jdkstack.logging.mini.core.resource.FormatterFactory",
+      "org.jdkstack.logging.mini.core.resource.FormatterManager",
+      "org.jdkstack.logging.mini.core.resource.HandlerFactory",
+      "org.jdkstack.logging.mini.core.resource.RecorderFactory",
+      "org.jdkstack.logging.mini.core.resource.HandlerManager",
+      "org.jdkstack.logging.mini.core.resource.RecorderManager"
+    },
+    excludeFilters = {@Filter(String.class), @Filter(String.class)})
 public final class StartApplication {
 
   /** 上下文环境. */

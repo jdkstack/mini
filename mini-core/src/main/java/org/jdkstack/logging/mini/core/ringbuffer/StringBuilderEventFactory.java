@@ -17,4 +17,3 @@ public class StringBuilderEventFactory<E> implements EventFactory<E> {
     return (E) new StringBuilder(Constants.CAPACITY);
   }
 }
-

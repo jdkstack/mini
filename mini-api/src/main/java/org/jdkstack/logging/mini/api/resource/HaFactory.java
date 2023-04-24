@@ -17,7 +17,7 @@ public interface HaFactory {
    *
    * <p>.
    *
-   * @param key   key.
+   * @param key key.
    * @param value value.
    * @author admin
    */
@@ -49,12 +49,12 @@ public interface HaFactory {
    *
    * <p>.
    *
-   * @param name        name.
-   * @param logLevel    logLevel.
-   * @param message     message.
-   * @param className   className.
+   * @param name name.
+   * @param logLevel logLevel.
+   * @param message message.
+   * @param className className.
    * @param classMethod classMethod.
-   * @param lineNumber  lineNumber.
+   * @param lineNumber lineNumber.
    * @author admin
    */
   void execute(
@@ -70,13 +70,13 @@ public interface HaFactory {
    *
    * <p>.
    *
-   * @param name        name.
-   * @param datetime    datetime.
-   * @param logLevel    logLevel.
-   * @param message     message.
-   * @param className   className.
+   * @param name name.
+   * @param datetime datetime.
+   * @param logLevel logLevel.
+   * @param message message.
+   * @param className className.
    * @param classMethod classMethod.
-   * @param lineNumber  lineNumber.
+   * @param lineNumber lineNumber.
    * @author admin
    */
   void execute(
