@@ -50,7 +50,7 @@ public class ApplicationContext implements Context {
       final boolean singleton = component.singleton();
       //
       String beanName = component.value();
-      if ("".equals(beanName)) {
+      if (beanName.isEmpty()) {
         final String simpleName = classObj.getSimpleName();
         final String substring1 = simpleName.substring(0, 1);
         final String s = substring1.toLowerCase(Locale.getDefault());

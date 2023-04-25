@@ -5,7 +5,6 @@ import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jdkstack.logging.mini.api.option.HandlerOption;
-import org.jdkstack.logging.mini.core.Internal;
 
 /**
  * .
@@ -77,7 +76,7 @@ public class ByteArrayWriter extends AbstractByteArrayWriter {
       // 3.按照日期时间规则.
       this.randomAccessFile.write(bytes, offset, length);
     } catch (final Exception e) {
-      Internal.log(e);
+      //
     }
   }
 

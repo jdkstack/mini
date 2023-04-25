@@ -1,10 +1,9 @@
-package org.jdkstack.logging.mini.core;
+package org.jdkstack.logging.mini.core.buffer;
 
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.codec.Encoder;
-import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
 import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
 import org.jdkstack.logging.mini.core.codec.Constants;
 import org.jdkstack.logging.mini.core.option.InternalOption;

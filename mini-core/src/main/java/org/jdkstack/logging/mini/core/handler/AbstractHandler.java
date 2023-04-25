@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import org.jdkstack.bean.api.bean.Bean;
 import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.option.HandlerOption;
 import org.jdkstack.logging.mini.api.queue.Queue;
@@ -57,9 +56,8 @@ public abstract class AbstractHandler implements Handler {
 
   protected final StringBuilder format(final Record logRecord) {
     final String formatterName = this.formatters.get(this.handlerOption.getName());
-    final Bean logInfos = StartApplication.context().getBean("formatterFactory");
-    final Object obj3 = logInfos.getObj();
-    final FormatterFactory info = (FormatterFactory) obj3;
+    final FormatterFactory info =
+        StartApplication.getBean("formatterFactory", FormatterFactory.class);
     return info.formatter(formatterName, logRecord);
   }
 
@@ -78,9 +76,7 @@ public abstract class AbstractHandler implements Handler {
     // 预消费.
     final Record logRecord = this.queue.take();
     final String filterName = this.filters.get(this.handlerOption.getName());
-    final Bean logInfos = StartApplication.context().getBean("filterFactory");
-    final Object obj3 = logInfos.getObj();
-    final FilterFactory info = (FilterFactory) obj3;
+    final FilterFactory info = StartApplication.getBean("filterFactory", FilterFactory.class);
     final boolean filter = info.filter(filterName, logRecord);
     if (filter) {
       // 执行业务.
@@ -105,9 +101,7 @@ public abstract class AbstractHandler implements Handler {
     final Record logRecord = this.queue.take();
     // 使用过滤器,过滤掉不符合条件的日志记录.
     final String filterName = this.filters.get(this.handlerOption.getName());
-    final Bean logInfos = StartApplication.context().getBean("filterFactory");
-    final Object obj3 = logInfos.getObj();
-    final FilterFactory info = (FilterFactory) obj3;
+    final FilterFactory info = StartApplication.getBean("filterFactory", FilterFactory.class);
     final boolean filter = info.filter(filterName, logRecord);
     if (filter) {
       // 执行业务.

@@ -2,7 +2,6 @@ package org.jdkstack.logging.mini.core.recorder;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.jdkstack.bean.api.bean.Bean;
 import org.jdkstack.logging.mini.api.level.Level;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.api.resource.HaFactory;
@@ -56,9 +55,7 @@ public class LogRecorder implements Recorder {
    */
   @Override
   public final boolean doFilter(final String logLevels) {
-    final Bean logInfos = StartApplication.context().getBean("levelFactory");
-    final Object obj3 = logInfos.getObj();
-    final LeFactory info = (LeFactory) obj3;
+    final LeFactory info = StartApplication.getBean("levelFactory", LeFactory.class);
     return info.doFilter(logLevels, this.maxLevel, this.minLevel);
   }
 
@@ -167,9 +164,7 @@ public class LogRecorder implements Recorder {
       final StringBuilder message) {
     // 如果日志级别匹配.
     if (this.doFilter(logLevel)) {
-      final Bean logInfos = StartApplication.context().getBean("handlerFactory");
-      final Object obj3 = logInfos.getObj();
-      final HaFactory info = (HaFactory) obj3;
+      final HaFactory info = StartApplication.getBean("handlerFactory", HaFactory.class);
       // 日志级别.
       String handler = this.handlers.get(logLevel);
       if (null == handler) {
@@ -202,9 +197,7 @@ public class LogRecorder implements Recorder {
       final StringBuilder message) {
     // 如果日志级别匹配.
     if (this.doFilter(logLevel)) {
-      final Bean logInfos = StartApplication.context().getBean("handlerFactory");
-      final Object obj3 = logInfos.getObj();
-      final HaFactory info = (HaFactory) obj3;
+      final HaFactory info = StartApplication.getBean("handlerFactory", HaFactory.class);
       // 日志级别.
       String handler = this.handlers.get(logLevel);
       if (null == handler) {

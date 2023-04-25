@@ -5,7 +5,7 @@ import org.jdkstack.bean.core.annotation.ConstructorResource;
 import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.option.HandlerOption;
 import org.jdkstack.logging.mini.api.resource.HaFactory;
-import org.jdkstack.logging.mini.core.Internal;
+import org.jdkstack.logging.mini.core.buffer.Internal;
 import org.jdkstack.logging.mini.core.option.LogHandlerOption;
 
 /**

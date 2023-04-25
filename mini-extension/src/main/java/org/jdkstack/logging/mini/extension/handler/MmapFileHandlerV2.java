@@ -6,7 +6,7 @@ import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.codec.Encoder;
 import org.jdkstack.logging.mini.api.option.HandlerOption;
 import org.jdkstack.logging.mini.api.record.Record;
-import org.jdkstack.logging.mini.core.Internal;
+import org.jdkstack.logging.mini.core.buffer.Internal;
 import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
 import org.jdkstack.logging.mini.core.codec.Constants;
 import org.jdkstack.logging.mini.core.handler.AbstractHandler;

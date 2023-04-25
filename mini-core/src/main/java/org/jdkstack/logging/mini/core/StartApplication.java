@@ -51,4 +51,16 @@ public final class StartApplication {
   public static Context context() {
     return CONTEXT;
   }
+
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @return context.
+   * @author admin
+   */
+  public static <T> T getBean(final String name, final Class<T> v) {
+    return (T) CONTEXT.getObject(name);
+  }
 }

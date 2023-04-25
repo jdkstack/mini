@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jdkstack.logging.mini.api.option.HandlerOption;
-import org.jdkstack.logging.mini.core.Internal;
 
 /**
  * .
@@ -77,7 +76,7 @@ public class CharArrayWriter extends AbstractCharArrayWriter {
       this.bufferedWriter.write(bytes, offset, length);
       this.bufferedWriter.flush();
     } catch (final Exception e) {
-      Internal.log(e);
+      //
     }
   }
 
@@ -88,7 +87,7 @@ public class CharArrayWriter extends AbstractCharArrayWriter {
    *
    * @author admin
    */
-  protected void remap() throws Exception {
+  protected final void remap() throws Exception {
     // 关闭流.
     if (this.bufferedWriter != null) {
       // 刷数据.
