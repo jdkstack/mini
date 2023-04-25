@@ -10,4 +10,6 @@ import org.jdkstack.bean.core.annotation.Component;
  * @author admin
  */
 @Component
-public class ConfigFactory {}
+public class ConfigFactory {
+  //
+}

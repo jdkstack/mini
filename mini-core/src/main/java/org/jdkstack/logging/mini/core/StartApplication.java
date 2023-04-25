@@ -57,7 +57,10 @@ public final class StartApplication {
    *
    * <p>Another description after blank line.
    *
-   * @return context.
+   * @param <T> t.
+   * @param name .
+   * @param v .
+   * @return t.
    * @author admin
    */
   public static <T> T getBean(final String name, final Class<T> v) {
