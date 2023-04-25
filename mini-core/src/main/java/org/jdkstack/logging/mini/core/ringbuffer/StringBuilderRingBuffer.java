@@ -15,9 +15,9 @@ public class StringBuilderRingBuffer implements RingBuffer<StringBuilder> {
   /** . */
   private final StringBuilder[] rb;
   /** . */
-  private int current;
-  /** . */
   private final int mask;
+  /** . */
+  private int current;
 
   /**
    * This is a method description.

@@ -19,7 +19,6 @@ public final class ConfigManager {
    *
    * @author admin
    */
-
   public ConfigManager() {
     //
   }

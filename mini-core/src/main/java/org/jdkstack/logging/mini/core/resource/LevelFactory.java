@@ -46,7 +46,7 @@ public class LevelFactory implements LeFactory {
     // 找到注册的日志级别。
     Level level = this.levels.get(name);
     if (null == level) {
-      //创建一个临时的日志级别。
+      // 创建一个临时的日志级别。
       level = new LogLevel(name, Constants.LEVEL_VALUE);
       this.levels.putIfAbsent(name, level);
     }
@@ -68,7 +68,8 @@ public class LevelFactory implements LeFactory {
   }
 
   @Override
-  public final boolean doFilter(final String logLevels, final Level maxLevel, final Level minLevel) {
+  public final boolean doFilter(
+      final String logLevels, final Level maxLevel, final Level minLevel) {
     final Level level = this.findLevel(logLevels);
     // 只要有一个不是真,则表示日志会过滤掉.
     final boolean b2 = level.intValue() <= maxLevel.intValue();

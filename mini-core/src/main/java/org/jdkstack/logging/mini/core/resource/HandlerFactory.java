@@ -40,12 +40,12 @@ public class HandlerFactory implements HaFactory {
    *
    * <p>Another description after blank line.
    *
-   * @param name        .
-   * @param logLevel    .
-   * @param className   .
+   * @param name .
+   * @param logLevel .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
+   * @param lineNumber .
+   * @param message .
    * @author admin
    */
   @Override

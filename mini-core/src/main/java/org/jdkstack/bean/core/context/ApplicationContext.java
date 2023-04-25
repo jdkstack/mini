@@ -50,7 +50,7 @@ public class ApplicationContext implements Context {
       final boolean singleton = component.singleton();
       //
       String beanName = component.value();
-      if ("".equals(beanName)) {
+      if (beanName.isEmpty()) {
         final String simpleName = classObj.getSimpleName();
         final String substring1 = simpleName.substring(0, 1);
         final String s = substring1.toLowerCase(Locale.getDefault());
@@ -60,7 +60,8 @@ public class ApplicationContext implements Context {
       // 构造函数注入.
       final Executable[] constructors = classObj.getConstructors();
       for (final Executable constructor : constructors) {
-        final ConstructorResource constructorResource = constructor.getAnnotation(ConstructorResource.class);
+        final ConstructorResource constructorResource =
+            constructor.getAnnotation(ConstructorResource.class);
         Object object = null;
         if (null != constructorResource) {
           final Class<?>[] parameterTypes = constructor.getParameterTypes();

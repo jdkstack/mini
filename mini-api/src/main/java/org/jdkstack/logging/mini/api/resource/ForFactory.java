@@ -18,7 +18,7 @@ public interface ForFactory<T> extends Factory<T> {
    * <p>.
    *
    * @param formatterName .
-   * @param logRecord     .
+   * @param logRecord .
    * @return StringBuilder .
    * @author admin
    */

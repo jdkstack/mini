@@ -38,7 +38,6 @@ public class InternalOption extends LogHandlerOption {
     return this.directory;
   }
 
-
   /**
    * This is a method description.
    *
@@ -52,7 +51,6 @@ public class InternalOption extends LogHandlerOption {
     this.directory = directory;
   }
 
-
   /**
    * This is a method description.
    *
@@ -65,7 +63,6 @@ public class InternalOption extends LogHandlerOption {
   public final String getPrefix() {
     return this.prefix;
   }
-
 
   /**
    * This is a method description.

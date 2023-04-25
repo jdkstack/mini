@@ -46,7 +46,7 @@ public class FormatterManager {
    *
    * <p>.
    *
-   * @param key       .
+   * @param key .
    * @param formatter .
    * @author admin
    */

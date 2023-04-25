@@ -5,8 +5,8 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import jdk.internal.ref.Cleaner;
 import org.jdkstack.logging.mini.api.option.HandlerOption;
-import org.jdkstack.logging.mini.core.Internal;
 import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
+import org.jdkstack.logging.mini.core.buffer.Internal;
 import sun.nio.ch.DirectBuffer;
 
 /**
@@ -40,7 +40,7 @@ public class MmapByteArrayWriter extends ByteArrayWriter {
    *
    * <p>Another description after blank line.
    *
-   * @param bytes  b.
+   * @param bytes b.
    * @param offset o.
    * @param length l.
    * @author admin
@@ -51,7 +51,7 @@ public class MmapByteArrayWriter extends ByteArrayWriter {
       if (null == this.mappedBuffer) {
         this.remap();
       }
-      //切换日志文件规则只有一种,按size切换.
+      // 切换日志文件规则只有一种,按size切换.
       // 数据的长度.
       int len = length;
       // 偏移量.
@@ -62,7 +62,7 @@ public class MmapByteArrayWriter extends ByteArrayWriter {
       while (len > chunk) {
         // 一旦文件达到了上限(不能完整存储一条日志,只能存储半条)，重新打开一个文件.
         this.remap();
-        //写一次数据.
+        // 写一次数据.
         this.mappedBuffer.put(bytes, off, chunk);
         // 偏移量增加写入的数据大小.
         off += chunk;

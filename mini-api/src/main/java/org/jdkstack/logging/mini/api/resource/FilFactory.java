@@ -18,7 +18,7 @@ public interface FilFactory<T> extends Factory<T> {
    * <p>.
    *
    * @param filterName .
-   * @param logRecord  .
+   * @param logRecord .
    * @return boolean .
    * @author admin
    */

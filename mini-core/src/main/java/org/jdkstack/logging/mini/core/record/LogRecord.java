@@ -17,7 +17,7 @@ public class LogRecord implements Record {
   private StringBuilder message;
   /** . */
   private Throwable thrown;
-  /** 事件发生时间event(传入日志方法).  事件进入时间ingestion(日志方法系统时间). */
+  /** 事件发生时间event(传入日志方法). 事件进入时间ingestion(日志方法系统时间). */
   private StringBuilder sb;
   /** . */
   private long year;

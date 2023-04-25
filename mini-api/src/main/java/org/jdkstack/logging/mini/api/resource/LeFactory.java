@@ -27,7 +27,7 @@ public interface LeFactory {
    *
    * <p>Another description after blank line.
    *
-   * @param name  .
+   * @param name .
    * @param value .
    * @author admin
    */
@@ -39,8 +39,8 @@ public interface LeFactory {
    * <p>Another description after blank line.
    *
    * @param logLevels .
-   * @param maxLevel  .
-   * @param minLevel  .
+   * @param maxLevel .
+   * @param minLevel .
    * @return boolean .
    * @author admin
    */

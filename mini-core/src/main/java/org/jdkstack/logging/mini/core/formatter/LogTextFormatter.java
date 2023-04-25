@@ -65,7 +65,7 @@ public final class LogTextFormatter implements Formatter {
    *
    * <p>Another description after blank line.
    *
-   * @param sb        .
+   * @param sb .
    * @param logRecord .
    * @author admin
    */

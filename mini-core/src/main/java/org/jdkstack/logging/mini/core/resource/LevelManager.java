@@ -53,7 +53,7 @@ public class LevelManager {
    *
    * <p>.
    *
-   * @param name  .
+   * @param name .
    * @param value .
    * @author admin
    */

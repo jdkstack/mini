@@ -43,15 +43,19 @@ public class CharArrayEncoder implements Encoder<char[]> {
    *
    * <p>Another description after blank line.
    *
-   * @param charset        .
+   * @param charset .
    * @param charBufferSize .
    * @param byteBufferSize .
    * @author admin
    */
-  public CharArrayEncoder(final Charset charset, final int charBufferSize, final int byteBufferSize) {
+  public CharArrayEncoder(
+      final Charset charset, final int charBufferSize, final int byteBufferSize) {
     this.charset = charset;
-    this.charsetEncoder = this.charset.newEncoder().onMalformedInput(CodingErrorAction.REPLACE)
-        .onUnmappableCharacter(CodingErrorAction.REPLACE);
+    this.charsetEncoder =
+        this.charset
+            .newEncoder()
+            .onMalformedInput(CodingErrorAction.REPLACE)
+            .onUnmappableCharacter(CodingErrorAction.REPLACE);
     this.charBuffer = CharBuffer.allocate(charBufferSize);
     this.byteBuffer = ByteBuffer.allocate(byteBufferSize);
   }
@@ -61,29 +65,19 @@ public class CharArrayEncoder implements Encoder<char[]> {
    *
    * <p>Another description after blank line.
    *
-   * @param source      .
+   * @param ce .
+   * @param charBuf .
+   * @param byteBuf .
+   * @param text .
    * @param destination .
    * @author admin
    */
-  @Override
-  public final void encode(final char[] source, final ByteWriter destination) {
-    encodeText(this.charsetEncoder, this.charBuffer, this.byteBuffer, source, destination);
-  }
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param ce          .
-   * @param charBuf     .
-   * @param byteBuf     .
-   * @param text        .
-   * @param destination .
-   * @author admin
-   */
-  public static void encodeText(final CharsetEncoder ce, final CharBuffer charBuf, final ByteBuffer byteBuf,
-      final char[] text, final ByteWriter destination) {
+  public static void encodeText(
+      final CharsetEncoder ce,
+      final CharBuffer charBuf,
+      final ByteBuffer byteBuf,
+      final char[] text,
+      final ByteWriter destination) {
     ce.reset();
     charBuf.clear();
     charBuf.put(text, 0, text.length);
@@ -91,7 +85,7 @@ public class CharArrayEncoder implements Encoder<char[]> {
     charBuf.limit(text.length);
     // 开始位置.
     charBuf.position(0);
-    //将字符数组编码成字节数组.
+    // 将字符数组编码成字节数组.
     ce.encode(charBuf, byteBuf, true);
     ce.flush(byteBuf);
     // 原来用!=比较.
@@ -109,7 +103,7 @@ public class CharArrayEncoder implements Encoder<char[]> {
    *
    * <p>Another description after blank line.
    *
-   * @param source      .
+   * @param source .
    * @param destination .
    * @author admin
    */
@@ -123,5 +117,19 @@ public class CharArrayEncoder implements Encoder<char[]> {
       destination.flush(destBuff);
     }
     destBuff.put(source);
+  }
+
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param source .
+   * @param destination .
+   * @author admin
+   */
+  @Override
+  public final void encode(final char[] source, final ByteWriter destination) {
+    encodeText(this.charsetEncoder, this.charBuffer, this.byteBuffer, source, destination);
   }
 }

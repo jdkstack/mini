@@ -13,7 +13,8 @@ import org.jdkstack.logging.mini.core.ringbuffer.StringBuilderRingBuffer;
 public final class StringBuilderPool {
 
   /** . */
-  private static final RingBuffer<StringBuilder> BUFFER = new StringBuilderRingBuffer(Constants.CAPACITY);
+  private static final RingBuffer<StringBuilder> BUFFER =
+      new StringBuilderRingBuffer(Constants.CAPACITY);
 
   private StringBuilderPool() {
     //

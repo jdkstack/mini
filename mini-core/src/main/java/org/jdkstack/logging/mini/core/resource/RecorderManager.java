@@ -30,7 +30,7 @@ public class RecorderManager {
    * <p>.
    *
    * @param recorderFactory .
-   * @param leFactory       .
+   * @param leFactory .
    * @author admin
    */
   @ConstructorResource({"recorderFactory", "levelFactory"})
@@ -57,7 +57,8 @@ public class RecorderManager {
   public final void create(final RecorderOption recorderOption) {
     // 设置日志处理器, 如果没有配置,不会继承父,直接使用ROOT.
     final String handlers = recorderOption.getHandlers();
-    final Recorder logRecorder = new LogRecorder(recorderOption.getName(), recorderOption.getType());
+    final Recorder logRecorder =
+        new LogRecorder(recorderOption.getName(), recorderOption.getType());
     final String[] splits = handlers.split(",");
     for (final String split : splits) {
       final String[] split1 = split.split(":");

@@ -38,7 +38,7 @@ public interface ReFactory {
    *
    * <p>.
    *
-   * @param name     name.
+   * @param name name.
    * @param recorder recorder.
    * @author admin
    */

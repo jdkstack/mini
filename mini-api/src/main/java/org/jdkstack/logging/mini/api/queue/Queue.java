@@ -44,14 +44,15 @@ public interface Queue<T> {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param className   .
+   * @param logLevel .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
+   * @param lineNumber .
+   * @param message .
    * @author admin
    */
-  void pub(final String logLevel,
+  void pub(
+      final String logLevel,
       final String className,
       final String classMethod,
       final int lineNumber,
@@ -62,15 +63,16 @@ public interface Queue<T> {
    *
    * <p>Another description after blank line.
    *
-   * @param datetime   .
-   * @param logLevel    .
-   * @param className   .
+   * @param datetime .
+   * @param logLevel .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
+   * @param lineNumber .
+   * @param message .
    * @author admin
    */
-  void pub(final String logLevel,
+  void pub(
+      final String logLevel,
       final String datetime,
       final String className,
       final String classMethod,

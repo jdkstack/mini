@@ -14,7 +14,6 @@ import org.jdkstack.ringbuffer.core.Power2;
  */
 public class MpscBlockingQueueV3<E> extends AbstractLockBlockingQueueV3<E> {
 
-
   /**
    * This is a class description.
    *
@@ -32,7 +31,7 @@ public class MpscBlockingQueueV3<E> extends AbstractLockBlockingQueueV3<E> {
    *
    * <p>Another description after blank line.
    *
-   * @param capacity     .
+   * @param capacity .
    * @param eventFactory .
    * @author admin
    */

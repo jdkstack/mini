@@ -2,6 +2,7 @@
  * 框架总共四个模块.
  *
  * <p>框架总共四个模块.
+ *
  * <pre>
  *   1.org.jdkstack.asynchronous.core 暂时未使用,多线程相关的代码.
  *   2.org.jdkstack.bean.core 自定义bean管理.

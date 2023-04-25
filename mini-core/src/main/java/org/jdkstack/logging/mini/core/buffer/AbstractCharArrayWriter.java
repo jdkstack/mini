@@ -20,13 +20,13 @@ public abstract class AbstractCharArrayWriter implements CharWriter {
     return this.charBuffer;
   }
 
-
   @Override
   public final void flush(final CharBuffer charBuf) {
     try {
       charBuf.flip();
       if (0 < charBuf.remaining()) {
-        this.readToDestination(charBuf.array(), charBuf.arrayOffset() + charBuf.position(), charBuf.remaining());
+        this.readToDestination(
+            charBuf.array(), charBuf.arrayOffset() + charBuf.position(), charBuf.remaining());
       }
     } finally {
       charBuf.clear();

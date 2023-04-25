@@ -22,7 +22,7 @@ public class SpscBlockingQueueV3<E> extends AbstractLockBlockingQueueV3<E> {
    * @param eventFactory .
    * @author admin
    */
-  public SpscBlockingQueueV3(final EventFactory eventFactory) {
+  public SpscBlockingQueueV3(final EventFactory<E> eventFactory) {
     super(eventFactory);
   }
 
@@ -31,11 +31,11 @@ public class SpscBlockingQueueV3<E> extends AbstractLockBlockingQueueV3<E> {
    *
    * <p>Another description after blank line.
    *
-   * @param capacity     .
+   * @param capacity .
    * @param eventFactory .
    * @author admin
    */
-  public SpscBlockingQueueV3(final int capacity, final EventFactory eventFactory) {
+  public SpscBlockingQueueV3(final int capacity, final EventFactory<E> eventFactory) {
     super(Power2.power2(capacity), eventFactory);
   }
 

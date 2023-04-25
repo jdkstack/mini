@@ -68,8 +68,8 @@ public final class LogJsonFormatter implements Formatter {
    *
    * <p>Another description after blank line.
    *
-   * @param sb    .
-   * @param logRecord   .
+   * @param sb .
+   * @param logRecord .
    * @author admin
    */
   public void handle(final StringBuilder sb, final Record logRecord) {

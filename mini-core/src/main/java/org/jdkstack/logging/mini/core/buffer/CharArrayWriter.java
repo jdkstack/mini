@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jdkstack.logging.mini.api.option.HandlerOption;
-import org.jdkstack.logging.mini.core.Internal;
 
 /**
  * .
@@ -18,14 +17,14 @@ import org.jdkstack.logging.mini.core.Internal;
  */
 public class CharArrayWriter extends AbstractCharArrayWriter {
 
-  /** . */
-  private BufferedWriter bufferedWriter;
   /** 按照文件大小切割. */
   protected final AtomicInteger sizes = new AtomicInteger(0);
   /** 按照文件条数切割. */
   protected final AtomicInteger lines = new AtomicInteger(0);
   /** . */
   protected final HandlerOption handlerOption;
+  /** . */
+  private BufferedWriter bufferedWriter;
 
   /**
    * This is a method description.
@@ -44,7 +43,7 @@ public class CharArrayWriter extends AbstractCharArrayWriter {
    *
    * <p>Another description after blank line.
    *
-   * @param bytes  b.
+   * @param bytes b.
    * @param offset o.
    * @param length l.
    * @author admin
@@ -55,17 +54,17 @@ public class CharArrayWriter extends AbstractCharArrayWriter {
       if (null == this.bufferedWriter) {
         this.remap();
       }
-      //切换日志文件规则.
+      // 切换日志文件规则.
       final String type = this.handlerOption.getType();
       // 按line切换.
       if (Constants.LINES.equals(type)) {
         final int line = this.lines.incrementAndGet();
-        //100W行切换一次.
+        // 100W行切换一次.
         if (Constants.LC < line) {
           this.remap();
           this.lines.set(1);
         }
-        //按size切换.
+        // 按size切换.
       } else {
         final int size = this.sizes.addAndGet(length);
         // 100MB切换一次.
@@ -77,7 +76,7 @@ public class CharArrayWriter extends AbstractCharArrayWriter {
       this.bufferedWriter.write(bytes, offset, length);
       this.bufferedWriter.flush();
     } catch (final Exception e) {
-      Internal.log(e);
+      //
     }
   }
 
@@ -88,7 +87,7 @@ public class CharArrayWriter extends AbstractCharArrayWriter {
    *
    * @author admin
    */
-  protected void remap() throws Exception {
+  protected final void remap() throws Exception {
     // 关闭流.
     if (this.bufferedWriter != null) {
       // 刷数据.
@@ -96,12 +95,14 @@ public class CharArrayWriter extends AbstractCharArrayWriter {
       this.bufferedWriter.close();
     }
     // 重新计算文件名(创建临时对象?).
-    final File dir = new File(this.handlerOption.getDirectory() + File.separator + this.handlerOption.getPrefix());
+    final File dir =
+        new File(
+            this.handlerOption.getDirectory() + File.separator + this.handlerOption.getPrefix());
     // 不存在,创建目录和子目录.
     if (!dir.exists()) {
       dir.mkdirs();
     }
-    //重新打开流.
+    // 重新打开流.
     this.bufferedWriter =
         Files.newBufferedWriter(
             // 文件路径.

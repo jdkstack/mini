@@ -33,21 +33,19 @@ public class FormatterFactory implements ForFactory<Formatter> {
     return false;
   }
 
-
   /**
    * .
    *
    * <p>.
    *
    * @param key .
-   * @param t   .
+   * @param t .
    * @author admin
    */
   @Override
   public final void add(final String key, final Formatter t) {
     this.formatters.put(key, t);
   }
-
 
   /**
    * .
@@ -68,7 +66,7 @@ public class FormatterFactory implements ForFactory<Formatter> {
    * <p>.
    *
    * @param key .
-   * @param t   .
+   * @param t .
    * @author admin
    */
   @Override
@@ -109,7 +107,7 @@ public class FormatterFactory implements ForFactory<Formatter> {
    * <p>.
    *
    * @param formatterName formatterName.
-   * @param logRecord     logRecord.
+   * @param logRecord logRecord.
    * @return StringBuilder .
    * @author admin
    */

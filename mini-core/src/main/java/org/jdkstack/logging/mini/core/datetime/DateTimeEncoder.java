@@ -3,7 +3,6 @@ package org.jdkstack.logging.mini.core.datetime;
 import org.jdkstack.logging.mini.api.datetime.Encoder;
 import org.jdkstack.logging.mini.core.pool.StringBuilderPool;
 
-
 /**
  * <a href="https://howardhinnant.github.io/date_algorithms.html">Howard Hinnant</a>.
  *
@@ -44,7 +43,6 @@ public final class DateTimeEncoder implements Encoder {
     //
   }
 
-
   /**
    * 不支持时区.
    *
@@ -63,7 +61,7 @@ public final class DateTimeEncoder implements Encoder {
     final long localSecond = secondUtc + offset;
     // 1970年到现在的天数,一天86400秒,计算一下恰好有多少天.
     final long todayTo1970 = Math.floorDiv(localSecond, Constants.SECONDS_PER_DAY);
-    //0000-1970年的天数,加上1970-现在的天数，0000年到现在的总天数。
+    // 0000-1970年的天数,加上1970-现在的天数，0000年到现在的总天数。
     final long zeroToToday = todayTo1970 + Constants.DAYS_0000_TO_1970;
     // 从三月一号开始的天数(1月+2月=59天).
     final long zeroToTodayFrom3 = zeroToToday - 60;
@@ -90,7 +88,7 @@ public final class DateTimeEncoder implements Encoder {
     final long temp6 = doe - temp3 + temp4 - temp5;
     // 最后剩下的天数/365.
     final long yoe = temp6 / Constants.N365;
-    //得到yp、mp、day（即基于03-01是第一天的值）
+    // 得到yp、mp、day（即基于03-01是第一天的值）
     final long yp = era * Constants.N400;
     long year = yoe + yp;
     final long doy = doe - (Constants.N365 * yoe + yoe / 4 - yoe / Constants.N100);
@@ -101,7 +99,7 @@ public final class DateTimeEncoder implements Encoder {
     } else {
       month = mp - Constants.N9;
     }
-    //如果月份是1月或2月,只需在年份上加1即可完成(因为算法是从3月份开始的，代替1月份).
+    // 如果月份是1月或2月,只需在年份上加1即可完成(因为算法是从3月份开始的，代替1月份).
     if (month <= 2) {
       year += 1;
     }
@@ -190,19 +188,19 @@ public final class DateTimeEncoder implements Encoder {
         if (-Constants.N9999 > year) {
           sb.append(year);
         } else {
-          //小于0代表公元前年，加入year是-100，则-10100去掉第二个字符后就是公元前-0100年.
+          // 小于0代表公元前年，加入year是-100，则-10100去掉第二个字符后就是公元前-0100年.
           sb.append(year - Constants.N10000).deleteCharAt(1);
         }
       } else {
-        //大于0小于1000,加入year是500，则10500,去掉第一个字符后就是公元0500年.
+        // 大于0小于1000,加入year是500，则10500,去掉第一个字符后就是公元0500年.
         sb.append(year + Constants.N10000).deleteCharAt(0);
       }
     } else {
-      //大于9999,代表公元后10000元,表示为+10000.
+      // 大于9999,代表公元后10000元,表示为+10000.
       if (Constants.N9999 < year) {
         sb.append('+');
       }
-      //小于9999,代表正常的公元9999年.
+      // 小于9999,代表正常的公元9999年.
       sb.append(year);
     }
   }
@@ -267,7 +265,7 @@ public final class DateTimeEncoder implements Encoder {
     final long temp6 = doe - temp3 + temp4 - temp5;
     // 最后剩下的天数/365.
     final long yoe = temp6 / Constants.N365;
-    //得到yp、mp、day（即基于03-01是第一天的值）
+    // 得到yp、mp、day（即基于03-01是第一天的值）
     final long yp = era * Constants.N400;
     long year = yoe + yp;
     final long doy = doe - (Constants.N365 * yoe + yoe / 4 - yoe / Constants.N100);
@@ -278,7 +276,7 @@ public final class DateTimeEncoder implements Encoder {
     } else {
       month = mp - Constants.N9;
     }
-    //如果月份是1月或2月,只需在年份上加1即可完成(因为算法是从3月份开始的，代替1月份).
+    // 如果月份是1月或2月,只需在年份上加1即可完成(因为算法是从3月份开始的，代替1月份).
     if (month <= 2) {
       year += 1;
     }
@@ -320,7 +318,9 @@ public final class DateTimeEncoder implements Encoder {
       era = (zeroDay - Constants.N146096) / Constants.N146097;
     }
     final long doe = zeroDay - era * Constants.N146097;
-    final long yoe = (doe - doe / Constants.N1460 + doe / Constants.N36524 - doe / Constants.N146096) / Constants.N365;
+    final long yoe =
+        (doe - doe / Constants.N1460 + doe / Constants.N36524 - doe / Constants.N146096)
+            / Constants.N365;
     final long doy = doe - (Constants.N365 * yoe + yoe / Constants.N4 - yoe / Constants.N100);
     final long mp = (Constants.N5 * doy + Constants.N2) / Constants.N153;
     if (Constants.N10 > mp) {
@@ -364,7 +364,9 @@ public final class DateTimeEncoder implements Encoder {
       era = (zeroDay - Constants.N146096) / Constants.N146097;
     }
     final long doe = zeroDay - era * Constants.N146097;
-    final long yoe = (doe - doe / Constants.N1460 + doe / Constants.N36524 - doe / Constants.N146096) / Constants.N365;
+    final long yoe =
+        (doe - doe / Constants.N1460 + doe / Constants.N36524 - doe / Constants.N146096)
+            / Constants.N365;
     final long doy = doe - (Constants.N365 * yoe + yoe / Constants.N4 - yoe / Constants.N100);
     final long mp = (Constants.N5 * doy + Constants.N2) / Constants.N153;
     return doy - (Constants.N153 * mp + Constants.N2) / Constants.N5 + Constants.N1;

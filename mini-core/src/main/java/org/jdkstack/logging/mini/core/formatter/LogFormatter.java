@@ -6,6 +6,7 @@ import org.jdkstack.logging.mini.core.pool.StringBuilderPool;
  * 日志消息格式化.
  *
  * <p>用参数替换掉消息中的 "{}" 大括号对.
+ *
  * <pre>
  * 例如:
  *     1.LOG.info("{},{}", 1,2);
@@ -28,23 +29,12 @@ public final class LogFormatter {
    * <p>Another description after blank line.
    *
    * @param message .
-   * @param args1   .
+   * @param args1 .
    * @return StringBuilder .
    * @author admin
    */
-  public static StringBuilder format(
-      final String message,
-      final StringBuilder args1) {
-    return format(message,
-        args1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null);
+  public static StringBuilder format(final String message, final StringBuilder args1) {
+    return format(message, args1, null, null, null, null, null, null, null, null);
   }
 
   /**
@@ -53,25 +43,14 @@ public final class LogFormatter {
    * <p>Another description after blank line.
    *
    * @param message .
-   * @param args1   .
-   * @param args2   .
+   * @param args1 .
+   * @param args2 .
    * @return StringBuilder .
    * @author admin
    */
   public static StringBuilder format(
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2) {
-    return format(message,
-        args1,
-        args2,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null);
+      final String message, final StringBuilder args1, final StringBuilder args2) {
+    return format(message, args1, args2, null, null, null, null, null, null, null);
   }
 
   /**
@@ -80,9 +59,9 @@ public final class LogFormatter {
    * <p>Another description after blank line.
    *
    * @param message .
-   * @param args1   .
-   * @param args2   .
-   * @param args3   .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
    * @return StringBuilder .
    * @author admin
    */
@@ -91,16 +70,7 @@ public final class LogFormatter {
       final StringBuilder args1,
       final StringBuilder args2,
       final StringBuilder args3) {
-    return format(message,
-        args1,
-        args2,
-        args3,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null);
+    return format(message, args1, args2, args3, null, null, null, null, null, null);
   }
 
   /**
@@ -109,10 +79,10 @@ public final class LogFormatter {
    * <p>Another description after blank line.
    *
    * @param message .
-   * @param args1   .
-   * @param args2   .
-   * @param args3   .
-   * @param args4   .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
    * @return StringBuilder .
    * @author admin
    */
@@ -122,16 +92,7 @@ public final class LogFormatter {
       final StringBuilder args2,
       final StringBuilder args3,
       final StringBuilder args4) {
-    return format(message,
-        args1,
-        args2,
-        args3,
-        args4,
-        null,
-        null,
-        null,
-        null,
-        null);
+    return format(message, args1, args2, args3, args4, null, null, null, null, null);
   }
 
   /**
@@ -140,11 +101,11 @@ public final class LogFormatter {
    * <p>Another description after blank line.
    *
    * @param message .
-   * @param args1   .
-   * @param args2   .
-   * @param args3   .
-   * @param args4   .
-   * @param args5   .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
    * @return StringBuilder .
    * @author admin
    */
@@ -155,16 +116,7 @@ public final class LogFormatter {
       final StringBuilder args3,
       final StringBuilder args4,
       final StringBuilder args5) {
-    return format(message,
-        args1,
-        args2,
-        args3,
-        args4,
-        args5,
-        null,
-        null,
-        null,
-        null);
+    return format(message, args1, args2, args3, args4, args5, null, null, null, null);
   }
 
   /**
@@ -173,12 +125,12 @@ public final class LogFormatter {
    * <p>Another description after blank line.
    *
    * @param message .
-   * @param args1   .
-   * @param args2   .
-   * @param args3   .
-   * @param args4   .
-   * @param args5   .
-   * @param args6   .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
+   * @param args6 .
    * @return StringBuilder .
    * @author admin
    */
@@ -190,16 +142,7 @@ public final class LogFormatter {
       final StringBuilder args4,
       final StringBuilder args5,
       final StringBuilder args6) {
-    return format(message,
-        args1,
-        args2,
-        args3,
-        args4,
-        args5,
-        args6,
-        null,
-        null,
-        null);
+    return format(message, args1, args2, args3, args4, args5, args6, null, null, null);
   }
 
   /**
@@ -208,13 +151,13 @@ public final class LogFormatter {
    * <p>Another description after blank line.
    *
    * @param message .
-   * @param args1   .
-   * @param args2   .
-   * @param args3   .
-   * @param args4   .
-   * @param args5   .
-   * @param args6   .
-   * @param args7   .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
+   * @param args6 .
+   * @param args7 .
    * @return StringBuilder .
    * @author admin
    */
@@ -227,16 +170,7 @@ public final class LogFormatter {
       final StringBuilder args5,
       final StringBuilder args6,
       final StringBuilder args7) {
-    return format(message,
-        args1,
-        args2,
-        args3,
-        args4,
-        args5,
-        args6,
-        args7,
-        null,
-        null);
+    return format(message, args1, args2, args3, args4, args5, args6, args7, null, null);
   }
 
   /**
@@ -245,14 +179,14 @@ public final class LogFormatter {
    * <p>Another description after blank line.
    *
    * @param message .
-   * @param args1   .
-   * @param args2   .
-   * @param args3   .
-   * @param args4   .
-   * @param args5   .
-   * @param args6   .
-   * @param args7   .
-   * @param args8   .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
+   * @param args6 .
+   * @param args7 .
+   * @param args8 .
    * @return StringBuilder .
    * @author admin
    */
@@ -266,16 +200,7 @@ public final class LogFormatter {
       final StringBuilder args6,
       final StringBuilder args7,
       final StringBuilder args8) {
-    return format(message,
-        args1,
-        args2,
-        args3,
-        args4,
-        args5,
-        args6,
-        args7,
-        args8,
-        null);
+    return format(message, args1, args2, args3, args4, args5, args6, args7, args8, null);
   }
 
   /**
@@ -284,15 +209,15 @@ public final class LogFormatter {
    * <p>Another description after blank line.
    *
    * @param message .
-   * @param args1   .
-   * @param args2   .
-   * @param args3   .
-   * @param args4   .
-   * @param args5   .
-   * @param args6   .
-   * @param args7   .
-   * @param args8   .
-   * @param args9   .
+   * @param args1 .
+   * @param args2 .
+   * @param args3 .
+   * @param args4 .
+   * @param args5 .
+   * @param args6 .
+   * @param args7 .
+   * @param args8 .
+   * @param args9 .
    * @return StringBuilder .
    * @author admin
    */

@@ -11,5 +11,5 @@ import org.jdkstack.bean.core.annotation.Component;
  */
 @Component
 public class ConfigFactory {
-
+  //
 }

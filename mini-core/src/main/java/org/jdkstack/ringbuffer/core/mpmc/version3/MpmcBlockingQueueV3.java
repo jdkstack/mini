@@ -31,7 +31,7 @@ public class MpmcBlockingQueueV3<E> extends AbstractLockBlockingQueueV3<E> {
    *
    * <p>Another description after blank line.
    *
-   * @param capacity     .
+   * @param capacity .
    * @param eventFactory .
    * @author admin
    */

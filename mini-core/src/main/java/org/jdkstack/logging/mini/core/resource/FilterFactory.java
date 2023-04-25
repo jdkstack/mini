@@ -44,21 +44,19 @@ public class FilterFactory implements FilFactory<Filter> {
     return false;
   }
 
-
   /**
    * .
    *
    * <p>.
    *
    * @param key .
-   * @param t   .
+   * @param t .
    * @author admin
    */
   @Override
   public final void add(final String key, final Filter t) {
     this.filters.put(key, t);
   }
-
 
   /**
    * .
@@ -79,7 +77,7 @@ public class FilterFactory implements FilFactory<Filter> {
    * <p>.
    *
    * @param key .
-   * @param t   .
+   * @param t .
    * @author admin
    */
   @Override
@@ -119,7 +117,7 @@ public class FilterFactory implements FilFactory<Filter> {
    *
    * <p>.
    *
-   * @param logRecord  logRecord.
+   * @param logRecord logRecord.
    * @param filterName filterName.
    * @return boolean .
    * @author admin

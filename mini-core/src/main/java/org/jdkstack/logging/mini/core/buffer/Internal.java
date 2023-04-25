@@ -1,10 +1,9 @@
-package org.jdkstack.logging.mini.core;
+package org.jdkstack.logging.mini.core.buffer;
 
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.codec.Encoder;
-import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
 import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
 import org.jdkstack.logging.mini.core.codec.Constants;
 import org.jdkstack.logging.mini.core.option.InternalOption;
@@ -21,7 +20,8 @@ public final class Internal {
   /** 临时数组. */
   private static final CharBuffer CHARBUF = CharBuffer.allocate(Constants.SOURCE);
   /** 字符编码器. */
-  private static final Encoder<CharBuffer> TEXTENCODER = new CharArrayEncoderV2(Charset.defaultCharset());
+  private static final Encoder<CharBuffer> TEXTENCODER =
+      new CharArrayEncoderV2(Charset.defaultCharset());
   /** 目的地写入器. */
   private static final ByteWriter DESTINATION = new ByteArrayWriter(new InternalOption());
 

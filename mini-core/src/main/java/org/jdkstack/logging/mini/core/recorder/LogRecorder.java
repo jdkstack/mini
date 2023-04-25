@@ -2,7 +2,6 @@ package org.jdkstack.logging.mini.core.recorder;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.jdkstack.bean.api.bean.Bean;
 import org.jdkstack.logging.mini.api.level.Level;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.api.resource.HaFactory;
@@ -24,12 +23,12 @@ public class LogRecorder implements Recorder {
   private final String name;
   /** Recorder类别 . */
   private final String type;
+  /** 日志级别处理器 . */
+  private final Map<String, String> handlers = new HashMap<>(16);
   /** Recorder可以处理最小的日志级别. */
   private Level minLevel;
   /** Recorder可以处理最大的日志级别. */
   private Level maxLevel;
-  /** 日志级别处理器 . */
-  private final Map<String, String> handlers = new HashMap<>(16);
 
   /**
    * .
@@ -56,9 +55,7 @@ public class LogRecorder implements Recorder {
    */
   @Override
   public final boolean doFilter(final String logLevels) {
-    final Bean logInfos = StartApplication.context().getBean("levelFactory");
-    final Object obj3 = logInfos.getObj();
-    final LeFactory info = (LeFactory) obj3;
+    final LeFactory info = StartApplication.getBean("levelFactory", LeFactory.class);
     return info.doFilter(logLevels, this.maxLevel, this.minLevel);
   }
 
@@ -100,7 +97,6 @@ public class LogRecorder implements Recorder {
   public final void removeHandler(final String handler) {
     this.handlers.remove(handler);
   }
-
 
   /**
    * .
@@ -153,11 +149,11 @@ public class LogRecorder implements Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param className   .
+   * @param logLevel .
+   * @param className .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
+   * @param lineNumber .
+   * @param message .
    * @author admin
    */
   public final void core(
@@ -168,10 +164,8 @@ public class LogRecorder implements Recorder {
       final StringBuilder message) {
     // 如果日志级别匹配.
     if (this.doFilter(logLevel)) {
-      final Bean logInfos = StartApplication.context().getBean("handlerFactory");
-      final Object obj3 = logInfos.getObj();
-      final HaFactory info = (HaFactory) obj3;
-      //日志级别.
+      final HaFactory info = StartApplication.getBean("handlerFactory", HaFactory.class);
+      // 日志级别.
       String handler = this.handlers.get(logLevel);
       if (null == handler) {
         // 自己.
@@ -186,12 +180,12 @@ public class LogRecorder implements Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel    .
-   * @param className   .
-   * @param datetime    .
+   * @param logLevel .
+   * @param className .
+   * @param datetime .
    * @param classMethod .
-   * @param lineNumber  .
-   * @param message     .
+   * @param lineNumber .
+   * @param message .
    * @author admin
    */
   public final void core(
@@ -203,10 +197,8 @@ public class LogRecorder implements Recorder {
       final StringBuilder message) {
     // 如果日志级别匹配.
     if (this.doFilter(logLevel)) {
-      final Bean logInfos = StartApplication.context().getBean("handlerFactory");
-      final Object obj3 = logInfos.getObj();
-      final HaFactory info = (HaFactory) obj3;
-      //日志级别.
+      final HaFactory info = StartApplication.getBean("handlerFactory", HaFactory.class);
+      // 日志级别.
       String handler = this.handlers.get(logLevel);
       if (null == handler) {
         // 自己.
@@ -237,7 +229,12 @@ public class LogRecorder implements Recorder {
       final int lineNumber,
       final String message,
       final StringBuilder args1) {
-    this.core(logLevel, datetime, className, classMethod, lineNumber,
+    this.core(
+        logLevel,
+        datetime,
+        className,
+        classMethod,
+        lineNumber,
         LogFormatter.format(message, args1));
   }
 
@@ -251,7 +248,12 @@ public class LogRecorder implements Recorder {
       final String message,
       final StringBuilder args1,
       final StringBuilder args2) {
-    this.core(logLevel, datetime, className, classMethod, lineNumber,
+    this.core(
+        logLevel,
+        datetime,
+        className,
+        classMethod,
+        lineNumber,
         LogFormatter.format(message, args1, args2));
   }
 
@@ -266,7 +268,12 @@ public class LogRecorder implements Recorder {
       final StringBuilder args1,
       final StringBuilder args2,
       final StringBuilder args3) {
-    this.core(logLevel, datetime, className, classMethod, lineNumber,
+    this.core(
+        logLevel,
+        datetime,
+        className,
+        classMethod,
+        lineNumber,
         LogFormatter.format(message, args1, args2, args3));
   }
 
@@ -282,7 +289,12 @@ public class LogRecorder implements Recorder {
       final StringBuilder args2,
       final StringBuilder args3,
       final StringBuilder args4) {
-    this.core(logLevel, datetime, className, classMethod, lineNumber,
+    this.core(
+        logLevel,
+        datetime,
+        className,
+        classMethod,
+        lineNumber,
         LogFormatter.format(message, args1, args2, args3, args4));
   }
 
@@ -299,7 +311,12 @@ public class LogRecorder implements Recorder {
       final StringBuilder args3,
       final StringBuilder args4,
       final StringBuilder args5) {
-    this.core(logLevel, datetime, className, classMethod, lineNumber,
+    this.core(
+        logLevel,
+        datetime,
+        className,
+        classMethod,
+        lineNumber,
         LogFormatter.format(message, args1, args2, args3, args4, args5));
   }
 
@@ -317,7 +334,12 @@ public class LogRecorder implements Recorder {
       final StringBuilder args4,
       final StringBuilder args5,
       final StringBuilder args6) {
-    this.core(logLevel, datetime, className, classMethod, lineNumber,
+    this.core(
+        logLevel,
+        datetime,
+        className,
+        classMethod,
+        lineNumber,
         LogFormatter.format(message, args1, args2, args3, args4, args5, args6));
   }
 
@@ -336,7 +358,12 @@ public class LogRecorder implements Recorder {
       final StringBuilder args5,
       final StringBuilder args6,
       final StringBuilder args7) {
-    this.core(logLevel, datetime, className, classMethod, lineNumber,
+    this.core(
+        logLevel,
+        datetime,
+        className,
+        classMethod,
+        lineNumber,
         LogFormatter.format(message, args1, args2, args3, args4, args5, args6, args7));
   }
 
@@ -356,7 +383,12 @@ public class LogRecorder implements Recorder {
       final StringBuilder args6,
       final StringBuilder args7,
       final StringBuilder args8) {
-    this.core(logLevel, datetime, className, classMethod, lineNumber,
+    this.core(
+        logLevel,
+        datetime,
+        className,
+        classMethod,
+        lineNumber,
         LogFormatter.format(message, args1, args2, args3, args4, args5, args6, args7, args8));
   }
 
@@ -377,18 +409,20 @@ public class LogRecorder implements Recorder {
       final StringBuilder args7,
       final StringBuilder args8,
       final StringBuilder args9) {
-    this.core(logLevel, datetime, className, classMethod, lineNumber,
-        LogFormatter.format(message, args1, args2, args3, args4, args5, args6, args7, args8, args9));
+    this.core(
+        logLevel,
+        datetime,
+        className,
+        classMethod,
+        lineNumber,
+        LogFormatter.format(
+            message, args1, args2, args3, args4, args5, args6, args7, args8, args9));
   }
 
   @Override
-  public final void log(
-      final String logLevel,
-      final String datetime,
-      final String message) {
+  public final void log(final String logLevel, final String datetime, final String message) {
     final StringBuilder sb = StringBuilderPool.poll();
-    this.core(logLevel, datetime, "", "", 0,
-        sb.append(message));
+    this.core(logLevel, datetime, "", "", 0, sb.append(message));
   }
 
   @Override
@@ -397,8 +431,7 @@ public class LogRecorder implements Recorder {
       final String datetime,
       final String message,
       final StringBuilder args1) {
-    this.core(logLevel, datetime, "", "", 0,
-        LogFormatter.format(message, args1));
+    this.core(logLevel, datetime, "", "", 0, LogFormatter.format(message, args1));
   }
 
   @Override
@@ -408,8 +441,7 @@ public class LogRecorder implements Recorder {
       final String message,
       final StringBuilder args1,
       final StringBuilder args2) {
-    this.core(logLevel, datetime, "", "", 0,
-        LogFormatter.format(message, args1, args2));
+    this.core(logLevel, datetime, "", "", 0, LogFormatter.format(message, args1, args2));
   }
 
   @Override
@@ -420,8 +452,7 @@ public class LogRecorder implements Recorder {
       final StringBuilder args1,
       final StringBuilder args2,
       final StringBuilder args3) {
-    this.core(logLevel, datetime, "", "", 0,
-        LogFormatter.format(message, args1, args2, args3));
+    this.core(logLevel, datetime, "", "", 0, LogFormatter.format(message, args1, args2, args3));
   }
 
   @Override
@@ -433,8 +464,8 @@ public class LogRecorder implements Recorder {
       final StringBuilder args2,
       final StringBuilder args3,
       final StringBuilder args4) {
-    this.core(logLevel, datetime, "", "", 0,
-        LogFormatter.format(message, args1, args2, args3, args4));
+    this.core(
+        logLevel, datetime, "", "", 0, LogFormatter.format(message, args1, args2, args3, args4));
   }
 
   @Override
@@ -447,7 +478,12 @@ public class LogRecorder implements Recorder {
       final StringBuilder args3,
       final StringBuilder args4,
       final StringBuilder args5) {
-    this.core(logLevel, datetime, "", "", 0,
+    this.core(
+        logLevel,
+        datetime,
+        "",
+        "",
+        0,
         LogFormatter.format(message, args1, args2, args3, args4, args5));
   }
 
@@ -462,7 +498,12 @@ public class LogRecorder implements Recorder {
       final StringBuilder args4,
       final StringBuilder args5,
       final StringBuilder args6) {
-    this.core(logLevel, datetime, "", "", 0,
+    this.core(
+        logLevel,
+        datetime,
+        "",
+        "",
+        0,
         LogFormatter.format(message, args1, args2, args3, args4, args5, args6));
   }
 
@@ -478,7 +519,12 @@ public class LogRecorder implements Recorder {
       final StringBuilder args5,
       final StringBuilder args6,
       final StringBuilder args7) {
-    this.core(logLevel, datetime, "", "", 0,
+    this.core(
+        logLevel,
+        datetime,
+        "",
+        "",
+        0,
         LogFormatter.format(message, args1, args2, args3, args4, args5, args6, args7));
   }
 
@@ -495,7 +541,12 @@ public class LogRecorder implements Recorder {
       final StringBuilder args6,
       final StringBuilder args7,
       final StringBuilder args8) {
-    this.core(logLevel, datetime, "", "", 0,
+    this.core(
+        logLevel,
+        datetime,
+        "",
+        "",
+        0,
         LogFormatter.format(message, args1, args2, args3, args4, args5, args6, args7, args8));
   }
 
@@ -513,8 +564,14 @@ public class LogRecorder implements Recorder {
       final StringBuilder args7,
       final StringBuilder args8,
       final StringBuilder args9) {
-    this.core(logLevel, datetime, "", "", 0,
-        LogFormatter.format(message, args1, args2, args3, args4, args5, args6, args7, args8, args9));
+    this.core(
+        logLevel,
+        datetime,
+        "",
+        "",
+        0,
+        LogFormatter.format(
+            message, args1, args2, args3, args4, args5, args6, args7, args8, args9));
   }
 
   @Override
@@ -536,8 +593,7 @@ public class LogRecorder implements Recorder {
       final int lineNumber,
       final String message,
       final StringBuilder args1) {
-    this.core(logLevel, className, classMethod, lineNumber,
-        LogFormatter.format(message, args1));
+    this.core(logLevel, className, classMethod, lineNumber, LogFormatter.format(message, args1));
   }
 
   @Override
@@ -549,8 +605,8 @@ public class LogRecorder implements Recorder {
       final String message,
       final StringBuilder args1,
       final StringBuilder args2) {
-    this.core(logLevel, className, classMethod, lineNumber,
-        LogFormatter.format(message, args1, args2));
+    this.core(
+        logLevel, className, classMethod, lineNumber, LogFormatter.format(message, args1, args2));
   }
 
   @Override
@@ -563,7 +619,11 @@ public class LogRecorder implements Recorder {
       final StringBuilder args1,
       final StringBuilder args2,
       final StringBuilder args3) {
-    this.core(logLevel, className, classMethod, lineNumber,
+    this.core(
+        logLevel,
+        className,
+        classMethod,
+        lineNumber,
         LogFormatter.format(message, args1, args2, args3));
   }
 
@@ -578,7 +638,11 @@ public class LogRecorder implements Recorder {
       final StringBuilder args2,
       final StringBuilder args3,
       final StringBuilder args4) {
-    this.core(logLevel, className, classMethod, lineNumber,
+    this.core(
+        logLevel,
+        className,
+        classMethod,
+        lineNumber,
         LogFormatter.format(message, args1, args2, args3, args4));
   }
 
@@ -594,7 +658,11 @@ public class LogRecorder implements Recorder {
       final StringBuilder args3,
       final StringBuilder args4,
       final StringBuilder args5) {
-    this.core(logLevel, className, classMethod, lineNumber,
+    this.core(
+        logLevel,
+        className,
+        classMethod,
+        lineNumber,
         LogFormatter.format(message, args1, args2, args3, args4, args5));
   }
 
@@ -611,7 +679,11 @@ public class LogRecorder implements Recorder {
       final StringBuilder args4,
       final StringBuilder args5,
       final StringBuilder args6) {
-    this.core(logLevel, className, classMethod, lineNumber,
+    this.core(
+        logLevel,
+        className,
+        classMethod,
+        lineNumber,
         LogFormatter.format(message, args1, args2, args3, args4, args5, args6));
   }
 
@@ -629,7 +701,11 @@ public class LogRecorder implements Recorder {
       final StringBuilder args5,
       final StringBuilder args6,
       final StringBuilder args7) {
-    this.core(logLevel, className, classMethod, lineNumber,
+    this.core(
+        logLevel,
+        className,
+        classMethod,
+        lineNumber,
         LogFormatter.format(message, args1, args2, args3, args4, args5, args6, args7));
   }
 
@@ -648,7 +724,11 @@ public class LogRecorder implements Recorder {
       final StringBuilder args6,
       final StringBuilder args7,
       final StringBuilder args8) {
-    this.core(logLevel, className, classMethod, lineNumber,
+    this.core(
+        logLevel,
+        className,
+        classMethod,
+        lineNumber,
         LogFormatter.format(message, args1, args2, args3, args4, args5, args6, args7, args8));
   }
 
@@ -668,26 +748,24 @@ public class LogRecorder implements Recorder {
       final StringBuilder args7,
       final StringBuilder args8,
       final StringBuilder args9) {
-    this.core(logLevel, className, classMethod, lineNumber,
-        LogFormatter.format(message, args1, args2, args3, args4, args5, args6, args7, args8, args9));
+    this.core(
+        logLevel,
+        className,
+        classMethod,
+        lineNumber,
+        LogFormatter.format(
+            message, args1, args2, args3, args4, args5, args6, args7, args8, args9));
   }
 
   @Override
-  public final void log(
-      final String logLevel,
-      final String message) {
+  public final void log(final String logLevel, final String message) {
     final StringBuilder sb = StringBuilderPool.poll();
-    this.core(logLevel, "", "", 0,
-        sb.append(message));
+    this.core(logLevel, "", "", 0, sb.append(message));
   }
 
   @Override
-  public final void log(
-      final String logLevel,
-      final String message,
-      final StringBuilder args1) {
-    this.core(logLevel, "", "", 0,
-        LogFormatter.format(message, args1));
+  public final void log(final String logLevel, final String message, final StringBuilder args1) {
+    this.core(logLevel, "", "", 0, LogFormatter.format(message, args1));
   }
 
   @Override
@@ -696,8 +774,7 @@ public class LogRecorder implements Recorder {
       final String message,
       final StringBuilder args1,
       final StringBuilder args2) {
-    this.core(logLevel, "", "", 0,
-        LogFormatter.format(message, args1, args2));
+    this.core(logLevel, "", "", 0, LogFormatter.format(message, args1, args2));
   }
 
   @Override
@@ -707,8 +784,7 @@ public class LogRecorder implements Recorder {
       final StringBuilder args1,
       final StringBuilder args2,
       final StringBuilder args3) {
-    this.core(logLevel, "", "", 0,
-        LogFormatter.format(message, args1, args2, args3));
+    this.core(logLevel, "", "", 0, LogFormatter.format(message, args1, args2, args3));
   }
 
   @Override
@@ -719,8 +795,7 @@ public class LogRecorder implements Recorder {
       final StringBuilder args2,
       final StringBuilder args3,
       final StringBuilder args4) {
-    this.core(logLevel, "", "", 0,
-        LogFormatter.format(message, args1, args2, args3, args4));
+    this.core(logLevel, "", "", 0, LogFormatter.format(message, args1, args2, args3, args4));
   }
 
   @Override
@@ -732,8 +807,7 @@ public class LogRecorder implements Recorder {
       final StringBuilder args3,
       final StringBuilder args4,
       final StringBuilder args5) {
-    this.core(logLevel, "", "", 0,
-        LogFormatter.format(message, args1, args2, args3, args4, args5));
+    this.core(logLevel, "", "", 0, LogFormatter.format(message, args1, args2, args3, args4, args5));
   }
 
   @Override
@@ -746,7 +820,11 @@ public class LogRecorder implements Recorder {
       final StringBuilder args4,
       final StringBuilder args5,
       final StringBuilder args6) {
-    this.core(logLevel, "", "", 0,
+    this.core(
+        logLevel,
+        "",
+        "",
+        0,
         LogFormatter.format(message, args1, args2, args3, args4, args5, args6));
   }
 
@@ -761,7 +839,11 @@ public class LogRecorder implements Recorder {
       final StringBuilder args5,
       final StringBuilder args6,
       final StringBuilder args7) {
-    this.core(logLevel, "", "", 0,
+    this.core(
+        logLevel,
+        "",
+        "",
+        0,
         LogFormatter.format(message, args1, args2, args3, args4, args5, args6, args7));
   }
 
@@ -777,7 +859,11 @@ public class LogRecorder implements Recorder {
       final StringBuilder args6,
       final StringBuilder args7,
       final StringBuilder args8) {
-    this.core(logLevel, "", "", 0,
+    this.core(
+        logLevel,
+        "",
+        "",
+        0,
         LogFormatter.format(message, args1, args2, args3, args4, args5, args6, args7, args8));
   }
 
@@ -794,7 +880,12 @@ public class LogRecorder implements Recorder {
       final StringBuilder args7,
       final StringBuilder args8,
       final StringBuilder args9) {
-    this.core(logLevel, "", "", 0,
-        LogFormatter.format(message, args1, args2, args3, args4, args5, args6, args7, args8, args9));
+    this.core(
+        logLevel,
+        "",
+        "",
+        0,
+        LogFormatter.format(
+            message, args1, args2, args3, args4, args5, args6, args7, args8, args9));
   }
 }

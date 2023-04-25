@@ -269,7 +269,6 @@ public interface HandlerOption {
    */
   void setIntervalFormatter(String intervalFormatter);
 
-
   /**
    * This is a method description.
    *
@@ -289,7 +288,6 @@ public interface HandlerOption {
    * @author admin
    */
   void setClassName(String className);
-
 
   /**
    * This is a method description.
