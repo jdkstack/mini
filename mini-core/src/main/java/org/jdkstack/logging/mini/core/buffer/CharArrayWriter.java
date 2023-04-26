@@ -89,7 +89,7 @@ public class CharArrayWriter extends AbstractCharArrayWriter {
    */
   protected final void remap() throws Exception {
     // 关闭流.
-    if (this.bufferedWriter != null) {
+    if (null != this.bufferedWriter) {
       // 刷数据.
       this.flush();
       this.bufferedWriter.close();

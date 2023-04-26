@@ -31,13 +31,16 @@ import org.jdkstack.logging.mini.core.pool.StringBuilderPool;
  */
 public final class DateTimeEncoder implements Encoder {
 
-  static final int SECOND_IN_MILLIS = 1000;
-  static final int MINUTE_IN_MILLIS = SECOND_IN_MILLIS * 60;
-  static final int HOUR_IN_MILLIS = MINUTE_IN_MILLIS * 60;
-  static final int DAY_IN_MILLIS = HOUR_IN_MILLIS * 24;
-
-  // The number of days between January 1, 1 and January 1, 1970 (Gregorian)
-  static final int EPOCH_OFFSET = 719163;
+  /** . */
+  private static final int SECOND_IN_MILLIS = 1000;
+  /** . */
+  private static final int MINUTE_IN_MILLIS = SECOND_IN_MILLIS * 60;
+  /** . */
+  private static final int HOUR_IN_MILLIS = MINUTE_IN_MILLIS * 60;
+  /** . */
+  private static final int DAY_IN_MILLIS = HOUR_IN_MILLIS * 24;
+  /** . */
+  private static final int EPOCH_OFFSET = 719163;
 
   private DateTimeEncoder() {
     //
@@ -53,7 +56,7 @@ public final class DateTimeEncoder implements Encoder {
    * @return StringBuilder 返回UTC Z时区的日期时间格式.
    * @author admin
    */
-  public static StringBuilder encoder(long millis, final long offset) {
+  public static StringBuilder encoder(final long millis, final long offset) {
     final StringBuilder sb = StringBuilderPool.poll();
     // millis/1000得到秒.
     final long secondUtc = millis / Constants.MILLS_PER_SECOND;
@@ -93,14 +96,14 @@ public final class DateTimeEncoder implements Encoder {
     long year = yoe + yp;
     final long doy = doe - (Constants.N365 * yoe + yoe / 4 - yoe / Constants.N100);
     final long mp = (5 * doy + 2) / Constants.N153;
-    long month;
+    final long month;
     if (Constants.N10 > mp) {
       month = mp + Constants.N3;
     } else {
       month = mp - Constants.N9;
     }
     // 如果月份是1月或2月,只需在年份上加1即可完成(因为算法是从3月份开始的，代替1月份).
-    if (month <= 2) {
+    if (2 >= month) {
       year += 1;
     }
     // 检查年.
@@ -277,7 +280,7 @@ public final class DateTimeEncoder implements Encoder {
       month = mp - Constants.N9;
     }
     // 如果月份是1月或2月,只需在年份上加1即可完成(因为算法是从3月份开始的，代替1月份).
-    if (month <= 2) {
+    if (2 >= month) {
       year += 1;
     }
     return year;

@@ -89,7 +89,7 @@ public class ByteArrayWriter extends AbstractByteArrayWriter {
    */
   protected void remap() throws Exception {
     // 关闭流.
-    if (this.randomAccessFile != null) {
+    if (null != this.randomAccessFile) {
       // 刷数据.
       this.flush();
       // 关闭channel.
