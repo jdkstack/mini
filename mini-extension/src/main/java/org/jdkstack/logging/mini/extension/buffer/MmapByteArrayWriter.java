@@ -1,11 +1,11 @@
 package org.jdkstack.logging.mini.extension.buffer;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.nio.ByteOrder;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
-import jdk.internal.ref.Cleaner;
 import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
-import sun.nio.ch.DirectBuffer;
 
 /**
  * This is a method description.
@@ -85,11 +85,12 @@ public class MmapByteArrayWriter extends ByteArrayWriter {
     if (null != this.mappedBuffer) {
       // 强制刷新.
       this.mappedBuffer.force();
-      // 断开文件句柄.
-      final Cleaner cleaner = ((DirectBuffer) this.mappedBuffer).cleaner();
-      if (null != cleaner) {
-        cleaner.clean();
-      }
+      // 断开文件句柄，使用反射调用释放方法.
+      final Field field = this.mappedBuffer.getClass().getDeclaredField("cleaner");
+      field.setAccessible(true);
+      final Object cleaner = field.get(this.mappedBuffer);
+      final Method cleanMethod = cleaner.getClass().getMethod("clean");
+      cleanMethod.invoke(cleaner);
     }
     // 调用父方法,先重新创建文件流.
     super.remap();

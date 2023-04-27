@@ -22,7 +22,7 @@ public class HandlerFactory implements HaFactory {
 
   @Override
   public final void putIfAbsent(final String key, final Handler value) {
-    this.handlers.putIfAbsent(key, value);
+    this.handlers.put(key, value);
   }
 
   @Override

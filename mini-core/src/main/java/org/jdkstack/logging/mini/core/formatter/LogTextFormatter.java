@@ -13,9 +13,6 @@ import org.jdkstack.logging.mini.core.pool.StringBuilderPool;
  */
 public final class LogTextFormatter implements Formatter {
 
-  /** . */
-  private String dateTimeFormat;
-
   /**
    * This is a method description.
    *
@@ -25,18 +22,6 @@ public final class LogTextFormatter implements Formatter {
    */
   public LogTextFormatter() {
     //
-  }
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param dateTimeFormat 日期格式化"yyyy-MM-dd'T'HH:mm:ss.SSSZ".
-   * @author admin
-   */
-  public LogTextFormatter(final String dateTimeFormat) {
-    this.dateTimeFormat = dateTimeFormat;
   }
 
   /**
@@ -70,7 +55,7 @@ public final class LogTextFormatter implements Formatter {
    * @author admin
    */
   public void handle(final StringBuilder sb, final Record logRecord) {
-    // 日志日期时间"long decoder = DateTimeDecoder.decoder(logRecord.getSb())".
+    // 日志日期时间.
     sb.append(logRecord.getSb());
     sb.append(' ');
     // 日志级别.
