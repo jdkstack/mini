@@ -21,5 +21,5 @@ public interface Encoder<T> {
    * @param destination .
    * @author admin
    */
-  void encode(T source, ByteWriter destination);
+  void encode(T source, ByteWriter destination) throws Exception;
 }

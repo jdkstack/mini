@@ -23,7 +23,7 @@ public abstract class AbstractByteArrayWriter implements ByteWriter {
    * @author admin
    */
   @Override
-  public final void flush() {
+  public final void flush() throws Exception {
     this.flush(this.byteBuffer);
   }
 
@@ -36,18 +36,15 @@ public abstract class AbstractByteArrayWriter implements ByteWriter {
    * @author admin
    */
   @Override
-  public final void flush(final ByteBuffer buf) {
-    try {
-      buf.flip();
-      // 如果有数据.
-      if (0 < buf.remaining()) {
-        // 开始写数据.
-        this.writeToDestination(buf.array(), buf.arrayOffset() + buf.position(), buf.remaining());
-      }
-    } finally {
-      // 清除缓存.
-      buf.clear();
+  public final void flush(final ByteBuffer buf) throws Exception {
+    buf.flip();
+    // 如果有数据.
+    if (0 < buf.remaining()) {
+      // 开始写数据.
+      this.writeToDestination(buf.array(), buf.arrayOffset() + buf.position(), buf.remaining());
     }
+    // 清除缓存.
+    buf.clear();
   }
 
   /**

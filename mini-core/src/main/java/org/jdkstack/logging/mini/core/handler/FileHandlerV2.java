@@ -4,7 +4,6 @@ import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.codec.Encoder;
-import org.jdkstack.logging.mini.api.option.HandlerOption;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
 import org.jdkstack.logging.mini.core.buffer.Internal;
@@ -32,12 +31,12 @@ public class FileHandlerV2 extends AbstractHandler {
    *
    * <p>Another description after blank line.
    *
-   * @param handlerOption handlerOption.
+   * @param key key.
    * @author admin
    */
-  public FileHandlerV2(final HandlerOption handlerOption) {
-    super(handlerOption);
-    this.destination = new ByteArrayWriter(handlerOption);
+  public FileHandlerV2(final String key) {
+    super(key);
+    this.destination = new ByteArrayWriter(key);
   }
 
   /**

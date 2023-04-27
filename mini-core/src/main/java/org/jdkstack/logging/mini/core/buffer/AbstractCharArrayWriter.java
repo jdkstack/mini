@@ -21,20 +21,17 @@ public abstract class AbstractCharArrayWriter implements CharWriter {
   }
 
   @Override
-  public final void flush(final CharBuffer charBuf) {
-    try {
-      charBuf.flip();
-      if (0 < charBuf.remaining()) {
-        this.readToDestination(
-            charBuf.array(), charBuf.arrayOffset() + charBuf.position(), charBuf.remaining());
-      }
-    } finally {
-      charBuf.clear();
+  public final void flush(final CharBuffer charBuf) throws Exception {
+    charBuf.flip();
+    if (0 < charBuf.remaining()) {
+      this.readToDestination(
+          charBuf.array(), charBuf.arrayOffset() + charBuf.position(), charBuf.remaining());
     }
+    charBuf.clear();
   }
 
   @Override
-  public final void flush() {
+  public final void flush() throws Exception {
     this.flush(this.charBuffer);
   }
 }

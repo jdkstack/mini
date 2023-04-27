@@ -21,5 +21,5 @@ public interface Decoder<T> {
    * @param reader .
    * @author admin
    */
-  void decode(T source, CharWriter reader);
+  void decode(T source, CharWriter reader) throws Exception;
 }

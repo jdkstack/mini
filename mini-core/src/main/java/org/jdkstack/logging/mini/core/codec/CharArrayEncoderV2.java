@@ -77,7 +77,8 @@ public class CharArrayEncoderV2 implements Encoder<CharBuffer> {
       final CharBuffer charBuf,
       final ByteBuffer byteBuf,
       final CharBuffer text,
-      final ByteWriter destination) {
+      final ByteWriter destination)
+      throws Exception {
     // 重置字符编码器.
     ce.reset();
     // 清除缓存.
@@ -115,7 +116,8 @@ public class CharArrayEncoderV2 implements Encoder<CharBuffer> {
    * @param destination .
    * @author admin
    */
-  public static void writeTo(final ByteBuffer source, final ByteWriter destination) {
+  public static void writeTo(final ByteBuffer source, final ByteWriter destination)
+      throws Exception {
     // 得到字节数组数据.
     final ByteBuffer destBuff = destination.getByteBuffer();
     // 如果空间不足,分批写入.
@@ -145,7 +147,7 @@ public class CharArrayEncoderV2 implements Encoder<CharBuffer> {
    * @author admin
    */
   @Override
-  public final void encode(final CharBuffer source, final ByteWriter destination) {
+  public final void encode(final CharBuffer source, final ByteWriter destination) throws Exception {
     encodeText(this.charsetEncoder, this.charBuffer, this.byteBuffer, source, destination);
   }
 }

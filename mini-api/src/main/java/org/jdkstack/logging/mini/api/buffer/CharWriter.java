@@ -29,7 +29,7 @@ public interface CharWriter {
    * @param charBuf .
    * @author admin
    */
-  void flush(CharBuffer charBuf);
+  void flush(CharBuffer charBuf) throws Exception;
 
   /**
    * This is a method description.
@@ -38,7 +38,7 @@ public interface CharWriter {
    *
    * @author admin
    */
-  void flush();
+  void flush() throws Exception;
 
   /**
    * This is a method description.
@@ -50,5 +50,5 @@ public interface CharWriter {
    * @param length .
    * @author admin
    */
-  void readToDestination(final char[] bytes, final int offset, final int length);
+  void readToDestination(final char[] bytes, final int offset, final int length) throws Exception;
 }

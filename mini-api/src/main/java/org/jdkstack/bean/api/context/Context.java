@@ -26,6 +26,15 @@ public interface Context {
    *
    * <p>Another description after blank line.
    *
+   * @author admin
+   */
+  void init();
+
+  /**
+   * This is a class description.
+   *
+   * <p>Another description after blank line.
+   *
    * @param name .
    * @param bean .
    * @author admin
