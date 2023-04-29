@@ -53,7 +53,7 @@ public final class DateTimeDecoder implements Decoder {
     final long sed = seconds(dateTime);
     final long mis = millisecond(dateTime);
     // 如果月份是1月或2月,只需在年份上减1即可完成(因为算法是从3月份开始的，代替1月份).
-    if (mon <= 2) {
+    if (2 >= mon) {
       year -= 1;
     }
     final long era;

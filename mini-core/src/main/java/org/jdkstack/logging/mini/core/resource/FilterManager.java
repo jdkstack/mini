@@ -4,7 +4,6 @@ import org.jdkstack.bean.core.annotation.Component;
 import org.jdkstack.bean.core.annotation.ConstructorResource;
 import org.jdkstack.logging.mini.api.filter.Filter;
 import org.jdkstack.logging.mini.api.resource.FilFactory;
-import org.jdkstack.logging.mini.core.filter.LogFilter;
 
 /**
  * .
@@ -30,12 +29,6 @@ public class FilterManager {
   @ConstructorResource("filterFactory")
   public FilterManager(final FilFactory<? super Filter> filterFactory) {
     this.filterFactory = filterFactory;
-    this.init();
-  }
-
-  private void init() {
-    final Filter filter = new LogFilter();
-    this.create("logFilter", filter);
   }
 
   /**

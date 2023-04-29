@@ -30,26 +30,25 @@ public static void main(String[] args) {
 动态创建Handler和Recorder:
 
 ```java
-Bean recorderManagerBean = StartApplication.context().getBean("recorderManager");
-Bean handlerManagerBean = StartApplication.context().getBean("handlerManager");
-HandlerManager handlerManager = (HandlerManager) handlerManagerBean.getObj();
-handlerManager.create(new LogHandlerOption());
-RecorderManager recorderManager = (RecorderManager) recorderManagerBean.getObj();
-recorderManager.create(new LogRecorderOption());
+HaFactory info = StartApplication.getBean("handlerFactory", HaFactory.class);
+ReFactory info = StartApplication.getBean("recorderFactory", ReFactory.class);
 ```
 
 动态创建Filter和Formatter:
 
 ```java
-Bean formatterManagerBean = StartApplication.context().getBean("formatterManager");
-FormatterManager formatterManager = (FormatterManager) formatterManagerBean.getObj();
-Bean filterManagerBean = StartApplication.context().getBean("filterManager");
-FilterManager filterManager = (FilterManager) filterManagerBean.getObj();
+FilterFactory info = StartApplication.getBean("filterFactory", FilterFactory.class);
+FormatterFactory info = StartApplication.getBean("formatterFactory", FormatterFactory.class);
 ```
 
 动态创建Level:
 
 ```java
-Bean levelManagerBean = StartApplication.context().getBean("levelManager");
-LevelManager levelManager = (LevelManager) levelManagerBean.getObj();
+LeFactory info = StartApplication.getBean("levelFactory", LeFactory.class);
+```
+
+动态创建配置:
+
+```java
+CoFactory info = StartApplication.getBean("configFactory", CoFactory.class);
 ```

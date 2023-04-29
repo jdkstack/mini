@@ -6,7 +6,6 @@ import org.jdkstack.logging.mini.api.option.RecorderOption;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.api.resource.LeFactory;
 import org.jdkstack.logging.mini.api.resource.ReFactory;
-import org.jdkstack.logging.mini.core.option.LogRecorderOption;
 import org.jdkstack.logging.mini.core.recorder.LogRecorder;
 
 /**
@@ -37,13 +36,6 @@ public class RecorderManager {
   public RecorderManager(final ReFactory recorderFactory, final LeFactory leFactory) {
     this.logInfos = recorderFactory;
     this.leFactory = leFactory;
-    // 初始化default Recorder.
-    this.init();
-  }
-
-  private void init() {
-    final RecorderOption recorderOption = new LogRecorderOption();
-    this.create(recorderOption);
   }
 
   /**

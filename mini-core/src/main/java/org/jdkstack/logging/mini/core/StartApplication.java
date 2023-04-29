@@ -15,6 +15,8 @@ import org.jdkstack.bean.core.context.ApplicationContext;
  */
 @ComponentScan(
     value = {
+      "org.jdkstack.logging.mini.core.resource.ConfigFactory",
+      "org.jdkstack.logging.mini.core.resource.ConfigManager",
       "org.jdkstack.logging.mini.core.resource.LevelFactory",
       "org.jdkstack.logging.mini.core.resource.LevelManager",
       "org.jdkstack.logging.mini.core.resource.FilterFactory",
@@ -22,8 +24,8 @@ import org.jdkstack.bean.core.context.ApplicationContext;
       "org.jdkstack.logging.mini.core.resource.FormatterFactory",
       "org.jdkstack.logging.mini.core.resource.FormatterManager",
       "org.jdkstack.logging.mini.core.resource.HandlerFactory",
-      "org.jdkstack.logging.mini.core.resource.RecorderFactory",
       "org.jdkstack.logging.mini.core.resource.HandlerManager",
+      "org.jdkstack.logging.mini.core.resource.RecorderFactory",
       "org.jdkstack.logging.mini.core.resource.RecorderManager"
     },
     excludeFilters = {@Filter(String.class), @Filter(String.class)})

@@ -1,7 +1,9 @@
 package org.jdkstack.bean.core.context;
 
 import java.lang.reflect.Executable;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import org.jdkstack.bean.api.bean.Bean;
 import org.jdkstack.bean.api.context.Context;
 import org.jdkstack.bean.api.factory.Factory;
@@ -10,6 +12,22 @@ import org.jdkstack.bean.core.annotation.ComponentScan;
 import org.jdkstack.bean.core.annotation.ConstructorResource;
 import org.jdkstack.bean.core.bean.BeanService;
 import org.jdkstack.bean.core.factory.BeanFactory;
+import org.jdkstack.logging.mini.api.filter.Filter;
+import org.jdkstack.logging.mini.api.formatter.Formatter;
+import org.jdkstack.logging.mini.api.handler.Handler;
+import org.jdkstack.logging.mini.api.option.RecorderOption;
+import org.jdkstack.logging.mini.core.filter.LogFilter;
+import org.jdkstack.logging.mini.core.formatter.LogJsonFormatter;
+import org.jdkstack.logging.mini.core.formatter.LogTextFormatter;
+import org.jdkstack.logging.mini.core.handler.FileHandlerV2;
+import org.jdkstack.logging.mini.core.level.Constants;
+import org.jdkstack.logging.mini.core.option.LogRecorderOption;
+import org.jdkstack.logging.mini.core.resource.ConfigManager;
+import org.jdkstack.logging.mini.core.resource.FilterManager;
+import org.jdkstack.logging.mini.core.resource.FormatterManager;
+import org.jdkstack.logging.mini.core.resource.HandlerManager;
+import org.jdkstack.logging.mini.core.resource.LevelManager;
+import org.jdkstack.logging.mini.core.resource.RecorderManager;
 
 /**
  * .
@@ -40,6 +58,71 @@ public class ApplicationContext implements Context {
     } catch (final Exception e) {
       throw new RuntimeException(e);
     }
+  }
+
+  @Override
+  public final void init() {
+    Map<String, String> map = new HashMap<>();
+    map.put("name", "default");
+    map.put("level", "MAX");
+    map.put("directory", "logs" + System.currentTimeMillis());
+    map.put("prefix", "default");
+    map.put("encoding", "UTF-8");
+    map.put("type", "size");
+    map.put("minLevel", "MIN");
+    map.put("maxLevel", "MAX");
+    map.put("formatter", "logJsonFormatter");
+    map.put("filter", "logFilter");
+    map.put("dateTimeFormat", "yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+    map.put("interval", "1");
+    map.put("intervalFormatter", "yyyyMMddHHmm");
+    map.put("batchSize", "1");
+    map.put("capacity", "1024");
+    ConfigManager configManager = (ConfigManager) getObject("configManager");
+    configManager.create("default", map);
+    LevelManager levelManager = (LevelManager) getObject("levelManager");
+    levelManager.create(Constants.MIN, Constants.MIN_VALUE);
+    levelManager.create(Constants.SEVERE, Constants.SEVERE_VALUE);
+    levelManager.create(Constants.FATAL, Constants.FATAL_VALUE);
+    levelManager.create(Constants.ERROR, Constants.ERROR_VALUE);
+    levelManager.create(Constants.WARN, Constants.WARN_VALUE);
+    levelManager.create(Constants.INFO, Constants.INFO_VALUE);
+    levelManager.create(Constants.DEBUG, Constants.DEBUG_VALUE);
+    levelManager.create(Constants.CONFIG, Constants.CONFIG_VALUE);
+    levelManager.create(Constants.FINE, Constants.FINE_VALUE);
+    levelManager.create(Constants.FINER, Constants.FINER_VALUE);
+    levelManager.create(Constants.FINEST, Constants.FINEST_VALUE);
+    levelManager.create(Constants.TRACE, Constants.TRACE_VALUE);
+    levelManager.create(Constants.MAX, Constants.MAX_VALUE);
+    FilterManager filterManager = (FilterManager) getObject("filterManager");
+    final Filter filter = new LogFilter();
+    filterManager.create("logFilter", filter);
+    FormatterManager formatterManager = (FormatterManager) getObject("formatterManager");
+    final Formatter logJsonFormatter = new LogJsonFormatter();
+    formatterManager.create("logJsonFormatter", logJsonFormatter);
+    final Formatter logTextFormatter = new LogTextFormatter();
+    formatterManager.create("logTextFormatter", logTextFormatter);
+    HandlerManager handlerManager = (HandlerManager) getObject("handlerManager");
+    final Handler fileHandlerV2 = new FileHandlerV2("default");
+    handlerManager.create("default", fileHandlerV2);
+    RecorderManager recorderManager = (RecorderManager) getObject("recorderManager");
+    final RecorderOption recorderOption = new LogRecorderOption();
+    recorderManager.create(recorderOption);
+  }
+
+  @Override
+  public final void addBean(final String name, final Bean bean) {
+    this.beanFactory.addBean(name, bean);
+  }
+
+  @Override
+  public final Bean getBean(final String name) {
+    return this.beanFactory.getBean(name);
+  }
+
+  @Override
+  public final Object getObject(final String name) {
+    return this.beanFactory.getObject(name);
   }
 
   private void parser(final Class<?> classObj) throws Exception {
@@ -103,20 +186,5 @@ public class ApplicationContext implements Context {
         this.beanFactory.addBean(beanName, bean);
       }
     }
-  }
-
-  @Override
-  public final void addBean(final String name, final Bean bean) {
-    this.beanFactory.addBean(name, bean);
-  }
-
-  @Override
-  public final Bean getBean(final String name) {
-    return this.beanFactory.getBean(name);
-  }
-
-  @Override
-  public final Object getObject(final String name) {
-    return this.beanFactory.getObject(name);
   }
 }

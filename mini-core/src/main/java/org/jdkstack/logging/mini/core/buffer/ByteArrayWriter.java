@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.util.concurrent.atomic.AtomicInteger;
-import org.jdkstack.logging.mini.api.option.HandlerOption;
+import org.jdkstack.logging.mini.api.resource.CoFactory;
+import org.jdkstack.logging.mini.core.StartApplication;
 
 /**
  * .
@@ -20,7 +21,7 @@ public class ByteArrayWriter extends AbstractByteArrayWriter {
   /** 按照文件条数切割. */
   protected final AtomicInteger lines = new AtomicInteger(0);
   /** . */
-  protected final HandlerOption handlerOption;
+  protected final String key;
   /** . */
   protected RandomAccessFile randomAccessFile;
   /** . */
@@ -31,11 +32,11 @@ public class ByteArrayWriter extends AbstractByteArrayWriter {
    *
    * <p>Another description after blank line.
    *
-   * @param handlerOption h.
+   * @param key key.
    * @author admin
    */
-  public ByteArrayWriter(final HandlerOption handlerOption) {
-    this.handlerOption = handlerOption;
+  public ByteArrayWriter(final String key) {
+    this.key = key;
   }
 
   /**
@@ -49,35 +50,33 @@ public class ByteArrayWriter extends AbstractByteArrayWriter {
    * @author admin
    */
   @Override
-  public void writeToDestination(final byte[] bytes, final int offset, final int length) {
-    try {
-      if (null == this.randomAccessFile) {
-        this.remap();
-      }
-      // 切换日志文件规则.
-      final String type = this.handlerOption.getType();
-      // 1.按line切换.
-      if (Constants.LINES.equals(type)) {
-        final int line = this.lines.incrementAndGet();
-        // 100W行切换一次.
-        if (Constants.LC < line) {
-          this.remap();
-          this.lines.set(1);
-        }
-        // 2.按size切换.
-      } else {
-        final int size = this.sizes.addAndGet(length);
-        // 100MB切换一次.
-        if (Constants.SC < size) {
-          this.remap();
-          this.sizes.set(length);
-        }
-      }
-      // 3.按照日期时间规则.
-      this.randomAccessFile.write(bytes, offset, length);
-    } catch (final Exception e) {
-      //
+  public void writeToDestination(final byte[] bytes, final int offset, final int length)
+      throws Exception {
+    if (null == this.randomAccessFile) {
+      this.remap();
     }
+    final CoFactory info1 = StartApplication.getBean("configFactory", CoFactory.class);
+    // 切换日志文件规则.
+    final String type = info1.getValue(key, "type");
+    // 1.按line切换.
+    if (Constants.LINES.equals(type)) {
+      final int line = this.lines.incrementAndGet();
+      // 100W行切换一次.
+      if (Constants.LC < line) {
+        this.remap();
+        this.lines.set(1);
+      }
+      // 2.按size切换.
+    } else {
+      final int size = this.sizes.addAndGet(length);
+      // 100MB切换一次.
+      if (Constants.SC < size) {
+        this.remap();
+        this.sizes.set(length);
+      }
+    }
+    // 3.按照日期时间规则.
+    this.randomAccessFile.write(bytes, offset, length);
   }
 
   /**
@@ -89,7 +88,7 @@ public class ByteArrayWriter extends AbstractByteArrayWriter {
    */
   protected void remap() throws Exception {
     // 关闭流.
-    if (this.randomAccessFile != null) {
+    if (null != this.randomAccessFile) {
       // 刷数据.
       this.flush();
       // 关闭channel.
@@ -97,10 +96,10 @@ public class ByteArrayWriter extends AbstractByteArrayWriter {
       // 关闭流.
       this.randomAccessFile.close();
     }
+    final CoFactory info1 = StartApplication.getBean("configFactory", CoFactory.class);
     // 重新计算文件名(创建临时对象?应该放到公共的地方.).
     final File dir =
-        new File(
-            this.handlerOption.getDirectory() + File.separator + this.handlerOption.getPrefix());
+        new File(info1.getValue(key, "directory") + File.separator + info1.getValue(key, "prefix"));
     // 不存在,创建目录和子目录.
     if (!dir.exists()) {
       dir.mkdirs();

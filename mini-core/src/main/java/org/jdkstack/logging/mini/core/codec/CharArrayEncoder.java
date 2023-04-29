@@ -77,7 +77,8 @@ public class CharArrayEncoder implements Encoder<char[]> {
       final CharBuffer charBuf,
       final ByteBuffer byteBuf,
       final char[] text,
-      final ByteWriter destination) {
+      final ByteWriter destination)
+      throws Exception {
     ce.reset();
     charBuf.clear();
     charBuf.put(text, 0, text.length);
@@ -107,7 +108,8 @@ public class CharArrayEncoder implements Encoder<char[]> {
    * @param destination .
    * @author admin
    */
-  public static void writeTo(final ByteBuffer source, final ByteWriter destination) {
+  public static void writeTo(final ByteBuffer source, final ByteWriter destination)
+      throws Exception {
     final ByteBuffer destBuff = destination.getByteBuffer();
     while (source.remaining() > destBuff.remaining()) {
       final int originalLimit = source.limit();
@@ -129,7 +131,7 @@ public class CharArrayEncoder implements Encoder<char[]> {
    * @author admin
    */
   @Override
-  public final void encode(final char[] source, final ByteWriter destination) {
+  public final void encode(final char[] source, final ByteWriter destination) throws Exception {
     encodeText(this.charsetEncoder, this.charBuffer, this.byteBuffer, source, destination);
   }
 }

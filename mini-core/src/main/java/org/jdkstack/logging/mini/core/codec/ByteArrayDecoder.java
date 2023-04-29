@@ -77,7 +77,8 @@ public class ByteArrayDecoder implements Decoder<byte[]> {
       final CharBuffer charBuf,
       final ByteBuffer byteBuf,
       final byte[] text,
-      final CharWriter reader) {
+      final CharWriter reader)
+      throws Exception {
     cd.reset();
     byteBuf.clear();
     byteBuf.put(text, 0, text.length);
@@ -101,7 +102,8 @@ public class ByteArrayDecoder implements Decoder<byte[]> {
    * @param destination .
    * @author admin
    */
-  public static void writeTo(final CharBuffer source, final CharWriter destination) {
+  public static void writeTo(final CharBuffer source, final CharWriter destination)
+      throws Exception {
     final CharBuffer destBuff = destination.getCharBuffer();
     while (source.remaining() > destBuff.remaining()) {
       final int originalLimit = source.limit();
@@ -121,7 +123,7 @@ public class ByteArrayDecoder implements Decoder<byte[]> {
    * @author admin
    */
   @Override
-  public final void decode(final byte[] source, final CharWriter reader) {
+  public final void decode(final byte[] source, final CharWriter reader) throws Exception {
     encodeText(this.charsetDecoder, this.charBuffer, this.byteBuffer, source, reader);
   }
 }

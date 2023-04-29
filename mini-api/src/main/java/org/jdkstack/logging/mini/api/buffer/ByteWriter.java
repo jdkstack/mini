@@ -29,7 +29,7 @@ public interface ByteWriter {
    * @param buf .
    * @author admin
    */
-  void flush(ByteBuffer buf);
+  void flush(ByteBuffer buf) throws Exception;
 
   /**
    * This is a method description.
@@ -38,7 +38,7 @@ public interface ByteWriter {
    *
    * @author admin
    */
-  void flush();
+  void flush() throws Exception;
 
   /**
    * This is a method description.
@@ -50,5 +50,5 @@ public interface ByteWriter {
    * @param length .
    * @author admin
    */
-  void writeToDestination(final byte[] bytes, final int offset, final int length);
+  void writeToDestination(final byte[] bytes, final int offset, final int length) throws Exception;
 }

@@ -48,6 +48,9 @@ public class Application {
    * @author admin
    */
   public final void run(final Class<?> application) {
+    // 扫描注册所有Bean.
     this.context.scan(application);
+    // 初始化默认Bean.
+    this.context.init();
   }
 }
