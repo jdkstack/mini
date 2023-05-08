@@ -66,7 +66,7 @@
                 <!-- 编译跳过测试用例 mvn install -DskipTests 或者 mvn install -Dmaven.test.skip=true-->
                 <!-- 参考 http://maven.apache.org/surefire/maven-surefire-plugin/examples/skipping-test.html-->
                 <groupId>org.apache.maven.plugins</groupId>
-                <version>3.0.0</version>
+                <version>3.1.0</version>
             </plugin>
             <plugin>
                 <!-- 代码样式检测. -->
