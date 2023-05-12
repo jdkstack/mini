@@ -56,7 +56,7 @@ public final class LogTextFormatter implements Formatter {
    */
   public void handle(final StringBuilder sb, final Record logRecord) {
     // 日志日期时间.
-    sb.append(logRecord.getSb());
+    sb.append(logRecord.getEvent());
     sb.append(' ');
     // 日志级别.
     sb.append(logRecord.getLevelName());
@@ -76,8 +76,8 @@ public final class LogTextFormatter implements Formatter {
     // 日志对象中的消息字段.
     sb.append(logRecord.getMessage());
     // 日志对象中的异常堆栈信息.
-    final Throwable thrown = logRecord.getThrown();
-    if (null != thrown) {
+    //final Throwable thrown = logRecord.getThrown();
+    /*if (null != thrown) {
       sb.append(' ');
       sb.append('[');
       sb.append(thrown.getClass().getName());
@@ -101,6 +101,6 @@ public final class LogTextFormatter implements Formatter {
         separator = ",";
       }
       sb.append(']');
-    }
+    }*/
   }
 }

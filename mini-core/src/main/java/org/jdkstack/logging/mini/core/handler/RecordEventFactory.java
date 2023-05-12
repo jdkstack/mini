@@ -1,4 +1,4 @@
-package org.jdkstack.logging.mini.core.queue;
+package org.jdkstack.logging.mini.core.handler;
 
 import org.jdkstack.logging.mini.core.record.LogRecord;
 import org.jdkstack.ringbuffer.core.EventFactory;

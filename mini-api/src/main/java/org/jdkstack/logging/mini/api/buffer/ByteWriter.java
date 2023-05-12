@@ -51,4 +51,14 @@ public interface ByteWriter {
    * @author admin
    */
   void writeToDestination(final byte[] bytes, final int offset, final int length) throws Exception;
+
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param obj obj .
+   * @author admin
+   */
+  void setDestination(Object obj);
 }

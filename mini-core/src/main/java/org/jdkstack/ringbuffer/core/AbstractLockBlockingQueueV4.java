@@ -14,7 +14,7 @@ import org.jdkstack.ringbuffer.api.RingBufferBlockingQueue;
  * @author admin
  */
 public abstract class AbstractLockBlockingQueueV4<E> extends AbstractBlockingQueue<E>
-    implements BlockingQueue<E>, RingBufferBlockingQueue {
+    implements BlockingQueue<E>, RingBufferBlockingQueue<E> {
 
   /** 环形数组. */
   protected final Entry<E>[] buffer;

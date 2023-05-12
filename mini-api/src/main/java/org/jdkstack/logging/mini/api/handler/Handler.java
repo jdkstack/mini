@@ -16,29 +16,20 @@ public interface Handler {
    *
    * <p>Another description after blank line.
    *
-   * @param logRecord logRecord.
    * @author admin
    */
-  void process(final Record logRecord);
+  void produce(final String logLevel, final String datetime, final String message, final Record lr);
 
   /**
    * This is a method description.
    *
    * <p>Another description after blank line.
    *
-   * @param logLevel .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
-   * @param message .
    * @author admin
    */
-  void execute(
-      final String logLevel,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final StringBuilder message);
+  void consume(final Record lr);
+
+  StringBuilder format(Record logRecord);
 
   /**
    * This is a method description.
@@ -47,17 +38,8 @@ public interface Handler {
    *
    * @param datetime .
    * @param logLevel .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
    * @param message .
    * @author admin
    */
-  void execute(
-      final String logLevel,
-      final String datetime,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final StringBuilder message);
+  void process(final String logLevel, final String datetime, final String message);
 }

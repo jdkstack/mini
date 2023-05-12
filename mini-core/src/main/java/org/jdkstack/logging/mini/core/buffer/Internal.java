@@ -22,7 +22,7 @@ public final class Internal {
   private static final Encoder<CharBuffer> TEXTENCODER =
       new CharArrayEncoderV2(Charset.defaultCharset());
   /** 目的地写入器. */
-  private static final ByteWriter DESTINATION = new ByteArrayWriter("default");
+  private static final ByteWriter DESTINATION = new ByteArrayWriter();
 
   private Internal() {
     //

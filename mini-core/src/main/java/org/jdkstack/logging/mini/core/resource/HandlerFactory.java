@@ -34,42 +34,4 @@ public class HandlerFactory implements HaFactory {
   public final Map<String, Handler> getHandlers() {
     return Collections.unmodifiableMap(this.handlers);
   }
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param name .
-   * @param logLevel .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
-   * @param message .
-   * @author admin
-   */
-  @Override
-  public final void execute(
-      final String name,
-      final String logLevel,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final StringBuilder message) {
-    final Handler handler = this.handlers.get(name);
-    handler.execute(logLevel, className, classMethod, lineNumber, message);
-  }
-
-  @Override
-  public final void execute(
-      final String name,
-      final String logLevel,
-      final String datetime,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final StringBuilder message) {
-    final Handler handler = this.handlers.get(name);
-    handler.execute(logLevel, datetime, className, classMethod, lineNumber, message);
-  }
 }

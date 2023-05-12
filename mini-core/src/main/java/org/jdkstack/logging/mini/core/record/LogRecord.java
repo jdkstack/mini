@@ -1,5 +1,8 @@
 package org.jdkstack.logging.mini.core.record;
 
+import java.nio.CharBuffer;
+import java.util.HashMap;
+import java.util.Map;
 import org.jdkstack.logging.mini.api.record.Record;
 
 /**
@@ -11,14 +14,30 @@ import org.jdkstack.logging.mini.api.record.Record;
  */
 public class LogRecord implements Record {
 
-  /** . */
+  /** 日志级别. */
   private String logLevel;
+  /** 日志消息. */
+  private String message;
+  /** 格式化后的日志消息. */
+  private CharBuffer message2;
+  /** 事件发生时的datetime. */
+  private String event;
+  /** 接收事件时的datetime. */
+  private String ingestion;
+  /** 处理事件时的datetime. */
+  private String process;
   /** . */
-  private StringBuilder message;
-  /** . */
-  private Throwable thrown;
-  /** 事件发生时间event(传入日志方法). 事件进入时间ingestion(日志方法系统时间). */
-  private StringBuilder sb;
+  private String offset;
+  /** 日志类. */
+  private String className;
+  /** 日志方法. */
+  private String classMethod;
+  /** 日志异常. */
+  private CharBuffer throwable;
+  /** map. */
+  private Map<String, String> map = new HashMap<>(16);
+  /** 日志方法所在的行号. */
+  private int lineNumber;
   /** . */
   private long year;
   /** . */
@@ -33,14 +52,6 @@ public class LogRecord implements Record {
   private long second;
   /** . */
   private long mills;
-  /** . */
-  private String offset;
-  /** . */
-  private String className;
-  /** . */
-  private String classMethod;
-  /** . */
-  private int lineNumber;
 
   /**
    * This is a method description.
@@ -62,7 +73,7 @@ public class LogRecord implements Record {
    * @author admin
    */
   @Override
-  public final StringBuilder getMessage() {
+  public final String getMessage() {
     return this.message;
   }
 
@@ -75,7 +86,7 @@ public class LogRecord implements Record {
    * @author admin
    */
   @Override
-  public final void setMessage(final StringBuilder message) {
+  public final void setMessage(final String message) {
     this.message = message;
   }
 
@@ -88,8 +99,8 @@ public class LogRecord implements Record {
    * @author admin
    */
   @Override
-  public final Throwable getThrown() {
-    return this.thrown;
+  public final CharBuffer getThrown() {
+    return this.throwable;
   }
 
   /**
@@ -102,7 +113,7 @@ public class LogRecord implements Record {
    */
   @Override
   public final void setThrown(final Throwable thrown) {
-    this.thrown = thrown;
+    // this.throwable = thrown;
   }
 
   /**
@@ -172,16 +183,6 @@ public class LogRecord implements Record {
   @Override
   public final void setLineNumber(final int lineNumber) {
     this.lineNumber = lineNumber;
-  }
-
-  @Override
-  public final StringBuilder getSb() {
-    return this.sb;
-  }
-
-  @Override
-  public final void setSb(final StringBuilder sb) {
-    this.sb = sb;
   }
 
   @Override
@@ -262,5 +263,75 @@ public class LogRecord implements Record {
   @Override
   public final void setOffset(final String offset) {
     this.offset = offset;
+  }
+
+  @Override
+  public String getLogLevel() {
+    return this.logLevel;
+  }
+
+  @Override
+  public void setLogLevel(final String logLevel) {
+    this.logLevel = logLevel;
+  }
+
+  @Override
+  public CharBuffer getMessage2() {
+    return this.message2;
+  }
+
+  @Override
+  public void setMessage2(final CharBuffer message2) {
+    this.message2 = message2;
+  }
+
+  @Override
+  public String getEvent() {
+    return this.event;
+  }
+
+  @Override
+  public void setEvent(final String event) {
+    this.event = event;
+  }
+
+  @Override
+  public String getIngestion() {
+    return this.ingestion;
+  }
+
+  @Override
+  public void setIngestion(final String ingestion) {
+    this.ingestion = ingestion;
+  }
+
+  @Override
+  public CharBuffer getThrowable() {
+    return this.throwable;
+  }
+
+  @Override
+  public void setThrowable(final CharBuffer throwable) {
+    this.throwable = throwable;
+  }
+
+  @Override
+  public Map<String, String> getMap() {
+    return this.map;
+  }
+
+  @Override
+  public void setMap(final Map<String, String> map) {
+    this.map = map;
+  }
+
+  @Override
+  public String getProcess() {
+    return this.process;
+  }
+
+  @Override
+  public void setProcess(final String process) {
+    this.process = process;
   }
 }

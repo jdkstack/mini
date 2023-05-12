@@ -2,13 +2,12 @@ package org.jdkstack.logging.mini.core.recorder;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.level.Level;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.api.resource.HaFactory;
 import org.jdkstack.logging.mini.api.resource.LeFactory;
 import org.jdkstack.logging.mini.core.StartApplication;
-import org.jdkstack.logging.mini.core.formatter.LogFormatter;
-import org.jdkstack.logging.mini.core.pool.StringBuilderPool;
 
 /**
  * 提供所有日志的方法.
@@ -150,29 +149,11 @@ public class LogRecorder implements Recorder {
    * <p>Another description after blank line.
    *
    * @param logLevel .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
    * @param message .
    * @author admin
    */
-  public final void core(
-      final String logLevel,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final StringBuilder message) {
-    // 如果日志级别匹配.
-    if (this.doFilter(logLevel)) {
-      final HaFactory info = StartApplication.getBean("handlerFactory", HaFactory.class);
-      // 日志级别.
-      String handler = this.handlers.get(logLevel);
-      if (null == handler) {
-        // 自己.
-        handler = this.handlers.get(this.name);
-      }
-      info.execute(handler, logLevel, className, classMethod, lineNumber, message);
-    }
+  public final void core(final String logLevel, final String message, final String... args) {
+    this.core(logLevel, null, message, args);
   }
 
   /**
@@ -181,20 +162,12 @@ public class LogRecorder implements Recorder {
    * <p>Another description after blank line.
    *
    * @param logLevel .
-   * @param className .
    * @param datetime .
-   * @param classMethod .
-   * @param lineNumber .
    * @param message .
    * @author admin
    */
   public final void core(
-      final String logLevel,
-      final String datetime,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final StringBuilder message) {
+      final String logLevel, final String datetime, final String message, final String... args) {
     // 如果日志级别匹配.
     if (this.doFilter(logLevel)) {
       final HaFactory info = StartApplication.getBean("handlerFactory", HaFactory.class);
@@ -204,688 +177,39 @@ public class LogRecorder implements Recorder {
         // 自己.
         handler = this.handlers.get(this.name);
       }
-      info.execute(handler, logLevel, datetime, className, classMethod, lineNumber, message);
+      Handler handler1 = info.getHandler(handler);
+      handler1.process(logLevel, datetime, message);
     }
   }
 
   @Override
   public final void log(
-      final String logLevel,
-      final String datetime,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final String message) {
-    final StringBuilder sb = StringBuilderPool.poll();
-    this.core(logLevel, datetime, className, classMethod, lineNumber, sb.append(message));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String datetime,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final String message,
-      final StringBuilder args1) {
-    this.core(
-        logLevel,
-        datetime,
-        className,
-        classMethod,
-        lineNumber,
-        LogFormatter.format(message, args1));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String datetime,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2) {
-    this.core(
-        logLevel,
-        datetime,
-        className,
-        classMethod,
-        lineNumber,
-        LogFormatter.format(message, args1, args2));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String datetime,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3) {
-    this.core(
-        logLevel,
-        datetime,
-        className,
-        classMethod,
-        lineNumber,
-        LogFormatter.format(message, args1, args2, args3));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String datetime,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4) {
-    this.core(
-        logLevel,
-        datetime,
-        className,
-        classMethod,
-        lineNumber,
-        LogFormatter.format(message, args1, args2, args3, args4));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String datetime,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5) {
-    this.core(
-        logLevel,
-        datetime,
-        className,
-        classMethod,
-        lineNumber,
-        LogFormatter.format(message, args1, args2, args3, args4, args5));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String datetime,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5,
-      final StringBuilder args6) {
-    this.core(
-        logLevel,
-        datetime,
-        className,
-        classMethod,
-        lineNumber,
-        LogFormatter.format(message, args1, args2, args3, args4, args5, args6));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String datetime,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5,
-      final StringBuilder args6,
-      final StringBuilder args7) {
-    this.core(
-        logLevel,
-        datetime,
-        className,
-        classMethod,
-        lineNumber,
-        LogFormatter.format(message, args1, args2, args3, args4, args5, args6, args7));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String datetime,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5,
-      final StringBuilder args6,
-      final StringBuilder args7,
-      final StringBuilder args8) {
-    this.core(
-        logLevel,
-        datetime,
-        className,
-        classMethod,
-        lineNumber,
-        LogFormatter.format(message, args1, args2, args3, args4, args5, args6, args7, args8));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String datetime,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5,
-      final StringBuilder args6,
-      final StringBuilder args7,
-      final StringBuilder args8,
-      final StringBuilder args9) {
-    this.core(
-        logLevel,
-        datetime,
-        className,
-        classMethod,
-        lineNumber,
-        LogFormatter.format(
-            message, args1, args2, args3, args4, args5, args6, args7, args8, args9));
-  }
-
-  @Override
-  public final void log(final String logLevel, final String datetime, final String message) {
-    final StringBuilder sb = StringBuilderPool.poll();
-    this.core(logLevel, datetime, "", "", 0, sb.append(message));
-  }
-
-  @Override
-  public final void log(
+      final Throwable thrown,
       final String logLevel,
       final String datetime,
       final String message,
-      final StringBuilder args1) {
-    this.core(logLevel, datetime, "", "", 0, LogFormatter.format(message, args1));
+      final String... args) {
+    // final StringBuilder sb = StringBuilderPool.poll();
+    this.core(logLevel, datetime, message, args);
   }
 
   @Override
   public final void log(
-      final String logLevel,
-      final String datetime,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2) {
-    this.core(logLevel, datetime, "", "", 0, LogFormatter.format(message, args1, args2));
+      final Throwable thrown, final String logLevel, final String message, final String... args) {
+    // final StringBuilder sb = StringBuilderPool.poll();sb.append(message)
+    this.core(logLevel, message, args);
   }
 
   @Override
   public final void log(
-      final String logLevel,
-      final String datetime,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3) {
-    this.core(logLevel, datetime, "", "", 0, LogFormatter.format(message, args1, args2, args3));
+      final String logLevel, final String datetime, final String message, final String... args) {
+    // final StringBuilder sb = StringBuilderPool.poll();
+    this.core(logLevel, datetime, message, args);
   }
 
   @Override
-  public final void log(
-      final String logLevel,
-      final String datetime,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4) {
-    this.core(
-        logLevel, datetime, "", "", 0, LogFormatter.format(message, args1, args2, args3, args4));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String datetime,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5) {
-    this.core(
-        logLevel,
-        datetime,
-        "",
-        "",
-        0,
-        LogFormatter.format(message, args1, args2, args3, args4, args5));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String datetime,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5,
-      final StringBuilder args6) {
-    this.core(
-        logLevel,
-        datetime,
-        "",
-        "",
-        0,
-        LogFormatter.format(message, args1, args2, args3, args4, args5, args6));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String datetime,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5,
-      final StringBuilder args6,
-      final StringBuilder args7) {
-    this.core(
-        logLevel,
-        datetime,
-        "",
-        "",
-        0,
-        LogFormatter.format(message, args1, args2, args3, args4, args5, args6, args7));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String datetime,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5,
-      final StringBuilder args6,
-      final StringBuilder args7,
-      final StringBuilder args8) {
-    this.core(
-        logLevel,
-        datetime,
-        "",
-        "",
-        0,
-        LogFormatter.format(message, args1, args2, args3, args4, args5, args6, args7, args8));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String datetime,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5,
-      final StringBuilder args6,
-      final StringBuilder args7,
-      final StringBuilder args8,
-      final StringBuilder args9) {
-    this.core(
-        logLevel,
-        datetime,
-        "",
-        "",
-        0,
-        LogFormatter.format(
-            message, args1, args2, args3, args4, args5, args6, args7, args8, args9));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final String message) {
-    final StringBuilder sb = StringBuilderPool.poll();
-    this.core(logLevel, className, classMethod, lineNumber, sb.append(message));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final String message,
-      final StringBuilder args1) {
-    this.core(logLevel, className, classMethod, lineNumber, LogFormatter.format(message, args1));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2) {
-    this.core(
-        logLevel, className, classMethod, lineNumber, LogFormatter.format(message, args1, args2));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3) {
-    this.core(
-        logLevel,
-        className,
-        classMethod,
-        lineNumber,
-        LogFormatter.format(message, args1, args2, args3));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4) {
-    this.core(
-        logLevel,
-        className,
-        classMethod,
-        lineNumber,
-        LogFormatter.format(message, args1, args2, args3, args4));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5) {
-    this.core(
-        logLevel,
-        className,
-        classMethod,
-        lineNumber,
-        LogFormatter.format(message, args1, args2, args3, args4, args5));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5,
-      final StringBuilder args6) {
-    this.core(
-        logLevel,
-        className,
-        classMethod,
-        lineNumber,
-        LogFormatter.format(message, args1, args2, args3, args4, args5, args6));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5,
-      final StringBuilder args6,
-      final StringBuilder args7) {
-    this.core(
-        logLevel,
-        className,
-        classMethod,
-        lineNumber,
-        LogFormatter.format(message, args1, args2, args3, args4, args5, args6, args7));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5,
-      final StringBuilder args6,
-      final StringBuilder args7,
-      final StringBuilder args8) {
-    this.core(
-        logLevel,
-        className,
-        classMethod,
-        lineNumber,
-        LogFormatter.format(message, args1, args2, args3, args4, args5, args6, args7, args8));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String className,
-      final String classMethod,
-      final int lineNumber,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5,
-      final StringBuilder args6,
-      final StringBuilder args7,
-      final StringBuilder args8,
-      final StringBuilder args9) {
-    this.core(
-        logLevel,
-        className,
-        classMethod,
-        lineNumber,
-        LogFormatter.format(
-            message, args1, args2, args3, args4, args5, args6, args7, args8, args9));
-  }
-
-  @Override
-  public final void log(final String logLevel, final String message) {
-    final StringBuilder sb = StringBuilderPool.poll();
-    this.core(logLevel, "", "", 0, sb.append(message));
-  }
-
-  @Override
-  public final void log(final String logLevel, final String message, final StringBuilder args1) {
-    this.core(logLevel, "", "", 0, LogFormatter.format(message, args1));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2) {
-    this.core(logLevel, "", "", 0, LogFormatter.format(message, args1, args2));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3) {
-    this.core(logLevel, "", "", 0, LogFormatter.format(message, args1, args2, args3));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4) {
-    this.core(logLevel, "", "", 0, LogFormatter.format(message, args1, args2, args3, args4));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5) {
-    this.core(logLevel, "", "", 0, LogFormatter.format(message, args1, args2, args3, args4, args5));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5,
-      final StringBuilder args6) {
-    this.core(
-        logLevel,
-        "",
-        "",
-        0,
-        LogFormatter.format(message, args1, args2, args3, args4, args5, args6));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5,
-      final StringBuilder args6,
-      final StringBuilder args7) {
-    this.core(
-        logLevel,
-        "",
-        "",
-        0,
-        LogFormatter.format(message, args1, args2, args3, args4, args5, args6, args7));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5,
-      final StringBuilder args6,
-      final StringBuilder args7,
-      final StringBuilder args8) {
-    this.core(
-        logLevel,
-        "",
-        "",
-        0,
-        LogFormatter.format(message, args1, args2, args3, args4, args5, args6, args7, args8));
-  }
-
-  @Override
-  public final void log(
-      final String logLevel,
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5,
-      final StringBuilder args6,
-      final StringBuilder args7,
-      final StringBuilder args8,
-      final StringBuilder args9) {
-    this.core(
-        logLevel,
-        "",
-        "",
-        0,
-        LogFormatter.format(
-            message, args1, args2, args3, args4, args5, args6, args7, args8, args9));
+  public final void log(final String logLevel, final String message, final String... args) {
+    // final StringBuilder sb = StringBuilderPool.poll();sb.append(message)
+    this.core(logLevel, message, args);
   }
 }

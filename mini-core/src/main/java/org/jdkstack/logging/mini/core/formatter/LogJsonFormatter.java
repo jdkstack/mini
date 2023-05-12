@@ -79,7 +79,7 @@ public final class LogJsonFormatter implements Formatter {
     sb.append('"');
     sb.append(':');
     sb.append('"');
-    sb.append(logRecord.getSb());
+    sb.append(logRecord.getEvent());
     sb.append('"');
     sb.append(',');
     sb.append("\"levelName\"");
@@ -122,7 +122,7 @@ public final class LogJsonFormatter implements Formatter {
     sb.append(logRecord.getMessage());
     sb.append('"');
     // 日志对象中的异常堆栈信息.
-    final Throwable thrown = logRecord.getThrown();
+    /*    final Throwable thrown = logRecord.getThrown();
     if (null != thrown) {
       sb.append(',');
       sb.append("\"stacktrace\"");
@@ -153,6 +153,6 @@ public final class LogJsonFormatter implements Formatter {
         separator = ",";
       }
       sb.append(']');
-    }
+    }*/
   }
 }

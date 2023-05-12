@@ -43,48 +43,4 @@ public interface HaFactory {
    * @author admin
    */
   Map<String, Handler> getHandlers();
-
-  /**
-   * .
-   *
-   * <p>.
-   *
-   * @param name name.
-   * @param logLevel logLevel.
-   * @param message message.
-   * @param className className.
-   * @param classMethod classMethod.
-   * @param lineNumber lineNumber.
-   * @author admin
-   */
-  void execute(
-      String name,
-      String logLevel,
-      String className,
-      String classMethod,
-      int lineNumber,
-      StringBuilder message);
-
-  /**
-   * .
-   *
-   * <p>.
-   *
-   * @param name name.
-   * @param datetime datetime.
-   * @param logLevel logLevel.
-   * @param message message.
-   * @param className className.
-   * @param classMethod classMethod.
-   * @param lineNumber lineNumber.
-   * @author admin
-   */
-  void execute(
-      String name,
-      String logLevel,
-      String datetime,
-      String className,
-      String classMethod,
-      int lineNumber,
-      StringBuilder message);
 }

@@ -1,5 +1,8 @@
 package org.jdkstack.logging.mini.api.record;
 
+import java.nio.CharBuffer;
+import java.util.Map;
+
 /**
  * This is a class description.
  *
@@ -17,7 +20,7 @@ public interface Record {
    * @return String .
    * @author admin
    */
-  StringBuilder getMessage();
+  String getMessage();
 
   /**
    * This is a method description.
@@ -27,7 +30,7 @@ public interface Record {
    * @param message .
    * @author admin
    */
-  void setMessage(StringBuilder message);
+  void setMessage(String message);
 
   /**
    * This is a method description.
@@ -37,7 +40,7 @@ public interface Record {
    * @return Throwable .
    * @author admin
    */
-  Throwable getThrown();
+  CharBuffer getThrown();
 
   /**
    * This is a method description.
@@ -138,26 +141,6 @@ public interface Record {
    * @author admin
    */
   void setLineNumber(int lineNumber);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @return String .
-   * @author admin
-   */
-  StringBuilder getSb();
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param sb .
-   * @author admin
-   */
-  void setSb(StringBuilder sb);
 
   /**
    * This is a method description.
@@ -318,4 +301,32 @@ public interface Record {
    * @author admin
    */
   void setOffset(String offset);
+
+  String getLogLevel();
+
+  void setLogLevel(String logLevel);
+
+  CharBuffer getMessage2();
+
+  void setMessage2(CharBuffer message2);
+
+  String getEvent();
+
+  void setEvent(String event);
+
+  String getIngestion();
+
+  void setIngestion(String ingestion);
+
+  CharBuffer getThrowable();
+
+  void setThrowable(CharBuffer throwable);
+
+  Map<String, String> getMap();
+
+  void setMap(Map<String, String> map);
+
+  String getProcess();
+
+  void setProcess(String process);
 }

@@ -15,7 +15,7 @@ import org.jdkstack.ringbuffer.api.RingBufferBlockingQueue;
  * @author admin
  */
 public abstract class AbstractLockBlockingQueueV3<E> extends AbstractBlockingQueue<E>
-    implements BlockingQueue<E>, RingBufferBlockingQueue {
+    implements BlockingQueue<E>, RingBufferBlockingQueue<E> {
 
   /** 环形数组. */
   protected final E[] ringBuffer;
@@ -114,8 +114,7 @@ public abstract class AbstractLockBlockingQueueV3<E> extends AbstractBlockingQue
    * @return boolean e.
    * @author admin
    */
-  @Override
-  public final E take() {
+  public final E head() {
     // 循环从环形数组中获取元素,直到能获取到为止.
     while (true) {
       // 拿到一个元素.
@@ -138,7 +137,7 @@ public abstract class AbstractLockBlockingQueueV3<E> extends AbstractBlockingQue
    * @return E .
    * @author admin
    */
-  public final E pub() {
+  public final E tail() {
     E publish = this.publish();
 
     while (null == publish) {
