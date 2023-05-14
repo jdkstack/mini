@@ -62,26 +62,13 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
       this.remap();
     }
     // 切换日志文件规则只有一种,按size切换.
-    // 数据的长度.
-    // final int len = length;
-    // 偏移量.
-    // final int off = offset;
     // 剩余空间.
     final int chunk = this.mappedBuffer.remaining();
     // 数据长度大于剩余空间,分段写.
     if (length > chunk) {
       // 一旦文件达到了上限(不能完整存储一条日志,只能存储半条)，重新打开一个文件.
       this.remap();
-      // 写一次数据.
-      // this.mappedBuffer.put(bytes, off, chunk);
-      // 偏移量增加写入的数据大小.
-      // off += chunk;
-      // 数据长度减去写入的数据大小.
-      // len -= chunk;
-      // 重新获取一次剩余空间.
-      // chunk = this.mappedBuffer.remaining();
     }
-    // 数据长度小于等于剩余空间,直接写.
   }
 
   /**
@@ -98,7 +85,7 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
       this.mappedBuffer.force();
       // 断开文件句柄，使用反射调用释放方法.
       final Field field = this.mappedBuffer.getClass().getDeclaredField("cleaner");
-      field.setAccessible(true);
+       
       final Object cleaner = field.get(this.mappedBuffer);
       final Method cleanMethod = cleaner.getClass().getMethod("clean");
       cleanMethod.invoke(cleaner);
@@ -123,22 +110,25 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
   @Override
   public void consume(final Record lr) {
     try {
-      // 格式化日志对象.
-      final StringBuilder logMessage = this.format(lr);
-      // 清除缓存.
-      this.charBuf.clear();
-      // 写入临时数组.
-      logMessage.getChars(0, logMessage.length(), this.charBuf.array(), this.charBuf.arrayOffset());
-      // 结束读取的位置.
-      this.charBuf.limit(logMessage.length());
-      // 开始读取的位置.
-      this.charBuf.position(0);
-      // 切换规则.
-      this.rules(lr, this.charBuf.remaining());
-      // 开始编码.
-      this.textEncoder.encode(this.charBuf, this.destination);
-      // 单条刷新到磁盘.
-      this.flush();
+      if (this.filter(lr)) {
+        // 格式化日志对象.
+        final StringBuilder logMessage = this.format(lr);
+        // 清除缓存.
+        this.charBuf.clear();
+        // 写入临时数组.
+        logMessage.getChars(
+            0, logMessage.length(), this.charBuf.array(), this.charBuf.arrayOffset());
+        // 结束读取的位置.
+        this.charBuf.limit(logMessage.length());
+        // 开始读取的位置.
+        this.charBuf.position(0);
+        // 切换规则.
+        this.rules(lr, this.charBuf.remaining());
+        // 开始编码.
+        this.textEncoder.encode(this.charBuf, this.destination);
+        // 单条刷新到磁盘.
+        this.flush();
+      }
     } catch (final Exception e) {
       Internal.log(e);
     }

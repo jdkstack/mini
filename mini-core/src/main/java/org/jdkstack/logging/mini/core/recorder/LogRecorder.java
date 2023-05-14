@@ -152,8 +152,8 @@ public class LogRecorder implements Recorder {
    * @param message .
    * @author admin
    */
-  public final void core(final String logLevel, final String message, final String... args) {
-    this.core(logLevel, null, message, args);
+  public final void core(final String logLevel, final String message) {
+    this.core(logLevel, null, message);
   }
 
   /**
@@ -166,9 +166,8 @@ public class LogRecorder implements Recorder {
    * @param message .
    * @author admin
    */
-  public final void core(
-      final String logLevel, final String datetime, final String message, final String... args) {
-    // 如果日志级别匹配.
+  public final void core(final String logLevel, final String datetime, final String message) {
+    // 日志级别是否匹配.
     if (this.doFilter(logLevel)) {
       final HaFactory info = StartApplication.getBean("handlerFactory", HaFactory.class);
       // 日志级别.
@@ -184,32 +183,22 @@ public class LogRecorder implements Recorder {
 
   @Override
   public final void log(
-      final Throwable thrown,
-      final String logLevel,
-      final String datetime,
-      final String message,
-      final String... args) {
-    // final StringBuilder sb = StringBuilderPool.poll();
-    this.core(logLevel, datetime, message, args);
+      final Throwable thrown, final String logLevel, final String datetime, final String message) {
+    this.core(logLevel, datetime, message);
   }
 
   @Override
-  public final void log(
-      final Throwable thrown, final String logLevel, final String message, final String... args) {
-    // final StringBuilder sb = StringBuilderPool.poll();sb.append(message)
-    this.core(logLevel, message, args);
+  public final void log(final Throwable thrown, final String logLevel, final String message) {
+    this.core(logLevel, message);
   }
 
   @Override
-  public final void log(
-      final String logLevel, final String datetime, final String message, final String... args) {
-    // final StringBuilder sb = StringBuilderPool.poll();
-    this.core(logLevel, datetime, message, args);
+  public final void log(final String logLevel, final String datetime, final String message) {
+    this.core(logLevel, datetime, message);
   }
 
   @Override
-  public final void log(final String logLevel, final String message, final String... args) {
-    // final StringBuilder sb = StringBuilderPool.poll();sb.append(message)
-    this.core(logLevel, message, args);
+  public final void log(final String logLevel, final String message) {
+    this.core(logLevel, message);
   }
 }

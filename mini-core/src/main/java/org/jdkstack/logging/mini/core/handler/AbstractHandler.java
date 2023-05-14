@@ -61,12 +61,14 @@ public abstract class AbstractHandler implements Handler {
     final String formatterName = this.formatters.get(info1.getValue(key, "name"));
     final FormatterFactory info =
         StartApplication.getBean("formatterFactory", FormatterFactory.class);
-    return getStringBuilder(logRecord, formatterName, info);
+    return info.formatter(formatterName, logRecord);
   }
 
-  private static StringBuilder getStringBuilder(
-      final Record logRecord, final String formatterName, final FormatterFactory info) {
-    return info.formatter(formatterName, logRecord);
+  public boolean filter(final Record logRecord) {
+    final CoFactory info1 = StartApplication.getBean("configFactory", CoFactory.class);
+    final String filterName = this.filters.get(info1.getValue(key, "name"));
+    final FilterFactory info = StartApplication.getBean("filterFactory", FilterFactory.class);
+    return info.filter(filterName, logRecord);
   }
 
   @Override
@@ -103,7 +105,7 @@ public abstract class AbstractHandler implements Handler {
       lr.setMessage(message);
       // 记录接收事件时的日期时间.
       final long current = System.currentTimeMillis();
-      lr.setIngestion(DateTimeEncoder.encoder(current).toString());
+      //lr.setIngestion(DateTimeEncoder.encoder(current).toString());
       final long year = DateTimeEncoder.year(current);
       lr.setYear(year);
       final long month = DateTimeEncoder.month(current);
@@ -124,14 +126,4 @@ public abstract class AbstractHandler implements Handler {
   }
 
   abstract void rules(final Record lr, final int length) throws Exception;
-
-  public void s(final Record logRecord) {
-    final CoFactory info1 = StartApplication.getBean("configFactory", CoFactory.class);
-    final String filterName = this.filters.get(info1.getValue(key, "name"));
-    final FilterFactory info = StartApplication.getBean("filterFactory", FilterFactory.class);
-    final boolean filter = info.filter(filterName, logRecord);
-    if (filter) {
-      //
-    }
-  }
 }

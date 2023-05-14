@@ -1,10 +1,7 @@
 package org.jdkstack.ringbuffer.core;
 
-import java.util.AbstractQueue;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.jdkstack.ringbuffer.api.RingBufferBlockingQueue;
 
 /**
  * 阻塞队列核心.
@@ -14,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @param <E> e.
  * @author admin
  */
-public abstract class AbstractBlockingQueue<E> extends AbstractQueue<E> {
+public abstract class AbstractBlockingQueue<E> implements RingBufferBlockingQueue<E> {
 
   /** 环形数组的容量. */
   protected final int capacity;
@@ -102,78 +99,11 @@ public abstract class AbstractBlockingQueue<E> extends AbstractQueue<E> {
    *
    * <p>Another description after blank line.
    *
-   * @param e e.
-   * @param timeout t.
-   * @param unit u.
-   * @return boolean e.
-   * @author admin
-   */
-  public final boolean offer(final E e, final long timeout, final TimeUnit unit) {
-    throw new UnsupportedOperationException("未实现.");
-  }
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
    * @return boolean e.
    * @author admin
    */
   public final boolean isFull() {
     final int queueStart = this.tail.get() - this.capacity;
     return this.head.get() == queueStart;
-  }
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @return Iterator E e.
-   * @author admin
-   */
-  @Override
-  public final Iterator<E> iterator() {
-    throw new UnsupportedOperationException("未实现.");
-  }
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @return int e.
-   * @author admin
-   */
-  public final int remainingCapacity() {
-    throw new UnsupportedOperationException("未实现.");
-  }
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param c c.
-   * @return int e.
-   * @author admin
-   */
-  public final int drainTo(final Collection<? super E> c) {
-    throw new UnsupportedOperationException("未实现.");
-  }
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param c c.
-   * @param maxElements maxElements.
-   * @return int e.
-   * @author admin
-   */
-  public final int drainTo(final Collection<? super E> c, final int maxElements) {
-    throw new UnsupportedOperationException("未实现.");
   }
 }

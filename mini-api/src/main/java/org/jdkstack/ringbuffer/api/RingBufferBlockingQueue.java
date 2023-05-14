@@ -19,7 +19,13 @@ public interface RingBufferBlockingQueue<E> {
    */
   boolean isFull();
 
-  // E tail();
+  boolean offer(E e);
 
-  // E head();
+  E poll();
+
+  E peek();
+
+  int size();
+
+  boolean isEmpty();
 }

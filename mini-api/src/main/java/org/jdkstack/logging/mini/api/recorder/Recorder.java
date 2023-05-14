@@ -124,8 +124,7 @@ public interface Recorder {
    * @param message .
    * @author admin
    */
-  void log(
-      final Throwable thrown, String logLevel, String datetime, String message, String... args);
+  void log(final Throwable thrown, String logLevel, String datetime, String message);
 
   /**
    * This is a method description.
@@ -136,7 +135,7 @@ public interface Recorder {
    * @param message .
    * @author admin
    */
-  void log(final Throwable thrown, String logLevel, String message, String... args);
+  void log(final Throwable thrown, String logLevel, String message);
 
   /**
    * This is a method description.
@@ -148,7 +147,7 @@ public interface Recorder {
    * @param message .
    * @author admin
    */
-  void log(String logLevel, String datetime, String message, String... args);
+  void log(String logLevel, String datetime, String message);
 
   /**
    * This is a method description.
@@ -159,7 +158,5 @@ public interface Recorder {
    * @param message .
    * @author admin
    */
-  void log(String logLevel, String message, String... args);
-
-  // void info(String message, String... args);
+  void log(String logLevel, String message);
 }

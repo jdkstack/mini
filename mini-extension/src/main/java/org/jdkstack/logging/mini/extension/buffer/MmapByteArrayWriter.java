@@ -14,6 +14,10 @@ public class MmapByteArrayWriter extends ByteArrayWriter {
   /** . */
   private MappedByteBuffer mappedBuffer;
 
+  public MmapByteArrayWriter() {
+    //
+  }
+
   /**
    * .
    *

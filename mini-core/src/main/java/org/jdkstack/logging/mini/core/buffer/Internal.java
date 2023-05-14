@@ -36,7 +36,7 @@ public final class Internal {
    * @param e e.
    * @author admin
    */
-  public static void log(final Exception e) {
+  public static void log(final Throwable e) {
     try {
       // 异常消息.
       final String message = e.getMessage();
