@@ -1,4 +1,4 @@
-package org.jdkstack.pool;
+package org.jdkstack.pool.core;
 
 public class ExecutionException extends Exception {
   private static final long serialVersionUID = 7830266012832686185L;

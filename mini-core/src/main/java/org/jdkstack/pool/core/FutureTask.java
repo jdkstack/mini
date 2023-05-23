@@ -1,4 +1,4 @@
-package org.jdkstack.pool;
+package org.jdkstack.pool.core;
 
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;

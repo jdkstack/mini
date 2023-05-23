@@ -1,4 +1,4 @@
-package org.jdkstack.pool;
+package org.jdkstack.pool.core;
 
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
 

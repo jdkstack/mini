@@ -1,4 +1,4 @@
-package org.jdkstack.pool;
+package org.jdkstack.pool.core;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;

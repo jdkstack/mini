@@ -1,4 +1,4 @@
-package org.jdkstack.pool;
+package org.jdkstack.pool.core;
 
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
