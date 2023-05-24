@@ -349,9 +349,4 @@ public final class LogFormatter {
       CHARBUF.append(args9);
     }
   }
-
-  public static void main(String[] args) {
-    CharBuffer format = LogFormatter.format("message");
-    System.out.println(new String(format.array()));
-  }
 }
