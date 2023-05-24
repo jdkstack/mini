@@ -1,5 +1,7 @@
 package org.jdkstack.logging.mini.core.handler;
 
+import java.nio.Buffer;
+import java.nio.CharBuffer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
@@ -56,7 +58,7 @@ public abstract class AbstractHandler implements Handler {
   }
 
   @Override
-  public final StringBuilder format(final Record logRecord) {
+  public final Buffer format(final Record logRecord) {
     final CoFactory info1 = StartApplication.getBean("configFactory", CoFactory.class);
     final String formatterName = this.formatters.get(info1.getValue(key, "name"));
     final FormatterFactory info =
@@ -72,12 +74,17 @@ public abstract class AbstractHandler implements Handler {
   }
 
   @Override
-  public final void process(final String logLevel, final String datetime, final String message) {
+  public final void process(
+      final String logLevel,
+      final String className,
+      final String datetime,
+      final CharBuffer message,
+      final Throwable thrown) {
     try {
       // 预生产(从循环队列tail取一个元素对象地址).
       final Record lr = this.queue.tail();
       // 为元素对象生产数据.
-      this.produce(logLevel, datetime, message, lr);
+      this.produce(logLevel, datetime, message, className, thrown, lr);
     } finally {
       // 生产数据完成的标记(数据可以从循环队列head消费).
       this.queue.start();
@@ -95,17 +102,22 @@ public abstract class AbstractHandler implements Handler {
 
   @Override
   public void produce(
-      final String logLevel, final String datetime, final String message, final Record lr) {
+      final String logLevel,
+      final String datetime,
+      final CharBuffer message,
+      final String className,
+      final Throwable thrown,
+      final Record lr) {
     try {
       lr.setEvent(datetime);
-      // lr.setClassName(className);
-      // lr.setClassMethod(classMethod);
-      // lr.setLineNumber(lineNumber);
+      lr.setClassName(className);
+      lr.setThrown(thrown);
       lr.setLevel(logLevel);
       lr.setMessage(message);
       // 记录接收事件时的日期时间.
       final long current = System.currentTimeMillis();
-      //lr.setIngestion(DateTimeEncoder.encoder(current).toString());
+      DateTimeEncoder.encoder(current).toString();
+      // lr.setIngestion(DateTimeEncoder.encoder(current).toString());
       final long year = DateTimeEncoder.year(current);
       lr.setYear(year);
       final long month = DateTimeEncoder.month(current);

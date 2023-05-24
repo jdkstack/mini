@@ -1,5 +1,7 @@
 package org.jdkstack.logging.mini.api.handler;
 
+import java.nio.Buffer;
+import java.nio.CharBuffer;
 import org.jdkstack.logging.mini.api.record.Record;
 
 /**
@@ -18,7 +20,13 @@ public interface Handler {
    *
    * @author admin
    */
-  void produce(final String logLevel, final String datetime, final String message, final Record lr);
+  void produce(
+      final String logLevel,
+      final String datetime,
+      final CharBuffer message,
+      final String className,
+      final Throwable thrown,
+      final Record lr);
 
   /**
    * This is a method description.
@@ -29,7 +37,7 @@ public interface Handler {
    */
   void consume(final Record lr);
 
-  StringBuilder format(Record logRecord);
+  Buffer format(Record logRecord);
 
   /**
    * This is a method description.
@@ -41,5 +49,10 @@ public interface Handler {
    * @param message .
    * @author admin
    */
-  void process(final String logLevel, final String datetime, final String message);
+  void process(
+      final String logLevel,
+      final String className,
+      final String datetime,
+      final CharBuffer message,
+      final Throwable thrown);
 }

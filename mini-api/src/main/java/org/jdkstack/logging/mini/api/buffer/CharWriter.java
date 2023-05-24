@@ -51,4 +51,6 @@ public interface CharWriter {
    * @author admin
    */
   void readToDestination(final char[] bytes, final int offset, final int length) throws Exception;
+
+  void setDestination(Object obj);
 }

@@ -95,7 +95,7 @@ public class CharArrayEncoderV2 implements Encoder<CharBuffer> {
     ce.flush(byteBuf);
     // 原来用!=比较.
     if (!byteBuf.equals(destination.getByteBuffer())) {
-      //
+      // 翻转limit和position,将限制设置为当前位置,然后将位置设置为零.
       byteBuf.flip();
       // 如果有可读取的数据.
       if (0 != byteBuf.remaining()) {

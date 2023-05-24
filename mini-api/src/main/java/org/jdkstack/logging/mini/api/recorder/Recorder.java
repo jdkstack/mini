@@ -1,5 +1,6 @@
 package org.jdkstack.logging.mini.api.recorder;
 
+import java.nio.CharBuffer;
 import org.jdkstack.logging.mini.api.level.Level;
 
 /**
@@ -124,7 +125,7 @@ public interface Recorder {
    * @param message .
    * @author admin
    */
-  void log(final Throwable thrown, String logLevel, String datetime, String message);
+  void log(String logLevel, String datetime, String message, Throwable thrown);
 
   /**
    * This is a method description.
@@ -135,7 +136,7 @@ public interface Recorder {
    * @param message .
    * @author admin
    */
-  void log(final Throwable thrown, String logLevel, String message);
+  void log(String logLevel, String message, Throwable thrown);
 
   /**
    * This is a method description.
@@ -159,4 +160,12 @@ public interface Recorder {
    * @author admin
    */
   void log(String logLevel, String message);
+
+  void log(String logLevel, String datetime, CharBuffer message, Throwable thrown);
+
+  void log(String logLevel, CharBuffer message, Throwable thrown);
+
+  void log(String logLevel, String datetime, CharBuffer message);
+
+  void log(String logLevel, CharBuffer message);
 }

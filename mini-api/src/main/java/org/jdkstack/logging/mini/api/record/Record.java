@@ -20,7 +20,7 @@ public interface Record {
    * @return String .
    * @author admin
    */
-  String getMessage();
+  CharBuffer getMessage();
 
   /**
    * This is a method description.
@@ -30,17 +30,7 @@ public interface Record {
    * @param message .
    * @author admin
    */
-  void setMessage(String message);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @return Throwable .
-   * @author admin
-   */
-  CharBuffer getThrown();
+  void setMessage(CharBuffer message);
 
   /**
    * This is a method description.
@@ -101,46 +91,6 @@ public interface Record {
    * @author admin
    */
   void setClassName(String className);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @return String.
-   * @author admin
-   */
-  String getClassMethod();
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param classMethod classMethod.
-   * @author admin
-   */
-  void setClassMethod(String classMethod);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @return int.
-   * @author admin
-   */
-  int getLineNumber();
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param lineNumber lineNumber.
-   * @author admin
-   */
-  void setLineNumber(int lineNumber);
 
   /**
    * This is a method description.
@@ -306,10 +256,6 @@ public interface Record {
 
   void setLogLevel(String logLevel);
 
-  CharBuffer getMessage2();
-
-  void setMessage2(CharBuffer message2);
-
   String getEvent();
 
   void setEvent(String event);
@@ -318,9 +264,7 @@ public interface Record {
 
   void setIngestion(String ingestion);
 
-  CharBuffer getThrowable();
-
-  void setThrowable(CharBuffer throwable);
+  Throwable getThrowable();
 
   Map<String, String> getMap();
 

@@ -17,9 +17,7 @@ public class LogRecord implements Record {
   /** 日志级别. */
   private String logLevel;
   /** 日志消息. */
-  private String message;
-  /** 格式化后的日志消息. */
-  private CharBuffer message2;
+  private CharBuffer message;
   /** 事件发生时的datetime. */
   private String event;
   /** 接收事件时的datetime. */
@@ -30,14 +28,10 @@ public class LogRecord implements Record {
   private String offset;
   /** 日志类. */
   private String className;
-  /** 日志方法. */
-  private String classMethod;
   /** 日志异常. */
-  private CharBuffer throwable;
+  private Throwable throwable;
   /** map. */
   private Map<String, String> map = new HashMap<>(16);
-  /** 日志方法所在的行号. */
-  private int lineNumber;
   /** . */
   private long year;
   /** . */
@@ -73,7 +67,7 @@ public class LogRecord implements Record {
    * @author admin
    */
   @Override
-  public final String getMessage() {
+  public final CharBuffer getMessage() {
     return this.message;
   }
 
@@ -86,23 +80,10 @@ public class LogRecord implements Record {
    * @author admin
    */
   @Override
-  public final void setMessage(final String message) {
+  public final void setMessage(final CharBuffer message) {
     this.message = message;
   }
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @return Throwable .
-   * @author admin
-   */
-  @Override
-  public final CharBuffer getThrown() {
-    return this.throwable;
-  }
-
+  
   /**
    * This is a method description.
    *
@@ -113,7 +94,7 @@ public class LogRecord implements Record {
    */
   @Override
   public final void setThrown(final Throwable thrown) {
-    // this.throwable = thrown;
+    this.throwable = thrown;
   }
 
   /**
@@ -163,26 +144,6 @@ public class LogRecord implements Record {
   @Override
   public final void setClassName(final String className) {
     this.className = className;
-  }
-
-  @Override
-  public final String getClassMethod() {
-    return this.classMethod;
-  }
-
-  @Override
-  public final void setClassMethod(final String classMethod) {
-    this.classMethod = classMethod;
-  }
-
-  @Override
-  public final int getLineNumber() {
-    return this.lineNumber;
-  }
-
-  @Override
-  public final void setLineNumber(final int lineNumber) {
-    this.lineNumber = lineNumber;
   }
 
   @Override
@@ -276,16 +237,6 @@ public class LogRecord implements Record {
   }
 
   @Override
-  public CharBuffer getMessage2() {
-    return this.message2;
-  }
-
-  @Override
-  public void setMessage2(final CharBuffer message2) {
-    this.message2 = message2;
-  }
-
-  @Override
   public String getEvent() {
     return this.event;
   }
@@ -306,13 +257,8 @@ public class LogRecord implements Record {
   }
 
   @Override
-  public CharBuffer getThrowable() {
+  public Throwable getThrowable() {
     return this.throwable;
-  }
-
-  @Override
-  public void setThrowable(final CharBuffer throwable) {
-    this.throwable = throwable;
   }
 
   @Override

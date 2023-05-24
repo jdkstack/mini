@@ -85,7 +85,7 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
       this.mappedBuffer.force();
       // 断开文件句柄，使用反射调用释放方法.
       final Field field = this.mappedBuffer.getClass().getDeclaredField("cleaner");
-       
+
       final Object cleaner = field.get(this.mappedBuffer);
       final Method cleanMethod = cleaner.getClass().getMethod("clean");
       cleanMethod.invoke(cleaner);
@@ -112,12 +112,12 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
     try {
       if (this.filter(lr)) {
         // 格式化日志对象.
-        final StringBuilder logMessage = this.format(lr);
+        final CharBuffer logMessage = (CharBuffer) this.format(lr);
         // 清除缓存.
         this.charBuf.clear();
         // 写入临时数组.
-        logMessage.getChars(
-            0, logMessage.length(), this.charBuf.array(), this.charBuf.arrayOffset());
+        // 将数据写入缓存.
+        this.charBuf.put(logMessage.array(), logMessage.arrayOffset(), logMessage.remaining());
         // 结束读取的位置.
         this.charBuf.limit(logMessage.length());
         // 开始读取的位置.
