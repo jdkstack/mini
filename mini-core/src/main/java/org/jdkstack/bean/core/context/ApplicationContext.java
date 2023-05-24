@@ -19,7 +19,7 @@ import org.jdkstack.logging.mini.api.option.RecorderOption;
 import org.jdkstack.logging.mini.core.filter.LogFilter;
 import org.jdkstack.logging.mini.core.formatter.LogJsonFormatter;
 import org.jdkstack.logging.mini.core.formatter.LogTextFormatter;
-import org.jdkstack.logging.mini.core.handler.FileHandlerV3;
+import org.jdkstack.logging.mini.core.handler.FileHandlerV2;
 import org.jdkstack.logging.mini.core.level.Constants;
 import org.jdkstack.logging.mini.core.option.LogRecorderOption;
 import org.jdkstack.logging.mini.core.resource.ConfigManager;
@@ -103,7 +103,7 @@ public class ApplicationContext implements Context {
     final Formatter logTextFormatter = new LogTextFormatter();
     formatterManager.create("logTextFormatter", logTextFormatter);
     HandlerManager handlerManager = (HandlerManager) getObject("handlerManager");
-    final Handler fileHandlerV2 = new FileHandlerV3("default");
+    final Handler fileHandlerV2 = new FileHandlerV2("default");
     handlerManager.create("default", fileHandlerV2);
     RecorderManager recorderManager = (RecorderManager) getObject("recorderManager");
     final RecorderOption recorderOption = new LogRecorderOption();
