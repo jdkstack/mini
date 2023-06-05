@@ -6,6 +6,8 @@ import java.nio.CharBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.codec.Encoder;
 import org.jdkstack.logging.mini.api.record.Record;
@@ -37,6 +39,8 @@ public class FileHandlerV2 extends AbstractHandler {
   private RandomAccessFile randomAccessFile;
   /** . */
   protected FileChannel channel;
+  /** 锁. */
+  private static final Lock LOCK = new ReentrantLock();
 
   /**
    * This is a method description.
@@ -129,6 +133,7 @@ public class FileHandlerV2 extends AbstractHandler {
    * @author admin
    */
   public void consume(final Record lr) {
+    LOCK.lock();
     try {
       if (this.filter(lr)) {
         // 格式化日志对象.
@@ -150,6 +155,8 @@ public class FileHandlerV2 extends AbstractHandler {
       }
     } catch (final Exception e) {
       Internal.log(e);
+    } finally {
+      LOCK.unlock();
     }
   }
 

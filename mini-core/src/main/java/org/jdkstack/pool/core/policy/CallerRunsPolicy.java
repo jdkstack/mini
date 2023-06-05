@@ -20,8 +20,6 @@ public class CallerRunsPolicy implements RejectedExecutionHandler {
    * @param e the executor attempting to execute this task
    */
   public void rejectedExecution(Runnable r, ThreadPoolExecutor e) {
-    if (!e.isShutdown()) {
-      r.run();
-    }
+    //
   }
 }

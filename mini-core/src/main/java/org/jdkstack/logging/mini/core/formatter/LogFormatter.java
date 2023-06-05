@@ -301,12 +301,11 @@ public final class LogFormatter {
         }
         index++;
       }
-      CHARBUF.limit(CHARBUF.position());
-      CHARBUF.position(0);
-      return CHARBUF;
     } finally {
       LOCK.unlock();
     }
+    CHARBUF.flip();
+    return CHARBUF;
   }
 
   private static void hanlder(

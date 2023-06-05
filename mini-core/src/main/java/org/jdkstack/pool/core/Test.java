@@ -1,13 +1,14 @@
 package org.jdkstack.pool.core;
 
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
+import org.jdkstack.ringbuffer.core.mpmc.version3.MpmcBlockingQueueV3;
 
 public class Test {
 
   public static void main(String[] args) {
     ThreadPoolExecutor logConsumer =
-        new ThreadPoolExecutor(2, 2, 0, TimeUnit.SECONDS, new LinkedBlockingQueue<>(1000));
+        new ThreadPoolExecutor(
+            2, 2, 0, TimeUnit.SECONDS, new MpmcBlockingQueueV3<>(1024, TaskWorker::new));
     /*    logConsumer.submit(
         () -> {
           try {
@@ -34,29 +35,17 @@ public class Test {
     logConsumer.submit(() -> System.out.println("xxxxxxxxxxx10"));
     logConsumer.submit(() -> System.out.println("xxxxxxxxxxx11"));*/
 
-    // for (int i = 0; i < 10; i++) {
-    TaskWorker taskWorker1 = logConsumer.getTaskWorker();
-    taskWorker1.setTest(101 + "");
-    logConsumer.start();
-    //  }
-    TaskWorker taskWorker2 = logConsumer.getTaskWorker();
-    taskWorker2.setTest(102 + "");
-    logConsumer.start();
-    TaskWorker taskWorker3 = logConsumer.getTaskWorker();
-    taskWorker3.setTest(103 + "");
-    logConsumer.start();
-    TaskWorker taskWorker4 = logConsumer.getTaskWorker();
-    taskWorker4.setTest(104 + "");
-    logConsumer.start();
-    TaskWorker taskWorker5 = logConsumer.getTaskWorker();
-    taskWorker5.setTest(105 + "");
-    logConsumer.start();
-    System.out.println("xasdasd");
-    try {
+    for (;;) {
+      TaskWorker taskWorker1 = (TaskWorker) logConsumer.getTaskWorker();
+      taskWorker1.setTest("xxxx");
+      logConsumer.start();
+    }
+
+/*    try {
       Thread.sleep(9999999);
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
-    }
+    }*/
     // logConsumer.shutdown();
   }
 }

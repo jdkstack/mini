@@ -69,12 +69,11 @@ public final class LogJsonFormatter implements Formatter {
       final String lineSeparator = System.lineSeparator();
       // json字符串结束.
       CHARBUF.append('}').append(lineSeparator);
-      CHARBUF.limit(CHARBUF.position());
-      CHARBUF.position(0);
-      return CHARBUF;
     } finally {
       LOCK.unlock();
     }
+    CHARBUF.flip();
+    return CHARBUF;
   }
 
   /**
@@ -121,8 +120,18 @@ public final class LogJsonFormatter implements Formatter {
     // 日志对象中的消息字段.
     CHARBUF.append('"');
     final CharBuffer message = logRecord.getMessage();
+    if (message.length() == 0) {
+      System.out.println(message.limit());
+      System.out.println(message.position());
+      System.out.println("LF0:" + new String(message.array()));
+    }
+    if (message.length() == 8192) {
+      System.out.println(message.limit());
+      System.out.println(message.position());
+      System.out.println("LF8192:" + new String(message.array()));
+    }
     // 将数据写入缓存.
-    CHARBUF.put(message.array(), message.arrayOffset(), message.remaining());
+    CHARBUF.put(message);
     CHARBUF.append('"');
     // 日志对象中的异常堆栈信息.
     final Throwable thrown = logRecord.getThrowable();

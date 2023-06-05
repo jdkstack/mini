@@ -13,12 +13,7 @@ public class TaskWorker implements Runnable {
 
   @Override
   public void run() {
-    System.out.println(Thread.currentThread().getName() + "-" + getTest());
-    try {
-      Thread.sleep(150);
-    } catch (InterruptedException e) {
-      throw new RuntimeException(e);
-    }
+    //System.out.println(Thread.currentThread().getName() + "-" + getTest());
   }
 
   public String getTest() {

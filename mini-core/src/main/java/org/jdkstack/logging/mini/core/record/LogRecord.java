@@ -17,7 +17,7 @@ public class LogRecord implements Record {
   /** 日志级别. */
   private String logLevel;
   /** 日志消息. */
-  private CharBuffer message;
+  private CharBuffer message = CharBuffer.allocate(2048);
   /** 事件发生时的datetime. */
   private String event;
   /** 接收事件时的datetime. */
@@ -81,9 +81,23 @@ public class LogRecord implements Record {
    */
   @Override
   public final void setMessage(final CharBuffer message) {
-    this.message = message;
+    if (message.length() == 0) {
+      System.out.println(message.limit());
+      System.out.println(message.position());
+      System.out.println("0:" + new String(message.array()));
+    }
+    if (message.length() == 8192) {
+      System.out.println(message.limit());
+      System.out.println(message.position());
+      System.out.println("8192:" + new String(message.array()));
+    }
+    synchronized (this) {
+      this.message.clear();
+      this.message.put(message);
+      this.message.flip();
+    }
   }
-  
+
   /**
    * This is a method description.
    *
