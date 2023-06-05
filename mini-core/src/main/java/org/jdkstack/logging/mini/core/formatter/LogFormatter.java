@@ -1,8 +1,6 @@
 package org.jdkstack.logging.mini.core.formatter;
 
 import java.nio.CharBuffer;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 日志消息格式化.
@@ -24,8 +22,6 @@ public final class LogFormatter {
   /** 临时数组. */
   private static final CharBuffer CHARBUF =
       CharBuffer.allocate(org.jdkstack.logging.mini.core.codec.Constants.SOURCEN8);
-  /** 锁. */
-  private static final Lock LOCK = new ReentrantLock();
 
   private LogFormatter() {
     //
@@ -249,60 +245,55 @@ public final class LogFormatter {
       final String args7,
       final String args8,
       final String args9) {
-    LOCK.lock();
-    try {
-      CHARBUF.clear();
-      // 原始字符串长度.
-      final int len = message.length();
-      // 当前被处理的原始字符位置.
-      int index = 0;
-      // {} 个数.
-      int braces = 0;
-      // 循环处理每一个原始字符.
-      while (index < len) {
-        // 获取第一个原始字符.
-        final char c = message.charAt(index);
-        // 获取第二个原始字符.
-        final int nextLen1 = index + 1;
-        final char next;
-        // 如果第二个字符超过了最大长度,则默认一个空字符，否则会越界.
-        if (nextLen1 < len) {
-          next = message.charAt(nextLen1);
-        } else {
-          next = ' ';
-        }
-        // 获取第三个原始字符.
-        final char next1;
-        final int nextLen2 = index + 2;
-        // 如果第三个字符超过了最大长度,则默认一个空字符，否则会越界.
-        if (nextLen2 < len) {
-          next1 = message.charAt(nextLen2);
-        } else {
-          next1 = ' ';
-        }
-        // 如果当前字符和下一个字符正好是一对"{}"
-        if ('{' == c && '}' == next) {
-          hanlder(args1, args2, args3, args4, args5, args6, args7, args8, args9, braces);
-          // {}括号对计数.
-          braces++;
-          // 跳过'}'右括号.
-          index++;
-          // 如果当前字符和下一个字符,以及下一个字符正好是一对"{0}-{9}"
-        } else if ('{' == c && '0' <= next && '9' >= next && '}' == next1) {
-          hanlder(args1, args2, args3, args4, args5, args6, args7, args8, args9, braces);
-          // {}括号对计数.
-          braces++;
-          // 跳过'}'右括号.
-          index++;
-          // 跳过'0'-'9'.
-          index++;
-        } else {
-          CHARBUF.append(c);
-        }
-        index++;
+    CHARBUF.clear();
+    // 原始字符串长度.
+    final int len = message.length();
+    // 当前被处理的原始字符位置.
+    int index = 0;
+    // {} 个数.
+    int braces = 0;
+    // 循环处理每一个原始字符.
+    while (index < len) {
+      // 获取第一个原始字符.
+      final char c = message.charAt(index);
+      // 获取第二个原始字符.
+      final int nextLen1 = index + 1;
+      final char next;
+      // 如果第二个字符超过了最大长度,则默认一个空字符，否则会越界.
+      if (nextLen1 < len) {
+        next = message.charAt(nextLen1);
+      } else {
+        next = ' ';
       }
-    } finally {
-      LOCK.unlock();
+      // 获取第三个原始字符.
+      final char next1;
+      final int nextLen2 = index + 2;
+      // 如果第三个字符超过了最大长度,则默认一个空字符，否则会越界.
+      if (nextLen2 < len) {
+        next1 = message.charAt(nextLen2);
+      } else {
+        next1 = ' ';
+      }
+      // 如果当前字符和下一个字符正好是一对"{}"
+      if ('{' == c && '}' == next) {
+        hanlder(args1, args2, args3, args4, args5, args6, args7, args8, args9, braces);
+        // {}括号对计数.
+        braces++;
+        // 跳过'}'右括号.
+        index++;
+        // 如果当前字符和下一个字符,以及下一个字符正好是一对"{0}-{9}"
+      } else if ('{' == c && '0' <= next && '9' >= next && '}' == next1) {
+        hanlder(args1, args2, args3, args4, args5, args6, args7, args8, args9, braces);
+        // {}括号对计数.
+        braces++;
+        // 跳过'}'右括号.
+        index++;
+        // 跳过'0'-'9'.
+        index++;
+      } else {
+        CHARBUF.append(c);
+      }
+      index++;
     }
     CHARBUF.flip();
     return CHARBUF;

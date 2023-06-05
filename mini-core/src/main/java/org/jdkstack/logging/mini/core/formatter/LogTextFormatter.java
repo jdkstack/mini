@@ -2,8 +2,6 @@ package org.jdkstack.logging.mini.core.formatter;
 
 import java.nio.Buffer;
 import java.nio.CharBuffer;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.record.Record;
 
@@ -18,8 +16,6 @@ public final class LogTextFormatter implements Formatter {
   /** 临时数组. */
   private static final CharBuffer CHARBUF =
       CharBuffer.allocate(org.jdkstack.logging.mini.core.codec.Constants.SOURCEN8);
-  /** 锁. */
-  private static final Lock LOCK = new ReentrantLock();
   /**
    * This is a method description.
    *
@@ -42,21 +38,16 @@ public final class LogTextFormatter implements Formatter {
    */
   @Override
   public Buffer format(final Record logRecord) {
-    LOCK.lock();
-    try {
-      // 文本格式的日志消息.
-      CHARBUF.clear();
-      // 日志对象中的特殊字段.
-      this.handle(logRecord);
-      // 增加一个换行符号(按照平台获取)
-      final String lineSeparator = System.lineSeparator();
-      CHARBUF.append(lineSeparator);
-      CHARBUF.limit(CHARBUF.position());
-      CHARBUF.position(0);
-      return CHARBUF;
-    } finally {
-      LOCK.unlock();
-    }
+    // 文本格式的日志消息.
+    CHARBUF.clear();
+    // 日志对象中的特殊字段.
+    this.handle(logRecord);
+    // 增加一个换行符号(按照平台获取)
+    final String lineSeparator = System.lineSeparator();
+    CHARBUF.append(lineSeparator);
+    CHARBUF.limit(CHARBUF.position());
+    CHARBUF.position(0);
+    return CHARBUF;
   }
 
   /**

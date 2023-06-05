@@ -81,21 +81,9 @@ public class LogRecord implements Record {
    */
   @Override
   public final void setMessage(final CharBuffer message) {
-    if (message.length() == 0) {
-      System.out.println(message.limit());
-      System.out.println(message.position());
-      System.out.println("0:" + new String(message.array()));
-    }
-    if (message.length() == 8192) {
-      System.out.println(message.limit());
-      System.out.println(message.position());
-      System.out.println("8192:" + new String(message.array()));
-    }
-    synchronized (this) {
-      this.message.clear();
-      this.message.put(message);
-      this.message.flip();
-    }
+    this.message.clear();
+    this.message.put(message);
+    this.message.flip();
   }
 
   /**

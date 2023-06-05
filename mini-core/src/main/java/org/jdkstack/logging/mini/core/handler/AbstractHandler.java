@@ -4,9 +4,6 @@ import java.nio.Buffer;
 import java.nio.CharBuffer;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.record.Record;
@@ -41,15 +38,6 @@ public abstract class AbstractHandler implements Handler {
   protected final String key;
   /** 阻塞队列名称. */
   protected final String target;
-
- private ThreadPoolExecutor threadPoolExecutor =
-      new ThreadPoolExecutor(
-          5,
-          5,
-          0,
-          TimeUnit.SECONDS,
-          new ArrayBlockingQueue<>(1024),
-          new ThreadPoolExecutor.CallerRunsPolicy());
 
   /**
    * This is a method description.
@@ -92,35 +80,25 @@ public abstract class AbstractHandler implements Handler {
       final String datetime,
       final CharBuffer message,
       final Throwable thrown) {
-    threadPoolExecutor.submit(new Runnable() {
-      @Override
-      public void run() {
-        try {
-          // 预生产(从循环队列tail取一个元素对象地址).
-          final Record lr = queue.tail();
-          // 为元素对象生产数据.
-          produce(logLevel, datetime, message, className, thrown, lr);
-        } finally {
-          // 生产数据完成的标记(数据可以从循环队列head消费).
-          queue.start();
-        }
-      }
-    });
+    try {
+      // 预生产(从循环队列tail取一个元素对象地址).
+      final Record lr = queue.tail();
+      // 为元素对象生产数据.
+      produce(logLevel, datetime, message, className, thrown, lr);
+    } finally {
+      // 生产数据完成的标记(数据可以从循环队列head消费).
+      queue.start();
+    }
 
-    threadPoolExecutor.submit(new Runnable() {
-      @Override
-      public void run() {
-        try {
-          // 预消费(从循环队列head取一个元素对象).
-          final Record logRecord = queue.head();
-          // 从元素对象消费数据.
-          consume(logRecord);
-        } finally {
-          // 消费数据完成的标记(数据可以从循环队列tail生产).
-          queue.end();
-        }
-      }
-    });
+    try {
+      // 预消费(从循环队列head取一个元素对象).
+      final Record logRecord = queue.head();
+      // 从元素对象消费数据.
+      consume(logRecord);
+    } finally {
+      // 消费数据完成的标记(数据可以从循环队列tail生产).
+      queue.end();
+    }
   }
 
   @Override
@@ -138,7 +116,7 @@ public abstract class AbstractHandler implements Handler {
       lr.setLevel(logLevel);
       lr.setMessage(message);
       // 记录接收事件时的日期时间.
-      final long current = System.currentTimeMillis(); 
+      final long current = System.currentTimeMillis();
       final long year = DateTimeEncoder.year(current);
       lr.setYear(year);
       final long month = DateTimeEncoder.month(current);

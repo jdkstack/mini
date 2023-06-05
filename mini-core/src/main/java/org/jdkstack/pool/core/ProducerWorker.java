@@ -24,13 +24,11 @@ public class ProducerWorker implements Runnable {
 
   @Override
   public void run() {
-    synchronized (this) {
-      // 预生产(从循环队列tail取一个元素对象地址).
-      final Record lr = this.queue.tail();
-      // 为元素对象生产数据.
-      handler.produce(logLevel, datetime, message, className, thrown, lr);
-      this.queue.start();
-    }
+    // 预生产(从循环队列tail取一个元素对象地址).
+    final Record lr = this.queue.tail();
+    // 为元素对象生产数据.
+    handler.produce(logLevel, datetime, message, className, thrown, lr);
+    this.queue.start();
   }
 
   public void setQueue(final MpmcBlockingQueueV3<Record> queue) {

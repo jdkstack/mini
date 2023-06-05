@@ -18,12 +18,10 @@ public class ConsumerWorker implements Runnable {
 
   @Override
   public void run() {
-    synchronized (this) {
-      // 预消费(从循环队列head取一个元素对象).
-      final Record logRecord = this.queue.head();
-      handler.consume(logRecord);
-      this.queue.end();
-    }
+    // 预消费(从循环队列head取一个元素对象).
+    final Record logRecord = this.queue.head();
+    handler.consume(logRecord);
+    this.queue.end();
   }
 
   public void setQueue(final MpmcBlockingQueueV3<Record> queue) {
