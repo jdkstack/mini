@@ -20,7 +20,7 @@ import org.jdkstack.logging.mini.core.codec.ByteArrayDecoderV2;
 /**
  * 写文件.
  *
- * <p>利用RandomAccessFile方式写文件.
+ * <p>利用BufferedWriter方式写文件.
  *
  * @author admin
  */

@@ -10,7 +10,7 @@ import org.jdkstack.logging.mini.core.codec.Constants;
 /**
  * .
  *
- * <p>。
+ * <p>将异常信息写入文件中.
  *
  * @author admin
  */

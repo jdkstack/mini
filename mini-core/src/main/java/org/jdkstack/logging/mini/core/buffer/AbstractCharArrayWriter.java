@@ -6,7 +6,7 @@ import org.jdkstack.logging.mini.api.buffer.CharWriter;
 /**
  * .
  *
- * <p>.
+ * <p>将char[]字符数组写入文件.
  *
  * @author admin
  */

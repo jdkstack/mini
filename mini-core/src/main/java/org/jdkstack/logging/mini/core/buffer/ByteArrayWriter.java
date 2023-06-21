@@ -5,7 +5,7 @@ import java.io.RandomAccessFile;
 /**
  * .
  *
- * <p>.
+ * <p>将byte[]字节数组写入文件.
  *
  * @author admin
  */

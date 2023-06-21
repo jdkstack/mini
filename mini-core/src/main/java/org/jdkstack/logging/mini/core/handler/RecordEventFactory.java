@@ -6,7 +6,7 @@ import org.jdkstack.ringbuffer.core.EventFactory;
 /**
  * .
  *
- * <p>.
+ * <p>创建日志记录对象.
  *
  * @param <E> .
  * @author admin

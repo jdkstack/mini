@@ -11,7 +11,7 @@ import org.jdkstack.logging.mini.api.codec.Decoder;
 /**
  * .
  *
- * <p>.
+ * <p>将ByteBuffer 字节buffer解码成CharBuffer.
  *
  * @author admin
  */

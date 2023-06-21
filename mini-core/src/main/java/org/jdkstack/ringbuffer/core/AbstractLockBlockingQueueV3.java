@@ -1,6 +1,5 @@
 package org.jdkstack.ringbuffer.core;
 
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.LockSupport;
 

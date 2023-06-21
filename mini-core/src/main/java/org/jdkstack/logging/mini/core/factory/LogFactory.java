@@ -6,9 +6,9 @@ import org.jdkstack.logging.mini.api.resource.ReFactory;
 import org.jdkstack.logging.mini.core.StartApplication;
 
 /**
- * LogFactory核心类，提供两个静态方法.
+ * LogFactory核心类.
  *
- * <p>。
+ * <p>.
  *
  * @author admin
  */

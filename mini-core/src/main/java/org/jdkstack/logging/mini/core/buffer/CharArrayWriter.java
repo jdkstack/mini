@@ -5,7 +5,7 @@ import java.io.BufferedWriter;
 /**
  * .
  *
- * <p>.
+ * <p>将char[]字符数组写入文件.
  *
  * @author admin
  */

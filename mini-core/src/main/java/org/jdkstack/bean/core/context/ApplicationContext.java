@@ -62,7 +62,7 @@ public class ApplicationContext implements Context {
 
   @Override
   public final void init() {
-    Map<String, String> map = new HashMap<>();
+    Map<String, String> map = new HashMap<>(16);
     map.put("name", "default");
     map.put("level", "MAX");
     map.put("directory", "logs" + System.currentTimeMillis());
