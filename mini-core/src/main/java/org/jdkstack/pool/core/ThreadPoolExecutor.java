@@ -10,15 +10,15 @@ import org.jdkstack.ringbuffer.core.mpmc.version3.MpmcBlockingQueueV3;
 public class ThreadPoolExecutor extends AbstractExecutorService {
   /** 使用后8位用来表示核心线程数. */
   private static final int BIT = 8;
-  /** 使用后8位能表示的最大核心线程数是255个. */
+  /** 使用前8位能表示的最大核心线程数是255个. */
   private static final int COUNT = (1 << BIT) - 1;
-  /** 已经启动,线程等待执行任务(没有任务). */
+  /** 线程池已经启动,线程等待执行任务(没有任务). */
   private static final int STARTTED = 1 << BIT;
-  /** 线程正在执行任务(拿到了一个新任务). */
+  /** 线程池正在运行,线程正在执行任务(拿到了一个新任务). */
   private static final int RUNNING = 2 << BIT;
-  /** 正在停止,还有线程在执行任务,不接受新任务. */
+  /** 线程池正在停止,还有线程在执行任务,不接受新任务. */
   private static final int STOPPING = 3 << BIT;
-  /** 已经停止,所有线程执行完的状态. */
+  /** 线程池已经停止,所有线程执行完的状态. */
   private static final int STOPPED = 4 << BIT;
   /** 存储线程池状态和核心线程数量. */
   private final AtomicInteger core = new AtomicInteger(core(STARTTED, 0));
