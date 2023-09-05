@@ -1,6 +1,7 @@
 package org.jdkstack.ringbuffer.core;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.LockSupport;
 import org.jdkstack.ringbuffer.api.RingBufferBlockingQueue;
 
 /**
@@ -60,7 +61,8 @@ public abstract class AbstractBlockingQueue<E> implements RingBufferBlockingQueu
   public final void emptyAwait() {
     final Thread t = Thread.currentThread();
     while (this.isEmpty() && !t.isInterrupted()) {
-      Thread.onSpinWait();
+      //Thread.onSpinWait();
+      LockSupport.parkNanos(1L);
     }
   }
 
@@ -90,7 +92,8 @@ public abstract class AbstractBlockingQueue<E> implements RingBufferBlockingQueu
   public final void fullAwait() {
     final Thread t = Thread.currentThread();
     while (this.isFull() && !t.isInterrupted()) {
-      Thread.onSpinWait();
+      //Thread.onSpinWait();
+      LockSupport.parkNanos(1L);
     }
   }
 

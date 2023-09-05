@@ -71,17 +71,21 @@ public class FileHandlerV2 extends AbstractHandler {
     if (org.jdkstack.logging.mini.core.buffer.Constants.LINES.equals(type)) {
       final int line = this.lines.incrementAndGet();
       // 100W行切换一次.
-      if (org.jdkstack.logging.mini.core.buffer.Constants.LC < line) {
+      if (org.jdkstack.logging.mini.core.buffer.Constants.LC <= line) {
         this.remap();
         this.lines.set(1);
       }
       // 2.按size切换.
     } else {
       final int size = this.sizes.addAndGet(length);
+      final int line = this.lines.incrementAndGet();
       // 100MB切换一次.
-      if (org.jdkstack.logging.mini.core.buffer.Constants.SC < size) {
+      if (org.jdkstack.logging.mini.core.buffer.Constants.SC <= size) {
+        System.out.println(size);
+        System.out.println(line);
         this.remap();
         this.sizes.set(length);
+        this.lines.set(1);
       }
     }
     // 3.按照日期时间规则.
@@ -138,7 +142,7 @@ public class FileHandlerV2 extends AbstractHandler {
         // 将数据写入缓存.
         this.charBuf.put(logMessage.array(), logMessage.arrayOffset(), logMessage.remaining());
         // 结束读取的位置.
-        this.charBuf.limit(logMessage.length());
+        this.charBuf.limit(logMessage.length());//字符长度，不是字节长度。
         // 开始读取的位置.
         this.charBuf.position(0);
         // 切换规则.
