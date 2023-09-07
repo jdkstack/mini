@@ -258,6 +258,8 @@ public abstract class AbstractHandler implements Handler {
         produce(
             logLevel, datetime, message, className, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
             arg9, thrown, lr);
+      } catch (Exception e) {
+        Internal.log(e);
       } finally {
         // 生产数据完成的标记(数据可以从循环队列head消费).
         queue.start();
@@ -268,6 +270,8 @@ public abstract class AbstractHandler implements Handler {
         final Record logRecord = queue.head();
         // 从元素对象消费数据.
         consume(logRecord);
+      } catch (Exception e) {
+        Internal.log(e);
       } finally {
         // 消费数据完成的标记(数据可以从循环队列tail生产).
         queue.end();
@@ -292,40 +296,36 @@ public abstract class AbstractHandler implements Handler {
       final Object arg9,
       final Throwable thrown,
       final Record lr) {
-    try {
-      lr.setEvent(datetime);
-      lr.setClassName(className);
-      lr.setThrown(thrown);
-      lr.setLevel(logLevel);
-      lr.setMessage(message);
-      lr.setArgs1(arg1);
-      lr.setArgs2(arg2);
-      lr.setArgs3(arg3);
-      lr.setArgs4(arg4);
-      lr.setArgs5(arg5);
-      lr.setArgs6(arg6);
-      lr.setArgs7(arg7);
-      lr.setArgs8(arg8);
-      lr.setArgs9(arg9);
-      // 记录接收事件时的日期时间.
-      final long current = System.currentTimeMillis();
-      final long year = DateTimeEncoder.year(current);
-      lr.setYear(year);
-      final long month = DateTimeEncoder.month(current);
-      lr.setMonth(month);
-      final long day = DateTimeEncoder.day(current);
-      lr.setDay(day);
-      final long hours = DateTimeEncoder.hours(current);
-      lr.setHours(hours);
-      final long minute = DateTimeEncoder.minutes(current);
-      lr.setMinute(minute);
-      final long second = DateTimeEncoder.seconds(current);
-      lr.setSecond(second);
-      final long mills = DateTimeEncoder.millisecond(current);
-      lr.setMills(mills);
-    } catch (final Exception e) {
-      Internal.log(e);
-    }
+    lr.setEvent(datetime);
+    lr.setClassName(className);
+    lr.setThrown(thrown);
+    lr.setLevel(logLevel);
+    lr.setMessage(message);
+    lr.setArgs1(arg1);
+    lr.setArgs2(arg2);
+    lr.setArgs3(arg3);
+    lr.setArgs4(arg4);
+    lr.setArgs5(arg5);
+    lr.setArgs6(arg6);
+    lr.setArgs7(arg7);
+    lr.setArgs8(arg8);
+    lr.setArgs9(arg9);
+    // 记录接收事件时的日期时间.
+    final long current = System.currentTimeMillis();
+    final long year = DateTimeEncoder.year(current);
+    lr.setYear(year);
+    final long month = DateTimeEncoder.month(current);
+    lr.setMonth(month);
+    final long day = DateTimeEncoder.day(current);
+    lr.setDay(day);
+    final long hours = DateTimeEncoder.hours(current);
+    lr.setHours(hours);
+    final long minute = DateTimeEncoder.minutes(current);
+    lr.setMinute(minute);
+    final long second = DateTimeEncoder.seconds(current);
+    lr.setSecond(second);
+    final long mills = DateTimeEncoder.millisecond(current);
+    lr.setMills(mills);
   }
 
   abstract void rules(final Record lr, final int length) throws Exception;

@@ -10,7 +10,6 @@ import java.nio.charset.Charset;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.codec.Encoder;
 import org.jdkstack.logging.mini.api.record.Record;
-import org.jdkstack.logging.mini.core.buffer.Internal;
 import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
 import org.jdkstack.logging.mini.core.codec.Constants;
 import org.jdkstack.logging.mini.core.handler.FileHandlerV2;
@@ -109,7 +108,6 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
    */
   @Override
   public void consume(final Record lr) {
-    try {
       if (this.filter(lr)) {
         // 格式化日志对象.
         final CharBuffer logMessage = (CharBuffer) this.format(lr);
@@ -129,9 +127,6 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
         // 单条刷新到磁盘.
         this.flush();
       }
-    } catch (final Exception e) {
-      Internal.log(e);
-    }
   }
 
   /**

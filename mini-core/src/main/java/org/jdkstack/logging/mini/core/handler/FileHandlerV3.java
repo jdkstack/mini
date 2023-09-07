@@ -14,7 +14,6 @@ import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.api.resource.CoFactory;
 import org.jdkstack.logging.mini.core.StartApplication;
 import org.jdkstack.logging.mini.core.buffer.CharArrayWriter;
-import org.jdkstack.logging.mini.core.buffer.Internal;
 import org.jdkstack.logging.mini.core.codec.ByteArrayDecoderV2;
 
 /**
@@ -136,7 +135,6 @@ public class FileHandlerV3 extends AbstractHandler {
    * @author admin
    */
   public void consume(final Record lr) {
-    try {
       if (this.filter(lr)) {
         // 格式化日志对象.
         final ByteBuffer logMessage = (ByteBuffer) this.format(lr);
@@ -153,9 +151,6 @@ public class FileHandlerV3 extends AbstractHandler {
         // 单条刷新到磁盘.
         this.flush();
       }
-    } catch (final Exception e) {
-      Internal.log(e);
-    }
   }
 
   /**
