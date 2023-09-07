@@ -1,9 +1,7 @@
 package org.jdkstack.logging.mini.api.resource;
 
-import org.jdkstack.logging.mini.api.record.Record;
-
 import java.nio.Buffer;
-import java.nio.CharBuffer;
+import org.jdkstack.logging.mini.api.record.Record;
 
 /**
  * .

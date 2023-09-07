@@ -67,6 +67,7 @@ public final class LogJsonFormatter implements Formatter {
     return CHARBUF;
   }
 
+
   /**
    * This is a method description.
    *
@@ -110,9 +111,14 @@ public final class LogJsonFormatter implements Formatter {
     CHARBUF.append(':');
     // 日志对象中的消息字段.
     CHARBUF.append('"');
-    final CharBuffer message = logRecord.getMessage();
+    final String message = logRecord.getMessage();
+    int position = CHARBUF.position();
+    StringBuilder format = LogFormatter.format(message, logRecord.getArgs1(), logRecord.getArgs2(), logRecord.getArgs3(), logRecord.getArgs4(), logRecord.getArgs5(), logRecord.getArgs6(), logRecord.getArgs7(), logRecord.getArgs8(), logRecord.getArgs9());
+    format.getChars(0,format.length(),CHARBUF.array(),position);
+    //CHARBUF.limit(format.length());
+    CHARBUF.position(position+format.length());
     // 将数据写入缓存.
-    CHARBUF.put(message);
+    //CHARBUF.put();
     CHARBUF.append('"');
     // 日志对象中的异常堆栈信息.
     final Throwable thrown = logRecord.getThrowable();

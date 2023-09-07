@@ -72,8 +72,14 @@ public final class LogTextFormatter implements Formatter {
     CHARBUF.append(logRecord.getClassName());
     CHARBUF.append(' ');
     // 日志对象中的消息字段.
-    final CharBuffer message = logRecord.getMessage();
-    CHARBUF.put(message.array(), message.arrayOffset(), message.remaining());
+    //final CharBuffer message = logRecord.getMessage();
+    //CHARBUF.put(message.array(), message.arrayOffset(), message.remaining());
+    final String message = logRecord.getMessage();
+    int position = CHARBUF.position();
+    StringBuilder format = LogFormatter.format(message, logRecord.getArgs1(), logRecord.getArgs2(), logRecord.getArgs3(), logRecord.getArgs4(), logRecord.getArgs5(), logRecord.getArgs6(), logRecord.getArgs7(), logRecord.getArgs8(), logRecord.getArgs9());
+    format.getChars(0,format.length(),CHARBUF.array(),position);
+    CHARBUF.position(position+format.length());
+    //CHARBUF.limit(format.length());
     // 日志对象中的异常堆栈信息.
     final Throwable thrown = logRecord.getThrowable();
     if (null != thrown) {

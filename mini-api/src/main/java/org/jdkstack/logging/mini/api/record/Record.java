@@ -1,6 +1,5 @@
 package org.jdkstack.logging.mini.api.record;
 
-import java.nio.CharBuffer;
 import java.util.Map;
 
 /**
@@ -20,7 +19,7 @@ public interface Record {
    * @return String .
    * @author admin
    */
-  CharBuffer getMessage();
+  String getMessage();
 
   /**
    * This is a method description.
@@ -30,7 +29,7 @@ public interface Record {
    * @param message .
    * @author admin
    */
-  void setMessage(CharBuffer message);
+  void setMessage(String message);
 
   /**
    * This is a method description.
@@ -273,4 +272,40 @@ public interface Record {
   String getProcess();
 
   void setProcess(String process);
+
+  Object getArgs1();
+
+  void setArgs1(Object args1);
+
+  Object getArgs2();
+
+  void setArgs2(Object args2);
+
+  Object getArgs3();
+
+  void setArgs3(Object args3);
+
+  Object getArgs4();
+
+  void setArgs4(Object args4);
+
+  Object getArgs5();
+
+  void setArgs5(Object args5);
+
+  Object getArgs6();
+
+  void setArgs6(Object args6);
+
+  Object getArgs7();
+
+  void setArgs7(Object args7);
+
+  Object getArgs8();
+
+  void setArgs8(Object args8);
+
+  Object getArgs9();
+
+  void setArgs9(Object args9);
 }

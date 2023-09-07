@@ -1,6 +1,5 @@
 package org.jdkstack.logging.mini.core.record;
 
-import java.nio.CharBuffer;
 import java.util.HashMap;
 import java.util.Map;
 import org.jdkstack.logging.mini.api.record.Record;
@@ -17,7 +16,7 @@ public class LogRecord implements Record {
   /** 日志级别. */
   private String logLevel;
   /** 日志消息. */
-  private CharBuffer message = CharBuffer.allocate(2048);
+  private String message;
   /** 事件发生时的datetime. */
   private String event;
   /** 接收事件时的datetime. */
@@ -47,6 +46,16 @@ public class LogRecord implements Record {
   /** . */
   private long mills;
 
+  private Object args1;
+  private Object args2;
+  private Object args3;
+  private Object args4;
+  private Object args5;
+  private Object args6;
+  private Object args7;
+  private Object args8;
+  private Object args9;
+
   /**
    * This is a method description.
    *
@@ -67,7 +76,7 @@ public class LogRecord implements Record {
    * @author admin
    */
   @Override
-  public final CharBuffer getMessage() {
+  public final String getMessage() {
     return this.message;
   }
 
@@ -80,10 +89,11 @@ public class LogRecord implements Record {
    * @author admin
    */
   @Override
-  public final void setMessage(final CharBuffer message) {
-    this.message.clear();
-    this.message.put(message);
-    this.message.flip();
+  public final void setMessage(final String message) {
+    this.message=message;
+    //.clear();
+   // this.message.put(message);
+   // this.message.flip();
   }
 
   /**
@@ -281,5 +291,77 @@ public class LogRecord implements Record {
   @Override
   public void setProcess(final String process) {
     this.process = process;
+  }
+  @Override
+  public Object getArgs1() {
+    return this.args1;
+  }
+  @Override
+  public void setArgs1(final Object args1) {
+    this.args1 = args1;
+  }
+  @Override
+  public Object getArgs2() {
+    return this.args2;
+  }
+  @Override
+  public void setArgs2(final Object args2) {
+    this.args2 = args2;
+  }
+  @Override
+  public Object getArgs3() {
+    return this.args3;
+  }
+  @Override
+  public void setArgs3(final Object args3) {
+    this.args3 = args3;
+  }
+  @Override
+  public Object getArgs4() {
+    return this.args4;
+  }
+  @Override
+  public void setArgs4(final Object args4) {
+    this.args4 = args4;
+  }
+  @Override
+  public Object getArgs5() {
+    return this.args5;
+  }
+  @Override
+  public void setArgs5(final Object args5) {
+    this.args5 = args5;
+  }
+  @Override
+  public Object getArgs6() {
+    return this.args6;
+  }
+  @Override
+  public void setArgs6(final Object args6) {
+    this.args6 = args6;
+  }
+  @Override
+  public Object getArgs7() {
+    return this.args7;
+  }
+  @Override
+  public void setArgs7(final Object args7) {
+    this.args7 = args7;
+  }
+  @Override
+  public Object getArgs8() {
+    return this.args8;
+  }
+  @Override
+  public void setArgs8(final Object args8) {
+    this.args8 = args8;
+  }
+  @Override
+  public Object getArgs9() {
+    return this.args9;
+  }
+  @Override
+  public void setArgs9(final Object args9) {
+    this.args9 = args9;
   }
 }
