@@ -33,9 +33,9 @@ public class FileHandlerV2 extends AbstractHandler {
   /** 目的地写入器. */
   private final ByteWriter destination = new ByteArrayWriter();
   /** . */
-  private RandomAccessFile randomAccessFile;
-  /** . */
   protected FileChannel channel;
+  /** . */
+  private RandomAccessFile randomAccessFile;
 
   /**
    * This is a method description.

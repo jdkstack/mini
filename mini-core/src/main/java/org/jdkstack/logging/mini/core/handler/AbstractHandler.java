@@ -32,18 +32,17 @@ public abstract class AbstractHandler implements Handler {
   protected final int batchSize;
   /** 有界数组阻塞队列. */
   protected final MpmcBlockingQueueV3<Record> queue;
-  /** 日志级别格式化 . */
-  private final Map<String, String> formatters = new HashMap<>(16);
-  /** 日志级别过滤器 . */
-  private final Map<String, String> filters = new HashMap<>(16);
   /** . */
   protected final String key;
   /** 阻塞队列名称. */
   protected final String target;
-
   protected final ThreadPoolExecutor threadPoolExecutor =
       new ThreadPoolExecutor(
           4, 4, 0, TimeUnit.SECONDS, new MpmcBlockingQueueV3<>(1024, new TaskEventFactory<>()));
+  /** 日志级别格式化 . */
+  private final Map<String, String> formatters = new HashMap<>(16);
+  /** 日志级别过滤器 . */
+  private final Map<String, String> filters = new HashMap<>(16);
 
   /**
    * This is a method description.
@@ -112,6 +111,57 @@ public abstract class AbstractHandler implements Handler {
     user.setArg9(arg9);
     threadPoolExecutor.start();
   }
+
+  @Override
+  public void produce(
+      final String logLevel,
+      final String datetime,
+      final String message,
+      final String className,
+      final Object arg1,
+      final Object arg2,
+      final Object arg3,
+      final Object arg4,
+      final Object arg5,
+      final Object arg6,
+      final Object arg7,
+      final Object arg8,
+      final Object arg9,
+      final Throwable thrown,
+      final Record lr) {
+    lr.setEvent(datetime);
+    lr.setClassName(className);
+    lr.setThrown(thrown);
+    lr.setLevel(logLevel);
+    lr.setMessage(message);
+    lr.setArgs1(arg1);
+    lr.setArgs2(arg2);
+    lr.setArgs3(arg3);
+    lr.setArgs4(arg4);
+    lr.setArgs5(arg5);
+    lr.setArgs6(arg6);
+    lr.setArgs7(arg7);
+    lr.setArgs8(arg8);
+    lr.setArgs9(arg9);
+    // 记录接收事件时的日期时间.
+    final long current = System.currentTimeMillis();
+    final long year = DateTimeEncoder.year(current);
+    lr.setYear(year);
+    final long month = DateTimeEncoder.month(current);
+    lr.setMonth(month);
+    final long day = DateTimeEncoder.day(current);
+    lr.setDay(day);
+    final long hours = DateTimeEncoder.hours(current);
+    lr.setHours(hours);
+    final long minute = DateTimeEncoder.minutes(current);
+    lr.setMinute(minute);
+    final long second = DateTimeEncoder.seconds(current);
+    lr.setSecond(second);
+    final long mills = DateTimeEncoder.millisecond(current);
+    lr.setMills(mills);
+  }
+
+  abstract void rules(final Record lr, final int length) throws Exception;
 
   public class TaskEventFactory<E> implements EventFactory<E> {
 
@@ -278,55 +328,4 @@ public abstract class AbstractHandler implements Handler {
       }
     }
   }
-
-  @Override
-  public void produce(
-      final String logLevel,
-      final String datetime,
-      final String message,
-      final String className,
-      final Object arg1,
-      final Object arg2,
-      final Object arg3,
-      final Object arg4,
-      final Object arg5,
-      final Object arg6,
-      final Object arg7,
-      final Object arg8,
-      final Object arg9,
-      final Throwable thrown,
-      final Record lr) {
-    lr.setEvent(datetime);
-    lr.setClassName(className);
-    lr.setThrown(thrown);
-    lr.setLevel(logLevel);
-    lr.setMessage(message);
-    lr.setArgs1(arg1);
-    lr.setArgs2(arg2);
-    lr.setArgs3(arg3);
-    lr.setArgs4(arg4);
-    lr.setArgs5(arg5);
-    lr.setArgs6(arg6);
-    lr.setArgs7(arg7);
-    lr.setArgs8(arg8);
-    lr.setArgs9(arg9);
-    // 记录接收事件时的日期时间.
-    final long current = System.currentTimeMillis();
-    final long year = DateTimeEncoder.year(current);
-    lr.setYear(year);
-    final long month = DateTimeEncoder.month(current);
-    lr.setMonth(month);
-    final long day = DateTimeEncoder.day(current);
-    lr.setDay(day);
-    final long hours = DateTimeEncoder.hours(current);
-    lr.setHours(hours);
-    final long minute = DateTimeEncoder.minutes(current);
-    lr.setMinute(minute);
-    final long second = DateTimeEncoder.seconds(current);
-    lr.setSecond(second);
-    final long mills = DateTimeEncoder.millisecond(current);
-    lr.setMills(mills);
-  }
-
-  abstract void rules(final Record lr, final int length) throws Exception;
 }

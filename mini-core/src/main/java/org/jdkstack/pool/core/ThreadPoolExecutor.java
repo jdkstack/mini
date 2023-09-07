@@ -35,6 +35,22 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
   /** 线程池中线程工厂. */
   private final ThreadFactory threadFactory = new LogThreadFactory("thread-pool", null);
 
+  public ThreadPoolExecutor(
+      final int minSize,
+      final int maxSize,
+      final long keepAliveTime,
+      final TimeUnit unit,
+      final MpmcBlockingQueueV3<Runnable> queue) {
+    this.workQueue = queue;
+    this.minSize = minSize;
+    this.maxSize = maxSize;
+    this.keepAliveTime = keepAliveTime;
+    // 创建核心线程.
+    for (int i = 0; i < minSize; i++) {
+      this.thread();
+    }
+  }
+
   // 与运算,获取线程池的状态.
   private static int state(final int core) {
     // 与运算,都是1时才为1,其他为0.
@@ -51,22 +67,6 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
   private static int core(final int state, final int count) {
     // 使用二进制或运算,有一个是1则结果是1.
     return state | count;
-  }
-
-  public ThreadPoolExecutor(
-      final int minSize,
-      final int maxSize,
-      final long keepAliveTime,
-      final TimeUnit unit,
-      final MpmcBlockingQueueV3<Runnable> queue) {
-    this.workQueue = queue;
-    this.minSize = minSize;
-    this.maxSize = maxSize;
-    this.keepAliveTime = keepAliveTime;
-    // 创建核心线程.
-    for (int i = 0; i < minSize; i++) {
-      this.thread();
-    }
   }
 
   private static boolean runStateLessThan(int c, int s) {
@@ -113,6 +113,14 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
     this.workers.add(threadWorker);
   }
 
+  public Runnable getTaskWorker() {
+    return workQueue.tail();
+  }
+
+  public void start() {
+    workQueue.start();
+  }
+
   private final class ThreadWorker implements Runnable {
 
     public void run() {
@@ -125,13 +133,5 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
         }
       }
     }
-  }
-
-  public Runnable getTaskWorker() {
-    return workQueue.tail();
-  }
-
-  public void start() {
-    workQueue.start();
   }
 }

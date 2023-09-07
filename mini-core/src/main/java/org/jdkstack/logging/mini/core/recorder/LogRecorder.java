@@ -52,6 +52,36 @@ public class LogRecorder implements Recorder {
         this.type = type;
     }
 
+    private static void extracted(StringBuilder sb, Object arg1) {
+        if (arg1 instanceof Integer) {
+            sb.append((int) arg1);
+        } else if (arg1 instanceof Short) {
+            sb.append((short) arg1);
+        } else if (arg1 instanceof String) {
+            sb.append((String) arg1);
+        } else if (arg1 instanceof Long) {
+            sb.append((long) arg1);
+        } else if (arg1 instanceof Character) {
+            sb.append((char) arg1);
+        } else if (arg1 instanceof Double) {
+            sb.append((double) arg1);
+        } else if (arg1 instanceof Float) {
+            sb.append((float) arg1);
+        } else if (arg1 instanceof Boolean) {
+            sb.append((boolean) arg1);
+        }
+    }
+
+    public static void main(String[] args) {
+        LogRecorder logRecorder = new LogRecorder("", "");
+        Object arg1 = 123;
+        for (; ; ) {
+
+            //logRecorder.trace("xxxxxx",22334 , "asdasdasd");
+            logRecorder.log("xxxxx", "1", "2", 'c', "4", 5, 6, 7, 8, 9, 10, 11, null);
+        }
+    }
+
     /**
      * .
      *
@@ -283,7 +313,6 @@ public class LogRecorder implements Recorder {
         this.core(logLevel,message,arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9);
     }
 
-
     @Override
     public final void log(final String logLevel, final String message, final Throwable thrown) {
 
@@ -293,7 +322,7 @@ public class LogRecorder implements Recorder {
     public final void log(final String logLevel, final String message, final Object arg1, final Throwable thrown) {
 
     }
-
+ 
     @Override
   public final void log(
             final String logLevel,
@@ -308,7 +337,6 @@ public class LogRecorder implements Recorder {
     public final void log(final String logLevel, final String message, final Object arg1, final Object arg2, final Object arg3, final Throwable thrown) {
 
     }
- 
 
     @Override
   public final void log(
@@ -500,38 +528,8 @@ public class LogRecorder implements Recorder {
         extracted(poll, arg9);
     }
 
-    private static void extracted(StringBuilder sb, Object arg1) {
-        if (arg1 instanceof Integer) {
-            sb.append((int) arg1);
-        } else if (arg1 instanceof Short) {
-            sb.append((short) arg1);
-        } else if (arg1 instanceof String) {
-            sb.append((String) arg1);
-        } else if (arg1 instanceof Long) {
-            sb.append((long) arg1);
-        } else if (arg1 instanceof Character) {
-            sb.append((char) arg1);
-        } else if (arg1 instanceof Double) {
-            sb.append((double) arg1);
-        } else if (arg1 instanceof Float) {
-            sb.append((float) arg1);
-        } else if (arg1 instanceof Boolean) {
-            sb.append((boolean) arg1);
-        }
-    }
-
     public final void trace(final String message, final Object... args) {
         //
 
-    }
-
-    public static void main(String[] args) {
-        LogRecorder logRecorder = new LogRecorder("", "");
-        Object arg1 = 123;
-        for (; ; ) {
-
-            //logRecorder.trace("xxxxxx",22334 , "asdasdasd");
-            logRecorder.log("xxxxx", "1", "2", 'c', "4", 5, 6, 7, 8, 9, 10, 11, null);
-        }
     }
 }

@@ -25,14 +25,14 @@ import org.jdkstack.logging.mini.extension.buffer.MmapByteArrayWriter;
 public class MmapFileHandlerV2 extends FileHandlerV2 {
   /** MMAP文件固定1GB大小. */
   private static final long DEFAULT_REGION_LENGTH = 1L << 30;
-  /** . */
-  private MappedByteBuffer mappedBuffer;
   /** 临时数组. */
   private final CharBuffer charBuf = CharBuffer.allocate(Constants.SOURCE);
   /** 字符编码器. */
   private final Encoder<CharBuffer> textEncoder = new CharArrayEncoderV2(Charset.defaultCharset());
   /** 目的地写入器. */
   private final ByteWriter destination = new MmapByteArrayWriter();
+  /** . */
+  private MappedByteBuffer mappedBuffer;
 
   /**
    * This is a method description.
