@@ -43,7 +43,7 @@ public interface Handler {
    *
    * @author admin
    */
-  void consume(final Record lr);
+  void consume(final Record lr)  throws Exception;
 
   Buffer format(Record logRecord);
 

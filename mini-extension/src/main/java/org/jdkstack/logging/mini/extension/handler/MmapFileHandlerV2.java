@@ -107,7 +107,7 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
    * @author admin
    */
   @Override
-  public void consume(final Record lr) {
+  public void consume(final Record lr)  throws Exception{
       if (this.filter(lr)) {
         // 格式化日志对象.
         final CharBuffer logMessage = (CharBuffer) this.format(lr);

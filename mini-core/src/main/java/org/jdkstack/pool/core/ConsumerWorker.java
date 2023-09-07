@@ -20,7 +20,7 @@ public class ConsumerWorker implements Runnable {
   public void run() {
     // 预消费(从循环队列head取一个元素对象).
     final Record logRecord = this.queue.head();
-    handler.consume(logRecord);
+    //handler.consume(logRecord);
     this.queue.end();
   }
 

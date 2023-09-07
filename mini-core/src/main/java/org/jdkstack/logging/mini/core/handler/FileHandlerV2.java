@@ -131,7 +131,7 @@ public class FileHandlerV2 extends AbstractHandler {
    * @param lr lr.
    * @author admin
    */
-  public void consume(final Record lr) {
+  public void consume(final Record lr)  throws Exception{
       if (this.filter(lr)) {
         // 格式化日志对象.
         final CharBuffer logMessage = (CharBuffer) this.format(lr);
