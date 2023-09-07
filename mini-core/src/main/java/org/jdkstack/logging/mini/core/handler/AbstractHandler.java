@@ -43,7 +43,7 @@ public abstract class AbstractHandler implements Handler {
 
   protected final ThreadPoolExecutor threadPoolExecutor =
       new ThreadPoolExecutor(
-          4, 4, 0, TimeUnit.SECONDS, new MpmcBlockingQueueV3<>(1024, new Task1<>()));
+          4, 4, 0, TimeUnit.SECONDS, new MpmcBlockingQueueV3<>(1024, new TaskEventFactory<>()));
 
   /**
    * This is a method description.
@@ -95,7 +95,7 @@ public abstract class AbstractHandler implements Handler {
       final Object arg8,
       final Object arg9,
       final Throwable thrown) {
-    User user = (User) threadPoolExecutor.getTaskWorker();
+    Task user = (Task) threadPoolExecutor.getTaskWorker();
     user.setLogLevel(logLevel);
     user.setDatetime(datetime);
     user.setClassName(className);
@@ -113,15 +113,15 @@ public abstract class AbstractHandler implements Handler {
     threadPoolExecutor.start();
   }
 
-  public class Task1<E> implements EventFactory<E> {
+  public class TaskEventFactory<E> implements EventFactory<E> {
 
     @Override
     public E newInstance() {
-      return (E) new User();
+      return (E) new Task();
     }
   }
 
-  public class User implements Runnable {
+  public class Task implements Runnable {
     private String logLevel;
     private String className;
     private String datetime;
