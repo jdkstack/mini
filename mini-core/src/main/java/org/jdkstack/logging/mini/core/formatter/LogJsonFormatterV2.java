@@ -21,12 +21,12 @@ import org.jdkstack.logging.mini.core.datetime.DateTimeEncoder;
 public final class LogJsonFormatterV2 implements Formatter {
   /** 临时数组. */
   private static final ByteBuffer CHARBUF = ByteBuffer.allocate(Constants.SOURCEN8);
-  /** . */
-  private String dateTimeFormat;
   Charset charset = Charset.defaultCharset();
   CharsetEncoder charsetEncoder = charset.newEncoder().onMalformedInput(CodingErrorAction.REPLACE).onUnmappableCharacter(CodingErrorAction.REPLACE);
   CharBuffer charBuffer = CharBuffer.allocate(2048);
   ByteBuffer byteBuffer = ByteBuffer.allocate(2048);
+  /** . */
+  private String dateTimeFormat;
   /**
    * This is a method description.
    *
@@ -48,6 +48,50 @@ public final class LogJsonFormatterV2 implements Formatter {
    */
   public LogJsonFormatterV2(final String dateTimeFormat) {
     this.dateTimeFormat = dateTimeFormat;
+  }
+
+  public static void encodeText(
+          final CharsetEncoder ce,
+          final CharBuffer charBuf,
+          final ByteBuffer byteBuf,
+          final StringBuilder text)
+          throws Exception {
+    ce.reset();
+    charBuf.clear();
+    byteBuf.clear();
+    for(int i=0;i<text.length();i++){
+      charBuf.put(text.charAt(i));
+    }
+    // 结束位置.
+    charBuf.limit(text.length());
+    // 开始位置.
+    charBuf.position(0);
+    // 将字符数组编码成字节数组.
+    ce.encode(charBuf, byteBuf, true);
+    ce.flush(byteBuf);
+    // 原来用!=比较.
+    byteBuf.flip();
+    if (0 != byteBuf.remaining()) {
+
+    }
+  }
+
+  private static void extracted(String lineSeparator) {
+    if(lineSeparator==null){
+      lineSeparator="";
+    }
+    for(int i = 0; i< lineSeparator.length(); i++){
+        CHARBUF.put((byte) lineSeparator.charAt(i));
+    }
+  }
+
+  private static void extracted2(StringBuilder lineSeparator) {
+    if(lineSeparator==null){
+      lineSeparator=new StringBuilder();
+    }
+    for(int i = 0; i< lineSeparator.length(); i++){
+      CHARBUF.put((byte) lineSeparator.charAt(i));
+    }
   }
 
   /**
@@ -75,50 +119,6 @@ public final class LogJsonFormatterV2 implements Formatter {
     extracted(lineSeparator);
     CHARBUF.flip();
     return CHARBUF;
-  }
-
-  public static void encodeText(
-          final CharsetEncoder ce,
-          final CharBuffer charBuf,
-          final ByteBuffer byteBuf,
-          final StringBuilder text)
-          throws Exception {
-    ce.reset();
-    charBuf.clear();
-    byteBuf.clear();
-    for(int i=0;i<text.length();i++){
-      charBuf.put(text.charAt(i));
-    } 
-    // 结束位置.
-    charBuf.limit(text.length());
-    // 开始位置.
-    charBuf.position(0);
-    // 将字符数组编码成字节数组.
-    ce.encode(charBuf, byteBuf, true);
-    ce.flush(byteBuf);
-    // 原来用!=比较.
-    byteBuf.flip();
-    if (0 != byteBuf.remaining()) {
-
-    }
-  }
-
-
-  private static void extracted(String lineSeparator) {
-    if(lineSeparator==null){
-      lineSeparator="";
-    } 
-    for(int i = 0; i< lineSeparator.length(); i++){
-        CHARBUF.put((byte) lineSeparator.charAt(i));
-    }
-  }
-  private static void extracted2(StringBuilder lineSeparator) {
-    if(lineSeparator==null){
-      lineSeparator=new StringBuilder();
-    }
-    for(int i = 0; i< lineSeparator.length(); i++){
-      CHARBUF.put((byte) lineSeparator.charAt(i));
-    }
   }
 
   /**
