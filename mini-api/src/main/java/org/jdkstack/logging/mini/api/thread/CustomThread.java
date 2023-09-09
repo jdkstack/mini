@@ -1,35 +1,23 @@
-package org.jdkstack.logging.mini.api.buffer;
-
-import java.nio.ByteBuffer;
+package org.jdkstack.logging.mini.api.thread;
 
 /**
- * .
+ * This is a class description.
  *
- * <p>.
+ * <p>Another description after blank line.
  *
  * @author admin
  */
-public interface ByteWriter {
+public interface CustomThread {
 
   /**
    * This is a method description.
    *
    * <p>Another description after blank line.
    *
-   * @return Byte .
+   * @return long .
    * @author admin
    */
-  ByteBuffer getByteBuffer();
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param buf .
-   * @author admin
-   */
-  void flush(ByteBuffer buf) throws Exception;
+  long startTime();
 
   /**
    * This is a method description.
@@ -38,27 +26,34 @@ public interface ByteWriter {
    *
    * @author admin
    */
-  void flush() throws Exception;
+  void beginEmission();
 
   /**
    * This is a method description.
    *
    * <p>Another description after blank line.
    *
-   * @param bytes .
-   * @param offset .
-   * @param length .
    * @author admin
    */
-  void writeToDestination(final byte[] bytes, final int offset, final int length) throws Exception;
+  void endEmission();
 
   /**
    * This is a method description.
    *
    * <p>Another description after blank line.
    *
-   * @param obj obj .
+   * @return StackTraceElement[] StackTraceElement[].
    * @author admin
    */
-  void setDestination(Object obj);
+  StackTraceElement[] getStackTrace();
+
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param on on.
+   * @author admin
+   */
+  void setDaemon(boolean on);
 }

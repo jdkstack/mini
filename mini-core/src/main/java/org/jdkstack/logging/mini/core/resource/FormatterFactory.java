@@ -1,5 +1,6 @@
 package org.jdkstack.logging.mini.core.resource;
 
+import java.nio.Buffer;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import org.jdkstack.bean.core.annotation.Component;
@@ -112,7 +113,7 @@ public class FormatterFactory implements ForFactory<Formatter> {
    * @author admin
    */
   @Override
-  public final StringBuilder formatter(final String formatterName, final Record logRecord) {
+  public final Buffer formatter(final String formatterName, final Record logRecord) {
     final Formatter formatter = this.formatters.get(formatterName);
     return formatter.format(logRecord);
   }

@@ -10,6 +10,12 @@ package org.jdkstack.logging.mini.core.handler;
 public final class Constants {
 
   /** . */
+  public static final int N10 = 10;
+  /** . */
+  public static final int N32 = 32;
+  /** 32KB. */
+  public static final int SOURCE = N32 << N10;
+  /** . */
   public static final String SECOND = "second";
   /** . */
   public static final String MINUTE = "minute";

@@ -1,5 +1,6 @@
 package org.jdkstack.logging.mini.api.resource;
 
+import java.nio.Buffer;
 import org.jdkstack.logging.mini.api.record.Record;
 
 /**
@@ -22,5 +23,5 @@ public interface ForFactory<T> extends Factory<T> {
    * @return StringBuilder .
    * @author admin
    */
-  StringBuilder formatter(String formatterName, Record logRecord);
+  Buffer formatter(String formatterName, Record logRecord);
 }

@@ -121,19 +121,99 @@ public interface Recorder {
    *
    * @param logLevel .
    * @param datetime .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
    * @param message .
    * @author admin
    */
   void log(
-      String logLevel,
-      String datetime,
-      String className,
-      String classMethod,
-      int lineNumber,
-      String message);
+          String logLevel,
+          String datetime,
+          String message,
+          Throwable thrown);
+
+  void log(
+          String logLevel,
+          String message);
+
+  void log(
+          String logLevel,
+          String message,
+          Object arg1);
+
+  void log(
+          String logLevel,
+          String message,
+          Object arg1,
+          Object arg2);
+
+  void log(
+          String logLevel,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3);
+
+  void log(
+          String logLevel,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4);
+
+  void log(
+          String logLevel,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Object arg5);
+
+  void log(
+          String logLevel,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Object arg5,
+          Object arg6);
+
+  void log(
+          String logLevel,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Object arg5,
+          Object arg6,
+          Object arg7);
+
+  void log(
+          String logLevel,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Object arg5,
+          Object arg6,
+          Object arg7,
+          Object arg8);
+
+  void log(
+          String logLevel,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Object arg5,
+          Object arg6,
+          Object arg7,
+          Object arg8,
+          Object arg9);
 
   /**
    * This is a method description.
@@ -141,278 +221,103 @@ public interface Recorder {
    * <p>Another description after blank line.
    *
    * @param logLevel .
-   * @param datetime .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
    * @param message .
-   * @param args1 .
    * @author admin
    */
   void log(
-      String logLevel,
-      String datetime,
-      String className,
-      String classMethod,
-      int lineNumber,
-      String message,
-      StringBuilder args1);
+          String logLevel,
+          String message,
+          Throwable thrown);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param datetime .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String datetime,
-      String className,
-      String classMethod,
-      int lineNumber,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2);
+          String logLevel,
+          String message,
+          Object arg1,
+          Throwable thrown);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param datetime .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String datetime,
-      String className,
-      String classMethod,
-      int lineNumber,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3);
+          String logLevel,
+          String message,
+          Object arg1,
+          Object arg2,
+          Throwable thrown);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param datetime .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String datetime,
-      String className,
-      String classMethod,
-      int lineNumber,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4);
+          String logLevel,
+           String message,
+           Object arg1,
+           Object arg2,
+          Object arg3,
+          Throwable thrown);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param datetime .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @param args5 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String datetime,
-      String className,
-      String classMethod,
-      int lineNumber,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4,
-      StringBuilder args5);
+          String logLevel,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Throwable thrown);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param datetime .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @param args5 .
-   * @param args6 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String datetime,
-      String className,
-      String classMethod,
-      int lineNumber,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4,
-      StringBuilder args5,
-      StringBuilder args6);
+          String logLevel,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Object arg5,
+          Throwable thrown);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param datetime .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @param args5 .
-   * @param args6 .
-   * @param args7 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String datetime,
-      String className,
-      String classMethod,
-      int lineNumber,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4,
-      StringBuilder args5,
-      StringBuilder args6,
-      StringBuilder args7);
+          String logLevel,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Object arg5,
+          Object arg6,
+          Throwable thrown);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param datetime .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @param args5 .
-   * @param args6 .
-   * @param args7 .
-   * @param args8 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String datetime,
-      String className,
-      String classMethod,
-      int lineNumber,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4,
-      StringBuilder args5,
-      StringBuilder args6,
-      StringBuilder args7,
-      StringBuilder args8);
+          String logLevel,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Object arg5,
+          Object arg6,
+          Object arg7,
+          Throwable thrown);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param datetime .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @param args5 .
-   * @param args6 .
-   * @param args7 .
-   * @param args8 .
-   * @param args9 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String datetime,
-      String className,
-      String classMethod,
-      int lineNumber,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4,
-      StringBuilder args5,
-      StringBuilder args6,
-      StringBuilder args7,
-      StringBuilder args8,
-      StringBuilder args9);
+          String logLevel,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Object arg5,
+          Object arg6,
+          Object arg7,
+          Object arg8,
+          Throwable thrown);
+
+  void log(
+          String logLevel,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Object arg5,
+          Object arg6,
+          Object arg7,
+          Object arg8,
+          Object arg9,
+          Throwable thrown);
 
   /**
    * This is a method description.
@@ -424,708 +329,183 @@ public interface Recorder {
    * @param message .
    * @author admin
    */
-  void log(String logLevel, String datetime, String message);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param datetime .
-   * @param message .
-   * @param args1 .
-   * @author admin
-   */
-  void log(String logLevel, String datetime, String message, StringBuilder args1);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param datetime .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @author admin
-   */
   void log(
-      String logLevel, String datetime, String message, StringBuilder args1, StringBuilder args2);
+          String logLevel,
+          String datetime,
+          String message);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param datetime .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String datetime,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3);
+          String logLevel,
+          String datetime,
+          String message,
+          Object arg1);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param datetime .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String datetime,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4);
+          String logLevel,
+          String datetime,
+          String message,
+          Object arg1,
+          Object arg2);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param datetime .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @param args5 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String datetime,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4,
-      StringBuilder args5);
+          String logLevel,
+          String datetime,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param datetime .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @param args5 .
-   * @param args6 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String datetime,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4,
-      StringBuilder args5,
-      StringBuilder args6);
+          String logLevel,
+          String datetime,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param datetime .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @param args5 .
-   * @param args6 .
-   * @param args7 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String datetime,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4,
-      StringBuilder args5,
-      StringBuilder args6,
-      StringBuilder args7);
+          String logLevel,
+          String datetime,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Object arg5);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param datetime .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @param args5 .
-   * @param args6 .
-   * @param args7 .
-   * @param args8 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String datetime,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4,
-      StringBuilder args5,
-      StringBuilder args6,
-      StringBuilder args7,
-      StringBuilder args8);
+          String logLevel,
+          String datetime,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Object arg5,
+          Object arg6);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param datetime .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @param args5 .
-   * @param args6 .
-   * @param args7 .
-   * @param args8 .
-   * @param args9 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String datetime,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4,
-      StringBuilder args5,
-      StringBuilder args6,
-      StringBuilder args7,
-      StringBuilder args8,
-      StringBuilder args9);
+          String logLevel,
+          String datetime,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Object arg5,
+          Object arg6,
+          Object arg7);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
-   * @param message .
-   * @author admin
-   */
-  void log(String logLevel, String className, String classMethod, int lineNumber, String message);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
-   * @param message .
-   * @param args1 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String className,
-      String classMethod,
-      int lineNumber,
-      String message,
-      StringBuilder args1);
+          String logLevel,
+          String datetime,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Object arg5,
+          Object arg6,
+          Object arg7,
+          Object arg8);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String className,
-      String classMethod,
-      int lineNumber,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2);
+          String logLevel,
+          String datetime,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Object arg5,
+          Object arg6,
+          Object arg7,
+          Object arg8,
+          Object arg9);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String className,
-      String classMethod,
-      int lineNumber,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3);
+          String logLevel,
+          String datetime,
+          String message,
+          Object arg1,
+          Throwable thrown);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String className,
-      String classMethod,
-      int lineNumber,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4);
+          String logLevel,
+          String datetime,
+          String message,
+          Object arg1,
+          Object arg2,
+          Throwable thrown);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @param args5 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String className,
-      String classMethod,
-      int lineNumber,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4,
-      StringBuilder args5);
+          String logLevel,
+          String datetime,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Throwable thrown);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @param args5 .
-   * @param args6 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String className,
-      String classMethod,
-      int lineNumber,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4,
-      StringBuilder args5,
-      StringBuilder args6);
+          String logLevel,
+          String datetime,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Throwable thrown);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @param args5 .
-   * @param args6 .
-   * @param args7 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String className,
-      String classMethod,
-      int lineNumber,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4,
-      StringBuilder args5,
-      StringBuilder args6,
-      StringBuilder args7);
+          String logLevel,
+          String datetime,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Object arg5,
+          Throwable thrown);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @param args5 .
-   * @param args6 .
-   * @param args7 .
-   * @param args8 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String className,
-      String classMethod,
-      int lineNumber,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4,
-      StringBuilder args5,
-      StringBuilder args6,
-      StringBuilder args7,
-      StringBuilder args8);
+          String logLevel,
+          String datetime,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Object arg5,
+          Object arg6,
+          Throwable thrown);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param className .
-   * @param classMethod .
-   * @param lineNumber .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @param args5 .
-   * @param args6 .
-   * @param args7 .
-   * @param args8 .
-   * @param args9 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String className,
-      String classMethod,
-      int lineNumber,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4,
-      StringBuilder args5,
-      StringBuilder args6,
-      StringBuilder args7,
-      StringBuilder args8,
-      StringBuilder args9);
+          String logLevel,
+          String datetime,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Object arg5,
+          Object arg6,
+          Object arg7,
+          Throwable thrown);
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param message .
-   * @author admin
-   */
-  void log(String logLevel, String message);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param message .
-   * @param args1 .
-   * @author admin
-   */
-  void log(String logLevel, String message, StringBuilder args1);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @author admin
-   */
-  void log(String logLevel, String message, StringBuilder args1, StringBuilder args2);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @author admin
-   */
   void log(
-      String logLevel,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @author admin
-   */
-  void log(
-      String logLevel,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @param args5 .
-   * @author admin
-   */
-  void log(
-      String logLevel,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4,
-      StringBuilder args5);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @param args5 .
-   * @param args6 .
-   * @author admin
-   */
-  void log(
-      String logLevel,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4,
-      StringBuilder args5,
-      StringBuilder args6);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @param args5 .
-   * @param args6 .
-   * @param args7 .
-   * @author admin
-   */
-  void log(
-      String logLevel,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4,
-      StringBuilder args5,
-      StringBuilder args6,
-      StringBuilder args7);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @param args5 .
-   * @param args6 .
-   * @param args7 .
-   * @param args8 .
-   * @author admin
-   */
-  void log(
-      String logLevel,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4,
-      StringBuilder args5,
-      StringBuilder args6,
-      StringBuilder args7,
-      StringBuilder args8);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevel .
-   * @param message .
-   * @param args1 .
-   * @param args2 .
-   * @param args3 .
-   * @param args4 .
-   * @param args5 .
-   * @param args6 .
-   * @param args7 .
-   * @param args8 .
-   * @param args9 .
-   * @author admin
-   */
-  void log(
-      String logLevel,
-      String message,
-      StringBuilder args1,
-      StringBuilder args2,
-      StringBuilder args3,
-      StringBuilder args4,
-      StringBuilder args5,
-      StringBuilder args6,
-      StringBuilder args7,
-      StringBuilder args8,
-      StringBuilder args9);
+          String logLevel, 
+          String datetime,
+          String message, 
+          Object arg1, 
+          Object arg2, 
+          Object arg3, 
+          Object arg4, 
+          Object arg5, 
+          Object arg6, 
+          Object arg7, 
+          Object arg8, 
+          Object arg9, 
+          Throwable thrown);
 }

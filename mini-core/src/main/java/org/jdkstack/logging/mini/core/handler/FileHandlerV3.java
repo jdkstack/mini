@@ -1,41 +1,42 @@
 package org.jdkstack.logging.mini.core.handler;
 
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.RandomAccessFile;
-import java.nio.CharBuffer;
-import java.nio.channels.FileChannel;
+import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.concurrent.atomic.AtomicInteger;
-import org.jdkstack.logging.mini.api.buffer.ByteWriter;
-import org.jdkstack.logging.mini.api.codec.Encoder;
+import org.jdkstack.logging.mini.api.buffer.CharWriter;
+import org.jdkstack.logging.mini.api.codec.Decoder;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.api.resource.CoFactory;
 import org.jdkstack.logging.mini.core.StartApplication;
-import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
-import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
+import org.jdkstack.logging.mini.core.buffer.CharArrayWriter;
+import org.jdkstack.logging.mini.core.codec.ByteArrayDecoderV2;
 
 /**
  * 写文件.
  *
- * <p>利用RandomAccessFile方式写文件.
+ * <p>利用BufferedWriter方式写文件.
  *
  * @author admin
  */
-public class FileHandlerV2 extends AbstractHandler {
+@Deprecated(since = "暂时不能使用.")
+public class FileHandlerV3 extends AbstractHandler {
   /** 按照文件大小切割. */
   private final AtomicInteger sizes = new AtomicInteger(0);
   /** 按照文件条数切割. */
   private final AtomicInteger lines = new AtomicInteger(0);
   /** 临时数组. */
-  private final CharBuffer charBuf = CharBuffer.allocate(Constants.SOURCE);
+  private final ByteBuffer byteBuf = ByteBuffer.allocate(Constants.SOURCE);
   /** 字符编码器. */
-  private final Encoder<CharBuffer> textEncoder = new CharArrayEncoderV2(Charset.defaultCharset());
+  private final Decoder<ByteBuffer> textEncoder = new ByteArrayDecoderV2(Charset.defaultCharset());
   /** 目的地写入器. */
-  private final ByteWriter destination = new ByteArrayWriter();
+  private final CharWriter destination = new CharArrayWriter();
   /** . */
-  protected FileChannel channel;
-  /** . */
-  private RandomAccessFile randomAccessFile;
+  private BufferedWriter bufferedWriter;
 
   /**
    * This is a method description.
@@ -45,7 +46,7 @@ public class FileHandlerV2 extends AbstractHandler {
    * @param key key.
    * @author admin
    */
-  public FileHandlerV2(final String key) {
+  public FileHandlerV3(final String key) {
     super(key);
   }
 
@@ -60,36 +61,33 @@ public class FileHandlerV2 extends AbstractHandler {
    */
   @Override
   public void rules(final Record lr, final int length) throws Exception {
-    if (null == this.randomAccessFile) {
+    if (null == this.bufferedWriter) {
       this.remap();
     }
     final CoFactory info1 = StartApplication.getBean("configFactory", CoFactory.class);
     // 切换日志文件规则.
     final String type = info1.getValue(key, "type");
-    // 1.按line切换.
+    // 按line切换.
     if (org.jdkstack.logging.mini.core.buffer.Constants.LINES.equals(type)) {
       final int line = this.lines.incrementAndGet();
       // 100W行切换一次.
-      if (org.jdkstack.logging.mini.core.buffer.Constants.LC <= line) {
+      if (org.jdkstack.logging.mini.core.buffer.Constants.LC < line) {
         this.remap();
         this.lines.set(1);
       }
-      // 2.按size切换.
+      // 按size切换.
     } else {
       final int size = this.sizes.addAndGet(length);
-      final int line = this.lines.incrementAndGet();
       // 100MB切换一次.
-      if (org.jdkstack.logging.mini.core.buffer.Constants.SC <= size) {
+      if (org.jdkstack.logging.mini.core.buffer.Constants.SC < size) {
         this.remap();
         this.sizes.set(length);
-        this.lines.set(1);
       }
     }
-    // 3.按照日期时间规则.
   }
 
   /**
-   * This is a method description.
+   * .
    *
    * <p>Another description after blank line.
    *
@@ -97,28 +95,35 @@ public class FileHandlerV2 extends AbstractHandler {
    */
   public void remap() throws Exception {
     // 关闭流.
-    if (null != this.randomAccessFile) {
+    if (null != this.bufferedWriter) {
       // 刷数据.
       this.flush();
-      // 关闭channel.
-      this.channel.close();
-      // 关闭流.
-      this.randomAccessFile.close();
+      this.bufferedWriter.close();
     }
     final CoFactory info1 = StartApplication.getBean("configFactory", CoFactory.class);
-    // 重新计算文件名(创建临时对象?应该放到公共的地方.).
+    // 重新计算文件名(创建临时对象?).
     final File dir =
         new File(info1.getValue(key, "directory") + File.separator + info1.getValue(key, "prefix"));
     // 不存在,创建目录和子目录.
     if (!dir.exists()) {
       dir.mkdirs();
-    } 
+    }
     // 重新打开流.
-    this.randomAccessFile =
-        new RandomAccessFile(new File(dir, System.currentTimeMillis() + ".log"), "rw");
-    // 重新打开流channel.
-    this.channel = this.randomAccessFile.getChannel();
-    this.destination.setDestination(this.randomAccessFile);
+    this.bufferedWriter =
+        Files.newBufferedWriter(
+            // 文件路径.
+            new File(dir, System.currentTimeMillis() + ".log").toPath(),
+            // 文件编码.
+            StandardCharsets.UTF_8,
+            // 创建文件.
+            StandardOpenOption.CREATE,
+            // 写文件.
+            StandardOpenOption.WRITE,
+            // 追加文件.
+            StandardOpenOption.APPEND);
+    // 尝试写入一个空字符串.
+    this.bufferedWriter.write("");
+    this.destination.setDestination(this.bufferedWriter);
   }
 
   /**
@@ -132,19 +137,17 @@ public class FileHandlerV2 extends AbstractHandler {
   public void consume(final Record lr)  throws Exception{
       if (this.filter(lr)) {
         // 格式化日志对象.
-        final CharBuffer logMessage = (CharBuffer) this.format(lr);
+        final ByteBuffer logMessage = (ByteBuffer) this.format(lr);
         // 清除缓存.
-        this.charBuf.clear();
+        this.byteBuf.clear();
         // 将数据写入缓存.
-        this.charBuf.put(logMessage.array(), logMessage.arrayOffset(), logMessage.remaining());
-        // 结束读取的位置.
-        this.charBuf.limit(logMessage.length());//字符长度，不是字节长度。
-        // 开始读取的位置.
-        this.charBuf.position(0);
+        this.byteBuf.put(logMessage.array(), logMessage.arrayOffset(), logMessage.remaining());
+        // 开始读取的位置,结束读取的位置.
+        this.byteBuf.flip();
         // 切换规则.
-        this.rules(lr, this.charBuf.remaining());
+        this.rules(lr, this.byteBuf.remaining());
         // 开始编码.
-        this.textEncoder.encode(this.charBuf, this.destination);
+        this.textEncoder.decode(this.byteBuf, this.destination);
         // 单条刷新到磁盘.
         this.flush();
       }
