@@ -41,30 +41,6 @@ public final class LogTextFormatterV2 implements Formatter {
     //
   }
 
-  /**
-   * 日志记录对象Record转成纯Text格式(空格分割).
-   *
-   * <p>日志记录对象Record转成纯Text格式(空格分割).
-   *
-   * @param logRecord 日志记录对象.
-   * @return 志记录转换成文本格式.
-   * @author admin
-   */
-  @Override
-  public Buffer format(final Record logRecord) {
-    // 文本格式的日志消息.
-    CHARBUF.clear();
-    // 日志对象中的特殊字段.
-    this.handle(logRecord);
-    // 增加一个换行符号(按照平台获取)
-    final String lineSeparator = System.lineSeparator();
-    // CHARBUF.append(lineSeparator);
-    extracted(lineSeparator);
-    CHARBUF.limit(CHARBUF.position());
-    CHARBUF.position(0);
-    return CHARBUF;
-  }
-
   private static void extracted(String lineSeparator) {
     if (lineSeparator == null) {
       lineSeparator = "";
@@ -105,6 +81,30 @@ public final class LogTextFormatterV2 implements Formatter {
     // 原来用!=比较.
     byteBuf.flip();
     if (0 != byteBuf.remaining()) {}
+  }
+
+  /**
+   * 日志记录对象Record转成纯Text格式(空格分割).
+   *
+   * <p>日志记录对象Record转成纯Text格式(空格分割).
+   *
+   * @param logRecord 日志记录对象.
+   * @return 志记录转换成文本格式.
+   * @author admin
+   */
+  @Override
+  public Buffer format(final Record logRecord) {
+    // 文本格式的日志消息.
+    CHARBUF.clear();
+    // 日志对象中的特殊字段.
+    this.handle(logRecord);
+    // 增加一个换行符号(按照平台获取)
+    final String lineSeparator = System.lineSeparator();
+    // CHARBUF.append(lineSeparator);
+    extracted(lineSeparator);
+    CHARBUF.limit(CHARBUF.position());
+    CHARBUF.position(0);
+    return CHARBUF;
   }
 
   /**
