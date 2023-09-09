@@ -11,6 +11,8 @@ import org.jdkstack.logging.mini.core.datetime.DateTimeEncoder;
  * 日志记录对象Record转成Json格式.
  *
  * <p>按行输出纯json格式的消息.
+ * 
+ * todo 最开始只能用单线程模式，所以CHARBUF公用一个，现在支持多线程模式，以后需要改成RingBuffer的形式。
  *
  * @author admin
  */

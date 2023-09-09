@@ -138,7 +138,7 @@ public class FileHandlerV2 extends AbstractHandler {
         // 将数据写入缓存.
         this.charBuf.put(logMessage.array(), logMessage.arrayOffset(), logMessage.remaining());
         // 结束读取的位置.
-        this.charBuf.limit(logMessage.length());//字符长度，不是字节长度。
+        this.charBuf.limit(logMessage.length()); //字符长度，不是字节长度。
         // 开始读取的位置.
         this.charBuf.position(0);
         // 切换规则.
