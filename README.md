@@ -14,7 +14,16 @@ A lightweight, high performance, open source, application layer log service fram
 6.重新开发了无锁队列(demo), RingBuffer队列(demo), 线程池(demo), datetime api(demo)，
 这些工具目前都是demo状态，只满足当前库的需求。
 7.还有很多特性能实现，但是没有时间和精力去实现。
-
+例如：
+  1).支持web端curd(内置一个web server，提供所有接口)，动态更改日志级别，Filter，Formatter。
+  2).日志输出任意格式，输出自定义context。
+  3).日志无代码模式，0侵入业务代码，利用agent拦截所有方法，利用字节码编辑库动态编写日志逻辑。
+  4).location位置的输出(无gc,高性能)，解决办法是每一次调用日志方法时都要绑定一个堆栈对象。
+      这个堆栈对象是唯一的，与当前行绑定，用来访问堆栈信息.
+  5).支持任意的文件格式，用来配置日志json,xml,yaml(日志核心不提供日志配置文件的解析，但提供对应的方法)。
+  6).无锁队列, RingBuffer队列, 线程池, datetime api等工具的完善。
+  7).其他。
+  
 注意：
 写这个库的原因是为了学习和讨论，不是为了炫耀。
 欢迎各位感兴趣的朋友，欢迎各位的贡献，任何贡献都需要，包括提供一个命名，提供一个建议。
