@@ -23,7 +23,6 @@ import org.jdkstack.logging.mini.core.codec.ByteArrayDecoderV2;
  *
  * @author admin
  */
-@Deprecated(since = "暂时不能使用.")
 public class FileHandlerV3 extends AbstractHandler {
   /** 按照文件大小切割. */
   private final AtomicInteger sizes = new AtomicInteger(0);

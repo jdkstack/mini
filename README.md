@@ -11,10 +11,11 @@ A lightweight, high performance, open source, application layer log service fram
 3.代码级别动态配置。
 4.不依赖第三方库，仅仅依赖openJdk。
 5.仅支持输出字符串(参数)。
-6.重新开发了无锁队列(demo),RingBuffer队列(demo),线程池(demo),datetime api(demo)。
+6.重新开发了无锁队列(demo), RingBuffer队列(demo), 线程池(demo), datetime api(demo)，这些工具目前都是demo状态，只满足当前库的需求。
 
 注意：
-开发这个库的原因是为了学习和讨论，不是为了炫耀。目前代码质量很烂，也有很多BUG，大家先不要纠结代码质量和BUG。
+开发这个库的原因是为了学习和讨论，不是为了炫耀。
+目前代码质量很烂，也有很多BUG，大家先不要纠结代码质量和BUG，可以参考style目录，是按照这个标准解决代码质量和BUG。
 还有，为什么代码要这么写，有非常多的简便写法（简便的写法无法做到无GC的要求）。
 很多写法都是经过我多次测试后才决定的，为了达到真正的无jvm GC的要求，费了很多脑细胞。
 欢迎各位感兴趣的朋友，欢迎各位的贡献，任何贡献都需要，包括提供一个命名，提供一个建议。
@@ -25,6 +26,15 @@ A lightweight, high performance, open source, application layer log service fram
 对于使用Jconsole, Jmc等工具观察jvm进程情况的朋友，一定要注意。
 这些工具会注入jvm并创建大量的临时对象，会造成内存的升高，一定要有这个鉴别的能力。
 也可以借助jmap -histo pid来观察jvm对象的数量，内存的大小。
+
+目录结构：
+mini-api (接口)
+mini-core (实现)
+--org.jdkstack.bean.core (bean类管理)
+--org.jdkstack.logging.mini.core (日志)
+--org.jdkstack.pool.core (线程池)
+--org.jdkstack.ringbuffer.core (无锁队列)
+mini-extension (扩展)
 ```
 
 例子:
