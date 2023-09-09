@@ -122,15 +122,11 @@ public class CharArrayEncoderV2 implements Encoder<CharBuffer> {
     final ByteBuffer destBuff = destination.getByteBuffer();
     // 如果空间不足,分批写入.
     while (source.remaining() > destBuff.remaining()) {
-      //
+      /* 可能导致，一条日志只有一部分写入文件，另一部分丢失。
       final int originalLimit = source.limit();
-      //
       source.limit(Math.min(source.limit(), source.position() + destBuff.remaining()));
-      //
       destBuff.put(source);
-      //
-      source.limit(originalLimit);
-      //
+      source.limit(originalLimit);*/
       destination.flush(destBuff);
     }
     // 如果空间足够,直接写入.

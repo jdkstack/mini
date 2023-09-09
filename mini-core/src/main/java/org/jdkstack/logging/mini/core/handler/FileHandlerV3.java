@@ -133,23 +133,23 @@ public class FileHandlerV3 extends AbstractHandler {
    * @param lr lr.
    * @author admin
    */
-  public void consume(final Record lr)  throws Exception{
-      if (this.filter(lr)) {
-        // 格式化日志对象.
-        final ByteBuffer logMessage = (ByteBuffer) this.format(lr);
-        // 清除缓存.
-        this.byteBuf.clear();
-        // 将数据写入缓存.
-        this.byteBuf.put(logMessage.array(), logMessage.arrayOffset(), logMessage.remaining());
-        // 开始读取的位置,结束读取的位置.
-        this.byteBuf.flip();
-        // 切换规则.
-        this.rules(lr, this.byteBuf.remaining());
-        // 开始编码.
-        this.textEncoder.decode(this.byteBuf, this.destination);
-        // 单条刷新到磁盘.
-        this.flush();
-      }
+  public void consume(final Record lr) throws Exception {
+    if (this.filter(lr)) {
+      // 格式化日志对象.
+      final ByteBuffer logMessage = (ByteBuffer) this.format(lr);
+      // 清除缓存.
+      this.byteBuf.clear();
+      // 将数据写入缓存.
+      this.byteBuf.put(logMessage.array(), logMessage.arrayOffset(), logMessage.remaining());
+      // 开始读取的位置,结束读取的位置.
+      this.byteBuf.flip();
+      // 切换规则.
+      this.rules(lr, this.byteBuf.remaining());
+      // 开始编码.
+      this.textEncoder.decode(this.byteBuf, this.destination);
+      // 单条刷新到磁盘.
+      this.flush();
+    }
   }
 
   /**

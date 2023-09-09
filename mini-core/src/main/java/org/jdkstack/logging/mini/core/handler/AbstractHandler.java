@@ -95,6 +95,69 @@ public abstract class AbstractHandler implements Handler {
       final Object arg8,
       final Object arg9,
       final Throwable thrown) {
+    // 单线程。
+    singleThread(
+        logLevel, className, datetime, message, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
+        arg9, thrown);
+  }
+
+  public void singleThread(
+      final String logLevel,
+      final String className,
+      final String datetime,
+      final String message,
+      final Object arg1,
+      final Object arg2,
+      final Object arg3,
+      final Object arg4,
+      final Object arg5,
+      final Object arg6,
+      final Object arg7,
+      final Object arg8,
+      final Object arg9,
+      final Throwable thrown) {
+    try {
+      // 预生产(从循环队列tail取一个元素对象地址).
+      final Record lr = queue.tail();
+      // 为元素对象生产数据.
+      produce(
+          logLevel, datetime, message, className, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
+          arg9, thrown, lr);
+    } catch (Exception e) {
+      Internal.log(e);
+    } finally {
+      // 生产数据完成的标记(数据可以从循环队列head消费).
+      queue.start();
+    }
+
+    try {
+      // 预消费(从循环队列head取一个元素对象).
+      final Record logRecord = queue.head();
+      // 从元素对象消费数据.
+      consume(logRecord);
+    } catch (Exception e) {
+      Internal.log(e);
+    } finally {
+      // 消费数据完成的标记(数据可以从循环队列tail生产).
+      queue.end();
+    }
+  }
+
+  public void multiThread(
+      final String logLevel,
+      final String className,
+      final String datetime,
+      final String message,
+      final Object arg1,
+      final Object arg2,
+      final Object arg3,
+      final Object arg4,
+      final Object arg5,
+      final Object arg6,
+      final Object arg7,
+      final Object arg8,
+      final Object arg9,
+      final Throwable thrown) {
     Task user = (Task) threadPoolExecutor.getTaskWorker();
     user.setLogLevel(logLevel);
     user.setDatetime(datetime);

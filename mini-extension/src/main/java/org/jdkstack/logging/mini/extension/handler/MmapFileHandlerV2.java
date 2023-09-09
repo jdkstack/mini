@@ -107,26 +107,26 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
    * @author admin
    */
   @Override
-  public void consume(final Record lr)  throws Exception{
-      if (this.filter(lr)) {
-        // 格式化日志对象.
-        final CharBuffer logMessage = (CharBuffer) this.format(lr);
-        // 清除缓存.
-        this.charBuf.clear();
-        // 写入临时数组.
-        // 将数据写入缓存.
-        this.charBuf.put(logMessage.array(), logMessage.arrayOffset(), logMessage.remaining());
-        // 结束读取的位置.
-        this.charBuf.limit(logMessage.length());
-        // 开始读取的位置.
-        this.charBuf.position(0);
-        // 切换规则.
-        this.rules(lr, this.charBuf.remaining());
-        // 开始编码.
-        this.textEncoder.encode(this.charBuf, this.destination);
-        // 单条刷新到磁盘.
-        this.flush();
-      }
+  public void consume(final Record lr) throws Exception {
+    if (this.filter(lr)) {
+      // 格式化日志对象.
+      final CharBuffer logMessage = (CharBuffer) this.format(lr);
+      // 清除缓存.
+      this.charBuf.clear();
+      // 写入临时数组.
+      // 将数据写入缓存.
+      this.charBuf.put(logMessage.array(), logMessage.arrayOffset(), logMessage.remaining());
+      // 结束读取的位置.
+      this.charBuf.limit(logMessage.length());
+      // 开始读取的位置.
+      this.charBuf.position(0);
+      // 切换规则.
+      this.rules(lr, this.charBuf.remaining());
+      // 开始编码.
+      this.textEncoder.encode(this.charBuf, this.destination);
+      // 单条刷新到磁盘.
+      this.flush();
+    }
   }
 
   /**

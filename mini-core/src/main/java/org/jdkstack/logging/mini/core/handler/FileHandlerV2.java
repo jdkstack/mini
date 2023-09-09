@@ -70,7 +70,7 @@ public class FileHandlerV2 extends AbstractHandler {
     if (org.jdkstack.logging.mini.core.buffer.Constants.LINES.equals(type)) {
       final int line = this.lines.incrementAndGet();
       // 100W行切换一次.
-      if (org.jdkstack.logging.mini.core.buffer.Constants.LC <= line) {
+      if (org.jdkstack.logging.mini.core.buffer.Constants.LC < line) {
         // 每次切换文件时，都会创建20个对象，这个问题暂时无法解决(对无GC影响很小，但是需要解决才能100%达到无GC要求)。
         this.remap();
         this.lines.set(1);
@@ -80,7 +80,7 @@ public class FileHandlerV2 extends AbstractHandler {
       final int size = this.sizes.addAndGet(length);
       final int line = this.lines.incrementAndGet();
       // 100MB切换一次.
-      if (org.jdkstack.logging.mini.core.buffer.Constants.SC <= size) {
+      if (org.jdkstack.logging.mini.core.buffer.Constants.SC < size) {
         // 每次切换文件时，都会创建20个对象，这个问题暂时无法解决(对无GC影响很小，但是需要解决才能100%达到无GC要求)。
         this.remap();
         this.sizes.set(length);
@@ -132,24 +132,24 @@ public class FileHandlerV2 extends AbstractHandler {
    * @author admin
    */
   public void consume(final Record lr)  throws Exception{
-      if (this.filter(lr)) {
-        // 格式化日志对象.
-        final CharBuffer logMessage = (CharBuffer) this.format(lr);
-        // 清除缓存.
-        this.charBuf.clear();
-        // 将数据写入缓存.
-        this.charBuf.put(logMessage.array(), logMessage.arrayOffset(), logMessage.remaining());
-        // 结束读取的位置.
-        this.charBuf.limit(logMessage.length()); //字符长度，不是字节长度。
-        // 开始读取的位置.
-        this.charBuf.position(0);
-        // 切换规则.
-        this.rules(lr, this.charBuf.remaining());
-        // 开始编码.
-        this.textEncoder.encode(this.charBuf, this.destination);
-        // 单条刷新到磁盘.
-        this.flush();
-      }
+    if (this.filter(lr)) {
+      // 格式化日志对象.
+      final CharBuffer logMessage = (CharBuffer) this.format(lr);
+      // 清除缓存.
+      this.charBuf.clear();
+      // 将数据写入缓存.
+      this.charBuf.put(logMessage.array(), logMessage.arrayOffset(), logMessage.remaining());
+      // 结束读取的位置.
+      this.charBuf.limit(logMessage.length()); // 字符长度，不是字节长度。
+      // 开始读取的位置.
+      this.charBuf.position(0);
+      // 切换规则.
+      this.rules(lr, this.charBuf.remaining());
+      // 开始编码.
+      this.textEncoder.encode(this.charBuf, this.destination);
+      // 单条刷新到磁盘，速度最慢，但是数据丢失机率最小，批量速度最好，但是数据丢失机率最大，并且日志被缓存，延迟写入文件.
+      this.flush();
+    }
   }
 
   /**
