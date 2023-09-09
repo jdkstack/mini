@@ -30,6 +30,11 @@ A lightweight, high performance, open source, application layer log service fram
 例子:
 
 ```java
+java -version
+openjdk version "11" 2018-09-25
+OpenJDK Runtime Environment 18.9 (build 11+28)
+OpenJDK 64-Bit Server VM 18.9 (build 11+28, mixed mode)
+
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.core.factory.LogFactory;
 import org.jdkstack.logging.mini.core.level.Constants;
