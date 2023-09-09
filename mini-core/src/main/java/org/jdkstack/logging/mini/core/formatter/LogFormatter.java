@@ -19,8 +19,24 @@ import org.jdkstack.logging.mini.core.pool.StringBuilderPool;
  */
 public final class LogFormatter {
 
+  /** 临时数组. */
+  private static final StringBuilder CHARBUF = StringBuilderPool.poll();
+
   private LogFormatter() {
     //
+  }
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param message .
+   * @param args1 .
+   * @return CHARBUFfer .
+   * @author admin
+   */
+  public static StringBuilder format(final String message) {
+    return format(message, null, null, null, null, null, null, null, null, null);
   }
 
   /**
@@ -30,10 +46,10 @@ public final class LogFormatter {
    *
    * @param message .
    * @param args1 .
-   * @return StringBuilder .
+   * @return CHARBUFfer .
    * @author admin
    */
-  public static StringBuilder format(final String message, final StringBuilder args1) {
+  public static StringBuilder format(final String message, final Object args1) {
     return format(message, args1, null, null, null, null, null, null, null, null);
   }
 
@@ -45,11 +61,10 @@ public final class LogFormatter {
    * @param message .
    * @param args1 .
    * @param args2 .
-   * @return StringBuilder .
+   * @return CHARBUFfer .
    * @author admin
    */
-  public static StringBuilder format(
-      final String message, final StringBuilder args1, final StringBuilder args2) {
+  public static StringBuilder format(final String message, final Object args1, final Object args2) {
     return format(message, args1, args2, null, null, null, null, null, null, null);
   }
 
@@ -62,14 +77,11 @@ public final class LogFormatter {
    * @param args1 .
    * @param args2 .
    * @param args3 .
-   * @return StringBuilder .
+   * @return CHARBUFfer .
    * @author admin
    */
   public static StringBuilder format(
-      final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3) {
+      final String message, final Object args1, final Object args2, final Object args3) {
     return format(message, args1, args2, args3, null, null, null, null, null, null);
   }
 
@@ -83,15 +95,15 @@ public final class LogFormatter {
    * @param args2 .
    * @param args3 .
    * @param args4 .
-   * @return StringBuilder .
+   * @return CHARBUFfer .
    * @author admin
    */
   public static StringBuilder format(
       final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4) {
+      final Object args1,
+      final Object args2,
+      final Object args3,
+      final Object args4) {
     return format(message, args1, args2, args3, args4, null, null, null, null, null);
   }
 
@@ -106,16 +118,16 @@ public final class LogFormatter {
    * @param args3 .
    * @param args4 .
    * @param args5 .
-   * @return StringBuilder .
+   * @return CHARBUFfer .
    * @author admin
    */
   public static StringBuilder format(
       final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5) {
+      final Object args1,
+      final Object args2,
+      final Object args3,
+      final Object args4,
+      final Object args5) {
     return format(message, args1, args2, args3, args4, args5, null, null, null, null);
   }
 
@@ -131,17 +143,17 @@ public final class LogFormatter {
    * @param args4 .
    * @param args5 .
    * @param args6 .
-   * @return StringBuilder .
+   * @return CHARBUFfer .
    * @author admin
    */
   public static StringBuilder format(
       final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5,
-      final StringBuilder args6) {
+      final Object args1,
+      final Object args2,
+      final Object args3,
+      final Object args4,
+      final Object args5,
+      final Object args6) {
     return format(message, args1, args2, args3, args4, args5, args6, null, null, null);
   }
 
@@ -158,18 +170,18 @@ public final class LogFormatter {
    * @param args5 .
    * @param args6 .
    * @param args7 .
-   * @return StringBuilder .
+   * @return CHARBUFfer .
    * @author admin
    */
   public static StringBuilder format(
       final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5,
-      final StringBuilder args6,
-      final StringBuilder args7) {
+      final Object args1,
+      final Object args2,
+      final Object args3,
+      final Object args4,
+      final Object args5,
+      final Object args6,
+      final Object args7) {
     return format(message, args1, args2, args3, args4, args5, args6, args7, null, null);
   }
 
@@ -187,19 +199,19 @@ public final class LogFormatter {
    * @param args6 .
    * @param args7 .
    * @param args8 .
-   * @return StringBuilder .
+   * @return CHARBUFfer .
    * @author admin
    */
   public static StringBuilder format(
       final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5,
-      final StringBuilder args6,
-      final StringBuilder args7,
-      final StringBuilder args8) {
+      final Object args1,
+      final Object args2,
+      final Object args3,
+      final Object args4,
+      final Object args5,
+      final Object args6,
+      final Object args7,
+      final Object args8) {
     return format(message, args1, args2, args3, args4, args5, args6, args7, args8, null);
   }
 
@@ -218,21 +230,22 @@ public final class LogFormatter {
    * @param args7 .
    * @param args8 .
    * @param args9 .
-   * @return StringBuilder .
+   * @return CHARBUFfer .
    * @author admin
    */
   public static StringBuilder format(
       final String message,
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5,
-      final StringBuilder args6,
-      final StringBuilder args7,
-      final StringBuilder args8,
-      final StringBuilder args9) {
-    final StringBuilder sb = StringBuilderPool.poll();
+      final Object args1,
+      final Object args2,
+      final Object args3,
+      final Object args4,
+      final Object args5,
+      final Object args6,
+      final Object args7,
+      final Object args8,
+      final Object args9) {
+    //CHARBUF.clear();
+    CHARBUF.setLength(0);
     // 原始字符串长度.
     final int len = message.length();
     // 当前被处理的原始字符位置.
@@ -263,14 +276,14 @@ public final class LogFormatter {
       }
       // 如果当前字符和下一个字符正好是一对"{}"
       if ('{' == c && '}' == next) {
-        hanlder(args1, args2, args3, args4, args5, args6, args7, args8, args9, sb, braces);
+        hanlder(args1, args2, args3, args4, args5, args6, args7, args8, args9, braces);
         // {}括号对计数.
         braces++;
         // 跳过'}'右括号.
         index++;
         // 如果当前字符和下一个字符,以及下一个字符正好是一对"{0}-{9}"
       } else if ('{' == c && '0' <= next && '9' >= next && '}' == next1) {
-        hanlder(args1, args2, args3, args4, args5, args6, args7, args8, args9, sb, braces);
+        hanlder(args1, args2, args3, args4, args5, args6, args7, args8, args9, braces);
         // {}括号对计数.
         braces++;
         // 跳过'}'右括号.
@@ -278,52 +291,81 @@ public final class LogFormatter {
         // 跳过'0'-'9'.
         index++;
       } else {
-        sb.append(c);
+        CHARBUF.append(c);
       }
       index++;
     }
-    return sb;
+    //CHARBUF.flip();
+    return CHARBUF;
   }
 
   private static void hanlder(
-      final StringBuilder args1,
-      final StringBuilder args2,
-      final StringBuilder args3,
-      final StringBuilder args4,
-      final StringBuilder args5,
-      final StringBuilder args6,
-      final StringBuilder args7,
-      final StringBuilder args8,
-      final StringBuilder args9,
-      final StringBuilder sb,
+      final Object args1,
+      final Object args2,
+      final Object args3,
+      final Object args4,
+      final Object args5,
+      final Object args6,
+      final Object args7,
+      final Object args8,
+      final Object args9,
       final int braces) {
     if (Constants.N0 == braces) {
       // 拼接参数.
-      sb.append(args1);
+      //CHARBUF.append(args1);
+      extracted(args1);
     } else if (Constants.N1 == braces) {
       // 拼接参数.
-      sb.append(args2);
+      //CHARBUF.append(args2);
+      extracted(args2);
     } else if (Constants.N2 == braces) {
       // 拼接参数.
-      sb.append(args3);
+      //CHARBUF.append(args3);
+      extracted(args3);
     } else if (Constants.N3 == braces) {
       // 拼接参数.
-      sb.append(args4);
+     // CHARBUF.append(args4);
+      extracted(args4);
     } else if (Constants.N4 == braces) {
       // 拼接参数.
-      sb.append(args5);
+      //.append(args5);
+      extracted(args5);
     } else if (Constants.N5 == braces) {
       // 拼接参数.
-      sb.append(args6);
+      //CHARBUF.append(args6);
+      extracted(args6);
     } else if (Constants.N6 == braces) {
       // 拼接参数.
-      sb.append(args7);
+      //CHARBUF.append(args7);
+      extracted(args7);
     } else if (Constants.N7 == braces) {
       // 拼接参数.
-      sb.append(args8);
+      //CHARBUF.append(args8);
+      extracted(args8);
     } else {
       // 拼接参数.
-      sb.append(args9);
+     // CHARBUF.append(args9);
+      extracted(args9);
+    }
+  }
+
+  private static void extracted( Object arg1) {
+    if (arg1 instanceof Integer) {
+      CHARBUF.append((int) arg1);
+    } else if (arg1 instanceof Short) {
+      CHARBUF.append((short) arg1);
+    } else if (arg1 instanceof String) {
+      CHARBUF.append((String) arg1);
+    } else if (arg1 instanceof Long) {
+      CHARBUF.append((long) arg1);
+    } else if (arg1 instanceof Character) {
+      CHARBUF.append((char) arg1);
+    } else if (arg1 instanceof Double) {
+      CHARBUF.append((double) arg1);
+    } else if (arg1 instanceof Float) {
+      CHARBUF.append((float) arg1);
+    } else if (arg1 instanceof Boolean) {
+      CHARBUF.append((boolean) arg1);
     }
   }
 }

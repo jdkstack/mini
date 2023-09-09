@@ -10,7 +10,7 @@ import org.jdkstack.logging.mini.core.codec.Constants;
 /**
  * .
  *
- * <p>。
+ * <p>将异常信息写入文件中.
  *
  * @author admin
  */
@@ -22,7 +22,7 @@ public final class Internal {
   private static final Encoder<CharBuffer> TEXTENCODER =
       new CharArrayEncoderV2(Charset.defaultCharset());
   /** 目的地写入器. */
-  private static final ByteWriter DESTINATION = new ByteArrayWriter("default");
+  private static final ByteWriter DESTINATION = new ByteArrayWriter();
 
   private Internal() {
     //
@@ -36,7 +36,7 @@ public final class Internal {
    * @param e e.
    * @author admin
    */
-  public static void log(final Exception e) {
+  public static void log(final Throwable e) {
     try {
       // 异常消息.
       final String message = e.getMessage();

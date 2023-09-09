@@ -3,52 +3,32 @@ A lightweight, high performance, open source, application layer log service fram
 一个轻量级，高性能，开源，应用层日志服务框架。
 
 ```text
-这是一个日志框架内核，可扩展，单线程模式，阻塞式生产和消费日志数据。
+这是一个日志框架内核，可扩展。
 
 动机：基于以下几点原因。
 1.仅实现核心功能FileHandler，将日志数据写入文件中。
 2.没有临时对象创建，不会发生GC。
-3.代码级别动态配置和web页面上动态配置。
+3.代码级别动态配置。
 4.不依赖第三方库，仅仅依赖openJdk。
-5.仅支持输出字符串。
+5.仅支持输出字符串(参数)。
+6.重新开发了无锁队列(demo),RingBuffer队列(demo),线程池(demo),datetime api(demo)。
+7.其他。
 ```
 
 例子:
 
 ```java
+import org.jdkstack.logging.mini.api.recorder.Recorder;
+import org.jdkstack.logging.mini.core.factory.LogFactory;
+import org.jdkstack.logging.mini.core.level.Constants;
+
 public class Examples {
-private static final Recorder LOG = LogFactory.getLog(Examples.class);
-public static void main(String[] args) {
- LOG.log(Constants.INFO,"日期", "INFO {} {}{}", to(1), to(1L), to("1"));
- LOG.log(Constants.INFO, "INFO {} {}{}", to(1), to(1L), to("1"));
- LOG.log(Constants.ERROR, "ERROR {1} ", to(1D));
- LOG.log(Constants.DEBUG, 类路径, 方法名, 行号, "ERROR {1}", to(1D));
- }
+    private static final Recorder LOG = LogFactory.getLog(Examples.class);
+
+    public static void main(String[] args) {
+        for (; ; ) {
+            LOG.log(Constants.FATAL, "测试1{}测试2{}测试3{}测试4{}测试5{}测试6{}测试7{}测试8{}测试9{}.", 1L, "2", '3', 4D, "5", '6', 7F, "8", '9');
+        }
+    }
 }
-```
-
-动态创建Handler和Recorder:
-
-```java
-HaFactory info = StartApplication.getBean("handlerFactory", HaFactory.class);
-ReFactory info = StartApplication.getBean("recorderFactory", ReFactory.class);
-```
-
-动态创建Filter和Formatter:
-
-```java
-FilterFactory info = StartApplication.getBean("filterFactory", FilterFactory.class);
-FormatterFactory info = StartApplication.getBean("formatterFactory", FormatterFactory.class);
-```
-
-动态创建Level:
-
-```java
-LeFactory info = StartApplication.getBean("levelFactory", LeFactory.class);
-```
-
-动态创建配置:
-
-```java
-CoFactory info = StartApplication.getBean("configFactory", CoFactory.class);
 ```

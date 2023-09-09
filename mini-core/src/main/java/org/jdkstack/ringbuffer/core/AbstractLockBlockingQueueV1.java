@@ -1,10 +1,7 @@
 package org.jdkstack.ringbuffer.core;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.LockSupport;
-import org.jdkstack.ringbuffer.api.RingBufferBlockingQueue;
 
 /**
  * .
@@ -14,8 +11,7 @@ import org.jdkstack.ringbuffer.api.RingBufferBlockingQueue;
  * @param <E> .
  * @author admin
  */
-public abstract class AbstractLockBlockingQueueV1<E> extends AbstractBlockingQueue<E>
-    implements BlockingQueue<E>, RingBufferBlockingQueue {
+public abstract class AbstractLockBlockingQueueV1<E> extends AbstractBlockingQueue<E> {
 
   /** 环形数组. */
   protected final E[] ringBuffer;
@@ -99,19 +95,6 @@ public abstract class AbstractLockBlockingQueueV1<E> extends AbstractBlockingQue
         return null;
       }
     }
-  }
-
-  /**
-   * This is a class description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @return E e.
-   * @author admin
-   */
-  @Override
-  public final E poll(final long timeout, final TimeUnit unit) {
-    throw new UnsupportedOperationException("未实现.");
   }
 
   /**

@@ -1,5 +1,7 @@
 package org.jdkstack.logging.mini.api.record;
 
+import java.util.Map;
+
 /**
  * This is a class description.
  *
@@ -17,7 +19,7 @@ public interface Record {
    * @return String .
    * @author admin
    */
-  StringBuilder getMessage();
+  String getMessage();
 
   /**
    * This is a method description.
@@ -27,17 +29,7 @@ public interface Record {
    * @param message .
    * @author admin
    */
-  void setMessage(StringBuilder message);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @return Throwable .
-   * @author admin
-   */
-  Throwable getThrown();
+  void setMessage(String message);
 
   /**
    * This is a method description.
@@ -98,66 +90,6 @@ public interface Record {
    * @author admin
    */
   void setClassName(String className);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @return String.
-   * @author admin
-   */
-  String getClassMethod();
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param classMethod classMethod.
-   * @author admin
-   */
-  void setClassMethod(String classMethod);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @return int.
-   * @author admin
-   */
-  int getLineNumber();
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param lineNumber lineNumber.
-   * @author admin
-   */
-  void setLineNumber(int lineNumber);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @return String .
-   * @author admin
-   */
-  StringBuilder getSb();
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param sb .
-   * @author admin
-   */
-  void setSb(StringBuilder sb);
 
   /**
    * This is a method description.
@@ -318,4 +250,62 @@ public interface Record {
    * @author admin
    */
   void setOffset(String offset);
+
+  String getLogLevel();
+
+  void setLogLevel(String logLevel);
+
+  String getEvent();
+
+  void setEvent(String event);
+
+  String getIngestion();
+
+  void setIngestion(String ingestion);
+
+  Throwable getThrowable();
+
+  Map<String, String> getMap();
+
+  void setMap(Map<String, String> map);
+
+  String getProcess();
+
+  void setProcess(String process);
+
+  Object getArgs1();
+
+  void setArgs1(Object args1);
+
+  Object getArgs2();
+
+  void setArgs2(Object args2);
+
+  Object getArgs3();
+
+  void setArgs3(Object args3);
+
+  Object getArgs4();
+
+  void setArgs4(Object args4);
+
+  Object getArgs5();
+
+  void setArgs5(Object args5);
+
+  Object getArgs6();
+
+  void setArgs6(Object args6);
+
+  Object getArgs7();
+
+  void setArgs7(Object args7);
+
+  Object getArgs8();
+
+  void setArgs8(Object args8);
+
+  Object getArgs9();
+
+  void setArgs9(Object args9);
 }

@@ -11,7 +11,7 @@ import org.jdkstack.logging.mini.api.codec.Encoder;
 /**
  * .
  *
- * <p>.
+ * <p>将char[] 字符数组编码成ByteBuffer.
  *
  * @author admin
  */

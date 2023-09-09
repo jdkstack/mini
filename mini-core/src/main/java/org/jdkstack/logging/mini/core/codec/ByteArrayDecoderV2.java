@@ -11,7 +11,7 @@ import org.jdkstack.logging.mini.api.codec.Decoder;
 /**
  * .
  *
- * <p>.
+ * <p>将ByteBuffer 字节buffer解码成CharBuffer.
  *
  * @author admin
  */
@@ -86,11 +86,15 @@ public class ByteArrayDecoderV2 implements Decoder<ByteBuffer> {
     byteBuf.position(0);
     cd.decode(byteBuf, charBuf, true);
     cd.flush(charBuf);
-    charBuf.flip();
-    if (0 != charBuf.remaining()) {
-      writeTo(charBuf, reader);
+    // 原来用!=比较.
+    if (!charBuf.equals(reader.getCharBuffer())) {
+      // 翻转limit和position,将限制设置为当前位置,然后将位置设置为零.
+      charBuf.flip();
+      if (0 != charBuf.remaining()) {
+        writeTo(charBuf, reader);
+      }
+      charBuf.clear();
     }
-    charBuf.clear();
   }
 
   /**

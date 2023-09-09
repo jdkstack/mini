@@ -1,5 +1,6 @@
 package org.jdkstack.logging.mini.api.formatter;
 
+import java.nio.Buffer;
 import org.jdkstack.logging.mini.api.record.Record;
 
 /**
@@ -20,5 +21,5 @@ public interface Formatter {
    * @return s.
    * @author admin
    */
-  StringBuilder format(Record logRecord);
+  Buffer format(Record logRecord);
 }

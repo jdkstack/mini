@@ -1,4 +1,4 @@
-package org.jdkstack.logging.mini.core.queue;
+package org.jdkstack.logging.mini.core.handler;
 
 import org.jdkstack.logging.mini.core.record.LogRecord;
 import org.jdkstack.ringbuffer.core.EventFactory;
@@ -6,7 +6,7 @@ import org.jdkstack.ringbuffer.core.EventFactory;
 /**
  * .
  *
- * <p>.
+ * <p>创建日志记录对象.
  *
  * @param <E> .
  * @author admin

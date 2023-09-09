@@ -7,7 +7,7 @@ package org.jdkstack.ringbuffer.api;
  *
  * @author admin
  */
-public interface RingBufferBlockingQueue {
+public interface RingBufferBlockingQueue<E> {
 
   /**
    * .
@@ -18,4 +18,14 @@ public interface RingBufferBlockingQueue {
    * @author admin
    */
   boolean isFull();
+
+  boolean offer(E e);
+
+  E poll();
+
+  E peek();
+
+  int size();
+
+  boolean isEmpty();
 }

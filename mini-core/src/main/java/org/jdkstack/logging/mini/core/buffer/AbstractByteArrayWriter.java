@@ -6,7 +6,7 @@ import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 /**
  * .
  *
- * <p>.
+ * <p>将byte[]字节数组写入文件.
  *
  * @author admin
  */
