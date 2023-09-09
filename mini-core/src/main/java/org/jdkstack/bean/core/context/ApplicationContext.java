@@ -78,8 +78,10 @@ public class ApplicationContext implements Context {
     map.put("intervalFormatter", "yyyyMMddHHmm");
     map.put("batchSize", "1");
     map.put("capacity", "1024");
+    // 默认配置。
     ConfigManager configManager = (ConfigManager) getObject("configManager");
     configManager.create("default", map);
+    // 默认日志级别。
     LevelManager levelManager = (LevelManager) getObject("levelManager");
     levelManager.create(Constants.MIN, Constants.MIN_VALUE);
     levelManager.create(Constants.SEVERE, Constants.SEVERE_VALUE);
@@ -94,17 +96,21 @@ public class ApplicationContext implements Context {
     levelManager.create(Constants.FINEST, Constants.FINEST_VALUE);
     levelManager.create(Constants.TRACE, Constants.TRACE_VALUE);
     levelManager.create(Constants.MAX, Constants.MAX_VALUE);
+    // 默认Filter。
     FilterManager filterManager = (FilterManager) getObject("filterManager");
     final Filter filter = new LogFilter();
     filterManager.create("logFilter", filter);
+    // 默认Formatter。
     FormatterManager formatterManager = (FormatterManager) getObject("formatterManager");
     final Formatter logJsonFormatter = new LogJsonFormatter();
     formatterManager.create("logJsonFormatter", logJsonFormatter);
     final Formatter logTextFormatter = new LogTextFormatter();
     formatterManager.create("logTextFormatter", logTextFormatter);
+    // 默认FileHandler。
     HandlerManager handlerManager = (HandlerManager) getObject("handlerManager");
     final Handler fileHandlerV2 = new FileHandlerV2("default");
     handlerManager.create("default", fileHandlerV2);
+    // 默认Recorder。
     RecorderManager recorderManager = (RecorderManager) getObject("recorderManager");
     final RecorderOption recorderOption = new LogRecorderOption();
     recorderManager.create(recorderOption);
