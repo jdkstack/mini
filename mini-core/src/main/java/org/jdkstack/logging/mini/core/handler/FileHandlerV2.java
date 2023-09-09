@@ -80,8 +80,6 @@ public class FileHandlerV2 extends AbstractHandler {
       final int line = this.lines.incrementAndGet();
       // 100MB切换一次.
       if (org.jdkstack.logging.mini.core.buffer.Constants.SC <= size) {
-        System.out.println(size);
-        System.out.println(line);
         this.remap();
         this.sizes.set(length);
         this.lines.set(1);
@@ -114,7 +112,7 @@ public class FileHandlerV2 extends AbstractHandler {
     // 不存在,创建目录和子目录.
     if (!dir.exists()) {
       dir.mkdirs();
-    }
+    } 
     // 重新打开流.
     this.randomAccessFile =
         new RandomAccessFile(new File(dir, System.currentTimeMillis() + ".log"), "rw");

@@ -36,6 +36,7 @@ public abstract class AbstractHandler implements Handler {
   protected final String key;
   /** 阻塞队列名称. */
   protected final String target;
+
   protected final ThreadPoolExecutor threadPoolExecutor =
       new ThreadPoolExecutor(
           4, 4, 0, TimeUnit.SECONDS, new MpmcBlockingQueueV3<>(1024, new TaskEventFactory<>()));
@@ -129,7 +130,6 @@ public abstract class AbstractHandler implements Handler {
       final Object arg9,
       final Throwable thrown,
       final Record lr) {
-    lr.setEvent(datetime);
     lr.setClassName(className);
     lr.setThrown(thrown);
     lr.setLevel(logLevel);
@@ -143,6 +143,7 @@ public abstract class AbstractHandler implements Handler {
     lr.setArgs7(arg7);
     lr.setArgs8(arg8);
     lr.setArgs9(arg9);
+    lr.setEvent(datetime);
     // 记录接收事件时的日期时间.
     final long current = System.currentTimeMillis();
     final long year = DateTimeEncoder.year(current);

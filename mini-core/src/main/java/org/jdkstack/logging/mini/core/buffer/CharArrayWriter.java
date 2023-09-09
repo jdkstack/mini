@@ -28,7 +28,8 @@ public class CharArrayWriter extends AbstractCharArrayWriter {
   public final void readToDestination(final char[] bytes, final int offset, final int length)
       throws Exception {
     this.bufferedWriter.write(bytes, offset, length);
-    this.bufferedWriter.flush();
+    //底层会创建大量的CharBuffer cb = CharBuffer.wrap.
+    //this.bufferedWriter.flush();
   }
 
   /**

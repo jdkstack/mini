@@ -4,6 +4,7 @@ import java.nio.Buffer;
 import java.nio.CharBuffer;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.record.Record;
+import org.jdkstack.logging.mini.core.datetime.DateTimeEncoder;
 
 /**
  * 日志记录对象Record转成纯Text格式(空格分割).
@@ -60,7 +61,16 @@ public final class LogTextFormatter implements Formatter {
    */
   public void handle(final Record logRecord) {
     // 日志日期时间.
-    CHARBUF.append(logRecord.getEvent());
+    String dateTime = logRecord.getEvent();
+    if (dateTime != null) {
+      CHARBUF.append(dateTime);
+    } else {
+      final long current = System.currentTimeMillis();
+      StringBuilder encoder = DateTimeEncoder.encoder(current, 8 * 3600);
+      int position = CHARBUF.position();
+      encoder.getChars(0, encoder.length(), CHARBUF.array(), position);
+      CHARBUF.position(position + encoder.length());
+    }
     CHARBUF.append(' ');
     // 日志级别.
     CHARBUF.append(logRecord.getLevelName());
@@ -72,14 +82,25 @@ public final class LogTextFormatter implements Formatter {
     CHARBUF.append(logRecord.getClassName());
     CHARBUF.append(' ');
     // 日志对象中的消息字段.
-    //final CharBuffer message = logRecord.getMessage();
-    //CHARBUF.put(message.array(), message.arrayOffset(), message.remaining());
+    // final CharBuffer message = logRecord.getMessage();
+    // CHARBUF.put(message.array(), message.arrayOffset(), message.remaining());
     final String message = logRecord.getMessage();
     int position = CHARBUF.position();
-    StringBuilder format = LogFormatter.format(message, logRecord.getArgs1(), logRecord.getArgs2(), logRecord.getArgs3(), logRecord.getArgs4(), logRecord.getArgs5(), logRecord.getArgs6(), logRecord.getArgs7(), logRecord.getArgs8(), logRecord.getArgs9());
-    format.getChars(0,format.length(),CHARBUF.array(),position);
-    CHARBUF.position(position+format.length());
-    //CHARBUF.limit(format.length());
+    StringBuilder format =
+        LogFormatter.format(
+            message,
+            logRecord.getArgs1(),
+            logRecord.getArgs2(),
+            logRecord.getArgs3(),
+            logRecord.getArgs4(),
+            logRecord.getArgs5(),
+            logRecord.getArgs6(),
+            logRecord.getArgs7(),
+            logRecord.getArgs8(),
+            logRecord.getArgs9());
+    format.getChars(0, format.length(), CHARBUF.array(), position);
+    CHARBUF.position(position + format.length());
+    // CHARBUF.limit(format.length());
     // 日志对象中的异常堆栈信息.
     final Throwable thrown = logRecord.getThrowable();
     if (null != thrown) {
