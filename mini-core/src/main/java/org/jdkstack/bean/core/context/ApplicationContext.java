@@ -68,7 +68,7 @@ public class ApplicationContext implements Context {
     map.put("directory", "logs" + System.currentTimeMillis());
     map.put("prefix", "default");
     map.put("encoding", "UTF-8");
-    map.put("type", "size");
+    map.put("type", "line");
     map.put("minLevel", "MIN");
     map.put("maxLevel", "MAX");
     map.put("formatter", "logJsonFormatter");

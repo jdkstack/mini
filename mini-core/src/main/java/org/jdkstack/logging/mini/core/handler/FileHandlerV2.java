@@ -71,6 +71,7 @@ public class FileHandlerV2 extends AbstractHandler {
       final int line = this.lines.incrementAndGet();
       // 100W行切换一次.
       if (org.jdkstack.logging.mini.core.buffer.Constants.LC <= line) {
+        // 每次切换文件时，都会创建20个对象，这个问题暂时无法解决(对无GC影响很小，但是需要解决才能100%达到无GC要求)。
         this.remap();
         this.lines.set(1);
       }
@@ -80,6 +81,7 @@ public class FileHandlerV2 extends AbstractHandler {
       final int line = this.lines.incrementAndGet();
       // 100MB切换一次.
       if (org.jdkstack.logging.mini.core.buffer.Constants.SC <= size) {
+        // 每次切换文件时，都会创建20个对象，这个问题暂时无法解决(对无GC影响很小，但是需要解决才能100%达到无GC要求)。
         this.remap();
         this.sizes.set(length);
         this.lines.set(1);
