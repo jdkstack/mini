@@ -218,7 +218,7 @@ public final class LogFormatter {
   /**
    * This is a method description.
    *
-   * <p>Another description after blank line.
+   * <p>执行100W次花费1秒.
    *
    * @param message .
    * @param args1 .
