@@ -11,7 +11,8 @@ A lightweight, high performance, open source, application layer log service fram
 3.代码级别动态配置。
 4.不依赖第三方库，仅仅依赖openJdk。
 5.仅支持输出字符串(参数)。
-6.重新开发了无锁队列(demo), RingBuffer队列(demo), 线程池(demo), datetime api(demo)，这些工具目前都是demo状态，只满足当前库的需求。
+6.重新开发了无锁队列(demo), RingBuffer队列(demo), 线程池(demo), datetime api(demo)，
+这些工具目前都是demo状态，只满足当前库的需求。
 7.还有很多特性能实现，但是没有时间和精力去实现。
 
 注意：
@@ -21,7 +22,8 @@ A lightweight, high performance, open source, application layer log service fram
 还有，为什么代码要这么写，有非常多的简便写法（简便的写法无法做到无GC的要求）。
 很多写法都是经过我多次测试后才决定的，为了达到真正的无jvm GC的要求，费了很多脑细胞。
 
-如果你在测试时，有任何问题可以在github上提交issues或者创建discussions。我会认真读并回复，也欢迎各位伙伴们能帮忙点一个星星。
+如果你在测试时，有任何问题可以在github上提交issues或者创建discussions。
+我会认真读并回复，也欢迎各位伙伴们能帮忙点一个星星。
 
 对于使用Jconsole, Jmc等工具观察jvm进程情况的朋友，一定要注意。
 这些工具会注入jvm并创建大量的临时对象，会造成内存的升高，一定要有这个鉴别的能力。
