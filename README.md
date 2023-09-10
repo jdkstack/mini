@@ -65,7 +65,7 @@ public class Examples {
 
     public static void main(String[] args) {
         for (; ; ) {
-            LOG.log(Constants.FATAL, "测试1{}测试2{}测试3{}测试4{}测试5{}测试6{}测试7{}测试8{}测试9{}.", 1L, "2", '3', 4D, "5", '6', 7F, "8", '9');
+            LOG.log(Constants.FATAL, "测试1{}测试2{}测试3{}测试4{}测试5{}测试6{}测试7{}测试8{}测试9{}.", "1L", "2", "3", "4D", "5", "6", "7F", "8", "9");
         }
     }
 }
