@@ -11,8 +11,8 @@ import org.jdkstack.logging.mini.core.datetime.DateTimeEncoder;
  * 日志记录对象Record转成Json格式.
  *
  * <p>按行输出纯json格式的消息.
- * 
- * todo 最开始只能用单线程模式，所以CHARBUF公用一个，现在支持多线程模式，以后需要改成RingBuffer的形式。
+ *
+ * <p>todo 最开始只能用单线程模式，所以CHARBUF公用一个，现在支持多线程模式，以后需要改成RingBuffer的形式。
  *
  * @author admin
  */
@@ -70,7 +70,6 @@ public final class LogJsonFormatter implements Formatter {
     return CHARBUF;
   }
 
-
   /**
    * This is a method description.
    *
@@ -124,13 +123,27 @@ public final class LogJsonFormatter implements Formatter {
     // 日志对象中的消息字段.
     CHARBUF.append('"');
     final String message = logRecord.getMessage();
-    int position = CHARBUF.position();
-    StringBuilder format = LogFormatter.format(message, logRecord.getArgs1(), logRecord.getArgs2(), logRecord.getArgs3(), logRecord.getArgs4(), logRecord.getArgs5(), logRecord.getArgs6(), logRecord.getArgs7(), logRecord.getArgs8(), logRecord.getArgs9());
-    format.getChars(0,format.length(),CHARBUF.array(),position);
-    //CHARBUF.limit(format.length());
-    CHARBUF.position(position+format.length());
-    // 将数据写入缓存.
-    //CHARBUF.put();
+    Object args1 = logRecord.getArgs1();
+    if (args1 == null) {
+      // 将数据写入缓存.
+      CHARBUF.put(message);
+    } else {
+      int position = CHARBUF.position();
+      StringBuilder format =
+          LogFormatter.format(
+              message,
+              logRecord.getArgs1(),
+              logRecord.getArgs2(),
+              logRecord.getArgs3(),
+              logRecord.getArgs4(),
+              logRecord.getArgs5(),
+              logRecord.getArgs6(),
+              logRecord.getArgs7(),
+              logRecord.getArgs8(),
+              logRecord.getArgs9());
+      format.getChars(0, format.length(), CHARBUF.array(), position);
+      CHARBUF.position(position + format.length());
+    }
     CHARBUF.append('"');
     // 日志对象中的异常堆栈信息.
     final Throwable thrown = logRecord.getThrowable();
