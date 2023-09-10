@@ -56,6 +56,7 @@ openjdk version "11" 2018-09-25
 OpenJDK Runtime Environment 18.9 (build 11+28)
 OpenJDK 64-Bit Server VM 18.9 (build 11+28, mixed mode)
 
+import static org.jdkstack.logging.mini.core.pool.StringBuilderPool.to;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.core.factory.LogFactory;
 import org.jdkstack.logging.mini.core.level.Constants;
@@ -65,6 +66,8 @@ public class Examples {
 
     public static void main(String[] args) {
         for (; ; ) {
+            long currentTimeMillis = System.currentTimeMillis();
+            LOG.log(Constants.INFO, "测试1{}测试2{}测试3{}测试4{}测试5{}测试6{}测试7{}测试8{}测试9{}.", to(currentTimeMillis), to(2), "3", to(4D), "5", "6", to(7F), to(8), "9");
             LOG.log(Constants.FATAL, "测试1{}测试2{}测试3{}测试4{}测试5{}测试6{}测试7{}测试8{}测试9{}.", "1L", "2", "3", "4D", "5", "6", "7F", "8", "9");
         }
     }
