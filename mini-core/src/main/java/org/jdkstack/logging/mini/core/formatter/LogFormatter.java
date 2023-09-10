@@ -25,6 +25,7 @@ public final class LogFormatter {
   private LogFormatter() {
     //
   }
+
   /**
    * This is a method description.
    *
@@ -218,7 +219,7 @@ public final class LogFormatter {
   /**
    * This is a method description.
    *
-   * <p>执行100W次花费1秒.
+   * <p>1kb字符串,执行100W次花费6s(考虑多线程分段解析?).
    *
    * @param message .
    * @param args1 .
@@ -244,7 +245,7 @@ public final class LogFormatter {
       final Object args7,
       final Object args8,
       final Object args9) {
-    //CHARBUF.clear();
+    // CHARBUF.clear();
     CHARBUF.setLength(0);
     // 原始字符串长度.
     final int len = message.length();
@@ -295,7 +296,7 @@ public final class LogFormatter {
       }
       index++;
     }
-    //CHARBUF.flip();
+    // CHARBUF.flip();
     return CHARBUF;
   }
 
@@ -312,44 +313,44 @@ public final class LogFormatter {
       final int braces) {
     if (Constants.N0 == braces) {
       // 拼接参数.
-      //CHARBUF.append(args1);
+      // CHARBUF.append(args1);
       extracted(args1);
     } else if (Constants.N1 == braces) {
       // 拼接参数.
-      //CHARBUF.append(args2);
+      // CHARBUF.append(args2);
       extracted(args2);
     } else if (Constants.N2 == braces) {
       // 拼接参数.
-      //CHARBUF.append(args3);
+      // CHARBUF.append(args3);
       extracted(args3);
     } else if (Constants.N3 == braces) {
       // 拼接参数.
-     // CHARBUF.append(args4);
+      // CHARBUF.append(args4);
       extracted(args4);
     } else if (Constants.N4 == braces) {
       // 拼接参数.
-      //.append(args5);
+      // .append(args5);
       extracted(args5);
     } else if (Constants.N5 == braces) {
       // 拼接参数.
-      //CHARBUF.append(args6);
+      // CHARBUF.append(args6);
       extracted(args6);
     } else if (Constants.N6 == braces) {
       // 拼接参数.
-      //CHARBUF.append(args7);
+      // CHARBUF.append(args7);
       extracted(args7);
     } else if (Constants.N7 == braces) {
       // 拼接参数.
-      //CHARBUF.append(args8);
+      // CHARBUF.append(args8);
       extracted(args8);
     } else {
       // 拼接参数.
-     // CHARBUF.append(args9);
+      // CHARBUF.append(args9);
       extracted(args9);
     }
   }
 
-  private static void extracted( Object arg1) {
+  private static void extracted(Object arg1) {
     if (arg1 instanceof Integer) {
       CHARBUF.append((int) arg1);
     } else if (arg1 instanceof Short) {
@@ -366,6 +367,8 @@ public final class LogFormatter {
       CHARBUF.append((float) arg1);
     } else if (arg1 instanceof Boolean) {
       CHARBUF.append((boolean) arg1);
+    } else {
+      CHARBUF.append((StringBuilder) arg1);
     }
   }
 }
