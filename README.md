@@ -71,7 +71,7 @@ public class Examples {
 }
 
 执行main方法时，指定jvm 参数，gc日志会输出到控制台：
--Xmx32m -Xmx32m "-Xlog:gc*" -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=H:/1.hprof
+-Xmx32m -Xmx32m -Xlog:gc*
 
 日志存储目录路径：
 默认当前目录下\logs1694229262694\default\1694229262694.log (1694229262694是创建日志目录和文件时的时间戳)。
