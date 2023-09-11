@@ -7,7 +7,12 @@ A lightweight, high performance, open source, application layer log service fram
 
 动机：基于以下几点原因。
 1.仅实现核心功能FileHandler，将日志数据写入文件中。
-2.没有临时对象创建，不会发生GC。
+2.没有临时对象创建(临时对象包括，日志 objects，String，char arrays, byte arrays)，
+不会发生GC或者非常少量的GC(由于用户输入字符串，会创建一些额外的String对象)。
+  1).将日志 objects转换成StringBuilder。
+  2).然后将StringBuilder转换成ByteBuffer。
+  3).最后将ByteBuffer写入文件中，这个过程不会产生任何临时对象。
+  4).不能使用会生成临时对象的API和方法，强制类型转换(例如toString()，getBytes()，int类型和Object类型之间的转换)。
 3.代码级别动态配置。
 4.不依赖第三方库，仅仅依赖openJdk。
 5.仅支持输出字符串(参数)。
