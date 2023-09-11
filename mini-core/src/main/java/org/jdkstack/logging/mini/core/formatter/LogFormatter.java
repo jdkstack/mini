@@ -300,6 +300,18 @@ public final class LogFormatter {
     return CHARBUF;
   }
 
+  public static StringBuilder format2(final String message, final Object[] params, final int placeholderCount, final int[] paths) {
+    CHARBUF.setLength(0);
+    int previous = 0;
+    for (int i = 0; i < placeholderCount; i++) {
+      CHARBUF.append(message, previous, paths[i]);
+      previous = paths[i] + 2;
+      append(params[i]);
+    }
+    CHARBUF.append(message, previous, message.length());
+
+    return CHARBUF;
+  }
   private static void hanlder(
       final Object args1,
       final Object args2,
@@ -314,43 +326,43 @@ public final class LogFormatter {
     if (Constants.N0 == braces) {
       // 拼接参数.
       // CHARBUF.append(args1);
-      extracted(args1);
+      append(args1);
     } else if (Constants.N1 == braces) {
       // 拼接参数.
       // CHARBUF.append(args2);
-      extracted(args2);
+      append(args2);
     } else if (Constants.N2 == braces) {
       // 拼接参数.
       // CHARBUF.append(args3);
-      extracted(args3);
+      append(args3);
     } else if (Constants.N3 == braces) {
       // 拼接参数.
       // CHARBUF.append(args4);
-      extracted(args4);
+      append(args4);
     } else if (Constants.N4 == braces) {
       // 拼接参数.
       // .append(args5);
-      extracted(args5);
+      append(args5);
     } else if (Constants.N5 == braces) {
       // 拼接参数.
       // CHARBUF.append(args6);
-      extracted(args6);
+      append(args6);
     } else if (Constants.N6 == braces) {
       // 拼接参数.
       // CHARBUF.append(args7);
-      extracted(args7);
+      append(args7);
     } else if (Constants.N7 == braces) {
       // 拼接参数.
       // CHARBUF.append(args8);
-      extracted(args8);
+      append(args8);
     } else {
       // 拼接参数.
       // CHARBUF.append(args9);
-      extracted(args9);
+      append(args9);
     }
   }
 
-  private static void extracted(Object arg1) {
+  private static void append(Object arg1) {
     if (arg1 instanceof Integer) {
       CHARBUF.append((int) arg1);
     } else if (arg1 instanceof Short) {

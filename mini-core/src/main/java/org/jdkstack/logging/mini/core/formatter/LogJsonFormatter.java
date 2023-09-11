@@ -128,19 +128,8 @@ public final class LogJsonFormatter implements Formatter {
       // 将数据写入缓存.
       CHARBUF.put(message);
     } else {
+      StringBuilder format = LogFormatter.format2(logRecord.getMessage(), logRecord.getParams(), logRecord.getPlaceholderCount(), logRecord.getPaths());
       int position = CHARBUF.position();
-      StringBuilder format =
-          LogFormatter.format(
-              message,
-              logRecord.getArgs1(),
-              logRecord.getArgs2(),
-              logRecord.getArgs3(),
-              logRecord.getArgs4(),
-              logRecord.getArgs5(),
-              logRecord.getArgs6(),
-              logRecord.getArgs7(),
-              logRecord.getArgs8(),
-              logRecord.getArgs9());
       format.getChars(0, format.length(), CHARBUF.array(), position);
       CHARBUF.position(position + format.length());
     }

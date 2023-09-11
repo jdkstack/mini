@@ -11,7 +11,27 @@ import java.util.Map;
  */
 public interface Record {
 
-  /**
+  Object[] getParams();
+
+  void setParams(Object params, int index);
+
+  int[] getPaths();
+
+  void setPaths(int path, int index);
+
+  int getArgsCount();
+
+  void setArgsCount(int argsCount);
+
+  int getUsedCount();
+
+  void setUsedCount(int usedCount);
+
+  int getPlaceholderCount();
+
+  void setPlaceholderCount(int placeholderCount);
+
+    /**
    * This is a method description.
    *
    * <p>Another description after blank line.

@@ -20,12 +20,16 @@ public class LogRecorder implements Recorder {
 
   /** Recorder名字. */
   private final String name;
+
   /** Recorder类别 . */
   private final String type;
+
   /** 日志级别处理器 . */
   private final Map<String, String> handlers = new HashMap<>(16);
+
   /** Recorder可以处理最小的日志级别. */
   private Level minLevel;
+
   /** Recorder可以处理最大的日志级别. */
   private Level maxLevel;
 
@@ -41,26 +45,6 @@ public class LogRecorder implements Recorder {
   public LogRecorder(final String name, final String type) {
     this.name = name;
     this.type = type;
-  }
-
-  private static void extracted(StringBuilder sb, Object arg1) {
-    if (arg1 instanceof Integer) {
-      sb.append((int) arg1);
-    } else if (arg1 instanceof Short) {
-      sb.append((short) arg1);
-    } else if (arg1 instanceof String) {
-      sb.append((String) arg1);
-    } else if (arg1 instanceof Long) {
-      sb.append((long) arg1);
-    } else if (arg1 instanceof Character) {
-      sb.append((char) arg1);
-    } else if (arg1 instanceof Double) {
-      sb.append((double) arg1);
-    } else if (arg1 instanceof Float) {
-      sb.append((float) arg1);
-    } else if (arg1 instanceof Boolean) {
-      sb.append((boolean) arg1);
-    }
   }
 
   /**

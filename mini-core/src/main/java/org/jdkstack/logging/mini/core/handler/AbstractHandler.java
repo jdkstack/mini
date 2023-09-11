@@ -28,20 +28,26 @@ public abstract class AbstractHandler implements Handler {
 
   /** 批量flush. */
   protected final AtomicLong atomicLong = new AtomicLong(0L);
+
   /** 批量. */
   protected final int batchSize;
+
   /** 有界数组阻塞队列. */
   protected final MpmcBlockingQueueV3<Record> queue;
+
   /** . */
   protected final String key;
+
   /** 阻塞队列名称. */
   protected final String target;
 
   protected final ThreadPoolExecutor threadPoolExecutor =
       new ThreadPoolExecutor(
           4, 4, 0, TimeUnit.SECONDS, new MpmcBlockingQueueV3<>(1024, new TaskEventFactory<>()));
+
   /** 日志级别格式化 . */
   private final Map<String, String> formatters = new HashMap<>(16);
+
   /** 日志级别过滤器 . */
   private final Map<String, String> filters = new HashMap<>(16);
 
@@ -207,6 +213,16 @@ public abstract class AbstractHandler implements Handler {
     lr.setArgs8(arg8);
     lr.setArgs9(arg9);
     lr.setEvent(datetime);
+    lr.setParams(arg1,0);
+    lr.setParams(arg2,1);
+    lr.setParams(arg3,2);
+    lr.setParams(arg4,3);
+    lr.setParams(arg5,4);
+    lr.setParams(arg6,5);
+    lr.setParams(arg7,6);
+    lr.setParams(arg8,7);
+    lr.setParams(arg9,8);
+    shortestPath( lr,message);
     // 记录接收事件时的日期时间.
     final long current = System.currentTimeMillis();
     final long year = DateTimeEncoder.year(current);
@@ -223,6 +239,21 @@ public abstract class AbstractHandler implements Handler {
     lr.setSecond(second);
     final long mills = DateTimeEncoder.millisecond(current);
     lr.setMills(mills);
+  }
+
+  // 占位符最短路径.
+  public void shortestPath( final Record lr,final String message) {
+    final int length = message.length();
+    int result = 0;
+    for (int i = 0; i < length - 1; i++) {
+      final char curChar = message.charAt(i);
+      if (curChar == '{' && message.charAt(i + 1) == '}') {
+        lr.setPaths(i,result);
+        result++;
+        i++;
+      }
+    }
+    lr.setPlaceholderCount(result);
   }
 
   abstract void rules(final Record lr, final int length) throws Exception;

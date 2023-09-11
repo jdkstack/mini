@@ -110,7 +110,7 @@ public class FileHandlerV2 extends AbstractHandler {
     final CoFactory info1 = StartApplication.getBean("configFactory", CoFactory.class);
     // 重新计算文件名(创建临时对象?应该放到公共的地方.).
     final File dir =
-        new File(info1.getValue(key, "directory") + File.separator + info1.getValue(key, "prefix"));
+        new File("H:" + File.separator +info1.getValue(key, "directory") + File.separator + info1.getValue(key, "prefix"));
     // 不存在,创建目录和子目录.
     if (!dir.exists()) {
       dir.mkdirs();
@@ -134,7 +134,7 @@ public class FileHandlerV2 extends AbstractHandler {
   public void consume(final Record lr) throws Exception {
     if (this.filter(lr)) {
       // 格式化日志对象.
-      final CharBuffer logMessage = (CharBuffer) this.format(lr);
+      final CharBuffer logMessage =(CharBuffer) this.format(lr);
       // 清除缓存.
       this.charBuf.clear();
       // 将数据写入缓存.
@@ -145,9 +145,9 @@ public class FileHandlerV2 extends AbstractHandler {
       this.charBuf.position(0);
       // 切换规则.
       this.rules(lr, this.charBuf.remaining());
-      // 开始编码.
+      // 开始编码(1kb字符串,执行100W次花费2s).
       this.textEncoder.encode(this.charBuf, this.destination);
-      // 单条刷新到磁盘，速度最慢，但是数据丢失机率最小，批量速度最好，但是数据丢失机率最大，并且日志被缓存，延迟写入文件.
+      // 单条刷新到磁盘(1kb字符串,执行100W次花费6s)，速度最慢，但是数据丢失机率最小，批量速度最好，但是数据丢失机率最大，并且日志被缓存，延迟写入文件.
       this.flush();
     }
   }

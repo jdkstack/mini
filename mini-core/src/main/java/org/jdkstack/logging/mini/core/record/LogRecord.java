@@ -56,6 +56,53 @@ public class LogRecord implements Record {
   private Object args8;
   private Object args9;
 
+  private Object[] params = new Object[9];
+  private int[] paths = new int[9];
+  private int argsCount;
+  private int usedCount;
+  private int placeholderCount;
+
+  @Override
+  public Object[] getParams() {
+    return this.params;
+  }
+  @Override
+  public void setParams(final Object params, int index) {
+    this.params[index] = params;
+  }
+  @Override
+  public int[] getPaths() {
+    return this.paths;
+  }
+  @Override
+  public void setPaths(final int path, int index) {
+    this.paths[index] = path;
+  }
+  @Override
+  public int getArgsCount() {
+    return this.argsCount;
+  }
+  @Override
+  public void setArgsCount(final int argsCount) {
+    this.argsCount = argsCount;
+  }
+  @Override
+  public int getUsedCount() {
+    return this.usedCount;
+  }
+  @Override
+  public void setUsedCount(final int usedCount) {
+    this.usedCount = usedCount;
+  }
+  @Override
+  public int getPlaceholderCount() {
+    return this.placeholderCount;
+  }
+  @Override
+  public void setPlaceholderCount(final int placeholderCount) {
+    this.placeholderCount = placeholderCount;
+  }
+
   /**
    * This is a method description.
    *
