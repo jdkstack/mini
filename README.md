@@ -7,8 +7,7 @@ A lightweight, high performance, open source, application layer log service fram
 
 动机：基于以下几点原因。
 1.仅实现核心功能FileHandler，将日志数据写入文件中。
-2.没有临时对象创建(临时对象包括，日志 objects，String，char arrays, byte arrays)，
-不会发生GC或者非常少量的GC(由于用户输入字符串，会创建一些额外的String对象)。
+2.没有临时对象创建(临时对象包括，日志 objects，String，char arrays, byte arrays)。
   1).将日志 objects转换成StringBuilder。
   2).然后将StringBuilder转换成ByteBuffer。
   3).最后将ByteBuffer写入文件中，这个过程不会产生任何临时对象。
@@ -31,10 +30,10 @@ A lightweight, high performance, open source, application layer log service fram
   
 注意：
 写这个库的原因是为了学习和讨论，不是为了炫耀。
-欢迎各位感兴趣的朋友，欢迎各位的贡献，任何贡献都需要，包括提供一个命名，提供一个建议。
+欢迎各位感兴趣的朋友，任何贡献都需要，包括提供一个命名，提供一个建议。
 目前代码质量很烂，也有很多BUG，大家先不要纠结代码质量和BUG，可以参考style目录，是按照这个标准解决代码质量和BUG。
 还有，为什么代码要这么写，有非常多的简便写法（简便的写法无法做到无GC的要求）。
-很多写法都是经过我多次测试后才决定的，为了达到真正的无jvm GC的要求，费了很多脑细胞。
+很多写法都是经过我多次测试后才决定的。
 
 如果你在测试时，有任何问题可以在github上提交issues或者创建discussions。
 我会认真读并回复，也欢迎各位伙伴们能帮忙点一个星星。
@@ -42,6 +41,9 @@ A lightweight, high performance, open source, application layer log service fram
 对于使用Jconsole, Jmc等工具观察jvm进程情况的朋友，一定要注意。
 这些工具会注入jvm并创建大量的临时对象，会造成内存的升高，一定要有这个鉴别的能力。
 也可以借助jmap -histo pid来观察jvm对象的数量，内存的大小。
+
+注意，日志库本身不会发生GC，如果你的项目引入了这个日志库，项目自身GC问题，日志库无法左右。
+项目自身创建的对象过多，达到jvm GC算法阈值，一定会发生GC。
 
 目录结构：
 mini-api (接口)
