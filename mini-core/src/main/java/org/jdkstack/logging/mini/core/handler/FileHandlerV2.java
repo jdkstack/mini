@@ -110,8 +110,7 @@ public class FileHandlerV2 extends AbstractHandler {
     final CoFactory info1 = StartApplication.getBean("configFactory", CoFactory.class);
     // 重新计算文件名(创建临时对象?应该放到公共的地方.).
     final File dir =
-        new File("H:" + File.separator +info1.getValue(key, "directory") + File.separator + info1.getValue(key, "prefix"));
-    // 不存在,创建目录和子目录.
+            new File(info1.getValue(key, "directory") + File.separator + info1.getValue(key, "prefix"));   // 不存在,创建目录和子目录.
     if (!dir.exists()) {
       dir.mkdirs();
     }
