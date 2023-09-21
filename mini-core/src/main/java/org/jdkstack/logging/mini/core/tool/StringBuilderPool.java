@@ -1,12 +1,12 @@
-package org.jdkstack.logging.mini.core.pool;
+package org.jdkstack.logging.mini.core.tool;
 
 import org.jdkstack.logging.mini.api.ringbuffer.RingBuffer;
 import org.jdkstack.logging.mini.core.ringbuffer.StringBuilderRingBuffer;
 
 /**
- * .
+ * boxing 装箱.
  *
- * <p>.
+ * <p>Make boxing explicit 明确装箱(基本类型+String,StringBuilder->Object).
  *
  * @author admin
  */
@@ -29,7 +29,7 @@ public final class StringBuilderPool {
    * @return StringBuilder .
    * @author admin
    */
-  public static StringBuilder to(final float value) {
+  public static StringBuilder box(final float value) {
     return BUFFER.poll().append(value);
   }
 
@@ -42,7 +42,7 @@ public final class StringBuilderPool {
    * @return StringBuilder .
    * @author admin
    */
-  public static StringBuilder to(final double value) {
+  public static StringBuilder box(final double value) {
     return BUFFER.poll().append(value);
   }
 
@@ -55,7 +55,7 @@ public final class StringBuilderPool {
    * @return StringBuilder .
    * @author admin
    */
-  public static StringBuilder to(final short value) {
+  public static StringBuilder box(final short value) {
     return BUFFER.poll().append(value);
   }
 
@@ -68,7 +68,7 @@ public final class StringBuilderPool {
    * @return StringBuilder .
    * @author admin
    */
-  public static StringBuilder to(final int value) {
+  public static StringBuilder box(final int value) {
     return BUFFER.poll().append(value);
   }
 
@@ -81,7 +81,7 @@ public final class StringBuilderPool {
    * @return StringBuilder .
    * @author admin
    */
-  public static StringBuilder to(final char value) {
+  public static StringBuilder box(final char value) {
     return BUFFER.poll().append(value);
   }
 
@@ -94,7 +94,7 @@ public final class StringBuilderPool {
    * @return StringBuilder .
    * @author admin
    */
-  public static StringBuilder to(final long value) {
+  public static StringBuilder box(final long value) {
     return BUFFER.poll().append(value);
   }
 
@@ -107,7 +107,7 @@ public final class StringBuilderPool {
    * @return StringBuilder .
    * @author admin
    */
-  public static StringBuilder to(final byte value) {
+  public static StringBuilder box(final byte value) {
     return BUFFER.poll().append(value);
   }
 
@@ -120,7 +120,7 @@ public final class StringBuilderPool {
    * @return StringBuilder .
    * @author admin
    */
-  public static StringBuilder to(final boolean value) {
+  public static StringBuilder box(final boolean value) {
     return BUFFER.poll().append(value);
   }
 
@@ -133,7 +133,7 @@ public final class StringBuilderPool {
    * @return StringBuilder .
    * @author admin
    */
-  public static StringBuilder to(final String value) {
+  public static StringBuilder box(final String value) {
     return BUFFER.poll().append(value);
   }
 

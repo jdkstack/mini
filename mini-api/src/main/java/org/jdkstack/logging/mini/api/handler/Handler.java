@@ -21,7 +21,7 @@ public interface Handler {
    */
   void produce(
       final String logLevel,
-      final String datetime,
+      final String dateTime,
       final String message,
       final String className,
       final Object arg1,
@@ -52,7 +52,7 @@ public interface Handler {
    *
    * <p>Another description after blank line.
    *
-   * @param datetime .
+   * @param dateTime .
    * @param logLevel .
    * @param message .
    * @author admin
@@ -60,7 +60,7 @@ public interface Handler {
   void process(
       final String logLevel,
       final String className,
-      final String datetime,
+      final String dateTime,
       final String message,
       final Object arg1,
       final Object arg2,

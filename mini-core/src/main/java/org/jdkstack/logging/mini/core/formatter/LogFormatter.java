@@ -1,6 +1,6 @@
 package org.jdkstack.logging.mini.core.formatter;
 
-import org.jdkstack.logging.mini.core.pool.StringBuilderPool;
+import org.jdkstack.logging.mini.core.tool.StringBuilderTool;
 
 /**
  * 日志消息格式化.
@@ -20,7 +20,7 @@ import org.jdkstack.logging.mini.core.pool.StringBuilderPool;
 public final class LogFormatter {
 
   /** 临时数组. */
-  private static final StringBuilder CHARBUF = StringBuilderPool.poll();
+  private static final StringBuilder CHARBUF = new StringBuilder(2048);
 
   private LogFormatter() {
     //
@@ -32,7 +32,6 @@ public final class LogFormatter {
    * <p>Another description after blank line.
    *
    * @param message .
-   * @param args1 .
    * @return CHARBUFfer .
    * @author admin
    */
@@ -245,7 +244,6 @@ public final class LogFormatter {
       final Object args7,
       final Object args8,
       final Object args9) {
-    // CHARBUF.clear();
     CHARBUF.setLength(0);
     // 原始字符串长度.
     final int len = message.length();
@@ -296,22 +294,9 @@ public final class LogFormatter {
       }
       index++;
     }
-    // CHARBUF.flip();
     return CHARBUF;
   }
-
-  public static StringBuilder format2(final String message, final Object[] params, final int placeholderCount, final int[] paths) {
-    CHARBUF.setLength(0);
-    int previous = 0;
-    for (int i = 0; i < placeholderCount; i++) {
-      CHARBUF.append(message, previous, paths[i]);
-      previous = paths[i] + 2;
-      append(params[i]);
-    }
-    CHARBUF.append(message, previous, message.length());
-
-    return CHARBUF;
-  }
+  
   private static void hanlder(
       final Object args1,
       final Object args2,
@@ -325,62 +310,31 @@ public final class LogFormatter {
       final int braces) {
     if (Constants.N0 == braces) {
       // 拼接参数.
-      // CHARBUF.append(args1);
-      append(args1);
+      StringBuilderTool.unbox(CHARBUF, args1);
     } else if (Constants.N1 == braces) {
       // 拼接参数.
-      // CHARBUF.append(args2);
-      append(args2);
+      StringBuilderTool.unbox(CHARBUF, args2);
     } else if (Constants.N2 == braces) {
       // 拼接参数.
-      // CHARBUF.append(args3);
-      append(args3);
+      StringBuilderTool.unbox(CHARBUF, args3);
     } else if (Constants.N3 == braces) {
       // 拼接参数.
-      // CHARBUF.append(args4);
-      append(args4);
+      StringBuilderTool.unbox(CHARBUF, args4);
     } else if (Constants.N4 == braces) {
       // 拼接参数.
-      // .append(args5);
-      append(args5);
+      StringBuilderTool.unbox(CHARBUF, args5);
     } else if (Constants.N5 == braces) {
       // 拼接参数.
-      // CHARBUF.append(args6);
-      append(args6);
+      StringBuilderTool.unbox(CHARBUF, args6);
     } else if (Constants.N6 == braces) {
       // 拼接参数.
-      // CHARBUF.append(args7);
-      append(args7);
+      StringBuilderTool.unbox(CHARBUF, args7);
     } else if (Constants.N7 == braces) {
       // 拼接参数.
-      // CHARBUF.append(args8);
-      append(args8);
+      StringBuilderTool.unbox(CHARBUF, args8);
     } else {
       // 拼接参数.
-      // CHARBUF.append(args9);
-      append(args9);
-    }
-  }
-
-  private static void append(Object arg1) {
-    if (arg1 instanceof Integer) {
-      CHARBUF.append((int) arg1);
-    } else if (arg1 instanceof Short) {
-      CHARBUF.append((short) arg1);
-    } else if (arg1 instanceof String) {
-      CHARBUF.append((String) arg1);
-    } else if (arg1 instanceof Long) {
-      CHARBUF.append((long) arg1);
-    } else if (arg1 instanceof Character) {
-      CHARBUF.append((char) arg1);
-    } else if (arg1 instanceof Double) {
-      CHARBUF.append((double) arg1);
-    } else if (arg1 instanceof Float) {
-      CHARBUF.append((float) arg1);
-    } else if (arg1 instanceof Boolean) {
-      CHARBUF.append((boolean) arg1);
-    } else {
-      CHARBUF.append((StringBuilder) arg1);
+      StringBuilderTool.unbox(CHARBUF, args9);
     }
   }
 }

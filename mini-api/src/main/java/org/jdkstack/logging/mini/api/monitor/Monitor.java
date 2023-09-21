@@ -14,16 +14,6 @@ public interface Monitor {
    *
    * <p>Another description after blank line.
    *
-   * @param context 上下文.
-   * @author admin
-   */
-  // void monitor(WorkerContext context);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
    * @param thread 线程.
    * @author admin
    */

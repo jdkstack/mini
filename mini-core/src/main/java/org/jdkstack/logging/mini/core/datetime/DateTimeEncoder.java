@@ -1,7 +1,6 @@
 package org.jdkstack.logging.mini.core.datetime;
 
 import org.jdkstack.logging.mini.api.datetime.Encoder;
-import org.jdkstack.logging.mini.core.pool.StringBuilderPool;
 
 /**
  * <a href="https://howardhinnant.github.io/date_algorithms.html">Howard Hinnant</a>.
@@ -56,8 +55,8 @@ public final class DateTimeEncoder implements Encoder {
    * @return StringBuilder 返回UTC Z时区的日期时间格式.
    * @author admin
    */
-  public static StringBuilder encoder(final long millis, final long offset) {
-    final StringBuilder sb = StringBuilderPool.poll();
+  public static StringBuilder encoder(
+      final StringBuilder sb, final long millis, final long offset) {
     // millis/1000得到秒.
     final long secondUtc = millis / Constants.MILLS_PER_SECOND;
     //  本地总秒数.
@@ -181,8 +180,8 @@ public final class DateTimeEncoder implements Encoder {
    * @return StringBuilder .
    * @author admin
    */
-  public static StringBuilder encoder(final long millis) {
-    return encoder(millis, 0);
+  public static StringBuilder encoder(final StringBuilder sb, final long millis) {
+    return encoder(sb, millis, 0);
   }
 
   private static void check3(final StringBuilder sb, final long year) {

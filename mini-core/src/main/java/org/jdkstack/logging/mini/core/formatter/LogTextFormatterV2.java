@@ -8,7 +8,6 @@ import java.nio.charset.CharsetEncoder;
 import java.nio.charset.CodingErrorAction;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.record.Record;
-import org.jdkstack.logging.mini.core.datetime.DateTimeEncoder;
 
 /**
  * 日志记录对象Record转成纯Text格式(空格分割).
@@ -22,14 +21,15 @@ public final class LogTextFormatterV2 implements Formatter {
   private static final ByteBuffer CHARBUF =
       ByteBuffer.allocate(org.jdkstack.logging.mini.core.codec.Constants.SOURCEN8);
 
-  Charset charset = Charset.defaultCharset();
-  CharsetEncoder charsetEncoder =
-      charset
+  private final Charset charset = Charset.defaultCharset();
+  private final CharsetEncoder charsetEncoder =
+      this.charset
           .newEncoder()
           .onMalformedInput(CodingErrorAction.REPLACE)
           .onUnmappableCharacter(CodingErrorAction.REPLACE);
-  CharBuffer charBuffer = CharBuffer.allocate(2048);
-  ByteBuffer byteBuffer = ByteBuffer.allocate(2048);
+  private final CharBuffer charBuffer = CharBuffer.allocate(2048);
+  private final ByteBuffer byteBuffer = ByteBuffer.allocate(2048);
+
   /**
    * This is a method description.
    *
@@ -71,10 +71,7 @@ public final class LogTextFormatterV2 implements Formatter {
     for (int i = 0; i < text.length(); i++) {
       charBuf.put(text.charAt(i));
     }
-    // 结束位置.
-    charBuf.limit(text.length());
-    // 开始位置.
-    charBuf.position(0);
+    charBuf.flip();
     // 将字符数组编码成字节数组.
     ce.encode(charBuf, byteBuf, true);
     ce.flush(byteBuf);
@@ -100,10 +97,8 @@ public final class LogTextFormatterV2 implements Formatter {
     this.handle(logRecord);
     // 增加一个换行符号(按照平台获取)
     final String lineSeparator = System.lineSeparator();
-    // CHARBUF.append(lineSeparator);
     extracted(lineSeparator);
-    CHARBUF.limit(CHARBUF.position());
-    CHARBUF.position(0);
+    CHARBUF.flip();
     return CHARBUF;
   }
 
@@ -117,14 +112,7 @@ public final class LogTextFormatterV2 implements Formatter {
    */
   public void handle(final Record logRecord) {
     // 日志日期时间.
-    String dateTime = logRecord.getEvent();
-    if (dateTime != null) {
-      extracted(dateTime);
-    } else {
-      final long current = System.currentTimeMillis();
-      StringBuilder encoder = DateTimeEncoder.encoder(current, 8 * 3600);
-      extracted2(encoder);
-    }
+    extracted2(logRecord.getEvent());
     CHARBUF.put((byte) ' ');
     // 日志级别.
     extracted(logRecord.getLevelName());
@@ -136,31 +124,15 @@ public final class LogTextFormatterV2 implements Formatter {
     extracted(logRecord.getClassName());
     CHARBUF.put((byte) ' ');
     // 日志对象中的消息字段.
-    // final CharBuffer message = logRecord.getMessage();
-    // CHARBUF.put(message.array(), message.arrayOffset(), message.remaining());
-    final String message = logRecord.getMessage();
-    int position = CHARBUF.position();
-    StringBuilder format =
-        LogFormatter.format(
-            message,
-            logRecord.getArgs1(),
-            logRecord.getArgs2(),
-            logRecord.getArgs3(),
-            logRecord.getArgs4(),
-            logRecord.getArgs5(),
-            logRecord.getArgs6(),
-            logRecord.getArgs7(),
-            logRecord.getArgs8(),
-            logRecord.getArgs9());
+    final StringBuilder format = logRecord.getMessageText();
+    final int position = CHARBUF.position();
     try {
-      encodeText(charsetEncoder, charBuffer, byteBuffer, format);
+      encodeText(this.charsetEncoder, this.charBuffer, this.byteBuffer, format);
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
-    CHARBUF.put(byteBuffer);
-    // format.getChars(0,format.length(),CHARBUF.array(),position);
-    CHARBUF.position(position + byteBuffer.limit());
-    // CHARBUF.limit(format.length());
+    CHARBUF.put(this.byteBuffer);
+    CHARBUF.position(position + this.byteBuffer.limit());
     // 日志对象中的异常堆栈信息.
     final Throwable thrown = logRecord.getThrowable();
     if (null != thrown) {

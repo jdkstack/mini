@@ -117,9 +117,10 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
       // 将数据写入缓存.
       this.charBuf.put(logMessage.array(), logMessage.arrayOffset(), logMessage.remaining());
       // 结束读取的位置.
-      this.charBuf.limit(logMessage.length());
+      // this.charBuf.limit(logMessage.length());
       // 开始读取的位置.
-      this.charBuf.position(0);
+      // this.charBuf.position(0);
+      this.charBuf.flip();
       // 切换规则.
       this.rules(lr, this.charBuf.remaining());
       // 开始编码.

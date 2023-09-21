@@ -83,9 +83,10 @@ public class CharArrayEncoder implements Encoder<char[]> {
     charBuf.clear();
     charBuf.put(text, 0, text.length);
     // 结束位置.
-    charBuf.limit(text.length);
+    // charBuf.limit(text.length);
     // 开始位置.
-    charBuf.position(0);
+    // charBuf.position(0);
+    charBuf.flip();
     // 将字符数组编码成字节数组.
     ce.encode(charBuf, byteBuf, true);
     ce.flush(byteBuf);
@@ -112,10 +113,10 @@ public class CharArrayEncoder implements Encoder<char[]> {
       throws Exception {
     final ByteBuffer destBuff = destination.getByteBuffer();
     while (source.remaining() > destBuff.remaining()) {
-      final int originalLimit = source.limit();
-      source.limit(Math.min(source.limit(), source.position() + destBuff.remaining()));
-      destBuff.put(source);
-      source.limit(originalLimit);
+      // final int originalLimit = source.limit();
+      // source.limit(Math.min(source.limit(), source.position() + destBuff.remaining()));
+      // destBuff.put(source);
+      // source.limit(originalLimit);
       destination.flush(destBuff);
     }
     destBuff.put(source);

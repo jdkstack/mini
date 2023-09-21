@@ -82,8 +82,9 @@ public class ByteArrayDecoder implements Decoder<byte[]> {
     cd.reset();
     byteBuf.clear();
     byteBuf.put(text, 0, text.length);
-    byteBuf.limit(text.length);
-    byteBuf.position(0);
+    // byteBuf.limit(text.length);
+    // byteBuf.position(0);
+    byteBuf.flip();
     cd.decode(byteBuf, charBuf, true);
     cd.flush(charBuf);
     charBuf.flip();
@@ -106,10 +107,10 @@ public class ByteArrayDecoder implements Decoder<byte[]> {
       throws Exception {
     final CharBuffer destBuff = destination.getCharBuffer();
     while (source.remaining() > destBuff.remaining()) {
-      final int originalLimit = source.limit();
-      source.limit(Math.min(source.limit(), source.position() + destBuff.remaining()));
-      destBuff.put(source);
-      source.limit(originalLimit);
+      // final int originalLimit = source.limit();
+      // source.limit(Math.min(source.limit(), source.position() + destBuff.remaining()));
+      // destBuff.put(source);
+      // source.limit(originalLimit);
       destination.flush(destBuff);
     }
     destBuff.put(source);

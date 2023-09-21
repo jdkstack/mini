@@ -9,7 +9,6 @@ import java.nio.charset.CodingErrorAction;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.core.codec.Constants;
-import org.jdkstack.logging.mini.core.datetime.DateTimeEncoder;
 
 /**
  * 日志记录对象Record转成Json格式.
@@ -62,10 +61,7 @@ public final class LogJsonFormatterV2 implements Formatter {
     for(int i=0;i<text.length();i++){
       charBuf.put(text.charAt(i));
     }
-    // 结束位置.
-    charBuf.limit(text.length());
-    // 开始位置.
-    charBuf.position(0);
+    charBuf.flip();
     // 将字符数组编码成字节数组.
     ce.encode(charBuf, byteBuf, true);
     ce.flush(byteBuf);
@@ -115,7 +111,6 @@ public final class LogJsonFormatterV2 implements Formatter {
     final String lineSeparator = System.lineSeparator();
     // json字符串结束.
     CHARBUF.put((byte) '}');
-    //CHARBUF.append('}').append(lineSeparator);
     extracted(lineSeparator);
     CHARBUF.flip();
     return CHARBUF;
@@ -136,15 +131,9 @@ public final class LogJsonFormatterV2 implements Formatter {
     CHARBUF.put((byte)'"');
     CHARBUF.put((byte)':');
     CHARBUF.put((byte)'"');
-    String dateTime = logRecord.getEvent();
-    if (dateTime != null) {
-      extracted(dateTime);
-    } else {
-      final long current = System.currentTimeMillis();
-      StringBuilder encoder = DateTimeEncoder.encoder(current, 8 * 3600);
-      extracted2(encoder);
-    }
-    CHARBUF.put((byte)'"');
+    StringBuilder dateTime = logRecord.getEvent();
+    extracted2(dateTime);
+    CHARBUF.put((byte) '"');
     CHARBUF.put((byte)',');
     //CHARBUF.append("\"levelName\"");
     extracted("\"levelName\"");
@@ -171,12 +160,9 @@ public final class LogJsonFormatterV2 implements Formatter {
     extracted("\"message\"");
     CHARBUF.put((byte)':');
     // 日志对象中的消息字段.
-    CHARBUF.put((byte)'"');
-    final String message = logRecord.getMessage();
+    CHARBUF.put((byte) '"');
     int position = CHARBUF.position();
-    StringBuilder format = LogFormatter.format(message, logRecord.getArgs1(), logRecord.getArgs2(), logRecord.getArgs3(), logRecord.getArgs4(), logRecord.getArgs5(), logRecord.getArgs6(), logRecord.getArgs7(), logRecord.getArgs8(), logRecord.getArgs9());
-    //format.getChars(0,format.length(),CHARBUF.array(),position);
-    //extracted2(format);
+    final StringBuilder format = logRecord.getMessageText();
     try {
       encodeText(charsetEncoder, charBuffer, byteBuffer, format);
     } catch (Exception e) {
@@ -184,8 +170,6 @@ public final class LogJsonFormatterV2 implements Formatter {
     }
     CHARBUF.put(byteBuffer);
     CHARBUF.position(position+byteBuffer.limit());
-    // 将数据写入缓存.
-    //CHARBUF.put();
     CHARBUF.put((byte)'"');
     // 日志对象中的异常堆栈信息.
     final Throwable thrown = logRecord.getThrowable();
