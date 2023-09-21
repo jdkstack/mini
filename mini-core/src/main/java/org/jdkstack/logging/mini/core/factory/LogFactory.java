@@ -4,6 +4,7 @@ import org.jdkstack.logging.mini.api.factory.Factory;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.api.resource.ReFactory;
 import org.jdkstack.logging.mini.core.StartApplication;
+import org.jdkstack.logging.mini.core.recorder.SystemLogRecorder;
 
 /**
  * LogFactory核心类.
@@ -39,5 +40,17 @@ public final class LogFactory implements Factory {
     final String name = clazz.getName();
     final ReFactory info = StartApplication.getBean("recorderFactory", ReFactory.class);
     return info.getRecorder(name);
+  }
+
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @return 返回一个Log对象.
+   * @author admin
+   */
+  public static SystemLogRecorder getSystemLog() {
+    return SystemLogRecorder.getLogger();
   }
 }

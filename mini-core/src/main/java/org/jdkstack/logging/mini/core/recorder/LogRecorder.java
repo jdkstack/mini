@@ -182,13 +182,13 @@ public class LogRecorder implements Recorder {
    * <p>Another description after blank line.
    *
    * @param logLevel .
-   * @param datetime .
+   * @param dateTime .
    * @param message .
    * @author admin
    */
   public final void core(
       final String logLevel,
-      final String datetime,
+      final String dateTime,
       final String message,
       final Object arg1,
       final Object arg2,
@@ -210,7 +210,7 @@ public class LogRecorder implements Recorder {
       }
       Handler handler1 = info.getHandler(handler);
       handler1.process(
-          logLevel, this.name, datetime, message, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
+          logLevel, this.name, dateTime, message, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
           arg9, null);
     }
   }
@@ -253,7 +253,7 @@ public class LogRecorder implements Recorder {
    */
   public final void core(
       final String logLevel,
-      final String datetime,
+      final String dateTime,
       final String message,
       final Object arg1,
       final Object arg2,
@@ -276,7 +276,7 @@ public class LogRecorder implements Recorder {
       }
       Handler handler1 = info.getHandler(handler);
       handler1.process(
-          logLevel, this.name, datetime, message, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
+          logLevel, this.name, dateTime, message, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
           arg9, thrown);
     }
   }
@@ -598,7 +598,9 @@ public class LogRecorder implements Recorder {
       final Object arg6,
       final Object arg7,
       final Object arg8,
-      final Object arg9) {}
+      final Object arg9) {
+    this.core(logLevel, datetime, message, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+  }
 
   @Override
   public final void log(

@@ -5,22 +5,18 @@ import java.nio.CharBuffer;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.core.codec.Constants;
-import org.jdkstack.logging.mini.core.datetime.DateTimeEncoder;
 
 /**
  * 日志记录对象Record转成Json格式.
  *
  * <p>按行输出纯json格式的消息.
  *
- * <p>todo 最开始只能用单线程模式，所以CHARBUF公用一个，现在支持多线程模式，以后需要改成RingBuffer的形式。
  *
  * @author admin
  */
 public final class LogJsonFormatter implements Formatter {
   /** 临时数组. */
   private static final CharBuffer CHARBUF = CharBuffer.allocate(Constants.SOURCEN8);
-  /** . */
-  private String dateTimeFormat;
 
   /**
    * This is a method description.
@@ -32,19 +28,7 @@ public final class LogJsonFormatter implements Formatter {
   public LogJsonFormatter() {
     //
   }
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param dateTimeFormat 日期格式.
-   * @author admin
-   */
-  public LogJsonFormatter(final String dateTimeFormat) {
-    this.dateTimeFormat = dateTimeFormat;
-  }
-
+  
   /**
    * 日志记录对象Record转成Json格式.
    *
@@ -85,16 +69,10 @@ public final class LogJsonFormatter implements Formatter {
     CHARBUF.append('"');
     CHARBUF.append(':');
     CHARBUF.append('"');
-    String dateTime = logRecord.getEvent();
-    if (dateTime != null) {
-      CHARBUF.append(dateTime);
-    } else {
-      final long current = System.currentTimeMillis();
-      StringBuilder encoder = DateTimeEncoder.encoder(current, 8 * 3600);
-      int position = CHARBUF.position();
-      encoder.getChars(0, encoder.length(), CHARBUF.array(), position);
-      CHARBUF.position(position + encoder.length());
-    }
+    final StringBuilder dateTime = logRecord.getEvent();
+    final int position = CHARBUF.position();
+    dateTime.getChars(0, dateTime.length(), CHARBUF.array(), position);
+    CHARBUF.position(position + dateTime.length());
     CHARBUF.append('"');
     CHARBUF.append(',');
     CHARBUF.append("\"levelName\"");
@@ -122,17 +100,10 @@ public final class LogJsonFormatter implements Formatter {
     CHARBUF.append(':');
     // 日志对象中的消息字段.
     CHARBUF.append('"');
-    final String message = logRecord.getMessage();
-    Object args1 = logRecord.getArgs1();
-    if (args1 == null) {
-      // 将数据写入缓存.
-      CHARBUF.put(message);
-    } else {
-      StringBuilder format = LogFormatter.format2(logRecord.getMessage(), logRecord.getParams(), logRecord.getPlaceholderCount(), logRecord.getPaths());
-      int position = CHARBUF.position();
-      format.getChars(0, format.length(), CHARBUF.array(), position);
-      CHARBUF.position(position + format.length());
-    }
+    final StringBuilder format = logRecord.getMessageText();
+    final int position1 = CHARBUF.position();
+    format.getChars(0, format.length(), CHARBUF.array(), position1);
+    CHARBUF.position(position1 + format.length());
     CHARBUF.append('"');
     // 日志对象中的异常堆栈信息.
     final Throwable thrown = logRecord.getThrowable();
@@ -160,7 +131,7 @@ public final class LogJsonFormatter implements Formatter {
         CHARBUF.append('(');
         CHARBUF.append(stackTraceElement.getFileName());
         CHARBUF.append(':');
-        CHARBUF.append("stackTraceElement.getLineNumber()");
+        CHARBUF.append(stackTraceElement.getLineNumber() + "");
         CHARBUF.append(')');
         CHARBUF.append('"');
         separator = ",";

@@ -86,9 +86,10 @@ public class CharArrayEncoderV2 implements Encoder<CharBuffer> {
     // 将数据写入缓存.
     charBuf.put(text.array(), text.arrayOffset(), text.remaining());
     // 结束读取位置.
-    charBuf.limit(text.remaining());
+    // charBuf.limit(text.remaining());
     // 开始读取位置.
-    charBuf.position(0);
+    // charBuf.position(0);
+    charBuf.flip();
     // 将字符数组编码成字节数组.
     ce.encode(charBuf, byteBuf, true);
     // 刷新一下缓存.

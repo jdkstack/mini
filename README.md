@@ -30,7 +30,7 @@ OpenJDK 64-Bit Server VM 18.9 (build 11+28, mixed mode)
 例子:
 
 ```java
-import static org.jdkstack.logging.mini.core.pool.StringBuilderPool.to;
+import static org.jdkstack.logging.mini.core.tool.StringBuilderPool.box;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.core.factory.LogFactory;
 import org.jdkstack.logging.mini.core.level.Constants;
@@ -41,8 +41,8 @@ public class Examples {
     public static void main(String[] args) {
         for (; ; ) {
             long currentTimeMillis = System.currentTimeMillis();
-            LOG.log(Constants.INFO, "测试1{}测试2{}测试3{}测试4{}测试5{}测试6{}测试7{}测试8{}测试9{}.", to(currentTimeMillis), to(2), "3", to(4D), "5", "6", to(7F), to(8), "9");
-            LOG.log(Constants.FATAL, "测试1{}测试2{}测试3{}测试4{}测试5{}测试6{}测试7{}测试8{}测试9{}.", "1L", "2", "3", "4D", "5", "6", "7F", "8", "9");
+            LOG.log(Constants.INFO, "测试1{}测试2{}测试3{}测试4{}测试5{}测试6{}测试7{}测试8{}测试9{}.", box(currentTimeMillis), box(2), "3", box(4D), "5", "6", box(7F), box(8), "9");
+            LOG.log(Constants.FATAL, "2023-09-21","测试1{}测试2{}测试3{}测试4{}测试5{}测试6{}测试7{}测试8{}测试9{}.", "1L", "2", "3", "4D", "5", "6", "7F", "8", "9");
         }
     }
 }
@@ -52,11 +52,11 @@ public class Examples {
 -Xmx32m -Xmx32m -Xlog:gc*
 
 日志存储目录路径：
-默认当前目录下\logs1694229262694\default\1694229262694.log (1694229262694是创建日志目录和文件时的时间戳)。
+默认当前目录下\logs\default\1694229262694.log (1694229262694是创建日志目录和文件时的时间戳)。
 
-如果你在测试时，有任何问题可以在github上提交issues或者创建discussions。
+如果你在测试时，有任何不理解的地方或者有任何好的建议，有任何问题可以在github上提交issues或者创建discussions。
 
-我会认真读并回复，也欢迎各位伙伴们能帮忙点一个星星。
+我会认真读并回复，欢迎一起讨论，也欢迎各位伙伴们能帮忙点一个星星，我会一直维护下去，不会放弃。
 
 对于使用Jconsole, Jmc等工具观察jvm进程情况的朋友，一定要注意。
 

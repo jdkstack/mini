@@ -31,7 +31,7 @@ public interface Record {
 
   void setPlaceholderCount(int placeholderCount);
 
-    /**
+  /**
    * This is a method description.
    *
    * <p>Another description after blank line.
@@ -275,7 +275,7 @@ public interface Record {
 
   void setLogLevel(String logLevel);
 
-  String getEvent();
+  StringBuilder getEvent();
 
   void setEvent(String event);
 
@@ -328,4 +328,8 @@ public interface Record {
   Object getArgs9();
 
   void setArgs9(Object args9);
+
+  StringBuilder getMessageText();
+
+  void clear();
 }

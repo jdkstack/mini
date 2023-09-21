@@ -13,12 +13,16 @@
         <module>mini-extension</module>
     </modules>
     <properties>
-        <!--  1:统一字符集编码UTF-8 -->
+        <!--  源文件使用的编码. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--  插件使用的编码. -->
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <!-- 默认直接读取系统参数配置的jdk版本. -->
+        <!-- 编译时使用的编码.-->
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <!-- 源文件编译时用的版本. -->
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <!-- 编译级别. -->
         <maven.compiler.compilerVersion>11</maven.compiler.compilerVersion>
     </properties>
     <build>
@@ -78,8 +82,9 @@
                     <!--使用sun规范.
                       <configLocation>checkstyle/sun/sun_checks.xml</configLocation>
                     -->
-                    <!-- <encoding>UTF-8</encoding>-->
                     <failOnViolation>true</failOnViolation>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
                     <!-- 是否对test目录中的代码进行检查-->
                     <includeTestSourceDirectory>false</includeTestSourceDirectory>
                     <!-- 解决这个问题: Unable to locate Source XRef to link to - DISABLED. -->
@@ -87,6 +92,7 @@
                     <!-- 检测结果输出到控制台-->
                     <logViolationsToConsole>true</logViolationsToConsole>
                     <!-- -->
+                    <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
                     <suppressionsLocation>style/checkstyle/google/checkstyle-suppressions.xml</suppressionsLocation>
                 </configuration>
                 <dependencies>
@@ -112,7 +118,7 @@
                     </execution>
                 </executions>
                 <groupId>org.apache.maven.plugins</groupId>
-                <version>3.2.0</version>
+                <version>3.3.0</version>
             </plugin>
         </plugins>
     </build>

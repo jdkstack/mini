@@ -24,16 +24,22 @@ import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
 public class FileHandlerV2 extends AbstractHandler {
   /** 按照文件大小切割. */
   private final AtomicInteger sizes = new AtomicInteger(0);
+
   /** 按照文件条数切割. */
   private final AtomicInteger lines = new AtomicInteger(0);
+
   /** 临时数组. */
   private final CharBuffer charBuf = CharBuffer.allocate(Constants.SOURCE);
+
   /** 字符编码器. */
   private final Encoder<CharBuffer> textEncoder = new CharArrayEncoderV2(Charset.defaultCharset());
+
   /** 目的地写入器. */
   private final ByteWriter destination = new ByteArrayWriter();
+
   /** . */
   protected FileChannel channel;
+
   /** . */
   private RandomAccessFile randomAccessFile;
 
@@ -110,7 +116,10 @@ public class FileHandlerV2 extends AbstractHandler {
     final CoFactory info1 = StartApplication.getBean("configFactory", CoFactory.class);
     // 重新计算文件名(创建临时对象?应该放到公共的地方.).
     final File dir =
-            new File(info1.getValue(key, "directory") + File.separator + info1.getValue(key, "prefix"));   // 不存在,创建目录和子目录.
+        new File(
+            info1.getValue(key, "directory")
+                + File.separator
+                + info1.getValue(key, "prefix")); // 不存在,创建目录和子目录.
     if (!dir.exists()) {
       dir.mkdirs();
     }
@@ -133,16 +142,14 @@ public class FileHandlerV2 extends AbstractHandler {
   public void consume(final Record lr) throws Exception {
     if (this.filter(lr)) {
       // 格式化日志对象.
-      final CharBuffer logMessage =(CharBuffer) this.format(lr);
+      final CharBuffer logMessage = (CharBuffer) this.format(lr);
       // 清除缓存.
       this.charBuf.clear();
       // 将数据写入缓存.
       this.charBuf.put(logMessage.array(), logMessage.arrayOffset(), logMessage.remaining());
-      // 结束读取的位置.
-      this.charBuf.limit(logMessage.length()); // 字符长度，不是字节长度。
-      // 开始读取的位置.
-      this.charBuf.position(0);
-      // 切换规则.
+      // 开始读取的位置position=0,结束读取的位置limit=logMessage.length()
+      this.charBuf.flip();
+      // 切换规则(性能有些影响，需要优化。).
       this.rules(lr, this.charBuf.remaining());
       // 开始编码(1kb字符串,执行100W次花费2s).
       this.textEncoder.encode(this.charBuf, this.destination);

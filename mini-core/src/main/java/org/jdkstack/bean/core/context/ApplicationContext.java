@@ -65,7 +65,7 @@ public class ApplicationContext implements Context {
     Map<String, String> map = new HashMap<>(16);
     map.put("name", "default");
     map.put("level", "MAX");
-    map.put("directory", "logs" + System.currentTimeMillis());
+    map.put("directory", "logs");
     map.put("prefix", "default");
     map.put("encoding", "UTF-8");
     map.put("type", "line");
