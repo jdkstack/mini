@@ -15,6 +15,7 @@ import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
 import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
 import org.jdkstack.logging.mini.core.datetime.DateTimeEncoder;
 import org.jdkstack.logging.mini.core.filter.LogFilter;
+import org.jdkstack.logging.mini.core.formatter.LogFormatterV2;
 import org.jdkstack.logging.mini.core.formatter.LogJsonFormatter;
 import org.jdkstack.logging.mini.core.record.RecordEventFactory;
 import org.jdkstack.ringbuffer.core.mpmc.version3.MpmcBlockingQueueV3;
@@ -115,6 +116,8 @@ public class SystemHandler {
     }
     // 重新打开流.
     this.randomAccessFile = new RandomAccessFile(new File(dir, "system.log"), "rw");
+    // 追加模式,跳过文件大小,然后继续写入数据.
+    this.randomAccessFile.seek(this.randomAccessFile.length());
     // 重新打开流channel.
     this.channel = this.randomAccessFile.getChannel();
     this.destination.setDestination(this.randomAccessFile);
@@ -162,7 +165,7 @@ public class SystemHandler {
 
   public void produce(
       final String logLevel,
-      final String datetime,
+      final String dateTime,
       final String message,
       final String className,
       final Object arg1,
@@ -176,20 +179,21 @@ public class SystemHandler {
       final Object arg9,
       final Throwable thrown,
       final Record lr) {
-    lr.setClassName(className);
-    lr.setThrown(thrown);
+    // 设置日志级别.
     lr.setLevel(logLevel);
-    lr.setMessage(message);
-    lr.setArgs1(arg1);
-    lr.setArgs2(arg2);
-    lr.setArgs3(arg3);
-    lr.setArgs4(arg4);
-    lr.setArgs5(arg5);
-    lr.setArgs6(arg6);
-    lr.setArgs7(arg7);
-    lr.setArgs8(arg8);
-    lr.setArgs9(arg9);
-    lr.setEvent(datetime);
+    // 设置日志日期时间.
+    final StringBuilder event = lr.getEvent();
+    // 如果参数为空,使用系统当前的时间戳,the current time(UTC 8) in milliseconds.
+    if (null == dateTime) {
+      // 系统当前的时间戳.
+      final long current = System.currentTimeMillis();
+      // 使用固定时区+8:00(8小时x3600秒).
+      DateTimeEncoder.encoder(event, current, 8 * 3600);
+    } else {
+      // 不处理参数传递过来的日期时间.
+      event.append(dateTime);
+    }
+    // 设置9个参数.
     lr.setParams(arg1, 0);
     lr.setParams(arg2, 1);
     lr.setParams(arg3, 2);
@@ -199,39 +203,17 @@ public class SystemHandler {
     lr.setParams(arg7, 6);
     lr.setParams(arg8, 7);
     lr.setParams(arg9, 8);
-    // 计算 {} 在message中的最短路径.
-    final int length = message.length();
-    int result = 0;
-    for (int i = 0; i < length - 1; i++) {
-      final char curChar = message.charAt(i);
-      if (curChar == '{' && message.charAt(i + 1) == '}') {
-        lr.setPaths(i, result);
-        result++;
-        i++;
-      }
-    }
-    lr.setPlaceholderCount(result);
-    // 记录接收事件时的日期时间.
-    final long current = System.currentTimeMillis();
-    final long year = DateTimeEncoder.year(current);
-    lr.setYear(year);
-    final long month = DateTimeEncoder.month(current);
-    lr.setMonth(month);
-    final long day = DateTimeEncoder.day(current);
-    lr.setDay(day);
-    final long hours = DateTimeEncoder.hours(current);
-    lr.setHours(hours);
-    final long minute = DateTimeEncoder.minutes(current);
-    lr.setMinute(minute);
-    final long second = DateTimeEncoder.seconds(current);
-    lr.setSecond(second);
-    final long mills = DateTimeEncoder.millisecond(current);
-    lr.setMills(mills);
+    // 用9个参数替换掉message中的占位符{}.
+    LogFormatterV2.format(lr, message);
+    // location中的className(暂时不处理method和lineNumber).
+    lr.setClassName(className);
+    // 异常信息.
+    lr.setThrown(thrown);
   }
 
-  public void simpleThreadProduce(
+  public void process(
       final String logLevel,
-      final String className,
+      final String system,
       final String datetime,
       final String message,
       final Object arg1,
@@ -244,15 +226,16 @@ public class SystemHandler {
       final Object arg8,
       final Object arg9,
       final Throwable thrown) {
+    // 单线程生产(向RingBuffer队列中生产).
     try {
       // 1.预生产(从循环队列tail取一个元素对象).
-      final Record produceRecore = this.queue.tail();
+      final Record produceRecored = this.queue.tail();
       // 2.生产数据(为元素对象的每一个字段填充数据).
       this.produce(
           logLevel,
           datetime,
           message,
-          className,
+          system,
           arg1,
           arg2,
           arg3,
@@ -263,34 +246,13 @@ public class SystemHandler {
           arg8,
           arg9,
           thrown,
-          produceRecore);
-    } catch (Exception e) {
-      // Internal.log(e);
+          produceRecored);
+    } catch (final Exception ignored) {
+      // Ignore this exception.
     } finally {
       // 3.生产数据完成的标记(数据可以从循环队列head消费).
       this.queue.start();
     }
-  }
-
-  public void process(
-      String logLevel,
-      String system,
-      String datetime,
-      String message,
-      Object arg1,
-      Object arg2,
-      Object arg3,
-      Object arg4,
-      Object arg5,
-      Object arg6,
-      Object arg7,
-      Object arg8,
-      Object arg9,
-      Object o) {
-    // 单线程生产(向RingBuffer队列中生产).
-    this.simpleThreadProduce(
-        logLevel, system, datetime, message, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9,
-        null);
     // 多线程消费(从RingBuffer队列中消费).
     try {
       // 1.预消费(从循环队列head取一个元素对象).
@@ -298,24 +260,9 @@ public class SystemHandler {
       // 2.消费数据(从元素对象的每一个字段中获取数据).
       this.consume(consumeRecord);
       // 3.清空数据(为元素对象的每一个字段重新填充空数据).
-      this.produce(
-          null,
-          null,
-          "",
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          consumeRecord);
-    } catch (Exception e) {
-      // Internal.log(e);
+      consumeRecord.clear();
+    } catch (final Exception ignored) {
+      // Ignore this exception.
     } finally {
       // 4.消费数据完成的标记(数据可以从循环队列tail生产).
       this.queue.end();
