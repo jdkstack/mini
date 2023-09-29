@@ -10,4 +10,12 @@
     </parent>
 
     <artifactId>mini-examples</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jdkstack</groupId>
+            <artifactId>mini-core</artifactId>
+            <version>11</version>
+        </dependency>
+    </dependencies>
 </project>

@@ -10,4 +10,17 @@
     </parent>
 
     <artifactId>mini-jmh</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jdkstack</groupId>
+            <artifactId>mini-core</artifactId>
+            <version>11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hdrhistogram</groupId>
+            <artifactId>HdrHistogram</artifactId>
+            <version>2.1.12</version>
+        </dependency>
+    </dependencies>
 </project>
