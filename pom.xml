@@ -11,6 +11,8 @@
         <module>mini-api</module>
         <module>mini-core</module>
         <module>mini-extension</module>
+        <module>mini-examples</module>
+        <module>mini-jmh</module>
     </modules>
     <properties>
         <!--  源文件使用的编码. -->
