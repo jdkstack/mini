@@ -36,7 +36,7 @@ public final class LogFactory implements Factory {
    * @return 返回一个Log对象.
    * @author admin
    */
-  public static Recorder getLog(final Class<?> clazz) {
+  public static Recorder getRecorder(final Class<?> clazz) {
     return FACTORY.getRecorder(clazz.getName());
   }
 }

@@ -8,6 +8,7 @@ import java.nio.charset.Charset;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.codec.Encoder;
+import org.jdkstack.logging.mini.api.config.RecorderConfig;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
@@ -137,9 +138,10 @@ public class FileHandlerV2 extends AbstractHandler {
    */
   @Override
   public void consume(final Record lr) throws Exception {
-    if (this.filter(lr)) {
+    RecorderConfig value = this.context.getValue(this.key);
+    if (this.context.filter(value.getFilter(), lr)) {
       // 格式化日志对象.
-      final CharBuffer logMessage = (CharBuffer) this.format(lr);
+      final CharBuffer logMessage = (CharBuffer) this.context.formatter(value.getFormatter(), lr);
       // 清除缓存.
       this.charBuf.clear();
       // 将数据写入缓存.

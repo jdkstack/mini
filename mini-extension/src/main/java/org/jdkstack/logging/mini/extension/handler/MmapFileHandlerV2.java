@@ -9,6 +9,7 @@ import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.codec.Encoder;
+import org.jdkstack.logging.mini.api.config.RecorderConfig;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
@@ -109,9 +110,10 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
    */
   @Override
   public final void consume(final Record lr) throws Exception {
-    if (this.filter(lr)) {
+    RecorderConfig value = this.context.getValue(this.key);
+    if (this.context.filter(value.getFilter(), lr)) {
       // 格式化日志对象.
-      final CharBuffer logMessage = (CharBuffer) this.format(lr);
+      final CharBuffer logMessage = (CharBuffer) this.context.formatter(value.getFormatter(), lr);
       // 清除缓存.
       this.charBuf.clear();
       // 写入临时数组.

@@ -1,6 +1,5 @@
 package org.jdkstack.logging.mini.api.handler;
 
-import java.nio.Buffer;
 import org.jdkstack.logging.mini.api.record.Record;
 
 /**
@@ -44,6 +43,4 @@ public interface Handler {
    * @author admin
    */
   void consume(final Record lr) throws Exception;
-
-  Buffer format(Record logRecord);
 }

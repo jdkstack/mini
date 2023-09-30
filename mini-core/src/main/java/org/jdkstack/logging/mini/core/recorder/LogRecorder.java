@@ -1,10 +1,7 @@
 package org.jdkstack.logging.mini.core.recorder;
 
-import java.util.HashMap;
-import java.util.Map;
 import org.jdkstack.logging.mini.api.config.RecorderConfig;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
-import org.jdkstack.logging.mini.api.level.Level;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 
 /**
@@ -15,18 +12,6 @@ import org.jdkstack.logging.mini.api.recorder.Recorder;
  * @author admin
  */
 public class LogRecorder implements Recorder {
-  
-  /** Recorder名字. */
-  private final String name;
-
-  /** 日志级别处理器 . */
-  private final Map<String, String> handlers = new HashMap<>(16);
-
-  /** Recorder可以处理最小的日志级别. */
-  private Level minLevel;
-
-  /** Recorder可以处理最大的日志级别. */
-  private Level maxLevel;
 
   /** 一个LogRecorder有一个LogRecorderConfig配置. 有界数组阻塞队列. */
   private RecorderConfig recorderConfig;
@@ -41,95 +26,19 @@ public class LogRecorder implements Recorder {
    * @param name name.
    * @author admin
    */
-  public LogRecorder(final LogRecorderContext context, final String name) {
+  public LogRecorder(final LogRecorderContext context, final RecorderConfig recorderConfig) {
     this.context = context;
-    this.name = name;
-  }
-
-  /**
-   * .
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevels .
-   * @return boolean .
-   * @author admin
-   */
-  @Override
-  public final boolean doFilter(final String logLevels) {
-    return this.context.doFilter(logLevels, this.maxLevel, this.minLevel);
-  }
-
-  /**
-   * .
-   *
-   * <p>Another description after blank line.
-   *
-   * @return String .
-   * @author admin
-   */
-  @Override
-  public final String getName() {
-    return this.name;
-  }
-
-  /**
-   * .
-   *
-   * <p>Another description after blank line.
-   *
-   * @param handler .
-   * @author admin
-   */
-  @Override
-  public final void removeHandler(final String handler) {
-    this.handlers.remove(handler);
-  }
-
-  /**
-   * .
-   *
-   * <p>Another description after blank line.
-   *
-   * @param handler .
-   * @author admin
-   */
-  @Override
-  public final void addHandlers(final String key, final String handler) {
-    this.handlers.put(key, handler);
-  }
-
-  /**
-   * .
-   *
-   * <p>Another description after blank line.
-   *
-   * @param key .
-   * @author admin
-   */
-  @Override
-  public final String getHandler(final String key) {
-    return this.handlers.get(key);
+    this.recorderConfig = recorderConfig;
   }
 
   @Override
-  public final Level getMinLevel() {
-    return this.minLevel;
+  public RecorderConfig getRecorderConfig() {
+    return this.recorderConfig;
   }
 
   @Override
-  public final void setMinLevel(final Level minLevel) {
-    this.minLevel = minLevel;
-  }
-
-  @Override
-  public final Level getMaxLevel() {
-    return this.maxLevel;
-  }
-
-  @Override
-  public final void setMaxLevel(final Level maxLevel) {
-    this.maxLevel = maxLevel;
+  public void setRecorderConfig(final RecorderConfig recorderConfig) {
+    this.recorderConfig = recorderConfig;
   }
 
   /**
@@ -180,8 +89,20 @@ public class LogRecorder implements Recorder {
       final Object arg8,
       final Object arg9) {
     this.process(
-        logLevel, this.name, dateTime, message, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
-        arg9, null);
+        logLevel,
+        this.recorderConfig.getName(),
+        dateTime,
+        message,
+        arg1,
+        arg2,
+        arg3,
+        arg4,
+        arg5,
+        arg6,
+        arg7,
+        arg8,
+        arg9,
+        null);
   }
 
   /**
@@ -234,8 +155,20 @@ public class LogRecorder implements Recorder {
       final Object arg9,
       final Throwable thrown) {
     this.process(
-        logLevel, this.name, dateTime, message, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
-        arg9, thrown);
+        logLevel,
+        this.recorderConfig.getName(),
+        dateTime,
+        message,
+        arg1,
+        arg2,
+        arg3,
+        arg4,
+        arg5,
+        arg6,
+        arg7,
+        arg8,
+        arg9,
+        thrown);
   }
 
   @Override
@@ -697,7 +630,8 @@ public class LogRecorder implements Recorder {
       final Object arg9,
       final Throwable thrown) {
     // 日志级别是否匹配.
-    if (this.doFilter(logLevel)) {
+    if (this.context.doFilter(
+        logLevel, recorderConfig.getMaxLevel(), recorderConfig.getMinLevel())) {
       // 生产.
       this.context.produce(
           logLevel, dateTime, message, className, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,

@@ -1,9 +1,5 @@
 package org.jdkstack.logging.mini.core.handler;
 
-import java.nio.Buffer;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicLong;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.record.Record;
@@ -20,9 +16,6 @@ import org.jdkstack.logging.mini.core.formatter.LogFormatterV2;
  */
 public abstract class AbstractHandler implements Handler {
 
-  /** 批量flush. */
-  protected final AtomicLong atomicLong = new AtomicLong(0L);
-
   /** 批量. */
   protected final int batchSize;
 
@@ -31,12 +24,6 @@ public abstract class AbstractHandler implements Handler {
 
   /** 阻塞队列名称. */
   protected final String target;
-  
-  /** 日志级别格式化 . */
-  private final Map<String, String> formatters = new HashMap<>(16);
-
-  /** 日志级别过滤器 . */
-  private final Map<String, String> filters = new HashMap<>(16);
 
   protected final LogRecorderContext context;
 
@@ -53,20 +40,6 @@ public abstract class AbstractHandler implements Handler {
     this.key = key;
     this.batchSize = 1024;
     this.target = this.context.getValue(key).getPrefix();
-    this.formatters.put(
-        this.context.getValue(key).getName(), this.context.getValue(key).getFormatter());
-    this.filters.put(this.context.getValue(key).getName(), this.context.getValue(key).getFilter());
-  }
-
-  @Override
-  public final Buffer format(final Record logRecord) {
-    final String formatterName = this.formatters.get(this.context.getValue(this.key).getName());
-    return this.context.formatter(formatterName, logRecord);
-  }
-
-  public final boolean filter(final Record logRecord) {
-    final String filterName = this.filters.get(this.context.getValue(this.key).getName());
-    return this.context.filter(filterName, logRecord);
   }
 
   @Override

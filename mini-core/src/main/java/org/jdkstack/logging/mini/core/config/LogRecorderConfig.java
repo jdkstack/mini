@@ -3,15 +3,34 @@ package org.jdkstack.logging.mini.core.config;
 import org.jdkstack.logging.mini.api.config.RecorderConfig;
 
 public class LogRecorderConfig implements RecorderConfig {
+  /** . */
   private String name = "default";
+
+  /** . */
   private final String level = "MAX";
+
+  /** . */
   private final String directory = "logs";
+
+  /** . */
   private final String prefix = "default";
+
+  /** . */
   private final String encoding = "UTF-8";
+
+  /** . */
   private final String type = "line";
+
+  /** . */
   private final String minLevel = "MIN";
+
+  /** . */
   private final String maxLevel = "MAX";
+
+  /** . */
   private final String formatter = "logJsonFormatter";
+
+  /** . */
   private final String filter = "logFilter";
 
   /** . */

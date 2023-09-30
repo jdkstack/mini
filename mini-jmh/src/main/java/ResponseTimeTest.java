@@ -12,7 +12,7 @@ import org.jdkstack.logging.mini.core.level.Constants;
 
 // https://groups.google.com/g/mechanical-sympathy/c/0gaBXxFm4hE/m/O9QomwHIJAAJ
 public class ResponseTimeTest {
-  private static final Recorder LOG = LogFactory.getLog(ResponseTimeTest.class);
+  private static final Recorder LOG = LogFactory.getRecorder(ResponseTimeTest.class);
   private static final String LATENCY_MSG = new String(new char[64]);
 
   public static void main(final String[] args) throws Exception {

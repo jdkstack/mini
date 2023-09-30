@@ -87,16 +87,19 @@ public class LogRecord implements Record {
   private final StringBuilder pid = new StringBuilder(16);
 
   /** . */
-  private final String appName = System.getProperty("appName", "");
+  private final String appName = System.getProperty("appName", "app");
 
   /** . */
-  private final String hostName = System.getProperty("hostName", "");
+  private final String hostName = System.getProperty("hostName", "localhost");
 
   /** . */
-  private final String ip = System.getProperty("ip", "");
+  private final String ip = System.getProperty("ip", "127.0.0.1");
 
   /** . */
-  private final String port = System.getProperty("port", "");
+  private final String port = System.getProperty("port", "0000");
+
+  /** . */
+  private final String timeZone = System.getProperty("timeZone", "Z");
 
   public LogRecord() {
     this.pid.append(ProcessHandle.current().pid());

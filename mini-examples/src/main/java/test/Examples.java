@@ -11,7 +11,7 @@ import org.jdkstack.logging.mini.core.tool.StringBuilderPool;
 
 public class Examples {
 
-  private static final Recorder LOG = LogFactory.getLog(Examples.class);
+  private static final Recorder LOG = LogFactory.getRecorder(Examples.class);
 
   /** 内部使用,用来记录日志. */
   private static final SystemLogRecorder SYSTEM = SystemLogRecorder.getSystemRecorder();

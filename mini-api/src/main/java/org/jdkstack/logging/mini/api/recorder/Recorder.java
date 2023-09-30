@@ -1,6 +1,6 @@
 package org.jdkstack.logging.mini.api.recorder;
 
-import org.jdkstack.logging.mini.api.level.Level;
+import org.jdkstack.logging.mini.api.config.RecorderConfig;
 
 /**
  * This is a class description.
@@ -11,98 +11,9 @@ import org.jdkstack.logging.mini.api.level.Level;
  */
 public interface Recorder {
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @return String .
-   * @author admin
-   */
-  String getName();
+  RecorderConfig getRecorderConfig();
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param key .
-   * @param handler .
-   * @author admin
-   */
-  void addHandlers(String key, String handler);
-
-  /**
-   * .
-   *
-   * <p>.
-   *
-   * @param key .
-   * @return String .
-   * @author admin
-   */
-  String getHandler(String key);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param logLevels logLevels.
-   * @return boolean
-   * @author admin
-   */
-  boolean doFilter(String logLevels);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param handler handler.
-   * @author admin
-   */
-  void removeHandler(String handler);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @return String .
-   * @author admin
-   */
-  Level getMinLevel();
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param minLevel minLevel.
-   * @author admin
-   */
-  void setMinLevel(Level minLevel);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @return String .
-   * @author admin
-   */
-  Level getMaxLevel();
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param maxLevel maxLevel.
-   * @author admin
-   */
-  void setMaxLevel(Level maxLevel);
+  void setRecorderConfig(RecorderConfig recorderConfig);
 
   /**
    * This is a method description.

@@ -29,7 +29,7 @@ public interface LogRecorderContext {
   void addLevel(String name, int value);
 
   boolean doFilter(
-          String logLevels, Level maxLevel, Level minLevel);
+          String logLevel, String maxLevel, String minLevel);
 
   Level findLevel(String name);
 

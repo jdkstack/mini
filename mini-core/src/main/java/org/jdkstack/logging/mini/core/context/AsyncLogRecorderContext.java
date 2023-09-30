@@ -3,6 +3,8 @@ package org.jdkstack.logging.mini.core.context;
 import java.nio.Buffer;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import org.jdkstack.logging.mini.api.config.Configuration;
 import org.jdkstack.logging.mini.api.config.RecorderConfig;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
@@ -25,6 +27,8 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
   private static final SystemLogRecorder SYSTEM = SystemLogRecorder.getSystemRecorder();
 
   private final Configuration configuration = new LogRecorderConfiguration();
+
+  private final Lock configLock = new ReentrantLock();
 
   /** 有界数组阻塞队列. */
   private final MpmcBlockingQueueV3<Record> queue =
@@ -65,7 +69,11 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
 
   @Override
   public final Handler getHandler(final String name) {
-    return this.handlers.get(name);
+    Handler handler = this.handlers.get(name);
+    if (handler == null) {
+      handler = this.handlers.get("default");
+    }
+    return handler;
   }
 
   @Override
@@ -90,7 +98,12 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
 
   @Override
   public final RecorderConfig getValue(final String key) {
-    return this.logRecorderConfigs.get(key);
+    // 获取
+    RecorderConfig value = this.logRecorderConfigs.get(key);
+    if (value == null) {
+      value = this.logRecorderConfigs.get("default");
+    }
+    return value;
   }
 
   @Override
@@ -101,11 +114,13 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
 
   @Override
   public final boolean doFilter(
-      final String logLevels, final Level maxLevel, final Level minLevel) {
-    final Level level = this.findLevel(logLevels);
+      final String logLevelName, final String maxLevelName, final String minLevelName) {
+    final Level logLevel = this.findLevel(logLevelName);
+    final Level maxLevel = this.findLevel(maxLevelName);
+    final Level minLevel = this.findLevel(minLevelName);
     // 只要有一个不是真,则表示日志会过滤掉.
-    final boolean b2 = level.intValue() <= maxLevel.intValue();
-    final boolean b1 = level.intValue() >= minLevel.intValue();
+    final boolean b2 = logLevel.intValue() <= maxLevel.intValue();
+    final boolean b1 = logLevel.intValue() >= minLevel.intValue();
     return b2 && b1;
   }
 
@@ -123,13 +138,19 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
 
   @Override
   public final Buffer formatter(final String formatterName, final Record logRecord) {
-    final Formatter formatter = this.formatters.get(formatterName);
+    Formatter formatter = this.formatters.get(formatterName);
+    if (formatter == null) {
+      formatter = this.formatters.get("default");
+    }
     return formatter.format(logRecord);
   }
 
   @Override
   public final boolean filter(final String filterName, final Record logRecord) {
-    final Filter filter = this.filters.get(filterName);
+    Filter filter = this.filters.get(filterName);
+    if (filter == null) {
+      filter = this.filters.get("default");
+    }
     return filter.doFilter(logRecord);
   }
 
@@ -143,9 +164,6 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
       // 从配置中获取所有的数据，包括handlers.
       // 应该用全局的配置AbstractConfiguration，可以获取所有的handler,filter,formatter
       RecorderConfig value = this.getValue(logRecord.getClassName());
-      if (value == null) {
-        value = this.getValue("default");
-      }
       final Handler handler = this.getHandler(value.getName());
       // 2.消费数据(从元素对象的每一个字段中获取数据).
       handler.consume(logRecord);
@@ -182,9 +200,6 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
       // className,从配置中获取到对应Recorder的RecorderConfig.
       // 从配置中获取所有的数据，包括handlers.
       RecorderConfig value = this.getValue(className);
-      if (value == null) {
-        value = this.getValue("default");
-      }
       final Handler handler = this.getHandler(value.getName());
       // 2.生产数据(为元素对象的每一个字段填充数据).
       handler.produce(

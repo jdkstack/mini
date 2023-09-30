@@ -15,12 +15,13 @@ import org.jdkstack.logging.mini.core.handler.FileHandlerV2;
 import org.jdkstack.logging.mini.core.level.Constants;
 import org.jdkstack.logging.mini.core.recorder.LogRecorder;
 
+// Factory用来扩展功能，Context用来提供业务方法。
+
 public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory {
   /** 上下文对象，用来初始化，并提供业务方法. */
   private final LogRecorderContext context = new AsyncLogRecorderContext();
 
   public AsyncLogRecorderContextFactory() {
-    final LogRecorderConfig recorderConfig = new LogRecorderConfig();
     // 默认日志级别。
     this.addLevel(Constants.MIN, Constants.MIN_VALUE);
     this.addLevel(Constants.SEVERE, Constants.SEVERE_VALUE);
@@ -36,7 +37,10 @@ public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory
     this.addLevel(Constants.TRACE, Constants.TRACE_VALUE);
     this.addLevel(Constants.MAX, Constants.MAX_VALUE);
     // 默认配置。
+    final LogRecorderConfig recorderConfig = new LogRecorderConfig();
     this.addLogRecorderConfig("default", recorderConfig);
+    // 默认Recorder。
+    this.addRecorder(recorderConfig);
     // 默认Filter。
     final Filter filter = new LogFilter(this.context);
     this.addFilter("logFilter", filter);
@@ -48,8 +52,6 @@ public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory
     // 默认FileHandler。
     final Handler fileHandlerV2 = new FileHandlerV2(this.context, "default");
     this.addHandler("default", fileHandlerV2);
-    // 默认Recorder。
-    this.addRecorder(recorderConfig);
   }
 
   @Override
@@ -58,42 +60,22 @@ public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory
     Recorder recorder = this.context.getRecorder(name);
     // 默认配置.
     if (null == recorder) {
-      final Recorder root =
-          this.context.getRecorder(org.jdkstack.logging.mini.core.context.Constants.DEFAULT);
-      // 创建一个新的Recorder.
-      recorder = new LogRecorder(this.context, name);
-      // 将ROOT的所有配置给新的Recorder.
-      recorder.addHandlers(name, root.getHandler(root.getName()));
-      recorder.setMinLevel(root.getMinLevel());
-      recorder.setMaxLevel(root.getMaxLevel());
+      // 创建默认配置。
+      final RecorderConfig recorderConfig = new LogRecorderConfig();
+      // 覆盖名字。
+      recorderConfig.setName(name);
       // 增加新的Recorder.
-      this.context.addRecorder(name, recorder);
+      this.addRecorder(recorderConfig);
+      this.context.addLogRecorderConfig(name,recorderConfig);
+      // 取出最新添加的Recorder.
+      recorder = this.context.getRecorder(name);
     }
     return recorder;
   }
 
   @Override
   public final void addRecorder(final RecorderConfig recorderConfig) {
-    // 设置日志处理器, 如果没有配置,不会继承父,直接使用ROOT.
-    final String handlers = recorderConfig.getHandlers();
-    final Recorder logRecorder = new LogRecorder(this.context, recorderConfig.getName());
-    final String[] splits = handlers.split(",");
-    for (final String split : splits) {
-      final String[] split1 = split.split(":");
-      if (org.jdkstack.logging.mini.core.context.Constants.N2 == split1.length) {
-        final String levelName = split1[0];
-        final String handlerName = split1[1];
-        logRecorder.addHandlers(levelName, handlerName);
-      } else {
-        logRecorder.addHandlers(recorderConfig.getName(), split);
-      }
-    }
-    // 设置日志级别.  // 如果没有配置,不会继承父,直接使用ROOT.
-    final String minLevel = recorderConfig.getMinLevel();
-    // 设置日志级别.  // 如果没有配置,不会继承父,直接使用ROOT.
-    final String maxLevel = recorderConfig.getMaxLevel();
-    logRecorder.setMinLevel(this.context.findLevel(minLevel));
-    logRecorder.setMaxLevel(this.context.findLevel(maxLevel));
+    final Recorder logRecorder = new LogRecorder(this.context, recorderConfig);
     this.context.addRecorder(recorderConfig.getName(), logRecorder);
   }
 
