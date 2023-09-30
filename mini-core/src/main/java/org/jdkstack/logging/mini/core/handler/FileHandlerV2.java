@@ -8,9 +8,8 @@ import java.nio.charset.Charset;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.codec.Encoder;
+import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.record.Record;
-import org.jdkstack.logging.mini.api.resource.CoFactory;
-import org.jdkstack.logging.mini.core.StartApplication;
 import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
 import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
 
@@ -51,8 +50,8 @@ public class FileHandlerV2 extends AbstractHandler {
    * @param key key.
    * @author admin
    */
-  public FileHandlerV2(final String key) {
-    super(key);
+  public FileHandlerV2(final LogRecorderContext context, final String key) {
+    super(context, key);
   }
 
   /**
@@ -69,9 +68,8 @@ public class FileHandlerV2 extends AbstractHandler {
     if (null == this.randomAccessFile) {
       this.remap();
     }
-    final CoFactory info1 = StartApplication.getBean("configFactory", CoFactory.class);
     // 切换日志文件规则.
-    final String type = info1.getValue(key, "type");
+    final String type = this.context.getValue(this.key).getType();
     // 1.按line切换.
     if (org.jdkstack.logging.mini.core.buffer.Constants.LINES.equals(type)) {
       final int line = this.lines.incrementAndGet();
@@ -84,7 +82,6 @@ public class FileHandlerV2 extends AbstractHandler {
       // 2.按size切换.
     } else {
       final int size = this.sizes.addAndGet(length);
-      final int line = this.lines.incrementAndGet();
       // 100MB切换一次.
       if (org.jdkstack.logging.mini.core.buffer.Constants.SC < size) {
         // 每次切换文件时，都会创建20个对象，这个问题暂时无法解决(对无GC影响很小，但是需要解决才能100%达到无GC要求)。
@@ -113,13 +110,12 @@ public class FileHandlerV2 extends AbstractHandler {
       // 关闭流.
       this.randomAccessFile.close();
     }
-    final CoFactory info1 = StartApplication.getBean("configFactory", CoFactory.class);
     // 重新计算文件名(创建临时对象?应该放到公共的地方.).
     final File dir =
         new File(
-            info1.getValue(key, "directory")
+            this.context.getValue(this.key).getDirectory()
                 + File.separator
-                + info1.getValue(key, "prefix")); // 不存在,创建目录和子目录.
+                + this.context.getValue(this.key).getPrefix());
     if (!dir.exists()) {
       dir.mkdirs();
     }
@@ -139,6 +135,7 @@ public class FileHandlerV2 extends AbstractHandler {
    * @param lr lr.
    * @author admin
    */
+  @Override
   public void consume(final Record lr) throws Exception {
     if (this.filter(lr)) {
       // 格式化日志对象.

@@ -1,5 +1,6 @@
 package org.jdkstack.logging.mini.core.filter;
 
+import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.filter.Filter;
 import org.jdkstack.logging.mini.api.record.Record;
 
@@ -19,7 +20,7 @@ public class LogFilter implements Filter {
    *
    * @author admin
    */
-  public LogFilter() {
+  public LogFilter(final LogRecorderContext context) {
     //
   }
 

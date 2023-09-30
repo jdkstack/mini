@@ -2,12 +2,10 @@ package org.jdkstack.logging.mini.core.recorder;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.jdkstack.logging.mini.api.handler.Handler;
+import org.jdkstack.logging.mini.api.config.RecorderConfig;
+import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.level.Level;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
-import org.jdkstack.logging.mini.api.resource.HaFactory;
-import org.jdkstack.logging.mini.api.resource.LeFactory;
-import org.jdkstack.logging.mini.core.StartApplication;
 
 /**
  * 提供所有日志的方法.
@@ -17,12 +15,9 @@ import org.jdkstack.logging.mini.core.StartApplication;
  * @author admin
  */
 public class LogRecorder implements Recorder {
-
+  
   /** Recorder名字. */
   private final String name;
-
-  /** Recorder类别 . */
-  private final String type;
 
   /** 日志级别处理器 . */
   private final Map<String, String> handlers = new HashMap<>(16);
@@ -33,18 +28,22 @@ public class LogRecorder implements Recorder {
   /** Recorder可以处理最大的日志级别. */
   private Level maxLevel;
 
+  /** 一个LogRecorder有一个LogRecorderConfig配置. 有界数组阻塞队列. */
+  private RecorderConfig recorderConfig;
+
+  private final LogRecorderContext context;
+
   /**
    * .
    *
    * <p>Another description after blank line.
    *
    * @param name name.
-   * @param type type.
    * @author admin
    */
-  public LogRecorder(final String name, final String type) {
+  public LogRecorder(final LogRecorderContext context, final String name) {
+    this.context = context;
     this.name = name;
-    this.type = type;
   }
 
   /**
@@ -58,8 +57,7 @@ public class LogRecorder implements Recorder {
    */
   @Override
   public final boolean doFilter(final String logLevels) {
-    final LeFactory info = StartApplication.getBean("levelFactory", LeFactory.class);
-    return info.doFilter(logLevels, this.maxLevel, this.minLevel);
+    return this.context.doFilter(logLevels, this.maxLevel, this.minLevel);
   }
 
   /**
@@ -73,19 +71,6 @@ public class LogRecorder implements Recorder {
   @Override
   public final String getName() {
     return this.name;
-  }
-
-  /**
-   * .
-   *
-   * <p>Another description after blank line.
-   *
-   * @return String .
-   * @author admin
-   */
-  @Override
-  public final String getType() {
-    return this.type;
   }
 
   /**
@@ -147,11 +132,6 @@ public class LogRecorder implements Recorder {
     this.maxLevel = maxLevel;
   }
 
-  @Override
-  public void log(String logLevel, String datetime, String message, Throwable thrown) {
-    //
-  }
-
   /**
    * This is a method description.
    *
@@ -199,20 +179,9 @@ public class LogRecorder implements Recorder {
       final Object arg7,
       final Object arg8,
       final Object arg9) {
-    // 日志级别是否匹配.
-    if (this.doFilter(logLevel)) {
-      final HaFactory info = StartApplication.getBean("handlerFactory", HaFactory.class);
-      // 日志级别.
-      String handler = this.handlers.get(logLevel);
-      if (null == handler) {
-        // 自己.
-        handler = this.handlers.get(this.name);
-      }
-      Handler handler1 = info.getHandler(handler);
-      handler1.process(
-          logLevel, this.name, dateTime, message, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
-          arg9, null);
-    }
+    this.process(
+        logLevel, this.name, dateTime, message, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
+        arg9, null);
   }
 
   /**
@@ -247,7 +216,6 @@ public class LogRecorder implements Recorder {
    * <p>Another description after blank line.
    *
    * @param logLevel .
-   * @param datetime .
    * @param message .
    * @author admin
    */
@@ -265,20 +233,15 @@ public class LogRecorder implements Recorder {
       final Object arg8,
       final Object arg9,
       final Throwable thrown) {
-    // 日志级别是否匹配.
-    if (this.doFilter(logLevel)) {
-      final HaFactory info = StartApplication.getBean("handlerFactory", HaFactory.class);
-      // 日志级别.
-      String handler = this.handlers.get(logLevel);
-      if (null == handler) {
-        // 自己.
-        handler = this.handlers.get(this.name);
-      }
-      Handler handler1 = info.getHandler(handler);
-      handler1.process(
-          logLevel, this.name, dateTime, message, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
-          arg9, thrown);
-    }
+    this.process(
+        logLevel, this.name, dateTime, message, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
+        arg9, thrown);
+  }
+
+  @Override
+  public void log(
+      final String logLevel, final String datetime, final String message, final Throwable thrown) {
+    //
   }
 
   @Override
@@ -389,11 +352,15 @@ public class LogRecorder implements Recorder {
   }
 
   @Override
-  public final void log(final String logLevel, final String message, final Throwable thrown) {}
+  public final void log(final String logLevel, final String message, final Throwable thrown) {
+    //
+  }
 
   @Override
   public final void log(
-      final String logLevel, final String message, final Object arg1, final Throwable thrown) {}
+      final String logLevel, final String message, final Object arg1, final Throwable thrown) {
+    //
+  }
 
   @Override
   public final void log(
@@ -412,7 +379,9 @@ public class LogRecorder implements Recorder {
       final Object arg1,
       final Object arg2,
       final Object arg3,
-      final Throwable thrown) {}
+      final Throwable thrown) {
+    //
+  }
 
   @Override
   public final void log(
@@ -502,11 +471,15 @@ public class LogRecorder implements Recorder {
   }
 
   @Override
-  public final void log(final String logLevel, final String datetime, final String message) {}
+  public final void log(final String logLevel, final String datetime, final String message) {
+    //
+  }
 
   @Override
   public final void log(
-      final String logLevel, final String datetime, final String message, final Object arg1) {}
+      final String logLevel, final String datetime, final String message, final Object arg1) {
+    //
+  }
 
   @Override
   public final void log(
@@ -514,7 +487,9 @@ public class LogRecorder implements Recorder {
       final String datetime,
       final String message,
       final Object arg1,
-      final Object arg2) {}
+      final Object arg2) {
+    //
+  }
 
   @Override
   public final void log(
@@ -523,7 +498,9 @@ public class LogRecorder implements Recorder {
       final String message,
       final Object arg1,
       final Object arg2,
-      final Object arg3) {}
+      final Object arg3) {
+    //
+  }
 
   @Override
   public final void log(
@@ -533,7 +510,9 @@ public class LogRecorder implements Recorder {
       final Object arg1,
       final Object arg2,
       final Object arg3,
-      final Object arg4) {}
+      final Object arg4) {
+    //
+  }
 
   @Override
   public final void log(
@@ -544,7 +523,9 @@ public class LogRecorder implements Recorder {
       final Object arg2,
       final Object arg3,
       final Object arg4,
-      final Object arg5) {}
+      final Object arg5) {
+    //
+  }
 
   @Override
   public final void log(
@@ -556,7 +537,9 @@ public class LogRecorder implements Recorder {
       final Object arg3,
       final Object arg4,
       final Object arg5,
-      final Object arg6) {}
+      final Object arg6) {
+    //
+  }
 
   @Override
   public final void log(
@@ -569,7 +552,9 @@ public class LogRecorder implements Recorder {
       final Object arg4,
       final Object arg5,
       final Object arg6,
-      final Object arg7) {}
+      final Object arg7) {
+    //
+  }
 
   @Override
   public final void log(
@@ -583,7 +568,9 @@ public class LogRecorder implements Recorder {
       final Object arg5,
       final Object arg6,
       final Object arg7,
-      final Object arg8) {}
+      final Object arg8) {
+    //
+  }
 
   @Override
   public final void log(
@@ -608,7 +595,9 @@ public class LogRecorder implements Recorder {
       final String datetime,
       final String message,
       final Object arg1,
-      final Throwable thrown) {}
+      final Throwable thrown) {
+    //
+  }
 
   @Override
   public final void log(
@@ -617,7 +606,9 @@ public class LogRecorder implements Recorder {
       final String message,
       final Object arg1,
       final Object arg2,
-      final Throwable thrown) {}
+      final Throwable thrown) {
+    //
+  }
 
   @Override
   public final void log(
@@ -627,7 +618,9 @@ public class LogRecorder implements Recorder {
       final Object arg1,
       final Object arg2,
       final Object arg3,
-      final Throwable thrown) {}
+      final Throwable thrown) {
+    //
+  }
 
   @Override
   public final void log(
@@ -638,7 +631,9 @@ public class LogRecorder implements Recorder {
       final Object arg2,
       final Object arg3,
       final Object arg4,
-      final Throwable thrown) {}
+      final Throwable thrown) {
+    //
+  }
 
   @Override
   public final void log(
@@ -650,7 +645,9 @@ public class LogRecorder implements Recorder {
       final Object arg3,
       final Object arg4,
       final Object arg5,
-      final Throwable thrown) {}
+      final Throwable thrown) {
+    //
+  }
 
   @Override
   public final void log(
@@ -663,7 +660,9 @@ public class LogRecorder implements Recorder {
       final Object arg4,
       final Object arg5,
       final Object arg6,
-      final Throwable thrown) {}
+      final Throwable thrown) {
+    //
+  }
 
   @Override
   public final void log(
@@ -677,5 +676,34 @@ public class LogRecorder implements Recorder {
       final Object arg5,
       final Object arg6,
       final Object arg7,
-      final Throwable thrown) {}
+      final Throwable thrown) {
+    //
+  }
+
+  @Override
+  public final void process(
+      final String logLevel,
+      final String className,
+      final String dateTime,
+      final String message,
+      final Object arg1,
+      final Object arg2,
+      final Object arg3,
+      final Object arg4,
+      final Object arg5,
+      final Object arg6,
+      final Object arg7,
+      final Object arg8,
+      final Object arg9,
+      final Throwable thrown) {
+    // 日志级别是否匹配.
+    if (this.doFilter(logLevel)) {
+      // 生产.
+      this.context.produce(
+          logLevel, dateTime, message, className, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
+          arg9, null);
+      // 消费.
+      this.context.consume();
+    }
+  }
 }

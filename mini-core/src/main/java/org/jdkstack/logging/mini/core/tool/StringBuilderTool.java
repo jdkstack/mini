@@ -9,6 +9,10 @@ package org.jdkstack.logging.mini.core.tool;
  */
 public class StringBuilderTool {
 
+  private StringBuilderTool() {
+    //
+  }
+
   public static void unbox(final StringBuilder sb, final Object arg) {
     if (arg == null) {
       //

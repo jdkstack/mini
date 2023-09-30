@@ -2,6 +2,7 @@ package org.jdkstack.logging.mini.core.formatter;
 
 import java.nio.Buffer;
 import java.nio.CharBuffer;
+import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.core.codec.Constants;
@@ -25,10 +26,10 @@ public final class LogJsonFormatter implements Formatter {
    *
    * @author admin
    */
-  public LogJsonFormatter() {
+  public LogJsonFormatter(final LogRecorderContext context) {
     //
   }
-  
+
   /**
    * 日志记录对象Record转成Json格式.
    *
@@ -73,39 +74,77 @@ public final class LogJsonFormatter implements Formatter {
     final int position = CHARBUF.position();
     dateTime.getChars(0, dateTime.length(), CHARBUF.array(), position);
     CHARBUF.position(position + dateTime.length());
+    // 日志级别.
     CHARBUF.append('"');
     CHARBUF.append(',');
     CHARBUF.append("\"levelName\"");
     CHARBUF.append(':');
-    // 日志级别.
     CHARBUF.append('"');
     CHARBUF.append(logRecord.getLevelName());
+    // hostName.
+    CHARBUF.append('"');
+    CHARBUF.append(',');
+    CHARBUF.append("\"hostName\"");
+    CHARBUF.append(':');
+    CHARBUF.append('"');
+    CHARBUF.append(logRecord.getHostName());
+    // appName.
+    CHARBUF.append('"');
+    CHARBUF.append(',');
+    CHARBUF.append("\"appName\"");
+    CHARBUF.append(':');
+    CHARBUF.append('"');
+    CHARBUF.append(logRecord.getAppName());
+    // ip.
+    CHARBUF.append('"');
+    CHARBUF.append(',');
+    CHARBUF.append("\"ip\"");
+    CHARBUF.append(':');
+    CHARBUF.append('"');
+    CHARBUF.append(logRecord.getIp());
+    // port.
+    CHARBUF.append('"');
+    CHARBUF.append(',');
+    CHARBUF.append("\"port\"");
+    CHARBUF.append(':');
+    CHARBUF.append('"');
+    CHARBUF.append(logRecord.getPort());
+    // 进程id.
+    CHARBUF.append('"');
+    CHARBUF.append(',');
+    CHARBUF.append("\"pid\"");
+    CHARBUF.append(':');
+    CHARBUF.append('"');
+    final StringBuilder pid = logRecord.getPid();
+    final int position2 = CHARBUF.position();
+    pid.getChars(0, pid.length(), CHARBUF.array(), position2);
+    CHARBUF.position(position2 + pid.length());
+    // 线程名.
     CHARBUF.append('"');
     CHARBUF.append(',');
     CHARBUF.append("\"threadName\"");
     CHARBUF.append(':');
-    // 线程名.
     CHARBUF.append('"');
     CHARBUF.append(Thread.currentThread().getName());
+    // 类.
     CHARBUF.append('"');
     CHARBUF.append(',');
     CHARBUF.append("\"className\"");
     CHARBUF.append(':');
-    // 类.
     CHARBUF.append('"');
     CHARBUF.append(logRecord.getClassName());
+    // 日志对象中的消息字段.
     CHARBUF.append('"');
     CHARBUF.append(',');
     CHARBUF.append("\"message\"");
     CHARBUF.append(':');
-    // 日志对象中的消息字段.
     CHARBUF.append('"');
     final StringBuilder format = logRecord.getMessageText();
     final int position1 = CHARBUF.position();
     format.getChars(0, format.length(), CHARBUF.array(), position1);
     CHARBUF.position(position1 + format.length());
-    CHARBUF.append('"');
     // 日志对象中的异常堆栈信息.
+    CHARBUF.append('"');
     final Throwable thrown = logRecord.getThrowable();
     if (null != thrown) {
       CHARBUF.append(',');

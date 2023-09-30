@@ -2,7 +2,6 @@ package org.jdkstack.logging.mini.core.ringbuffer;
 
 import java.util.Arrays;
 import org.jdkstack.logging.mini.api.ringbuffer.RingBuffer;
-import org.jdkstack.ringbuffer.core.Power2;
 
 /**
  * This is a method description.

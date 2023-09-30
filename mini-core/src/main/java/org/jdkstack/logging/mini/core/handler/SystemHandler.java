@@ -14,11 +14,12 @@ import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
 import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
 import org.jdkstack.logging.mini.core.datetime.DateTimeEncoder;
+import org.jdkstack.logging.mini.core.datetime.TimeZone;
 import org.jdkstack.logging.mini.core.filter.LogFilter;
 import org.jdkstack.logging.mini.core.formatter.LogFormatterV2;
 import org.jdkstack.logging.mini.core.formatter.LogJsonFormatter;
 import org.jdkstack.logging.mini.core.record.RecordEventFactory;
-import org.jdkstack.ringbuffer.core.mpmc.version3.MpmcBlockingQueueV3;
+import org.jdkstack.logging.mini.core.ringbuffer.MpmcBlockingQueueV3;
 
 /**
  * 写文件(内部使用).
@@ -29,26 +30,14 @@ import org.jdkstack.ringbuffer.core.mpmc.version3.MpmcBlockingQueueV3;
  */
 public class SystemHandler {
   /** 内部使用固定的格式化. */
-  private final Formatter logJsonFormatter = new LogJsonFormatter();
+  private final Formatter logJsonFormatter = new LogJsonFormatter(null);
 
   /** 内部使用固定的过滤器. */
-  private final Filter filter = new LogFilter();
+  private final Filter filter = new LogFilter(null);
 
   /** 有界数组阻塞队列. */
   private final MpmcBlockingQueueV3<Record> queue =
       new MpmcBlockingQueueV3<>(Constants.CAPACITY, new RecordEventFactory<>());
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param key key.
-   * @author admin
-   */
-  public SystemHandler(String key) {
-    //
-  }
 
   /** 按照文件大小切割. */
   private final AtomicInteger sizes = new AtomicInteger(0);
@@ -72,6 +61,18 @@ public class SystemHandler {
   private RandomAccessFile randomAccessFile;
 
   /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param key key.
+   * @author admin
+   */
+  public SystemHandler(final String key) {
+    //
+  }
+
+  /**
    * 切换文件的条件.
    *
    * <p>文件行数,文件大小,日期时间.
@@ -80,7 +81,7 @@ public class SystemHandler {
    * @param length length.
    * @author admin
    */
-  public void rules(final Record lr, final int length) throws Exception {
+  public final void rules(final Record lr, final int length) throws Exception {
     if (null == this.randomAccessFile) {
       this.remap();
     }
@@ -99,7 +100,7 @@ public class SystemHandler {
    *
    * @author admin
    */
-  public void remap() throws Exception {
+  public final void remap() throws Exception {
     // 关闭流.
     if (null != this.randomAccessFile) {
       // 刷数据.
@@ -131,7 +132,7 @@ public class SystemHandler {
    * @param lr lr.
    * @author admin
    */
-  public void consume(final Record lr) throws Exception {
+  public final void consume(final Record lr) throws Exception {
     if (this.filter.doFilter(lr)) {
       // 格式化日志对象.
       final CharBuffer logMessage = (CharBuffer) this.logJsonFormatter.format(lr);
@@ -159,26 +160,26 @@ public class SystemHandler {
    *
    * @author admin
    */
-  public void flush() throws Exception {
+  public final void flush() throws Exception {
     this.destination.flush();
   }
 
-  public void produce(
-      final String logLevel,
-      final String dateTime,
-      final String message,
-      final String className,
-      final Object arg1,
-      final Object arg2,
-      final Object arg3,
-      final Object arg4,
-      final Object arg5,
-      final Object arg6,
-      final Object arg7,
-      final Object arg8,
-      final Object arg9,
-      final Throwable thrown,
-      final Record lr) {
+  public final void produce(
+          final String logLevel,
+          final String dateTime,
+          final String message,
+          final String className,
+          final Object arg1,
+          final Object arg2,
+          final Object arg3,
+          final Object arg4,
+          final Object arg5,
+          final Object arg6,
+          final Object arg7,
+          final Object arg8,
+          final Object arg9,
+          final Throwable thrown,
+          final Record lr) {
     // 设置日志级别.
     lr.setLevel(logLevel);
     // 设置日志日期时间.
@@ -188,7 +189,7 @@ public class SystemHandler {
       // 系统当前的时间戳.
       final long current = System.currentTimeMillis();
       // 使用固定时区+8:00(8小时x3600秒).
-      DateTimeEncoder.encoder(event, current, 8 * 3600);
+      DateTimeEncoder.encoder(event, current, TimeZone.EAST8);
     } else {
       // 不处理参数传递过来的日期时间.
       event.append(dateTime);
@@ -211,21 +212,21 @@ public class SystemHandler {
     lr.setThrown(thrown);
   }
 
-  public void process(
-      final String logLevel,
-      final String system,
-      final String datetime,
-      final String message,
-      final Object arg1,
-      final Object arg2,
-      final Object arg3,
-      final Object arg4,
-      final Object arg5,
-      final Object arg6,
-      final Object arg7,
-      final Object arg8,
-      final Object arg9,
-      final Throwable thrown) {
+  public final void process(
+          final String logLevel,
+          final String system,
+          final String datetime,
+          final String message,
+          final Object arg1,
+          final Object arg2,
+          final Object arg3,
+          final Object arg4,
+          final Object arg5,
+          final Object arg6,
+          final Object arg7,
+          final Object arg8,
+          final Object arg9,
+          final Throwable thrown) {
     // 单线程生产(向RingBuffer队列中生产).
     try {
       // 1.预生产(从循环队列tail取一个元素对象).

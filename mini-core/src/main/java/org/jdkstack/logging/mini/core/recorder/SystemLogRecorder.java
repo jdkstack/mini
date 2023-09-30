@@ -10,13 +10,9 @@ import org.jdkstack.logging.mini.core.handler.SystemHandler;
  * @author admin
  */
 public class SystemLogRecorder {
-  private static final SystemLogRecorder SYSTEM_LOG_RECORDER = new SystemLogRecorder("system", "");
+  private static final SystemLogRecorder SYSTEM_LOG_RECORDER = new SystemLogRecorder("system");
 
   private final SystemHandler systemHandler = new SystemHandler("system");
-
-  public static SystemLogRecorder getLogger() {
-    return SYSTEM_LOG_RECORDER;
-  }
 
   /**
    * .
@@ -24,11 +20,14 @@ public class SystemLogRecorder {
    * <p>Another description after blank line.
    *
    * @param name name.
-   * @param type type.
    * @author admin
    */
-  public SystemLogRecorder(String name, String type) {
-    // super(name, type);
+  public SystemLogRecorder(final String name) {
+    //
+  }
+
+  public static SystemLogRecorder getSystemRecorder() {
+    return SYSTEM_LOG_RECORDER;
   }
 
   /**

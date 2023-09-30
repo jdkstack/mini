@@ -1,6 +1,5 @@
 package test;
 
-import static org.jdkstack.logging.mini.core.tool.StringBuilderPool.box;
 
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
@@ -15,7 +14,7 @@ public class Examples {
   private static final Recorder LOG = LogFactory.getLog(Examples.class);
 
   /** 内部使用,用来记录日志. */
-  private static final SystemLogRecorder SYSTEM = SystemLogRecorder.getLogger();
+  private static final SystemLogRecorder SYSTEM = SystemLogRecorder.getSystemRecorder();
 
   public static void main(final String[] args) throws Exception {
 

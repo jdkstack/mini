@@ -33,6 +33,8 @@ public final class Constants {
   /** . */
   public static final String SEPARATOR = "-";
 
+  public static final long OFFSET = 8 * 3600L;
+
   private Constants() {
     //
   }

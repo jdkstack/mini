@@ -46,30 +46,4 @@ public interface Handler {
   void consume(final Record lr) throws Exception;
 
   Buffer format(Record logRecord);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param dateTime .
-   * @param logLevel .
-   * @param message .
-   * @author admin
-   */
-  void process(
-      final String logLevel,
-      final String className,
-      final String dateTime,
-      final String message,
-      final Object arg1,
-      final Object arg2,
-      final Object arg3,
-      final Object arg4,
-      final Object arg5,
-      final Object arg6,
-      final Object arg7,
-      final Object arg8,
-      final Object arg9,
-      final Throwable thrown);
 }

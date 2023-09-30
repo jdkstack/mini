@@ -9,6 +9,7 @@ import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.codec.Encoder;
+import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
 import org.jdkstack.logging.mini.core.codec.Constants;
@@ -42,8 +43,8 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
    * @param key key.
    * @author admin
    */
-  public MmapFileHandlerV2(final String key) {
-    super(key);
+  public MmapFileHandlerV2(final LogRecorderContext context, final String key) {
+    super(context, key);
   }
 
   /**
@@ -56,7 +57,7 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
    * @author admin
    */
   @Override
-  public void rules(final Record lr, final int length) throws Exception {
+  public final void rules(final Record lr, final int length) throws Exception {
     if (null == this.mappedBuffer) {
       this.remap();
     }
@@ -107,7 +108,7 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
    * @author admin
    */
   @Override
-  public void consume(final Record lr) throws Exception {
+  public final void consume(final Record lr) throws Exception {
     if (this.filter(lr)) {
       // 格式化日志对象.
       final CharBuffer logMessage = (CharBuffer) this.format(lr);
@@ -116,10 +117,6 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
       // 写入临时数组.
       // 将数据写入缓存.
       this.charBuf.put(logMessage.array(), logMessage.arrayOffset(), logMessage.remaining());
-      // 结束读取的位置.
-      // this.charBuf.limit(logMessage.length());
-      // 开始读取的位置.
-      // this.charBuf.position(0);
       this.charBuf.flip();
       // 切换规则.
       this.rules(lr, this.charBuf.remaining());
@@ -138,7 +135,7 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
    * @author admin
    */
   @Override
-  public void flush() throws Exception {
+  public final void flush() throws Exception {
     this.destination.flush();
   }
 }

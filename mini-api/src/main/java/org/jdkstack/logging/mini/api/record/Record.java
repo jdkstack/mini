@@ -1,6 +1,7 @@
 package org.jdkstack.logging.mini.api.record;
 
 import java.util.Map;
+import org.jdkstack.logging.mini.api.recorder.Recorder;
 
 /**
  * This is a class description.
@@ -10,6 +11,10 @@ import java.util.Map;
  * @author admin
  */
 public interface Record {
+
+  Recorder getRecorder();
+
+  void setRecorder(Recorder recorder);
 
   Object[] getParams();
 
@@ -332,4 +337,14 @@ public interface Record {
   StringBuilder getMessageText();
 
   void clear();
+
+  StringBuilder getPid();
+
+  String getAppName();
+
+  String getHostName();
+
+  String getIp();
+
+  String getPort();
 }

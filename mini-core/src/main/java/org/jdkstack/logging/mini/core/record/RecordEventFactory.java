@@ -1,6 +1,6 @@
 package org.jdkstack.logging.mini.core.record;
 
-import org.jdkstack.ringbuffer.core.EventFactory;
+import org.jdkstack.logging.mini.api.ringbuffer.EventFactory;
 
 /**
  * .

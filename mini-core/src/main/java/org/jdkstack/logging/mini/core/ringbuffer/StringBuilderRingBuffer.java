@@ -1,7 +1,6 @@
 package org.jdkstack.logging.mini.core.ringbuffer;
 
 import org.jdkstack.logging.mini.api.ringbuffer.RingBuffer;
-import org.jdkstack.ringbuffer.core.Power2;
 
 /**
  * StringBuilder环形数组，用来缓存StringBuilder.
