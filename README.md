@@ -11,44 +11,15 @@
 ```java
 mini-api (接口)
 mini-core (实现)
---org.jdkstack.bean.core (bean类管理)
---org.jdkstack.logging.mini.core (日志)
---org.jdkstack.pool.core (线程池)
---org.jdkstack.ringbuffer.core (无锁队列)
 mini-extension (扩展)
-```
-
-openJdk版本:
-
-```java
-java -version
-openjdk version "11" 2018-09-25
-OpenJDK Runtime Environment 18.9 (build 11+28)
-OpenJDK 64-Bit Server VM 18.9 (build 11+28, mixed mode)
-```
-
-例子:
-
-```java
-import static org.jdkstack.logging.mini.core.tool.StringBuilderPool.box;
-import org.jdkstack.logging.mini.api.recorder.Recorder;
-import org.jdkstack.logging.mini.core.factory.LogFactory;
-import org.jdkstack.logging.mini.core.level.Constants;
-
-public class Examples {
-    private static final Recorder LOG = LogFactory.getLog(Examples.class);
-
-    public static void main(String[] args) {
-        for (; ; ) {
-            long currentTimeMillis = System.currentTimeMillis();
-            LOG.log(Constants.INFO, "测试1{}测试2{}测试3{}测试4{}测试5{}测试6{}测试7{}测试8{}测试9{}.", box(currentTimeMillis), box(2), "3", box(4D), "5", "6", box(7F), box(8), "9");
-            LOG.log(Constants.FATAL, "2023-09-21","测试1{}测试2{}测试3{}测试4{}测试5{}测试6{}测试7{}测试8{}测试9{}.", "1L", "2", "3", "4D", "5", "6", "7F", "8", "9");
-        }
-    }
-}
+mini-examples (例子)
+mini-jmh (测试)
 ```
 
 执行main方法时，指定jvm 参数，gc日志会输出到控制台：
+
+使用G1GC：
+
 -Xmx32m -Xmx32m -Xlog:gc*
 
 日志存储目录路径：
@@ -64,6 +35,10 @@ public class Examples {
 
 也可以借助jmap -histo pid来观察jvm对象的数量，内存的大小。
 
-注意，日志库本身不会发生GC，如果你的项目引入了这个日志库，项目自身GC问题，日志库无法左右。
+注意:
 
-项目自身创建的对象过多，达到jvm GC算法阈值，一定会发生GC。
+日志库本身不会产生临时对象，当GC线程执行回收临时对象时，收集很快，最大限度的减轻GC的负担。
+
+因为没有临时对象创建，即使GC线程一直处于运行中，但是因为不满足回收条件，并不会触发GC回收的动作。
+
+GC-F(GarbageCollection-free)，无GC的意思是没有可以回收的垃圾，并不是让GC线程停止，GC线程一直在运行中。

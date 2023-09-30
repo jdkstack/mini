@@ -1,0 +1,177 @@
+<mxfile host="app.diagrams.net" modified="2023-09-29T12:13:13.079Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="o0EF4cOVjmhH5FjYoX67" version="22.0.0" type="device">
+  <diagram name="第 1 页" id="kOfGwksDmW1WBxVGq2CK">
+    <mxGraphModel dx="1674" dy="788" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-62" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=50;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="280" y="656" width="534" height="534" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-1" value="Recorder" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" vertex="1" parent="1">
+          <mxGeometry x="80" y="480" width="200" height="178" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-16" value="&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;context变量&lt;br&gt;&lt;br&gt;一系列log()方法，&lt;br&gt;方法内部使用&lt;br&gt;context调用&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;produce()从RingBuffer&lt;br&gt;获取对象并插入日志数据&lt;br&gt;consume()从RingBuffer&lt;br&gt;获取对象并消费日志数据" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontFamily=Helvetica;fontColor=default;" vertex="1" parent="rtjZQCRfoitC_tjwrBkh-1">
+          <mxGeometry x="15" y="-52" width="160" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-39" value="" style="edgeStyle=elbowEdgeStyle;elbow=horizontal;endArrow=classic;html=1;curved=0;rounded=0;endSize=8;startSize=8;fontFamily=Helvetica;fontSize=12;fontColor=default;" edge="1" parent="rtjZQCRfoitC_tjwrBkh-1" source="rtjZQCRfoitC_tjwrBkh-32">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="547.97" y="-26.970000000000027" as="sourcePoint" />
+            <mxPoint x="200" y="160" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="542.97" y="73.02999999999997" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-2" value="&lt;div style=&quot;background-color:#2b2b2b;color:#a9b7c6&quot;&gt;&lt;pre style=&quot;font-family:&#39;Arial Black&#39;;font-size:15.0pt;&quot;&gt;ContextFactory&lt;/pre&gt;&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" vertex="1" parent="1">
+          <mxGeometry x="80" y="40" width="230" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-9" value="引用上下文对象,间接，&lt;br&gt;可以引用上下文对象的&lt;br&gt;所有方法" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontFamily=Helvetica;fontColor=default;" vertex="1" parent="rtjZQCRfoitC_tjwrBkh-2">
+          <mxGeometry x="35" y="50" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-3" value="&lt;div style=&quot;background-color:#2b2b2b;color:#a9b7c6&quot;&gt;&lt;pre style=&quot;font-family:&#39;Arial Black&#39;;font-size:15.0pt;&quot;&gt;Context&lt;/pre&gt;&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=40;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="514" y="37.5" width="200" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-5" value="&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;crud Recorder&lt;br&gt;crud Filter&lt;br&gt;crud Handler&lt;br&gt;crud Level&lt;br&gt;crud Formater&lt;br&gt;&lt;br&gt;consume()&lt;br&gt;produce()" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontFamily=Helvetica;fontColor=default;" vertex="1" parent="rtjZQCRfoitC_tjwrBkh-3">
+          <mxGeometry x="45" width="100" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-4" value="&lt;div style=&quot;background-color:#2b2b2b;color:#a9b7c6&quot;&gt;&lt;pre style=&quot;font-family:&#39;Arial Black&#39;;font-size:15.0pt;&quot;&gt;LogFactory&lt;/pre&gt;&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=40;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="80" y="260" width="200" height="128" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-13" value="getRecorder(最终引用Context&lt;br&gt;中的addRecorder方法)&lt;br&gt;返回一个Recorder对象，&lt;br&gt;并将当前的Conttext对象&lt;br&gt;放入Recorder中" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontFamily=Helvetica;fontColor=default;" vertex="1" parent="rtjZQCRfoitC_tjwrBkh-4">
+          <mxGeometry y="38" width="180" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-7" value="" style="endArrow=classic;html=1;rounded=0;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=50;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="120" as="sourcePoint" />
+            <mxPoint x="310" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-8" value="一个工厂对象引用一个上下文对象" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontFamily=Helvetica;fontColor=default;" vertex="1" parent="1">
+          <mxGeometry x="314" y="80" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-10" value="RingBuffer" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=50;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="330" y="280" width="150" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-11" value="" style="endArrow=classic;html=1;rounded=0;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=50;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" target="rtjZQCRfoitC_tjwrBkh-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="180" y="170" as="sourcePoint" />
+            <mxPoint x="540" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-12" value="一个LogFactory引用一个上下文工厂对象" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontFamily=Helvetica;fontColor=default;" vertex="1" parent="1">
+          <mxGeometry x="70" y="207.5" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-14" value="" style="endArrow=classic;html=1;rounded=0;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=50;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="rtjZQCRfoitC_tjwrBkh-4" target="rtjZQCRfoitC_tjwrBkh-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="490" y="320" as="sourcePoint" />
+            <mxPoint x="540" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-29" value="LogRecord" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=1;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};strokeColor=default;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=50;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="590" y="270" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-30" value="" style="edgeStyle=entityRelationEdgeStyle;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;rounded=0;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=50;exitX=0.94;exitY=0.273;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" target="rtjZQCRfoitC_tjwrBkh-29" parent="1" source="rtjZQCRfoitC_tjwrBkh-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="500" y="320" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-32" value="LogRecord" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=1;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};strokeColor=default;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=50;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="570" y="388" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-33" value="" style="edgeStyle=entityRelationEdgeStyle;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;rounded=0;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=50;" edge="1" target="rtjZQCRfoitC_tjwrBkh-32" parent="1" source="rtjZQCRfoitC_tjwrBkh-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="510" y="390" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="480" y="380" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-34" value="LogRecord" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=1;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};strokeColor=default;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=50;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="340" y="470" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-35" value="" style="edgeStyle=entityRelationEdgeStyle;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;rounded=0;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=50;exitX=0.62;exitY=0.98;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" target="rtjZQCRfoitC_tjwrBkh-34" source="rtjZQCRfoitC_tjwrBkh-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="453" y="447" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-38" value="从RingBuffer中取出一个对象&lt;br&gt;将数据塞入LogRecord对象中，&lt;br&gt;并通知RingBuffer当前对象生产数据&lt;br&gt;完成，可以读取数据。" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontFamily=Helvetica;fontColor=default;" vertex="1" parent="1">
+          <mxGeometry x="300" y="510" width="210" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-37" value="" style="edgeStyle=elbowEdgeStyle;elbow=horizontal;endArrow=classic;html=1;curved=0;rounded=0;endSize=8;startSize=8;fontFamily=Helvetica;fontSize=12;fontColor=default;" edge="1" parent="1" source="rtjZQCRfoitC_tjwrBkh-34">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="360" y="500" as="sourcePoint" />
+            <mxPoint x="280" y="610" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-40" value="从RingBuffer中取出一&lt;br&gt;个对象，并从对象中取出&lt;br&gt;数据，并通知RingBuffer，&lt;br&gt;数据消费已经完成，可以生产。" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontFamily=Helvetica;fontColor=default;" vertex="1" parent="1">
+          <mxGeometry x="535" y="498" width="190" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-43" value="RecorderConfig" style="swimlane;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=50;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="80" y="760" width="200" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-45" value="Handler引用&lt;br&gt;Filter引用&lt;br&gt;Level引用" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontFamily=Helvetica;fontColor=default;" vertex="1" parent="rtjZQCRfoitC_tjwrBkh-43">
+          <mxGeometry x="45" y="60" width="90" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-44" value="" style="endArrow=classic;html=1;rounded=0;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=50;entryX=0.625;entryY=1.026;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="rtjZQCRfoitC_tjwrBkh-43">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="178.25" y="764.02" as="sourcePoint" />
+            <mxPoint x="181.75" y="658" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-46" value="Handler" style="swimlane;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=50;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="447" y="700" width="200" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-51" value="Filter引用&lt;br&gt;Formater引用&lt;br&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontFamily=Helvetica;fontColor=default;" vertex="1" parent="rtjZQCRfoitC_tjwrBkh-46">
+          <mxGeometry x="40" y="60" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-47" value="Filter" style="swimlane;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=50;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="560" y="830" width="200" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-48" value="Formater" style="swimlane;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=50;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="560" y="970" width="200" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-49" value="Level" style="swimlane;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=50;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="340" y="960" width="200" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-52" value="" style="endArrow=classic;html=1;rounded=0;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=50;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" edge="1" parent="1" source="rtjZQCRfoitC_tjwrBkh-46">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="650" y="820" as="sourcePoint" />
+            <mxPoint x="280" y="840" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-53" value="" style="endArrow=classic;html=1;rounded=0;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=50;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="560" y="940" as="sourcePoint" />
+            <mxPoint x="280" y="860" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-54" value="" style="endArrow=classic;html=1;rounded=0;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=50;" edge="1" parent="1" source="rtjZQCRfoitC_tjwrBkh-48">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="650" y="820" as="sourcePoint" />
+            <mxPoint x="280" y="890" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-55" value="" style="endArrow=classic;html=1;rounded=0;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=50;entryX=0.75;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="rtjZQCRfoitC_tjwrBkh-49" target="rtjZQCRfoitC_tjwrBkh-43">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="650" y="820" as="sourcePoint" />
+            <mxPoint x="700" y="770" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-56" value="引用一个name，而不是对象，&lt;br&gt;当需要对象时，从context中获取。" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontFamily=Helvetica;fontColor=default;" vertex="1" parent="1">
+          <mxGeometry x="300" y="900" width="210" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-57" value="" style="endArrow=classic;html=1;rounded=0;fontFamily=Helvetica;fontSize=12;fontColor=default;startSize=50;exitX=1;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="rtjZQCRfoitC_tjwrBkh-62">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="650" y="420" as="sourcePoint" />
+            <mxPoint x="710" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rtjZQCRfoitC_tjwrBkh-64" value="引用对象&lt;br&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;fontFamily=Helvetica;fontColor=default;" vertex="1" connectable="0" parent="rtjZQCRfoitC_tjwrBkh-57">
+          <mxGeometry x="-0.0608" y="-2" relative="1" as="geometry">
+            <mxPoint x="-1" y="-42" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
