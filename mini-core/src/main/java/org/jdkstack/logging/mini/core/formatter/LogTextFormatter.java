@@ -2,6 +2,8 @@ package org.jdkstack.logging.mini.core.formatter;
 
 import java.nio.Buffer;
 import java.nio.CharBuffer;
+
+import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.record.Record;
 
@@ -23,7 +25,7 @@ public final class LogTextFormatter implements Formatter {
    *
    * @author admin
    */
-  public LogTextFormatter() {
+  public LogTextFormatter(final LogRecorderContext context) {
     //
   }
 

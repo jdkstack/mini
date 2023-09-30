@@ -43,7 +43,7 @@ public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory
     // 默认Formatter。
     final Formatter logJsonFormatter = new LogJsonFormatter(this.context);
     this.addFormatter("logJsonFormatter", logJsonFormatter);
-    final Formatter logTextFormatter = new LogTextFormatter();
+    final Formatter logTextFormatter = new LogTextFormatter(this.context);
     this.addFormatter("logTextFormatter", logTextFormatter);
     // 默认FileHandler。
     final Handler fileHandlerV2 = new FileHandlerV2(this.context, "default");
