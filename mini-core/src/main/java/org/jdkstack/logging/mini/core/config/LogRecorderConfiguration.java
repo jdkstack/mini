@@ -17,7 +17,7 @@ import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.core.level.Constants;
 import org.jdkstack.logging.mini.core.level.LogLevel;
 
-public class LogRecorderConfiguration extends AbstractConfiguration implements Configuration {
+public class LogRecorderConfiguration implements Configuration {
 
   private final Lock configLock = new ReentrantLock();
 
