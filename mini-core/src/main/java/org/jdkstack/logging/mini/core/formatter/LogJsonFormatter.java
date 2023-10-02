@@ -26,6 +26,17 @@ public final class LogJsonFormatter implements Formatter {
    *
    * @author admin
    */
+  public LogJsonFormatter() {
+    //
+  }
+
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @author admin
+   */
   public LogJsonFormatter(final LogRecorderContext context) {
     //
   }

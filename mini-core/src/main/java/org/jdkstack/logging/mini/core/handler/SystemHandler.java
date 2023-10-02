@@ -15,7 +15,7 @@ import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
 import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
 import org.jdkstack.logging.mini.core.datetime.DateTimeEncoder;
 import org.jdkstack.logging.mini.core.datetime.TimeZone;
-import org.jdkstack.logging.mini.core.filter.RecorderFilter;
+import org.jdkstack.logging.mini.core.filter.SystemFilter;
 import org.jdkstack.logging.mini.core.formatter.LogFormatterV2;
 import org.jdkstack.logging.mini.core.formatter.LogJsonFormatter;
 import org.jdkstack.logging.mini.core.record.RecordEventFactory;
@@ -30,17 +30,14 @@ import org.jdkstack.logging.mini.core.ringbuffer.MpmcBlockingQueueV3;
  */
 public class SystemHandler {
   /** 内部使用固定的格式化. */
-  private final Formatter logJsonFormatter = new LogJsonFormatter(null);
+  private final Formatter logJsonFormatter = new LogJsonFormatter();
 
   /** 内部使用固定的过滤器. */
-  private final Filter filter = new RecorderFilter(null, null);
+  private final Filter filter = new SystemFilter();
 
   /** 有界数组阻塞队列. */
   private final MpmcBlockingQueueV3<Record> queue =
       new MpmcBlockingQueueV3<>(Constants.CAPACITY, new RecordEventFactory<>());
-
-  /** 按照文件大小切割. */
-  private final AtomicInteger sizes = new AtomicInteger(0);
 
   /** 按照文件条数切割. */
   private final AtomicInteger lines = new AtomicInteger(0);
@@ -55,7 +52,7 @@ public class SystemHandler {
   private final ByteWriter destination = new ByteArrayWriter();
 
   /** . */
-  protected FileChannel channel;
+  private FileChannel channel;
 
   /** . */
   private RandomAccessFile randomAccessFile;
@@ -81,7 +78,7 @@ public class SystemHandler {
    * @param length length.
    * @author admin
    */
-  public final void rules(final Record lr, final int length) throws Exception {
+  private final void rules(final Record lr, final int length) throws Exception {
     if (null == this.randomAccessFile) {
       this.remap();
     }
@@ -100,7 +97,7 @@ public class SystemHandler {
    *
    * @author admin
    */
-  public final void remap() throws Exception {
+  private final void remap() throws Exception {
     // 关闭流.
     if (null != this.randomAccessFile) {
       // 刷数据.
@@ -132,7 +129,7 @@ public class SystemHandler {
    * @param lr lr.
    * @author admin
    */
-  public final void consume(final Record lr) throws Exception {
+  private final void consume(final Record lr) throws Exception {
     if (this.filter.doFilter(lr)) {
       // 格式化日志对象.
       final CharBuffer logMessage = (CharBuffer) this.logJsonFormatter.format(lr);
@@ -160,11 +157,11 @@ public class SystemHandler {
    *
    * @author admin
    */
-  public final void flush() throws Exception {
+  private final void flush() throws Exception {
     this.destination.flush();
   }
 
-  public final void produce(
+  private final void produce(
           final String logLevel,
           final String dateTime,
           final String message,

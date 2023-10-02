@@ -1,6 +1,5 @@
 package org.jdkstack.logging.mini.core.filter;
 
-import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.filter.Filter;
 import org.jdkstack.logging.mini.api.record.Record;
 
@@ -11,10 +10,7 @@ import org.jdkstack.logging.mini.api.record.Record;
  *
  * @author admin
  */
-public class RecorderFilter implements Filter {
-
-  /** . */
-  private final String key;
+public class SystemFilter implements Filter {
 
   /**
    * This is a method description.
@@ -23,8 +19,8 @@ public class RecorderFilter implements Filter {
    *
    * @author admin
    */
-  public RecorderFilter(final LogRecorderContext context, final String key) {
-    this.key = key;
+  public SystemFilter() {
+    //
   }
 
   /**

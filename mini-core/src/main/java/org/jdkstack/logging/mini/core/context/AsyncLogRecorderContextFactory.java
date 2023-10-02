@@ -10,7 +10,6 @@ import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.core.config.LogRecorderConfig;
 import org.jdkstack.logging.mini.core.filter.HandlerConsumeFilter;
 import org.jdkstack.logging.mini.core.filter.HandlerProduceFilter;
-import org.jdkstack.logging.mini.core.filter.RecorderFilter;
 import org.jdkstack.logging.mini.core.formatter.LogJsonFormatter;
 import org.jdkstack.logging.mini.core.formatter.LogTextFormatter;
 import org.jdkstack.logging.mini.core.handler.FileHandlerV2;
@@ -43,9 +42,6 @@ public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory
     this.addLogRecorderConfig("default", recorderConfig);
     // 默认Recorder。
     this.addRecorder(recorderConfig);
-    // 默认Filter。
-    final Filter filter = new RecorderFilter(this.context, "default");
-    this.addFilter("recorderFilter", filter);
     // 默认Filter。
     final Filter handlerConsumeFilter = new HandlerConsumeFilter(this.context, "default");
     this.addFilter("handlerConsumeFilter", handlerConsumeFilter);

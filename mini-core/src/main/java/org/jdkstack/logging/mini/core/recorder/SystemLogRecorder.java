@@ -22,7 +22,7 @@ public class SystemLogRecorder {
    * @param name name.
    * @author admin
    */
-  public SystemLogRecorder(final String name) {
+  private SystemLogRecorder(final String name) {
     //
   }
 

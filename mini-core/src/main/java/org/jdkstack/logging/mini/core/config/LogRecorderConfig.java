@@ -31,9 +31,6 @@ public class LogRecorderConfig implements RecorderConfig {
   private final String formatter = "logJsonFormatter";
 
   /** . */
-  private final String filter = "recorderFilter";
-
-  /** . */
   private String handlers = Constants.DEFAULT;
 
   /** . */
@@ -118,11 +115,6 @@ public class LogRecorderConfig implements RecorderConfig {
   @Override
   public final String getFormatter() {
     return this.formatter;
-  }
-
-  @Override
-  public final String getFilter() {
-    return this.filter;
   }
 
   @Override

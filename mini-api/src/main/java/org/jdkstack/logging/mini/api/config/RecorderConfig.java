@@ -32,8 +32,6 @@ public interface RecorderConfig {
 
   String getFormatter();
 
-  String getFilter();
-
   void setName(String name);
 
   String getHandlers();

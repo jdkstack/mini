@@ -2,7 +2,6 @@ package org.jdkstack.logging.mini.core.formatter;
 
 import java.nio.Buffer;
 import java.nio.CharBuffer;
-
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.record.Record;
@@ -18,6 +17,18 @@ public final class LogTextFormatter implements Formatter {
   /** 临时数组. */
   private static final CharBuffer CHARBUF =
       CharBuffer.allocate(org.jdkstack.logging.mini.core.codec.Constants.SOURCEN8);
+
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @author admin
+   */
+  public LogTextFormatter() {
+    //
+  }
+
   /**
    * This is a method description.
    *
@@ -101,7 +112,7 @@ public final class LogTextFormatter implements Formatter {
         CHARBUF.append('(');
         CHARBUF.append(stackTraceElement.getFileName());
         CHARBUF.append(':');
-        CHARBUF.append("stackTraceElement.getLineNumber()");
+        CHARBUF.append(stackTraceElement.getLineNumber() + "");
         CHARBUF.append(')');
         separator = ",";
       }
