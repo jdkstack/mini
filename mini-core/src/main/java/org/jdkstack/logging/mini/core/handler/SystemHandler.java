@@ -15,7 +15,7 @@ import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
 import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
 import org.jdkstack.logging.mini.core.datetime.DateTimeEncoder;
 import org.jdkstack.logging.mini.core.datetime.TimeZone;
-import org.jdkstack.logging.mini.core.filter.LogFilter;
+import org.jdkstack.logging.mini.core.filter.RecorderFilter;
 import org.jdkstack.logging.mini.core.formatter.LogFormatterV2;
 import org.jdkstack.logging.mini.core.formatter.LogJsonFormatter;
 import org.jdkstack.logging.mini.core.record.RecordEventFactory;
@@ -33,7 +33,7 @@ public class SystemHandler {
   private final Formatter logJsonFormatter = new LogJsonFormatter(null);
 
   /** 内部使用固定的过滤器. */
-  private final Filter filter = new LogFilter(null);
+  private final Filter filter = new RecorderFilter(null, null);
 
   /** 有界数组阻塞队列. */
   private final MpmcBlockingQueueV3<Record> queue =
@@ -207,7 +207,7 @@ public class SystemHandler {
     // 用9个参数替换掉message中的占位符{}.
     LogFormatterV2.format(lr, message);
     // location中的className(暂时不处理method和lineNumber).
-    lr.setClassName(className);
+    lr.setName(className);
     // 异常信息.
     lr.setThrown(thrown);
   }

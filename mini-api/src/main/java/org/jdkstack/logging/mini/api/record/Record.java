@@ -347,4 +347,8 @@ public interface Record {
   String getIp();
 
   String getPort();
+
+  String getName();
+
+  void setName(String name);
 }

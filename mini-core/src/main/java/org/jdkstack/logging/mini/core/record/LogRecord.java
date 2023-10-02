@@ -33,6 +33,9 @@ public class LogRecord implements Record {
   private String offset;
 
   /** 日志类. */
+  private String name;
+
+  /** 日志类. */
   private String className;
 
   /** 日志异常. */
@@ -513,5 +516,15 @@ public class LogRecord implements Record {
   @Override
   public final String getPort() {
     return this.port;
+  }
+
+  @Override
+  public String getName() {
+    return this.name;
+  }
+
+  @Override
+  public void setName(final String name) {
+    this.name = name;
   }
 }

@@ -129,10 +129,10 @@ public final class LogJsonFormatter implements Formatter {
     // 类.
     CHARBUF.append('"');
     CHARBUF.append(',');
-    CHARBUF.append("\"className\"");
+    CHARBUF.append("\"name\"");
     CHARBUF.append(':');
     CHARBUF.append('"');
-    CHARBUF.append(logRecord.getClassName());
+    CHARBUF.append(logRecord.getName());
     // 日志对象中的消息字段.
     CHARBUF.append('"');
     CHARBUF.append(',');

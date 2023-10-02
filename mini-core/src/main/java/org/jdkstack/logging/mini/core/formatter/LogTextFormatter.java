@@ -73,7 +73,7 @@ public final class LogTextFormatter implements Formatter {
     CHARBUF.append(Thread.currentThread().getName());
     CHARBUF.append(' ');
     // 类.
-    CHARBUF.append(logRecord.getClassName());
+    CHARBUF.append(logRecord.getName());
     CHARBUF.append(' ');
     // 日志对象中的消息字段.
     final int position1 = CHARBUF.position();

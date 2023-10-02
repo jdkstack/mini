@@ -24,7 +24,7 @@ public interface LogRecorderContext {
 
   void addLogRecorderConfig(String key, RecorderConfig logRecorderConfig);
 
-  RecorderConfig getValue(String key);
+  RecorderConfig getRecorderConfig(String key);
 
   void addLevel(String name, int value);
 

@@ -3,8 +3,6 @@ package org.jdkstack.logging.mini.core.context;
 import java.nio.Buffer;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import org.jdkstack.logging.mini.api.config.Configuration;
 import org.jdkstack.logging.mini.api.config.RecorderConfig;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
@@ -27,8 +25,6 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
   private static final SystemLogRecorder SYSTEM = SystemLogRecorder.getSystemRecorder();
 
   private final Configuration configuration = new LogRecorderConfiguration();
-
-  private final Lock configLock = new ReentrantLock();
 
   /** 有界数组阻塞队列. */
   private final MpmcBlockingQueueV3<Record> queue =
@@ -97,7 +93,7 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
   }
 
   @Override
-  public final RecorderConfig getValue(final String key) {
+  public final RecorderConfig getRecorderConfig(final String key) {
     // 获取
     RecorderConfig value = this.logRecorderConfigs.get(key);
     if (value == null) {
@@ -160,13 +156,17 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
     try {
       // 1.预消费(从循环队列head取一个元素对象).
       final Record logRecord = this.queue.head();
-      // className,从配置中获取到对应Recorder的RecorderConfig.
-      // 从配置中获取所有的数据，包括handlers.
-      // 应该用全局的配置AbstractConfiguration，可以获取所有的handler,filter,formatter
-      RecorderConfig value = this.getValue(logRecord.getClassName());
-      final Handler handler = this.getHandler(value.getName());
-      // 2.消费数据(从元素对象的每一个字段中获取数据).
-      handler.consume(logRecord);
+      // 用Recorder的name获取到Recorder自己的配置。
+      RecorderConfig value = this.getRecorderConfig(logRecord.getName());
+      // 使用消费Filter，检查当前的日志消息是否符合条件，符合条件才写入文件，不符合条件直接丢弃。
+      if (this.filter(value.getHandlerConsumeFilter(), logRecord)) {
+        // className,从配置中获取到对应Recorder的RecorderConfig.
+        // 从配置中获取所有的数据，包括handlers.
+        // 应该用全局的配置AbstractConfiguration，可以获取所有的handler,filter,formatter
+        final Handler handler = this.getHandler(value.getName());
+        // 2.消费数据(从元素对象的每一个字段中获取数据).
+        handler.consume(logRecord);
+      }
       // 3.清空数据(为元素对象的每一个字段重新填充空数据).
       logRecord.clear();
     } catch (final Exception e) {
@@ -179,32 +179,36 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
 
   @Override
   public final void produce(
-          final String logLevel,
-          final String dateTime,
-          final String message,
-          final String className,
-          final Object arg1,
-          final Object arg2,
-          final Object arg3,
-          final Object arg4,
-          final Object arg5,
-          final Object arg6,
-          final Object arg7,
-          final Object arg8,
-          final Object arg9,
-          final Throwable thrown) {
+      final String logLevel,
+      final String dateTime,
+      final String message,
+      final String name,
+      final Object arg1,
+      final Object arg2,
+      final Object arg3,
+      final Object arg4,
+      final Object arg5,
+      final Object arg6,
+      final Object arg7,
+      final Object arg8,
+      final Object arg9,
+      final Throwable thrown) {
     // 生产业务.
     try {
       // 1.预生产(从循环队列tail取一个元素对象).
       final Record lr = this.queue.tail();
-      // className,从配置中获取到对应Recorder的RecorderConfig.
-      // 从配置中获取所有的数据，包括handlers.
-      RecorderConfig value = this.getValue(className);
-      final Handler handler = this.getHandler(value.getName());
-      // 2.生产数据(为元素对象的每一个字段填充数据).
-      handler.produce(
-          logLevel, dateTime, message, className, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
-          arg9, null, lr);
+      // 用Recorder的name获取到Recorder自己的配置。
+      RecorderConfig value = this.getRecorderConfig(name);
+      // 使用生产Filter，检查当前的日志消息是否符合条件，符合条件才写入RingBuffer，不符合条件直接丢弃。
+      if (this.filter(value.getHandlerProduceFilter(), lr)) {
+        // className,从配置中获取到对应Recorder的RecorderConfig.
+        // 从配置中获取所有的数据，包括handlers.
+        final Handler handler = this.getHandler(value.getName());
+        // 2.生产数据(为元素对象的每一个字段填充数据).
+        handler.produce(
+            logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9,
+            null, lr);
+      }
     } catch (final Exception e) {
       SYSTEM.log("SYSTEM", e.getMessage());
     } finally {

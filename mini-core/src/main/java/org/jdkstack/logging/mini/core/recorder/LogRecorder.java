@@ -616,7 +616,7 @@ public class LogRecorder implements Recorder {
   @Override
   public final void process(
       final String logLevel,
-      final String className,
+      final String name,
       final String dateTime,
       final String message,
       final Object arg1,
@@ -629,12 +629,12 @@ public class LogRecorder implements Recorder {
       final Object arg8,
       final Object arg9,
       final Throwable thrown) {
-    // 日志级别是否匹配.
+    // 日志级别是否匹配，这个过滤器。
     if (this.context.doFilter(
         logLevel, recorderConfig.getMaxLevel(), recorderConfig.getMinLevel())) {
       // 生产.
       this.context.produce(
-          logLevel, dateTime, message, className, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
+          logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
           arg9, null);
       // 消费.
       this.context.consume();

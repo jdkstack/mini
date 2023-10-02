@@ -22,7 +22,7 @@ public interface Handler {
       final String logLevel,
       final String dateTime,
       final String message,
-      final String className,
+      final String name,
       final Object arg1,
       final Object arg2,
       final Object arg3,

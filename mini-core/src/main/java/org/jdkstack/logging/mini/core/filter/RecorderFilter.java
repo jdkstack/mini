@@ -11,7 +11,10 @@ import org.jdkstack.logging.mini.api.record.Record;
  *
  * @author admin
  */
-public class LogFilter implements Filter {
+public class RecorderFilter implements Filter {
+
+  /** . */
+  private final String key;
 
   /**
    * This is a method description.
@@ -20,8 +23,8 @@ public class LogFilter implements Filter {
    *
    * @author admin
    */
-  public LogFilter(final LogRecorderContext context) {
-    //
+  public RecorderFilter(final LogRecorderContext context, final String key) {
+    this.key = key;
   }
 
   /**

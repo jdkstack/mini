@@ -31,10 +31,49 @@ public class LogRecorderConfig implements RecorderConfig {
   private final String formatter = "logJsonFormatter";
 
   /** . */
-  private final String filter = "logFilter";
+  private final String filter = "recorderFilter";
 
   /** . */
   private String handlers = Constants.DEFAULT;
+
+  /** . */
+  private String fileName = "default.log";
+
+  /** . */
+  private String handlerProduceFilter = "handlerProduceFilter";
+
+  /** . */
+  private String handlerConsumeFilter = "handlerConsumeFilter";
+
+  @Override
+  public String getFileName() {
+    return this.fileName;
+  }
+
+  @Override
+  public void setFileName(final String fileName) {
+    this.fileName = fileName;
+  }
+
+  @Override
+  public String getHandlerProduceFilter() {
+    return this.handlerProduceFilter;
+  }
+
+  @Override
+  public void setHandlerProduceFilter(final String handlerProduceFilter) {
+    this.handlerProduceFilter = handlerProduceFilter;
+  }
+
+  @Override
+  public String getHandlerConsumeFilter() {
+    return this.handlerConsumeFilter;
+  }
+
+  @Override
+  public void setHandlerConsumeFilter(final String handlerConsumeFilter) {
+    this.handlerConsumeFilter = handlerConsumeFilter;
+  }
 
   @Override
   public final String getName() {
