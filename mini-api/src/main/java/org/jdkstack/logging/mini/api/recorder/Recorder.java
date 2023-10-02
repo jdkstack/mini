@@ -326,6 +326,35 @@ public interface Recorder {
       Object arg7,
       Throwable thrown);
 
+  void log(
+          String logLevel,
+          String datetime,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Object arg5,
+          Object arg6,
+          Object arg7,
+          Object arg8,
+          Throwable thrown);
+
+  void log(
+          String logLevel,
+          String datetime,
+          String message,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Object arg5,
+          Object arg6,
+          Object arg7,
+          Object arg8,
+          Object arg9,
+          Throwable thrown);
+
   /**
    * This is a method description.
    *
@@ -338,7 +367,7 @@ public interface Recorder {
    */
   void process(
       final String logLevel,
-      final String className,
+      final String name,
       final String dateTime,
       final String message,
       final Object arg1,

@@ -69,7 +69,7 @@ public class Examples {
     record.setPlaceholderCount(9);
     for (int k = 0; k < 1000; k++) {
       final long s = System.currentTimeMillis();
-      for (int i = 0; i < 10000; i++) {
+      for (int i = 0; i < 1000000; i++) {
         LOG.log(
             Constants.FATAL,
             null,

@@ -15,6 +15,8 @@ public final class Constants {
   public static final int N2 = 2;
   /** . */
   public static final String DEFAULT = "default";
+  /** . */
+  public static final int CAPACITY = 1024;
   
   private Constants() {
     //
