@@ -60,6 +60,13 @@ public class ApplicationContext implements Context {
     }
   }
 
+  /**
+   * 配置初始化.
+   *
+   * <p>未来需要改成从存储后端读取.
+   *
+   * @author admin
+   */
   @Override
   public final void init() {
     Map<String, String> map = new HashMap<>(16);

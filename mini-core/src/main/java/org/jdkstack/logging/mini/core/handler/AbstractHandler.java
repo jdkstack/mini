@@ -128,7 +128,7 @@ public abstract class AbstractHandler implements Handler {
       this.produce(
           logLevel, dateTime, message, className, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
           arg9, thrown, lr);
-    } catch (Exception e) {
+    } catch (final Exception e) {
       SYSTEM.log("SYSTEM", e.getMessage());
     } finally {
       // 3.生产数据完成的标记(数据可以从循环队列head消费).

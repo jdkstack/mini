@@ -41,7 +41,7 @@ public class SystemLogRecorder {
    * @param message .
    * @author admin
    */
-  public final void core1(
+  public final void core(
       final String logLevel,
       final String datetime,
       final String message,
@@ -54,13 +54,13 @@ public class SystemLogRecorder {
       final Object arg7,
       final Object arg8,
       final Object arg9) {
-    systemHandler.process(
+    this.systemHandler.process(
         logLevel, "system", datetime, message, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9,
         null);
   }
 
   public final void log(final String logLevel, final String message) {
-    this.core1(logLevel, "", message, null, null, null, null, null, null, null, null, null);
+    this.core(logLevel, null, message, null, null, null, null, null, null, null, null, null);
   }
 
   public final void log(
@@ -75,6 +75,6 @@ public class SystemLogRecorder {
       final Object arg7,
       final Object arg8,
       final Object arg9) {
-    this.core1(logLevel, null, message, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+    this.core(logLevel, null, message, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
   }
 }

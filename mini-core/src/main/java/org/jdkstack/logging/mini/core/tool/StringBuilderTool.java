@@ -34,20 +34,4 @@ public class StringBuilderTool {
       sb.append((StringBuilder) arg);
     }
   }
-
-  public static void main(String[] args) {
-    StringBuilder sb = new StringBuilder();
-    long s = System.currentTimeMillis();
-    for (int i = 0; i < 100000000; i++) {
-      sb.setLength(0);
-      unbox(sb, 2.98f);
-    }
-    long e = System.currentTimeMillis();
-    System.out.println(e - s);
-    try {
-      Thread.sleep(100000);
-    } catch (InterruptedException ex) {
-      throw new RuntimeException(ex);
-    }
-  }
 }
