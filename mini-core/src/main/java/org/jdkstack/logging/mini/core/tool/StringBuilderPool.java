@@ -1,8 +1,5 @@
 package org.jdkstack.logging.mini.core.tool;
 
-import org.jdkstack.logging.mini.api.ringbuffer.RingBuffer;
-import org.jdkstack.logging.mini.core.ringbuffer.StringBuilderRingBuffer;
-
 /**
  * boxing 装箱.
  *
@@ -10,142 +7,75 @@ import org.jdkstack.logging.mini.core.ringbuffer.StringBuilderRingBuffer;
  *
  * @author admin
  */
-public final class StringBuilderPool {
+public class StringBuilderPool {
+  private static final int CAPACITY = 1024;
+  private static final int MASK = CAPACITY - 1;
 
-  /** . */
-  private static final RingBuffer<StringBuilder> BUFFER =
-          new StringBuilderRingBuffer(Constants.CAPACITY);
+  private static class State {
+    private final StringBuilder[] ringBuffer = new StringBuilder[CAPACITY];
+    private int current;
+
+    State() {
+      for (int i = 0; i < ringBuffer.length; i++) {
+        ringBuffer[i] = new StringBuilder(21);
+      }
+    }
+
+    public StringBuilder poll() {
+      final StringBuilder result = ringBuffer[MASK & current++];
+      result.setLength(0);
+      return result;
+    }
+  }
+
+  private static ThreadLocal<State> threadLocalState = new ThreadLocal<>();
 
   private StringBuilderPool() {
     //
   }
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param value .
-   * @return StringBuilder .
-   * @author admin
-   */
   public static StringBuilder box(final float value) {
-    return BUFFER.poll().append(value);
+    return getSB().append(value);
   }
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param value .
-   * @return StringBuilder .
-   * @author admin
-   */
   public static StringBuilder box(final double value) {
-    return BUFFER.poll().append(value);
+    return getSB().append(value);
   }
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param value .
-   * @return StringBuilder .
-   * @author admin
-   */
   public static StringBuilder box(final short value) {
-    return BUFFER.poll().append(value);
+    return getSB().append(value);
   }
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param value .
-   * @return StringBuilder .
-   * @author admin
-   */
   public static StringBuilder box(final int value) {
-    return BUFFER.poll().append(value);
+    return getSB().append(value);
   }
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param value .
-   * @return StringBuilder .
-   * @author admin
-   */
   public static StringBuilder box(final char value) {
-    return BUFFER.poll().append(value);
+    return getSB().append(value);
   }
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param value .
-   * @return StringBuilder .
-   * @author admin
-   */
   public static StringBuilder box(final long value) {
-    return BUFFER.poll().append(value);
+    return getSB().append(value);
   }
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param value .
-   * @return StringBuilder .
-   * @author admin
-   */
   public static StringBuilder box(final byte value) {
-    return BUFFER.poll().append(value);
+    return getSB().append(value);
   }
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param value .
-   * @return StringBuilder .
-   * @author admin
-   */
   public static StringBuilder box(final boolean value) {
-    return BUFFER.poll().append(value);
+    return getSB().append(value);
   }
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @param value .
-   * @return StringBuilder .
-   * @author admin
-   */
-  public static StringBuilder box(final String value) {
-    return BUFFER.poll().append(value);
+  private static State getState() {
+    State state = threadLocalState.get();
+    if (state == null) {
+      state = new State();
+      threadLocalState.set(state);
+    }
+    return state;
   }
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @return StringBuilder .
-   * @author admin
-   */
-  public static StringBuilder poll() {
-    return BUFFER.poll();
+  private static StringBuilder getSB() {
+    return getState().poll();
   }
 }
