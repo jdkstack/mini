@@ -23,7 +23,7 @@ mini-jmh (测试)
 -Xmx32m -Xmx32m -Xlog:gc*
 
 日志存储目录路径：
-默认当前目录下\logs\default\1694229262694.log (1694229262694是创建日志目录和文件时的时间戳)。
+默认当前目录下\logs\default\default[0-15].log。
 
 如果你在测试时，有任何不理解的地方或者有任何好的建议，有任何问题可以在github上提交issues或者创建discussions。
 
