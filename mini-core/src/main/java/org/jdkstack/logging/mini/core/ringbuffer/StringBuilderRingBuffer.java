@@ -37,8 +37,7 @@ public class StringBuilderRingBuffer implements RingBuffer<StringBuilder> {
 
   @Override
   public final StringBuilder poll() {
-    this.current++;
-    final StringBuilder result = this.rb[this.mask & this.current];
+    final StringBuilder result = this.rb[this.mask & this.current++];
     result.setLength(0);
     return result;
   }

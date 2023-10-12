@@ -18,7 +18,7 @@ public class Examples {
 
   public static void main(final String[] args) throws Exception {
 
-    final Record record = new LogRecord();
+/*    final Record record = new LogRecord();
 
     final int[] indices = new int[9];
     indices[0] = 1028;
@@ -66,11 +66,13 @@ public class Examples {
     record.setParams(7, 6);
     record.setParams(8, 7);
     record.setParams(9, 8);
-    record.setPlaceholderCount(9);
+    record.setPlaceholderCount(9);*/
     for (int k = 0; k < 1000; k++) {
       final long s = System.currentTimeMillis();
       for (int i = 0; i < 1000000; i++) {
         LOG.log(
+                Constants.FATAL,"xxxx");
+/*        LOG.log(
             Constants.FATAL,
             null,
             record.getMessage(),
@@ -82,13 +84,13 @@ public class Examples {
             StringBuilderPool.box(888888),
             StringBuilderPool.box(6),
             StringBuilderPool.box(7),
-            StringBuilderPool.box(8777777));
+            StringBuilderPool.box(8777777));*/
        }
       final long e = System.currentTimeMillis();
       //System.out.println(e - s);
     }
     try {
-      Thread.sleep(100000);
+      Thread.sleep(10000000);
     } catch (final InterruptedException ex) {
       throw new RuntimeException(ex);
     }

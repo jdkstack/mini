@@ -34,13 +34,26 @@ public class LogRecorderConfig implements RecorderConfig {
   private String handlers = Constants.DEFAULT;
 
   /** . */
-  private String fileName = "default.log";
+  private String fileName = "default";
+
+  /** . */
+  private String fileNameExt = ".log";
 
   /** . */
   private String handlerProduceFilter = "handlerProduceFilter";
 
   /** . */
   private String handlerConsumeFilter = "handlerConsumeFilter";
+
+  @Override
+  public String getFileNameExt() {
+    return this.fileNameExt;
+  }
+
+  @Override
+  public void setFileNameExt(final String fileNameExt) {
+    this.fileNameExt = fileNameExt;
+  }
 
   @Override
   public String getFileName() {

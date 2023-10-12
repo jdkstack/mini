@@ -2,6 +2,10 @@ package org.jdkstack.logging.mini.api.config;
 
 public interface RecorderConfig {
 
+  String getFileNameExt();
+
+  void setFileNameExt(String fileNameExt);
+
   String getFileName();
 
   void setFileName(String fileName);

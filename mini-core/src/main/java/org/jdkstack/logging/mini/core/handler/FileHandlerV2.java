@@ -1,26 +1,24 @@
 package org.jdkstack.logging.mini.core.handler;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.CharBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
-import java.nio.file.AtomicMoveNotSupportedException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.codec.Encoder;
 import org.jdkstack.logging.mini.api.config.RecorderConfig;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.record.Record;
+import org.jdkstack.logging.mini.api.ringbuffer.RingBuffer;
 import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
 import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
 import org.jdkstack.logging.mini.core.datetime.DateTimeEncoder;
 import org.jdkstack.logging.mini.core.datetime.TimeZone;
 import org.jdkstack.logging.mini.core.formatter.LogFormatterV2;
+import org.jdkstack.logging.mini.core.ringbuffer.FileRingBuffer;
+import org.jdkstack.logging.mini.core.ringbuffer.RandomAccessFileRingBuffer;
 
 /**
  * 写文件.
@@ -45,21 +43,23 @@ public class FileHandlerV2 extends AbstractHandler {
   /** 目的地写入器. */
   private final ByteWriter destination = new ByteArrayWriter();
 
+  // 配置。
+  private final RecorderConfig rc = this.context.getRecorderConfig(this.key);
+  // -------------需要优化↓-------------------
+  // 目录。
+  private final String dirPath = rc.getDirectory() + File.separator + rc.getPrefix();
+  private final File dir = new File(dirPath);
   /** . */
-  protected FileChannel channel;
+  private final RingBuffer<File> buffer = new FileRingBuffer(dir, rc.getFileName(), rc.getFileNameExt(), 16);
+
+  /** . */
+  private final RingBuffer<RandomAccessFile> rabuffer = new RandomAccessFileRingBuffer(buffer, 16);
 
   /** . */
   private RandomAccessFile randomAccessFile;
 
-  // 配置。
-  private final RecorderConfig recorderConfig = this.context.getRecorderConfig(this.key);
-  // -------------需要优化↓-------------------
-  // 目录。
-  private final String dirPath =
-      recorderConfig.getDirectory() + File.separator + recorderConfig.getPrefix();
-  private final File dir = new File(dirPath);
-  // 文件。
-  private final File source = new File(dir, recorderConfig.getFileName());
+  /** . */
+  protected FileChannel channel;
 
   /**
    * This is a method description.
@@ -86,12 +86,6 @@ public class FileHandlerV2 extends AbstractHandler {
   public void rules(final Record lr, final int length) throws Exception {
     // 首次初始化。
     if (null == this.randomAccessFile) {
-      // 创建目录。
-      if (!dir.exists()) {
-        dir.mkdirs();
-      }
-      // 重命名。
-      this.renameFile();
       // 创建文件。
       this.remap();
     }
@@ -132,37 +126,12 @@ public class FileHandlerV2 extends AbstractHandler {
     if (null != this.randomAccessFile) {
       // 刷数据.
       this.flush();
-      // 关闭channel.
-      this.channel.close();
-      // 关闭流.
-      this.randomAccessFile.close();
-      // 重命名。
-      this.renameFile();
     }
-    // 重新打开流.
-    this.randomAccessFile = new RandomAccessFile(this.source, "rw");
+    // 从缓存中获取一个流.
+    this.randomAccessFile = this.rabuffer.poll();
     // 重新打开流channel.
     this.channel = this.randomAccessFile.getChannel();
     this.destination.setDestination(this.randomAccessFile);
-  }
-
-  private void renameFile() throws IOException {
-    // 文件。
-    final File target = new File(this.dir, System.currentTimeMillis() + ".log");
-    if (this.source.exists()) {
-      try {
-        Files.move(
-            Paths.get(this.source.getAbsolutePath()),
-            Paths.get(target.getAbsolutePath()),
-            StandardCopyOption.ATOMIC_MOVE,
-            StandardCopyOption.REPLACE_EXISTING);
-      } catch (final AtomicMoveNotSupportedException ex) {
-        Files.move(
-            Paths.get(this.source.getAbsolutePath()),
-            Paths.get(target.getAbsolutePath()),
-            StandardCopyOption.REPLACE_EXISTING);
-      }
-    }
   }
 
   /**
