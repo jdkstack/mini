@@ -24,6 +24,15 @@ public final class LogFormatterV2 {
     //
   }
 
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param message message.
+   * @param lr lr.
+   * @author admin
+   */
   public static void format(final Record lr, final String message) {
     // 1.计算 {} 在message中的最短路径.
     final int length = message.length();

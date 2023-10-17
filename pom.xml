@@ -109,9 +109,9 @@
                     <execution>
                         <goals>
                             <!-- 执行哪些步骤-->
-                            <!-- 只检测,并统计总的问题数量,不会停止编译打包. -->
+                            <!-- checkstyle只检测,并统计总的问题数量,不会停止编译打包. -->
                             <!-- check 会停止编译打包. -->
-                            <goal>checkstyle</goal>
+                            <goal>check</goal>
                         </goals>
                         <!-- 随便一个名字-->
                         <id>validate</id>

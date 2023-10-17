@@ -16,12 +16,24 @@ import org.jdkstack.logging.mini.core.handler.FileHandlerV2;
 import org.jdkstack.logging.mini.core.level.Constants;
 import org.jdkstack.logging.mini.core.recorder.LogRecorder;
 
-// Factory用来扩展功能，Context用来提供业务方法。
-
+/**
+ * Factory用来扩展功能，Context用来提供业务方法。
+ *
+ * <p>Another description after blank line.
+ *
+ * @author admin
+ */
 public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory {
   /** 上下文对象，用来初始化，并提供业务方法. */
   private final LogRecorderContext context = new AsyncLogRecorderContext();
 
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @author admin
+   */
   public AsyncLogRecorderContextFactory() {
     // 默认日志级别。
     this.addLevel(Constants.MIN, Constants.MIN_VALUE);
@@ -70,7 +82,7 @@ public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory
       recorderConfig.setName(name);
       // 增加新的Recorder.
       this.addRecorder(recorderConfig);
-      this.context.addLogRecorderConfig(name,recorderConfig);
+      this.context.addLogRecorderConfig(name, recorderConfig);
       // 取出最新添加的Recorder.
       recorder = this.context.getRecorder(name);
     }

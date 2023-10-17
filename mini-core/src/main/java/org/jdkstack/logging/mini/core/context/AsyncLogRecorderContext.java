@@ -1,6 +1,7 @@
 package org.jdkstack.logging.mini.core.context;
 
 import java.nio.Buffer;
+import java.util.concurrent.TimeUnit;
 import org.jdkstack.logging.mini.api.config.Configuration;
 import org.jdkstack.logging.mini.api.config.RecorderConfig;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
@@ -10,11 +11,21 @@ import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.level.Level;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
+import org.jdkstack.logging.mini.api.ringbuffer.EventFactory;
 import org.jdkstack.logging.mini.core.config.LogRecorderConfiguration;
+import org.jdkstack.logging.mini.core.pool.ThreadPoolExecutor;
 import org.jdkstack.logging.mini.core.record.RecordEventFactory;
 import org.jdkstack.logging.mini.core.recorder.SystemLogRecorder;
 import org.jdkstack.logging.mini.core.ringbuffer.MpmcBlockingQueueV3;
 
+/**
+ * .
+ *
+ * <p>Another description after blank line.
+ *
+ * @param <E> .
+ * @author admin
+ */
 public class AsyncLogRecorderContext implements LogRecorderContext {
 
   /** 内部使用,用来记录日志. */
@@ -25,6 +36,10 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
   /** 有界数组阻塞队列. */
   private final MpmcBlockingQueueV3<Record> queue =
       new MpmcBlockingQueueV3<>(Constants.CAPACITY, new RecordEventFactory<>());
+
+  private final ThreadPoolExecutor threadPoolExecutor =
+      new ThreadPoolExecutor(
+          2, 2, 0, TimeUnit.SECONDS, new MpmcBlockingQueueV3<>(1024, new TaskEventFactory<>()));
 
   public AsyncLogRecorderContext() {
     //
@@ -168,5 +183,39 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
       // 3.生产数据完成的标记(数据可以从循环队列head消费).
       this.queue.start();
     }
+  }
+
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @author admin
+   */
+  public class TaskEventFactory<E> implements EventFactory<E> {
+
+    @Override
+    public E newInstance() {
+      return (E) new Task();
+    }
+  }
+
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @author admin
+   */
+  public class Task implements Runnable {
+    @Override
+    public void run() {
+      AsyncLogRecorderContext.this.consume();
+    }
+  }
+
+  @Override
+  public void thread() {
+    threadPoolExecutor.start();
   }
 }

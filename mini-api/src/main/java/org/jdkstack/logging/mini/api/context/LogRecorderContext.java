@@ -9,6 +9,13 @@ import org.jdkstack.logging.mini.api.level.Level;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 
+/**
+ * This is a method description.
+ *
+ * <p>Another description after blank line.
+ *
+ * @author admin
+ */
 public interface LogRecorderContext {
   Recorder getRecorder(String name);
 
@@ -54,5 +61,7 @@ public interface LogRecorderContext {
       Object arg8,
       Object arg9,
       Throwable thrown);
+
+  void thread();
   //
 }

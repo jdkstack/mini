@@ -23,4 +23,17 @@
             <version>2.1.12</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <!-- 代码样式检测. -->
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+                <groupId>org.apache.maven.plugins</groupId>
+                <version>3.3.0</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>

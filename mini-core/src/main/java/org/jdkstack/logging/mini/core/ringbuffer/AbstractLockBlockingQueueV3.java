@@ -1,8 +1,8 @@
 package org.jdkstack.logging.mini.core.ringbuffer;
 
-import org.jdkstack.logging.mini.api.ringbuffer.EventFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.LockSupport;
+import org.jdkstack.logging.mini.api.ringbuffer.EventFactory;
 
 /**
  * .
@@ -16,8 +16,10 @@ public abstract class AbstractLockBlockingQueueV3<E> extends AbstractBlockingQue
 
   /** 环形数组. */
   protected final E[] ringBuffer;
+
   /** 环形数组入队时,是否被其他线程抢先放入了值. */
   protected final AtomicInteger tailLock = new AtomicInteger(0);
+
   /** 环形数组出队时,是否被其他线程抢先获取了值. */
   protected final AtomicInteger headLock = new AtomicInteger(0);
 

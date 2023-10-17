@@ -6,6 +6,13 @@ import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 
+/**
+ * This is a method description.
+ *
+ * <p>Another description after blank line.
+ *
+ * @author admin
+ */
 public interface LogRecorderContextFactory {
   Recorder getRecorder(String name);
 

@@ -13,7 +13,7 @@ import org.jdkstack.logging.mini.api.recorder.Recorder;
  */
 public class LogRecorder implements Recorder {
 
-  /** 一个LogRecorder有一个LogRecorderConfig配置. 有界数组阻塞队列. */
+  /** 一个LogRecorder有一个LogRecorderConfig配置. 有界数组阻塞队列，考虑使用全局配置和个性化配置？. */
   private RecorderConfig recorderConfig;
 
   private final LogRecorderContext context;
@@ -23,7 +23,8 @@ public class LogRecorder implements Recorder {
    *
    * <p>Another description after blank line.
    *
-   * @param name name.
+   * @param context context.
+   * @param recorderConfig recorderConfig.
    * @author admin
    */
   public LogRecorder(final LogRecorderContext context, final RecorderConfig recorderConfig) {
@@ -566,12 +567,18 @@ public class LogRecorder implements Recorder {
     // 日志级别是否匹配，这个过滤器。
     if (this.context.doFilter(
         logLevel, recorderConfig.getMaxLevel(), recorderConfig.getMinLevel())) {
-      // 生产.
+      // 使用当前线程执行生产业务（是否多线程生产，取决于调用者，一个线程，多个线程都可以）.
       this.context.produce(
           logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9,
           thrown);
-      // 消费.
-      this.context.consume();
+      // 是否开启多线程消费。
+      if (recorderConfig.isThread()) {
+        // 使用线程池中的线程执行消费业务，仅仅通知线程池，当前线程不执行消费业务（未来考虑取消通知线程池，因为这是一个性能开销，也不合理）。
+        this.context.thread();
+      } else {
+        // 使用当前线程执行消费业务（未来考虑取消单线程模式，只用多线程模式）。
+        this.context.consume();
+      }
     }
   }
 

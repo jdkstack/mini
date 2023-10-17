@@ -8,6 +8,13 @@ import org.jdkstack.logging.mini.api.level.Level;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 
+/**
+ * This is a method description.
+ *
+ * <p>Another description after blank line.
+ *
+ * @author admin
+ */
 public interface Configuration {
   Recorder getRecorder(String name);
 

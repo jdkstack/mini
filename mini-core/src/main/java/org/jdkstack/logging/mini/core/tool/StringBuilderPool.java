@@ -35,35 +35,35 @@ public class StringBuilderPool {
   }
 
   public static StringBuilder box(final float value) {
-    return getSB().append(value);
+    return getStringBuilder().append(value);
   }
 
   public static StringBuilder box(final double value) {
-    return getSB().append(value);
+    return getStringBuilder().append(value);
   }
 
   public static StringBuilder box(final short value) {
-    return getSB().append(value);
+    return getStringBuilder().append(value);
   }
 
   public static StringBuilder box(final int value) {
-    return getSB().append(value);
+    return getStringBuilder().append(value);
   }
 
   public static StringBuilder box(final char value) {
-    return getSB().append(value);
+    return getStringBuilder().append(value);
   }
 
   public static StringBuilder box(final long value) {
-    return getSB().append(value);
+    return getStringBuilder().append(value);
   }
 
   public static StringBuilder box(final byte value) {
-    return getSB().append(value);
+    return getStringBuilder().append(value);
   }
 
   public static StringBuilder box(final boolean value) {
-    return getSB().append(value);
+    return getStringBuilder().append(value);
   }
 
   private static State getState() {
@@ -75,7 +75,7 @@ public class StringBuilderPool {
     return state;
   }
 
-  private static StringBuilder getSB() {
+  private static StringBuilder getStringBuilder() {
     return getState().poll();
   }
 }

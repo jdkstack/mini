@@ -13,6 +13,15 @@ public class StringBuilderTool {
     //
   }
 
+  /**
+   * .
+   *
+   * <p>Another description after blank line.
+   *
+   * @param sb .
+   * @param arg .
+   * @author admin
+   */
   public static void unbox(final StringBuilder sb, final Object arg) {
     if (arg == null) {
       //

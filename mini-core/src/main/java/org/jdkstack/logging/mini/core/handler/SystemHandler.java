@@ -11,6 +11,7 @@ import org.jdkstack.logging.mini.api.codec.Encoder;
 import org.jdkstack.logging.mini.api.filter.Filter;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.record.Record;
+import org.jdkstack.logging.mini.api.ringbuffer.RingBuffer;
 import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
 import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
 import org.jdkstack.logging.mini.core.datetime.DateTimeEncoder;
@@ -19,7 +20,9 @@ import org.jdkstack.logging.mini.core.filter.SystemFilter;
 import org.jdkstack.logging.mini.core.formatter.LogFormatterV2;
 import org.jdkstack.logging.mini.core.formatter.LogJsonFormatter;
 import org.jdkstack.logging.mini.core.record.RecordEventFactory;
+import org.jdkstack.logging.mini.core.ringbuffer.FileRingBuffer;
 import org.jdkstack.logging.mini.core.ringbuffer.MpmcBlockingQueueV3;
+import org.jdkstack.logging.mini.core.ringbuffer.RandomAccessFileRingBuffer;
 
 /**
  * 写文件(内部使用).
@@ -51,11 +54,19 @@ public class SystemHandler {
   /** 目的地写入器. */
   private final ByteWriter destination = new ByteArrayWriter();
 
+  private final File dir = new File("logs" + File.separator + "system");
+
   /** . */
-  private FileChannel channel;
+  private final RingBuffer<File> buffer = new FileRingBuffer(dir, "system", ".log", 1);
+
+  /** . */
+  private final RingBuffer<RandomAccessFile> rabuffer = new RandomAccessFileRingBuffer(buffer, 1);
 
   /** . */
   private RandomAccessFile randomAccessFile;
+
+  /** . */
+  protected FileChannel channel;
 
   /**
    * This is a method description.
@@ -102,20 +113,9 @@ public class SystemHandler {
     if (null != this.randomAccessFile) {
       // 刷数据.
       this.flush();
-      // 关闭channel.
-      this.channel.close();
-      // 关闭流.
-      this.randomAccessFile.close();
     }
-    // 重新计算文件名(创建临时对象?应该放到公共的地方.).
-    final File dir = new File("logs" + File.separator + "system"); // 不存在,创建目录和子目录.
-    if (!dir.exists()) {
-      dir.mkdirs();
-    }
-    // 重新打开流.
-    this.randomAccessFile = new RandomAccessFile(new File(dir, "system.log"), "rw");
-    // 追加模式,跳过文件大小,然后继续写入数据.
-    this.randomAccessFile.seek(this.randomAccessFile.length());
+    // 从缓存中获取一个流.
+    this.randomAccessFile = this.rabuffer.poll();
     // 重新打开流channel.
     this.channel = this.randomAccessFile.getChannel();
     this.destination.setDestination(this.randomAccessFile);
@@ -209,21 +209,28 @@ public class SystemHandler {
     lr.setThrown(thrown);
   }
 
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @author admin
+   */
   public final void process(
-          final String logLevel,
-          final String system,
-          final String datetime,
-          final String message,
-          final Object arg1,
-          final Object arg2,
-          final Object arg3,
-          final Object arg4,
-          final Object arg5,
-          final Object arg6,
-          final Object arg7,
-          final Object arg8,
-          final Object arg9,
-          final Throwable thrown) {
+      final String logLevel,
+      final String system,
+      final String datetime,
+      final String message,
+      final Object arg1,
+      final Object arg2,
+      final Object arg3,
+      final Object arg4,
+      final Object arg5,
+      final Object arg6,
+      final Object arg7,
+      final Object arg8,
+      final Object arg9,
+      final Throwable thrown) {
     // 单线程生产(向RingBuffer队列中生产).
     try {
       // 1.预生产(从循环队列tail取一个元素对象).

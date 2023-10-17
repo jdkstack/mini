@@ -42,19 +42,19 @@ public class RandomAccessFileRingBuffer implements RingBuffer<RandomAccessFile> 
     this.rb = new RandomAccessFile[size];
     this.rb2 = new FileChannel[size];
     for (int i = 0; i < size; i++) {
-      final RandomAccessFile file;
+      RandomAccessFile file = null;
       try {
         file = new RandomAccessFile(buffer.poll(), "rw");
-      } catch (FileNotFoundException e) {
-        throw new RuntimeException(e);
+      } catch (FileNotFoundException ignore) {
+        //
       }
       this.rb[i] = file;
-      FileChannel channel = file.getChannel();
+      final FileChannel channel = file.getChannel();
       try {
-        //  清空文件.
+        //  清空文件，并初始化内部对象.
         channel.truncate(0);
-      } catch (IOException e) {
-        throw new RuntimeException(e);
+      } catch (IOException ignore) {
+        //
       }
       this.rb2[i] = channel;
     }
@@ -62,14 +62,14 @@ public class RandomAccessFileRingBuffer implements RingBuffer<RandomAccessFile> 
 
   @Override
   public final RandomAccessFile poll() {
-    int index = this.current++;
+    final int index = this.current++;
     final RandomAccessFile result = this.rb[this.mask & index];
-    FileChannel channel = this.rb2[this.mask & index];
+    final FileChannel channel = this.rb2[this.mask & index];
     try {
-      //  清空文件.
+      //  清空文件，不需要初始化内部对象.
       channel.truncate(0);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
+    } catch (IOException ignore) {
+      //
     }
     return result;
   }

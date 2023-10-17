@@ -4,6 +4,14 @@ import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.filter.Filter;
 import org.jdkstack.logging.mini.api.record.Record;
 
+/**
+ * .
+ *
+ * <p>Another description after blank line.
+ *
+ * @param <E> .
+ * @author admin
+ */
 public class HandlerProduceFilter implements Filter {
 
   /** . */

@@ -5,9 +5,18 @@ import java.util.HashSet;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.jdkstack.logging.mini.api.pool.ExecutorService;
 import org.jdkstack.logging.mini.core.ringbuffer.MpmcBlockingQueueV3;
 
-public class ThreadPoolExecutor extends AbstractExecutorService {
+/**
+ * .
+ *
+ * <p>Another description after blank line.
+ *
+ * @param <E> .
+ * @author admin
+ */
+public class ThreadPoolExecutor implements ExecutorService {
   /** 使用后8位用来表示核心线程数. */
   private static final int BIT = 8;
   /** 使用前8位能表示的最大核心线程数是255个. */
@@ -36,12 +45,19 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
   /** 线程池中线程工厂. */
   private final ThreadFactory threadFactory = new LogThreadFactory("thread-pool", null);
 
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @author admin
+   */
   public ThreadPoolExecutor(
-          final int minSize,
-          final int maxSize,
-          final long keepAliveTime,
-          final TimeUnit unit,
-          final MpmcBlockingQueueV3<Runnable> queue) {
+      final int minSize,
+      final int maxSize,
+      final long keepAliveTime,
+      final TimeUnit unit,
+      final MpmcBlockingQueueV3<Runnable> queue) {
     this.workQueue = queue;
     this.minSize = minSize;
     this.maxSize = maxSize;
@@ -103,6 +119,13 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
     }
   }
 
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @author admin
+   */
   public final void thread() {
     // 创建任务.
     final Runnable threadWorker = new ThreadWorker();

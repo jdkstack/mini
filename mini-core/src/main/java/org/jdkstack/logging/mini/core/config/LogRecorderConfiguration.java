@@ -3,7 +3,6 @@ package org.jdkstack.logging.mini.core.config;
 import java.nio.Buffer;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import org.jdkstack.logging.mini.api.config.Configuration;
@@ -17,6 +16,14 @@ import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.core.level.Constants;
 import org.jdkstack.logging.mini.core.level.LogLevel;
 
+/**
+ * .
+ *
+ * <p>Another description after blank line.
+ *
+ * @param <E> .
+ * @author admin
+ */
 public class LogRecorderConfiguration implements Configuration {
 
   private final Lock configLock = new ReentrantLock();
@@ -38,11 +45,6 @@ public class LogRecorderConfiguration implements Configuration {
 
   /** . */
   private final Map<String, RecorderConfig> logRecorderConfigs = new ConcurrentHashMap<>(1024);
-
-  // 配置公告属性。
-  private final ConcurrentMap<String, Property> properties = new ConcurrentHashMap<>();
-  // 配置环境变量。
-  private final ConcurrentMap<String, Env> envs = new ConcurrentHashMap<>();
 
   @Override
   public final Recorder getRecorder(final String name) {

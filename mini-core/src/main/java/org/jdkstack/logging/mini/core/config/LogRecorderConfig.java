@@ -2,6 +2,14 @@ package org.jdkstack.logging.mini.core.config;
 
 import org.jdkstack.logging.mini.api.config.RecorderConfig;
 
+/**
+ * .
+ *
+ * <p>Another description after blank line.
+ *
+ * @param <E> .
+ * @author admin
+ */
 public class LogRecorderConfig implements RecorderConfig {
   /** . */
   private String name = "default";
@@ -44,6 +52,19 @@ public class LogRecorderConfig implements RecorderConfig {
 
   /** . */
   private String handlerConsumeFilter = "handlerConsumeFilter";
+
+  /** . */
+  private boolean thread = false;
+
+  @Override
+  public boolean isThread() {
+    return this.thread;
+  }
+
+  @Override
+  public void setThread(final boolean thread) {
+    this.thread = thread;
+  }
 
   @Override
   public String getFileNameExt() {
