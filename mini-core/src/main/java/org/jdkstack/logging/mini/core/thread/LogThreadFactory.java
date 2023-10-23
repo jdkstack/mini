@@ -1,4 +1,4 @@
-package org.jdkstack.logging.mini.core.pool;
+package org.jdkstack.logging.mini.core.thread;
 
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;

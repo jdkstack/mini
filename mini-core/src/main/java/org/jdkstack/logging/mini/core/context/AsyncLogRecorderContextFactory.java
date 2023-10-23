@@ -13,6 +13,7 @@ import org.jdkstack.logging.mini.core.filter.HandlerProduceFilter;
 import org.jdkstack.logging.mini.core.formatter.LogJsonFormatter;
 import org.jdkstack.logging.mini.core.formatter.LogTextFormatter;
 import org.jdkstack.logging.mini.core.handler.FileHandlerV2;
+import org.jdkstack.logging.mini.core.handler.MmapFileHandlerV2;
 import org.jdkstack.logging.mini.core.level.Constants;
 import org.jdkstack.logging.mini.core.recorder.LogRecorder;
 
@@ -67,7 +68,9 @@ public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory
     this.addFormatter("logTextFormatter", logTextFormatter);
     // 默认FileHandler。
     final Handler fileHandlerV2 = new FileHandlerV2(this.context, "default");
+    final Handler mmap = new MmapFileHandlerV2(this.context, "default");
     this.addHandler("default", fileHandlerV2);
+    this.addHandler("mmap", mmap);
   }
 
   @Override

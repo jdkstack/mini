@@ -1,7 +1,6 @@
-package org.jdkstack.logging.mini.extension.buffer;
+package org.jdkstack.logging.mini.core.buffer;
 
 import java.nio.MappedByteBuffer;
-import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
 
 /**
  * This is a method description.

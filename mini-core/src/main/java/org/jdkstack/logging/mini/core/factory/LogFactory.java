@@ -32,6 +32,19 @@ public final class LogFactory implements Factory {
    *
    * <p>Another description after blank line.
    *
+   * @param name 日志的标志.
+   * @return 返回一个Log对象.
+   * @author admin
+   */
+  public static Recorder getRecorder(final String name) {
+    return FACTORY.getRecorder(name);
+  }
+
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
    * @param clazz 使用类的简单名称作为日志的标志.
    * @return 返回一个Log对象.
    * @author admin

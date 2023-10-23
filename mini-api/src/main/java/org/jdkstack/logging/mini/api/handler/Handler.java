@@ -18,29 +18,22 @@ public interface Handler {
    *
    * @author admin
    */
-  void produce(
-      final String logLevel,
-      final String dateTime,
-      final String message,
-      final String name,
-      final Object arg1,
-      final Object arg2,
-      final Object arg3,
-      final Object arg4,
-      final Object arg5,
-      final Object arg6,
-      final Object arg7,
-      final Object arg8,
-      final Object arg9,
-      final Throwable thrown,
-      final Record lr);
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @author admin
-   */
   void consume(final Record lr) throws Exception;
+
+  void produce(
+          String logLevel,
+          String dateTime,
+          String message,
+          String name,
+          Object arg1,
+          Object arg2,
+          Object arg3,
+          Object arg4,
+          Object arg5,
+          Object arg6,
+          Object arg7,
+          Object arg8,
+          Object arg9,
+          Throwable thrown,
+          Record lr);
 }

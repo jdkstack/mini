@@ -15,25 +15,18 @@ public final class Constants {
   public static final int N32 = 32;
   /** 32KB. */
   public static final int SOURCE = N32 << N10;
-  /** . */
-  public static final String SECOND = "second";
-  /** . */
-  public static final String MINUTE = "minute";
-  /** . */
-  public static final String HOUR = "hour";
-  /** . */
-  public static final String DAY = "day";
-  /** . */
-  public static final String MONTH = "month";
-  /** . */
-  public static final int SIZE = 10;
-  /** . */
-  public static final int CAPACITY = 1024;
 
   /** . */
-  public static final String SEPARATOR = "-";
+  public static final int LC = 1000000;
 
-  public static final long OFFSET = 8 * 3600L;
+  /** . */
+  public static final int SC = 104857600;
+
+  /** . */
+  public static final String LINES = "line";
+
+  /** . */
+  public static final String SIZES = "size";
 
   private Constants() {
     //

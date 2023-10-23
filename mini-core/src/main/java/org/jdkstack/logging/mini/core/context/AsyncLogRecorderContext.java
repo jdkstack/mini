@@ -1,7 +1,12 @@
 package org.jdkstack.logging.mini.core.context;
 
+import com.lmax.disruptor.BusySpinWaitStrategy;
+import com.lmax.disruptor.EventFactory;
+import com.lmax.disruptor.ExceptionHandler;
+import com.lmax.disruptor.WaitStrategy;
+import com.lmax.disruptor.dsl.Disruptor;
+import com.lmax.disruptor.dsl.ProducerType;
 import java.nio.Buffer;
-import java.util.concurrent.TimeUnit;
 import org.jdkstack.logging.mini.api.config.Configuration;
 import org.jdkstack.logging.mini.api.config.RecorderConfig;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
@@ -11,38 +16,73 @@ import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.level.Level;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
-import org.jdkstack.logging.mini.api.ringbuffer.EventFactory;
 import org.jdkstack.logging.mini.core.config.LogRecorderConfiguration;
-import org.jdkstack.logging.mini.core.pool.ThreadPoolExecutor;
 import org.jdkstack.logging.mini.core.record.RecordEventFactory;
-import org.jdkstack.logging.mini.core.recorder.SystemLogRecorder;
-import org.jdkstack.logging.mini.core.ringbuffer.MpmcBlockingQueueV3;
+import org.jdkstack.logging.mini.core.ringbuffer.RingBufferLogEventHandler;
+import org.jdkstack.logging.mini.core.ringbuffer.RingBufferLogEventTranslator;
+import org.jdkstack.logging.mini.core.thread.LogThreadFactory;
 
 /**
  * .
  *
  * <p>Another description after blank line.
  *
- * @param <E> .
  * @author admin
  */
 public class AsyncLogRecorderContext implements LogRecorderContext {
 
-  /** 内部使用,用来记录日志. */
-  private static final SystemLogRecorder SYSTEM = SystemLogRecorder.getSystemRecorder();
-
   private final Configuration configuration = new LogRecorderConfiguration();
 
-  /** 有界数组阻塞队列. */
-  private final MpmcBlockingQueueV3<Record> queue =
-      new MpmcBlockingQueueV3<>(Constants.CAPACITY, new RecordEventFactory<>());
+  private final ThreadLocal<RingBufferLogEventTranslator> tlt = new ThreadLocal<>();
 
-  private final ThreadPoolExecutor threadPoolExecutor =
-      new ThreadPoolExecutor(
-          2, 2, 0, TimeUnit.SECONDS, new MpmcBlockingQueueV3<>(1024, new TaskEventFactory<>()));
+  private final Disruptor<Record> disruptor;
 
+  /**
+   * .
+   *
+   * <p>Another description after blank line.
+   *
+   * @author admin
+   */
   public AsyncLogRecorderContext() {
-    //
+    // 对象工厂。
+    final EventFactory<Record> eventFactory = new RecordEventFactory();
+    // 生产者使用多线程模式。
+    final ProducerType producerType = ProducerType.MULTI;
+    // 等待策略。
+    final WaitStrategy waitStrategy = new BusySpinWaitStrategy();
+    // 创建disruptor。
+    disruptor =
+        new Disruptor<>(
+            eventFactory,
+            4096,
+            new LogThreadFactory("log-consume", null),
+            producerType,
+            waitStrategy);
+    // 添加异常处理。
+    final ExceptionHandler<Record> errorHandler =
+        new ExceptionHandler<Record>() {
+          @Override
+          public void handleEventException(Throwable ex, long sequence, Record event) {
+            ex.printStackTrace();
+          }
+
+          @Override
+          public void handleOnStartException(Throwable ex) {
+            ex.printStackTrace();
+          }
+
+          @Override
+          public void handleOnShutdownException(Throwable ex) {
+            ex.printStackTrace();
+          }
+        };
+    disruptor.setDefaultExceptionHandler(errorHandler);
+    // 添加业务处理（单个线程）。
+    final RingBufferLogEventHandler[] handlers = {new RingBufferLogEventHandler(this)};
+    disruptor.handleEventsWith(handlers);
+    // 启动disruptor。
+    disruptor.start();
   }
 
   @Override
@@ -119,11 +159,9 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
   }
 
   @Override
-  public final void consume() {
+  public final void consume(Record lr) {
     // 消费业务.
     try {
-      // 1.预消费(从循环队列head取一个元素对象).
-      final Record lr = this.queue.head();
       // 用Recorder的name获取到Recorder自己的配置。
       final RecorderConfig value = this.getRecorderConfig(lr.getName());
       // 使用消费Filter，检查当前的日志消息是否符合条件，符合条件才写入文件，不符合条件直接丢弃。
@@ -135,13 +173,8 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
         // 2.消费数据(从元素对象的每一个字段中获取数据).
         handler.consume(lr);
       }
-      // 3.清空数据(为元素对象的每一个字段重新填充空数据).
-      lr.clear();
-    } catch (final Exception e) {
-      SYSTEM.log("SYSTEM", e.getMessage());
-    } finally {
-      // 4.消费数据完成的标记(数据可以从循环队列tail生产).
-      this.queue.end();
+    } catch (final Exception ignore) {
+      // ignore.
     }
   }
 
@@ -160,62 +193,57 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
       final Object arg7,
       final Object arg8,
       final Object arg9,
-      final Throwable thrown) {
-    // 生产业务.
+      final Throwable thrown,
+      final Record lr) {
+    // 消费业务.
     try {
-      // 1.预生产(从循环队列tail取一个元素对象).
-      final Record lr = this.queue.tail();
       // 用Recorder的name获取到Recorder自己的配置。
       final RecorderConfig value = this.getRecorderConfig(name);
-      // 使用生产Filter，检查当前的日志消息是否符合条件，符合条件才写入RingBuffer，不符合条件直接丢弃。
+      final Handler handler = this.getHandler(value.getName());
+      handler.produce(
+          logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9,
+          thrown, lr);
+      // 使用消费Filter，检查当前的日志消息是否符合条件，符合条件才写入文件，不符合条件直接丢弃。
       if (this.filter(value.getHandlerProduceFilter(), lr)) {
-        // className,从配置中获取到对应Recorder的RecorderConfig.
-        // 从配置中获取所有的数据，包括handlers.
-        final Handler handler = this.getHandler(value.getName());
-        // 2.生产数据(为元素对象的每一个字段填充数据).
-        handler.produce(
-            logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9,
-            thrown, lr);
+        //
       }
-    } catch (final Exception e) {
-      SYSTEM.log("SYSTEM", e.getMessage());
-    } finally {
-      // 3.生产数据完成的标记(数据可以从循环队列head消费).
-      this.queue.start();
-    }
-  }
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @author admin
-   */
-  public class TaskEventFactory<E> implements EventFactory<E> {
-
-    @Override
-    public E newInstance() {
-      return (E) new Task();
-    }
-  }
-
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @author admin
-   */
-  public class Task implements Runnable {
-    @Override
-    public void run() {
-      AsyncLogRecorderContext.this.consume();
+    } catch (final Exception ignore) {
+      // ignore.
     }
   }
 
   @Override
-  public void thread() {
-    threadPoolExecutor.start();
+  public final void process(
+          final String logLevel,
+          final String dateTime,
+          final String message,
+          final String name,
+          final Object arg1,
+          final Object arg2,
+          final Object arg3,
+          final Object arg4,
+          final Object arg5,
+          final Object arg6,
+          final Object arg7,
+          final Object arg8,
+          final Object arg9,
+          final Throwable thrown) {
+    // 获取当前线程绑定的对象。
+    final RingBufferLogEventTranslator translator = getCachedTranslator();
+    // 将参数传递到对象中。
+    translator.process(
+            logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9,
+            thrown);
+    // 从循环数组中取出一个对象，并向对象中插入数据。
+    disruptor.publishEvent(translator);
+  }
+
+  private RingBufferLogEventTranslator getCachedTranslator() {
+    RingBufferLogEventTranslator result = tlt.get();
+    if (result == null) {
+      result = new RingBufferLogEventTranslator(this);
+      tlt.set(result);
+    }
+    return result;
   }
 }

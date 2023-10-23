@@ -38,13 +38,16 @@ public abstract class AbstractByteArrayWriter implements ByteWriter {
   @Override
   public final void flush(final ByteBuffer buf) throws Exception {
     buf.flip();
-    // 如果有数据.
-    if (0 < buf.remaining()) {
-      // 开始写数据.
-      this.writeToDestination(buf.array(), buf.arrayOffset() + buf.position(), buf.remaining());
+    try {
+      // 如果有数据.
+      if (0 < buf.remaining()) {
+        // 开始写数据.
+        this.writeToDestination(buf.array(), buf.arrayOffset() + buf.position(), buf.remaining());
+      }
+    } finally {
+      // 清除缓存.
+      buf.clear();
     }
-    // 清除缓存.
-    buf.clear();
   }
 
   /**

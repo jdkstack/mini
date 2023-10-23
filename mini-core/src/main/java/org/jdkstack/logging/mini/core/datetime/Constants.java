@@ -11,20 +11,6 @@ package org.jdkstack.logging.mini.core.datetime;
  */
 public final class Constants {
 
-  /** . */
-  public static final char ZERO_DIGIT = '0';
-  /** . */
-  public static final char SYMBOL1 = '-';
-  /** . */
-  public static final char SYMBOL2 = ':';
-  /** . */
-  public static final char SYMBOL3 = 'T';
-  /** . */
-  public static final char SYMBOL4 = 'Z';
-  /** . */
-  public static final char SYMBOL5 = '.';
-  /** . */
-  public static final char SYMBOL6 = '+';
   /** 一天24小时. */
   public static final int HOURS_PER_DAY = 24;
   /** 一小时60分钟. */
@@ -79,8 +65,6 @@ public final class Constants {
   public static final long DAYS_0000_TO_1970 = DAYS_0000_TO_2000 - DAYS_1970_TO_2000;
   /** 0000-1970多少天,减去60天,从1970年3月1日开始计算. */
   public static final long DAYS_0000_TO_1970_MARCH_ONE = DAYS_0000_TO_1970 - 60;
-  /** . */
-  public static final int CAPACITY = 2048;
   /** . */
   public static final int N0 = 0;
   /** . */
@@ -157,14 +141,6 @@ public final class Constants {
   public static final int N9999 = 9999;
   /** . */
   public static final int N10000 = 10000;
-  /** . */
-  public static final int N32 = 32;
-  /** . */
-  public static final int N3600 = 3600;
-  /** 32KB. */
-  public static final int SOURCE = N32 << N10;
-  /** 32KB. */
-  public static final int DESTINATION = N32 << N10;
 
   private Constants() {
     //

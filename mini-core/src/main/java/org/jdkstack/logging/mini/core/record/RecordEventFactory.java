@@ -1,6 +1,7 @@
 package org.jdkstack.logging.mini.core.record;
 
-import org.jdkstack.logging.mini.api.ringbuffer.EventFactory;
+import com.lmax.disruptor.EventFactory;
+import org.jdkstack.logging.mini.api.record.Record;
 
 /**
  * .
@@ -10,10 +11,10 @@ import org.jdkstack.logging.mini.api.ringbuffer.EventFactory;
  * @param <E> .
  * @author admin
  */
-public class RecordEventFactory<E> implements EventFactory<E> {
+public class RecordEventFactory implements EventFactory<Record> {
 
   @Override
-  public final E newInstance() {
-    return (E) new LogRecord();
+  public final Record newInstance() {
+    return new LogRecord();
   }
 }

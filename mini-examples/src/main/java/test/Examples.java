@@ -4,21 +4,16 @@ package test;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.core.factory.LogFactory;
+import org.jdkstack.logging.mini.core.formatter.LogJsonFormatter;
 import org.jdkstack.logging.mini.core.level.Constants;
 import org.jdkstack.logging.mini.core.record.LogRecord;
-import org.jdkstack.logging.mini.core.recorder.SystemLogRecorder;
 import org.jdkstack.logging.mini.core.tool.StringBuilderPool;
 
 public class Examples {
-
   private static final Recorder LOG = LogFactory.getRecorder(Examples.class);
 
-  /** 内部使用,用来记录日志. */
-  private static final SystemLogRecorder SYSTEM = SystemLogRecorder.getSystemRecorder();
-
   public static void main(final String[] args) throws Exception {
-
-/*    final Record record = new LogRecord();
+    final Record record = new LogRecord();
 
     final int[] indices = new int[9];
     indices[0] = 1028;
@@ -66,13 +61,19 @@ public class Examples {
     record.setParams(7, 6);
     record.setParams(8, 7);
     record.setParams(9, 8);
-    record.setPlaceholderCount(9);*/
-    for (int k = 0; k < 1000; k++) {
+    record.setPlaceholderCount(9);
+    LogJsonFormatter logJsonFormatter = new LogJsonFormatter();
+
+    for (int k = 0; k < 10; k++) {
       final long s = System.currentTimeMillis();
       for (int i = 0; i < 1000000; i++) {
+        // StringBuilder format = logJsonFormatter.format(record);
+        // LOG.log(Constants.FATAL, "xxxx" + i);
+        /*  LogFormatterV2.format(record, record.getMessage());
+        record.getMessageText().setLength(0);
+        record.getEvent().setLength(0);
+        record.getMap().clear();*/
         LOG.log(
-                Constants.FATAL,"xxxx");
-/*        LOG.log(
             Constants.FATAL,
             null,
             record.getMessage(),
@@ -84,10 +85,10 @@ public class Examples {
             StringBuilderPool.box(888888),
             StringBuilderPool.box(6),
             StringBuilderPool.box(7),
-            StringBuilderPool.box(8777777));*/
-       }
+            StringBuilderPool.box(8777777));
+      }
       final long e = System.currentTimeMillis();
-      //System.out.println(e - s);
+      System.out.println(e - s);
     }
     try {
       Thread.sleep(10000000);
