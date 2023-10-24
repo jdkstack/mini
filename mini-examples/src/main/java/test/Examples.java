@@ -64,7 +64,7 @@ public class Examples {
     record.setPlaceholderCount(9);
     LogJsonFormatter logJsonFormatter = new LogJsonFormatter();
 
-    for (int k = 0; k < 10; k++) {
+    for (int k = 0; k < 1000; k++) {
       final long s = System.currentTimeMillis();
       for (int i = 0; i < 1000000; i++) {
         // StringBuilder format = logJsonFormatter.format(record);

@@ -1,6 +1,7 @@
 package org.jdkstack.logging.mini.api.context;
 
 import java.nio.Buffer;
+import org.jdkstack.logging.mini.api.config.HandlerConfig;
 import org.jdkstack.logging.mini.api.config.RecorderConfig;
 import org.jdkstack.logging.mini.api.filter.Filter;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
@@ -33,10 +34,13 @@ public interface LogRecorderContext {
 
   RecorderConfig getRecorderConfig(String key);
 
+  void addLogHandlerConfig(String key, HandlerConfig logHandlerConfig);
+
+  HandlerConfig getHandlerConfig(String key);
+
   void addLevel(String name, int value);
 
-  boolean doFilter(
-          String logLevelName, String maxLevelName, String minLevelName);
+  boolean doFilter(String logLevelName, String maxLevelName, String minLevelName);
 
   Level findLevel(String name);
 
@@ -63,19 +67,19 @@ public interface LogRecorderContext {
       Throwable thrown);
 
   void produce(
-          String logLevel,
-          String dateTime,
-          String message,
-          String name,
-          Object arg1,
-          Object arg2,
-          Object arg3,
-          Object arg4,
-          Object arg5,
-          Object arg6,
-          Object arg7,
-          Object arg8,
-          Object arg9,
-          Throwable thrown,
-          Record lr);
+      String logLevel,
+      String dateTime,
+      String message,
+      String name,
+      Object arg1,
+      Object arg2,
+      Object arg3,
+      Object arg4,
+      Object arg5,
+      Object arg6,
+      Object arg7,
+      Object arg8,
+      Object arg9,
+      Throwable thrown,
+      Record lr);
 }

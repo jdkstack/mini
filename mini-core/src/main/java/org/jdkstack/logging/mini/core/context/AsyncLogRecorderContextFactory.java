@@ -1,5 +1,6 @@
 package org.jdkstack.logging.mini.core.context;
 
+import org.jdkstack.logging.mini.api.config.HandlerConfig;
 import org.jdkstack.logging.mini.api.config.RecorderConfig;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.context.LogRecorderContextFactory;
@@ -7,6 +8,7 @@ import org.jdkstack.logging.mini.api.filter.Filter;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
+import org.jdkstack.logging.mini.core.config.LogHandlerConfig;
 import org.jdkstack.logging.mini.core.config.LogRecorderConfig;
 import org.jdkstack.logging.mini.core.filter.HandlerConsumeFilter;
 import org.jdkstack.logging.mini.core.filter.HandlerProduceFilter;
@@ -51,10 +53,21 @@ public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory
     this.addLevel(Constants.TRACE, Constants.TRACE_VALUE);
     this.addLevel(Constants.MAX, Constants.MAX_VALUE);
     // 默认配置。
-    final LogRecorderConfig recorderConfig = new LogRecorderConfig();
+    final RecorderConfig recorderConfig = new LogRecorderConfig();
     this.addLogRecorderConfig("default", recorderConfig);
     // 默认Recorder。
     this.addRecorder(recorderConfig);
+    // 默认配置。
+    final HandlerConfig handlerConfig = new LogHandlerConfig();
+    this.addLogHandlerConfig("default", handlerConfig);
+    // 默认FileHandler。
+    final Handler fileHandlerV2 = new FileHandlerV2(this.context, "default");
+    this.addHandler("default", fileHandlerV2);
+    // 默认配置。
+    final LogHandlerConfig mmapRecorderConfig = new LogHandlerConfig();
+    this.addLogHandlerConfig("mmapDefault", mmapRecorderConfig);
+    final Handler mmap = new MmapFileHandlerV2(this.context, "default");
+    this.addHandler("mmap", mmap);
     // 默认Filter。
     final Filter handlerConsumeFilter = new HandlerConsumeFilter(this.context, "default");
     this.addFilter("handlerConsumeFilter", handlerConsumeFilter);
@@ -66,11 +79,6 @@ public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory
     this.addFormatter("logJsonFormatter", logJsonFormatter);
     final Formatter logTextFormatter = new LogTextFormatter(this.context);
     this.addFormatter("logTextFormatter", logTextFormatter);
-    // 默认FileHandler。
-    final Handler fileHandlerV2 = new FileHandlerV2(this.context, "default");
-    final Handler mmap = new MmapFileHandlerV2(this.context, "default");
-    this.addHandler("default", fileHandlerV2);
-    this.addHandler("mmap", mmap);
   }
 
   @Override
@@ -117,7 +125,10 @@ public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory
   public final void addLogRecorderConfig(final String key, final RecorderConfig logRecorderConfig) {
     this.context.addLogRecorderConfig(key, logRecorderConfig);
   }
-
+  @Override
+  public final void addLogHandlerConfig(final String key, final HandlerConfig logHandlerConfig) {
+    this.context.addLogHandlerConfig(key, logHandlerConfig);
+  }
   @Override
   public final void addLevel(final String name, final int value) {
     this.context.addLevel(name, value);

@@ -8,6 +8,7 @@ import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 import java.nio.Buffer;
 import org.jdkstack.logging.mini.api.config.Configuration;
+import org.jdkstack.logging.mini.api.config.HandlerConfig;
 import org.jdkstack.logging.mini.api.config.RecorderConfig;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.filter.Filter;
@@ -16,7 +17,7 @@ import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.level.Level;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
-import org.jdkstack.logging.mini.core.config.LogRecorderConfiguration;
+import org.jdkstack.logging.mini.core.config.LogConfiguration;
 import org.jdkstack.logging.mini.core.record.RecordEventFactory;
 import org.jdkstack.logging.mini.core.ringbuffer.RingBufferLogEventHandler;
 import org.jdkstack.logging.mini.core.ringbuffer.RingBufferLogEventTranslator;
@@ -31,7 +32,7 @@ import org.jdkstack.logging.mini.core.thread.LogThreadFactory;
  */
 public class AsyncLogRecorderContext implements LogRecorderContext {
 
-  private final Configuration configuration = new LogRecorderConfiguration();
+  private final Configuration configuration = new LogConfiguration();
 
   private final ThreadLocal<RingBufferLogEventTranslator> tlt = new ThreadLocal<>();
 
@@ -126,6 +127,16 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
   }
 
   @Override
+  public final void addLogHandlerConfig(final String key, final HandlerConfig logHandlerConfig) {
+    this.configuration.addLogHandlerConfig(key, logHandlerConfig);
+  }
+
+  @Override
+  public final HandlerConfig getHandlerConfig(final String key) {
+    return this.configuration.getLogHandlerConfig(key);
+  }
+
+  @Override
   public final void addLevel(final String name, final int value) {
     this.configuration.addLevel(name, value);
   }
@@ -162,15 +173,17 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
   public final void consume(Record lr) {
     // 消费业务.
     try {
-      // 用Recorder的name获取到Recorder自己的配置。
-      final RecorderConfig value = this.getRecorderConfig(lr.getName());
+      // 用Recorder name找到RecorderConfig配置信息。
+      final RecorderConfig recorderConfig = this.getRecorderConfig(lr.getName());
+      // 从配置中读取Recorder引用的Handler name。
+      final String handlers = recorderConfig.getHandlers();
+      // 使用Handler name找到HandlerConfig配置信息。
+      final HandlerConfig handlerConfig = this.getHandlerConfig(handlers);
       // 使用消费Filter，检查当前的日志消息是否符合条件，符合条件才写入文件，不符合条件直接丢弃。
-      if (this.filter(value.getHandlerConsumeFilter(), lr)) {
-        // className,从配置中获取到对应Recorder的RecorderConfig.
-        // 从配置中获取所有的数据，包括handlers.
-        // 应该用全局的配置AbstractConfiguration，可以获取所有的handler,filter,formatter
-        final Handler handler = this.getHandler(value.getName());
-        // 2.消费数据(从元素对象的每一个字段中获取数据).
+      if (this.filter(handlerConfig.getHandlerConsumeFilter(), lr)) {
+        // 使用Handler name找到Handler，并执行Handler消费方法。
+        final Handler handler = this.getHandler(handlerConfig.getName());
+        // 消费数据(从元素对象的每一个字段中获取数据).
         handler.consume(lr);
       }
     } catch (final Exception ignore) {
@@ -197,14 +210,20 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
       final Record lr) {
     // 消费业务.
     try {
-      // 用Recorder的name获取到Recorder自己的配置。
-      final RecorderConfig value = this.getRecorderConfig(name);
-      final Handler handler = this.getHandler(value.getName());
+      // 用Recorder name找到RecorderConfig配置信息。
+      final RecorderConfig recorderConfig = this.getRecorderConfig(name);
+      // 从配置中读取Recorder引用的Handler name。
+      final String handlers = recorderConfig.getHandlers();
+      // 使用Handler name找到HandlerConfig配置信息。
+      final HandlerConfig handlerConfig = this.getHandlerConfig(handlers);
+      // 使用Handler name找到Handler，并执行Handler生产方法。
+      final Handler handler = this.getHandler(handlerConfig.getName());
+      // 生产数据(向元素对象的每一个字段中设置数据).
       handler.produce(
           logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9,
           thrown, lr);
-      // 使用消费Filter，检查当前的日志消息是否符合条件，符合条件才写入文件，不符合条件直接丢弃。
-      if (this.filter(value.getHandlerProduceFilter(), lr)) {
+      // 使用生产Filter，检查当前的日志消息是否符合条件，符合条件才写入文件，不符合条件直接丢弃。
+      if (this.filter(recorderConfig.getHandlerProduceFilter(), lr)) {
         //
       }
     } catch (final Exception ignore) {
@@ -214,20 +233,20 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
 
   @Override
   public final void process(
-          final String logLevel,
-          final String dateTime,
-          final String message,
-          final String name,
-          final Object arg1,
-          final Object arg2,
-          final Object arg3,
-          final Object arg4,
-          final Object arg5,
-          final Object arg6,
-          final Object arg7,
-          final Object arg8,
-          final Object arg9,
-          final Throwable thrown) {
+      final String logLevel,
+      final String dateTime,
+      final String message,
+      final String name,
+      final Object arg1,
+      final Object arg2,
+      final Object arg3,
+      final Object arg4,
+      final Object arg5,
+      final Object arg6,
+      final Object arg7,
+      final Object arg8,
+      final Object arg9,
+      final Throwable thrown) {
     // 获取当前线程绑定的对象。
     final RingBufferLogEventTranslator translator = getCachedTranslator();
     // 将参数传递到对象中。

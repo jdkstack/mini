@@ -1,5 +1,6 @@
 package org.jdkstack.logging.mini.api.context;
 
+import org.jdkstack.logging.mini.api.config.HandlerConfig;
 import org.jdkstack.logging.mini.api.config.RecorderConfig;
 import org.jdkstack.logging.mini.api.filter.Filter;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
@@ -26,6 +27,8 @@ public interface LogRecorderContextFactory {
 
   void addLogRecorderConfig(String key, RecorderConfig logRecorderConfig);
 
-  void addLevel(String name, int value);
+    void addLogHandlerConfig(String key, HandlerConfig logHandlerConfig);
+
+    void addLevel(String name, int value);
   //
 }

@@ -4,7 +4,7 @@ import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.codec.Encoder;
-import org.jdkstack.logging.mini.api.config.RecorderConfig;
+import org.jdkstack.logging.mini.api.config.HandlerConfig;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.record.Record;
@@ -59,7 +59,7 @@ public abstract class AbstractHandler implements Handler {
    */
   @Override
   public void consume(final Record lr) throws Exception {
-    RecorderConfig value = this.context.getRecorderConfig(this.key);
+    HandlerConfig value = this.context.getHandlerConfig(this.key);
     // 格式化日志对象.
     final CharBuffer logMessage = (CharBuffer) this.context.formatter(value.getFormatter(), lr);
     // 清除缓存.

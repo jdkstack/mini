@@ -32,6 +32,10 @@ public interface Configuration {
 
   RecorderConfig getRecorderConfig(String key);
 
+  void addLogHandlerConfig(String key, HandlerConfig logHandlerConfig);
+
+  HandlerConfig getLogHandlerConfig(String key);
+
   void addLevel(String name, int value);
 
   Level findLevel(String name);

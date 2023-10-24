@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import org.jdkstack.logging.mini.api.config.Configuration;
+import org.jdkstack.logging.mini.api.config.HandlerConfig;
 import org.jdkstack.logging.mini.api.config.RecorderConfig;
 import org.jdkstack.logging.mini.api.filter.Filter;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
@@ -24,9 +25,14 @@ import org.jdkstack.logging.mini.core.level.LogLevel;
  * @param <E> .
  * @author admin
  */
-public class LogRecorderConfiguration implements Configuration {
+public class LogConfiguration implements Configuration {
 
   private final Lock configLock = new ReentrantLock();
+
+  private final Map<String, HandlerConfig> logHandlerConfigs = new ConcurrentHashMap<>(16);
+
+  /** . */
+  private final Map<String, RecorderConfig> logRecorderConfigs = new ConcurrentHashMap<>(1024);
 
   /** . */
   private final Map<String, Recorder> recorders = new ConcurrentHashMap<>(1000);
@@ -42,9 +48,6 @@ public class LogRecorderConfiguration implements Configuration {
 
   /** . */
   private final Map<String, Level> levels = new ConcurrentHashMap<>(32);
-
-  /** . */
-  private final Map<String, RecorderConfig> logRecorderConfigs = new ConcurrentHashMap<>(1024);
 
   @Override
   public final Recorder getRecorder(final String name) {
@@ -91,6 +94,21 @@ public class LogRecorderConfiguration implements Configuration {
     RecorderConfig value = this.logRecorderConfigs.get(key);
     if (value == null) {
       value = this.logRecorderConfigs.get("default");
+    }
+    return value;
+  }
+
+  @Override
+  public final void addLogHandlerConfig(final String key, final HandlerConfig logHandlerConfig) {
+    this.logHandlerConfigs.put(key, logHandlerConfig);
+  }
+
+  @Override
+  public final HandlerConfig getLogHandlerConfig(final String key) {
+    // 获取
+    HandlerConfig value = this.logHandlerConfigs.get(key);
+    if (value == null) {
+      value = this.logHandlerConfigs.get("default");
     }
     return value;
   }

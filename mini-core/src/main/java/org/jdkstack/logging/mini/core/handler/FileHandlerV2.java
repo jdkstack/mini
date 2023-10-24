@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.RandomAccessFile;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
-import org.jdkstack.logging.mini.api.config.RecorderConfig;
+import org.jdkstack.logging.mini.api.config.HandlerConfig;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.api.ringbuffer.RingBuffer;
@@ -30,7 +30,7 @@ public class FileHandlerV2 extends AbstractHandler {
   private final ByteWriter destination = new ByteArrayWriter();
 
   /** 配置. */
-  private final RecorderConfig rc = this.context.getRecorderConfig(this.key);
+  private final HandlerConfig rc = this.context.getHandlerConfig(this.key);
 
   /** 目录. */
   private final File dir = new File(this.rc.getDirectory() + File.separator + this.rc.getPrefix());
@@ -75,7 +75,7 @@ public class FileHandlerV2 extends AbstractHandler {
       this.remap();
     }
     // 切换日志文件规则.
-    final String type = this.context.getRecorderConfig(this.key).getType();
+    final String type = rc.getType();
     switch (type) {
       case Constants.LINES:
         // 1.按line切换.
