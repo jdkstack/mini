@@ -27,8 +27,7 @@ public interface LogRecorderContextFactory {
 
   void addLogRecorderConfig(String key, RecorderConfig logRecorderConfig);
 
-    void addLogHandlerConfig(String key, HandlerConfig logHandlerConfig);
+  void addLogHandlerConfig(String key, HandlerConfig logHandlerConfig);
 
-    void addLevel(String name, int value);
-  //
+  void addLevel(String name, int value);
 }

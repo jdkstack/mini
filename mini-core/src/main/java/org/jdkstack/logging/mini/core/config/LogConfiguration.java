@@ -3,8 +3,6 @@ package org.jdkstack.logging.mini.core.config;
 import java.nio.Buffer;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import org.jdkstack.logging.mini.api.config.Configuration;
 import org.jdkstack.logging.mini.api.config.HandlerConfig;
 import org.jdkstack.logging.mini.api.config.RecorderConfig;
@@ -26,8 +24,6 @@ import org.jdkstack.logging.mini.core.level.LogLevel;
  * @author admin
  */
 public class LogConfiguration implements Configuration {
-
-  private final Lock configLock = new ReentrantLock();
 
   private final Map<String, HandlerConfig> logHandlerConfigs = new ConcurrentHashMap<>(16);
 

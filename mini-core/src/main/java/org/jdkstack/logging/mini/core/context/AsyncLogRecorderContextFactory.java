@@ -125,10 +125,12 @@ public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory
   public final void addLogRecorderConfig(final String key, final RecorderConfig logRecorderConfig) {
     this.context.addLogRecorderConfig(key, logRecorderConfig);
   }
+
   @Override
   public final void addLogHandlerConfig(final String key, final HandlerConfig logHandlerConfig) {
     this.context.addLogHandlerConfig(key, logHandlerConfig);
   }
+
   @Override
   public final void addLevel(final String name, final int value) {
     this.context.addLevel(name, value);
