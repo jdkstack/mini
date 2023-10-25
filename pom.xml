@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jdkstack</groupId>
     <artifactId>mini</artifactId>
-    <version>11</version>
+    <version>21</version>
     <packaging>pom</packaging>
     <modules>
         <module>mini-api</module>
@@ -22,10 +22,10 @@
         <!-- 编译时使用的编码.-->
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <!-- 源文件编译时用的版本. -->
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <!-- 编译级别. -->
-        <maven.compiler.compilerVersion>11</maven.compiler.compilerVersion>
+        <maven.compiler.compilerVersion>21</maven.compiler.compilerVersion>
     </properties>
     <build>
         <plugins>
