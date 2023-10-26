@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.jdkstack</groupId>
         <artifactId>mini</artifactId>
-        <version>11</version>
+        <version>21</version>
     </parent>
 
     <artifactId>mini-jmh</artifactId>
@@ -15,7 +15,7 @@
         <dependency>
             <groupId>org.jdkstack</groupId>
             <artifactId>mini-core</artifactId>
-            <version>11</version>
+            <version>21</version>
         </dependency>
         <dependency>
             <groupId>org.hdrhistogram</groupId>
