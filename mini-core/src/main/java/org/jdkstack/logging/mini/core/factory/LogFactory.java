@@ -1,7 +1,12 @@
 package org.jdkstack.logging.mini.core.factory;
 
+import org.jdkstack.logging.mini.api.config.HandlerConfig;
+import org.jdkstack.logging.mini.api.config.RecorderConfig;
 import org.jdkstack.logging.mini.api.context.LogRecorderContextFactory;
 import org.jdkstack.logging.mini.api.factory.Factory;
+import org.jdkstack.logging.mini.api.filter.Filter;
+import org.jdkstack.logging.mini.api.formatter.Formatter;
+import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.core.context.AsyncLogRecorderContextFactory;
 
@@ -51,5 +56,34 @@ public final class LogFactory implements Factory {
    */
   public static Recorder getRecorder(final Class<?> clazz) {
     return FACTORY.getRecorder(clazz.getName());
+  }
+
+  public static void addRecorder(final RecorderConfig recorderConfig) {
+    FACTORY.addRecorder(recorderConfig);
+  }
+
+  public static void addHandler(final String key, final Handler value) {
+    FACTORY.addHandler(key, value);
+  }
+
+  public static void addFilter(final String key, final Filter filter) {
+    FACTORY.addFilter(key, filter);
+  }
+
+  public static void addFormatter(final String key, final Formatter formatter) {
+    FACTORY.addFormatter(key, formatter);
+  }
+
+  public static void addLogRecorderConfig(
+      final String key, final RecorderConfig logRecorderConfig) {
+    FACTORY.addLogRecorderConfig(key, logRecorderConfig);
+  }
+
+  public static void addLogHandlerConfig(final String key, final HandlerConfig logHandlerConfig) {
+    FACTORY.addLogHandlerConfig(key, logHandlerConfig);
+  }
+
+  public static void addLevel(final String name, final int value) {
+    FACTORY.addLevel(name, value);
   }
 }

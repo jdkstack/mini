@@ -1,18 +1,5 @@
 package org.jdkstack.logging.mini.core.thread;
 
-import java.io.File;
-import java.io.RandomAccessFile;
-import java.nio.CharBuffer;
-import java.nio.channels.FileChannel;
-import java.nio.charset.Charset;
-import java.util.concurrent.atomic.AtomicInteger;
-import org.jdkstack.logging.mini.api.buffer.ByteWriter;
-import org.jdkstack.logging.mini.api.codec.Encoder;
-import org.jdkstack.logging.mini.api.ringbuffer.RingBuffer;
-import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
-import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
-import org.jdkstack.logging.mini.core.handler.Constants;
-
 /**
  * 自定义线程,便于系统内线程的监控.
  *
@@ -25,39 +12,6 @@ public final class LogThread extends Thread {
   /** 线程开始运行的时间(毫秒). */
   private long execStart;
 
-  /** 按照文件大小切割. */
-  private final AtomicInteger sizes = new AtomicInteger(0);
-
-  /** 按照文件条数切割. */
-  private final AtomicInteger lines = new AtomicInteger(0);
-
-  /** 临时数组. */
-  private final CharBuffer charBuf = CharBuffer.allocate(Constants.SOURCE);
-
-  private final StringBuilder sb = new StringBuilder(20480);
-
-  public StringBuilder getSb() {
-    return this.sb;
-  }
-
-  /** 字符编码器. */
-  private final Encoder<CharBuffer> textEncoder = new CharArrayEncoderV2(Charset.defaultCharset());
-
-  /** 目的地写入器. */
-  private final ByteWriter destination = new ByteArrayWriter();
-
-  /** . */
-  private RingBuffer<File> buffer;
-
-  /** . */
-  private RingBuffer<RandomAccessFile> rabuffer;
-
-  /** . */
-  private RandomAccessFile randomAccessFile;
-
-  /** . */
-  private FileChannel channel;
-
   /**
    * 自定义线程.
    *
@@ -69,58 +23,6 @@ public final class LogThread extends Thread {
    */
   public LogThread(final Runnable targetParam, final String nameParam) {
     super(targetParam, nameParam);
-  }
-
-  public RingBuffer<File> getBuffer() {
-    return this.buffer;
-  }
-
-  public void setBuffer(final RingBuffer<File> buffer) {
-    this.buffer = buffer;
-  }
-
-  public RingBuffer<RandomAccessFile> getRabuffer() {
-    return this.rabuffer;
-  }
-
-  public void setRabuffer(final RingBuffer<RandomAccessFile> rabuffer) {
-    this.rabuffer = rabuffer;
-  }
-
-  public AtomicInteger getSizes() {
-    return this.sizes;
-  }
-
-  public AtomicInteger getLines() {
-    return this.lines;
-  }
-
-  public CharBuffer getCharBuf() {
-    return this.charBuf;
-  }
-
-  public Encoder<CharBuffer> getTextEncoder() {
-    return this.textEncoder;
-  }
-
-  public ByteWriter getDestination() {
-    return this.destination;
-  }
-
-  public RandomAccessFile getRandomAccessFile() {
-    return this.randomAccessFile;
-  }
-
-  public void setRandomAccessFile(final RandomAccessFile randomAccessFile) {
-    this.randomAccessFile = randomAccessFile;
-  }
-
-  public FileChannel getChannel() {
-    return this.channel;
-  }
-
-  public void setChannel(final FileChannel channel) {
-    this.channel = channel;
   }
 
   /**

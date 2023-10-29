@@ -1,5 +1,5 @@
 /**
- * 日志框架中的Recorder是什么.
+ * 日志框架中的Recorder是什么（别名 Logger）.
  *
  * <p>当我们在任何一个类中调用private static final Log LOG = LogFactory.getLog(ExamplesWorker.class);。
  *

@@ -38,47 +38,8 @@ public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory
    * @author admin
    */
   public AsyncLogRecorderContextFactory() {
-    // 默认日志级别。
-    this.addLevel(Constants.MIN, Constants.MIN_VALUE);
-    this.addLevel(Constants.SEVERE, Constants.SEVERE_VALUE);
-    this.addLevel(Constants.FATAL, Constants.FATAL_VALUE);
-    this.addLevel(Constants.ERROR, Constants.ERROR_VALUE);
-    this.addLevel(Constants.WARN, Constants.WARN_VALUE);
-    this.addLevel(Constants.INFO, Constants.INFO_VALUE);
-    this.addLevel(Constants.DEBUG, Constants.DEBUG_VALUE);
-    this.addLevel(Constants.CONFIG, Constants.CONFIG_VALUE);
-    this.addLevel(Constants.FINE, Constants.FINE_VALUE);
-    this.addLevel(Constants.FINER, Constants.FINER_VALUE);
-    this.addLevel(Constants.FINEST, Constants.FINEST_VALUE);
-    this.addLevel(Constants.TRACE, Constants.TRACE_VALUE);
-    this.addLevel(Constants.MAX, Constants.MAX_VALUE);
     // 默认配置。
-    final RecorderConfig recorderConfig = new LogRecorderConfig();
-    this.addLogRecorderConfig("default", recorderConfig);
-    // 默认Recorder。
-    this.addRecorder(recorderConfig);
-    // 默认配置。
-    final HandlerConfig handlerConfig = new LogHandlerConfig();
-    this.addLogHandlerConfig("default", handlerConfig);
-    // 默认FileHandler。
-    final Handler fileHandlerV2 = new FileHandlerV2(this.context, "default");
-    this.addHandler("default", fileHandlerV2);
-    // 默认配置。
-    final LogHandlerConfig mmapRecorderConfig = new LogHandlerConfig();
-    this.addLogHandlerConfig("mmapDefault", mmapRecorderConfig);
-    final Handler mmap = new MmapFileHandlerV2(this.context, "default");
-    this.addHandler("mmap", mmap);
-    // 默认Filter。
-    final Filter handlerConsumeFilter = new HandlerConsumeFilter(this.context, "default");
-    this.addFilter("handlerConsumeFilter", handlerConsumeFilter);
-    // 默认Filter。
-    final Filter handlerProduceFilter = new HandlerProduceFilter(this.context, "default");
-    this.addFilter("handlerProduceFilter", handlerProduceFilter);
-    // 默认Formatter。
-    final Formatter logJsonFormatter = new LogJsonFormatter(this.context);
-    this.addFormatter("logJsonFormatter", logJsonFormatter);
-    final Formatter logTextFormatter = new LogTextFormatter(this.context);
-    this.addFormatter("logTextFormatter", logTextFormatter);
+    this.insideConfig();
   }
 
   @Override
@@ -134,5 +95,49 @@ public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory
   @Override
   public final void addLevel(final String name, final int value) {
     this.context.addLevel(name, value);
+  }
+
+  private void insideConfig() {
+    // 默认日志级别。
+    this.addLevel(Constants.MIN, Constants.MIN_VALUE);
+    this.addLevel(Constants.SEVERE, Constants.SEVERE_VALUE);
+    this.addLevel(Constants.FATAL, Constants.FATAL_VALUE);
+    this.addLevel(Constants.ERROR, Constants.ERROR_VALUE);
+    this.addLevel(Constants.WARN, Constants.WARN_VALUE);
+    this.addLevel(Constants.INFO, Constants.INFO_VALUE);
+    this.addLevel(Constants.DEBUG, Constants.DEBUG_VALUE);
+    this.addLevel(Constants.CONFIG, Constants.CONFIG_VALUE);
+    this.addLevel(Constants.FINE, Constants.FINE_VALUE);
+    this.addLevel(Constants.FINER, Constants.FINER_VALUE);
+    this.addLevel(Constants.FINEST, Constants.FINEST_VALUE);
+    this.addLevel(Constants.TRACE, Constants.TRACE_VALUE);
+    this.addLevel(Constants.MAX, Constants.MAX_VALUE);
+    // 默认配置。
+    final RecorderConfig recorderConfig = new LogRecorderConfig();
+    this.addLogRecorderConfig("default", recorderConfig);
+    // 默认Recorder。
+    this.addRecorder(recorderConfig);
+    // 默认配置。
+    final HandlerConfig handlerConfig = new LogHandlerConfig();
+    this.addLogHandlerConfig("default", handlerConfig);
+    // 默认FileHandler。
+    final Handler fileHandlerV2 = new FileHandlerV2(this.context, "default");
+    this.addHandler("default", fileHandlerV2);
+    // 默认配置。
+    final LogHandlerConfig mmapRecorderConfig = new LogHandlerConfig();
+    this.addLogHandlerConfig("mmapDefault", mmapRecorderConfig);
+    final Handler mmap = new MmapFileHandlerV2(this.context, "default");
+    this.addHandler("mmap", mmap);
+    // 默认Filter。
+    final Filter handlerConsumeFilter = new HandlerConsumeFilter(this.context, "default");
+    this.addFilter("handlerConsumeFilter", handlerConsumeFilter);
+    // 默认Filter。
+    final Filter handlerProduceFilter = new HandlerProduceFilter(this.context, "default");
+    this.addFilter("handlerProduceFilter", handlerProduceFilter);
+    // 默认Formatter。
+    final Formatter logJsonFormatter = new LogJsonFormatter(this.context);
+    this.addFormatter("logJsonFormatter", logJsonFormatter);
+    final Formatter logTextFormatter = new LogTextFormatter(this.context);
+    this.addFormatter("logTextFormatter", logTextFormatter);
   }
 }
