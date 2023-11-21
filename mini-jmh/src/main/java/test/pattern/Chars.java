@@ -1,33 +1,52 @@
 package test.pattern;
 
-/** <em>Consider this class private.</em> */
+/**
+ * <em>Consider this class private.</em>
+ */
 public final class Chars {
 
-  /** Carriage Return. */
+  /**
+   * Carriage Return.
+   */
   public static final char CR = '\r';
 
-  /** Double Quote. */
+  /**
+   * Double Quote.
+   */
   public static final char DQUOTE = '\"';
 
-  /** Equals '='. */
+  /**
+   * Equals '='.
+   */
   public static final char EQ = '=';
 
-  /** Line Feed. */
+  /**
+   * Line Feed.
+   */
   public static final char LF = '\n';
 
-  /** NUL. */
+  /**
+   * NUL.
+   */
   public static final char NUL = 0;
 
-  /** Single Quote [']. */
+  /**
+   * Single Quote ['].
+   */
   public static final char QUOTE = '\'';
 
-  /** Space. */
+  /**
+   * Space.
+   */
   public static final char SPACE = ' ';
 
-  /** Tab. */
+  /**
+   * Tab.
+   */
   public static final char TAB = '\t';
 
-  private Chars() {}
+  private Chars() {
+  }
 
   /**
    * Converts a digit into an upper-case hexadecimal character or the null character if invalid.

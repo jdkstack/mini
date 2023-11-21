@@ -12,11 +12,13 @@ import org.jdkstack.logging.mini.core.codec.Constants;
  *
  * <p>按行输出纯json格式的消息.
  *
- *
  * @author admin
  */
 public final class LogJsonFormatter implements Formatter {
-  /** 临时数组. */
+
+  /**
+   * 临时数组.
+   */
   private static final CharBuffer CHARBUF = CharBuffer.allocate(Constants.SOURCEN8);
 
   /**

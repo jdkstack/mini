@@ -20,6 +20,7 @@
  * https://github.com/LatencyUtils/cassandra-stress2/blob/trunk/tools/stress/src/org/apache/cassandra/stress/StressAction.java#L374
  */
 public class Pacer {
+
   private long initialStartTime;
   private double throughputInUnitsPerNsec;
   private long unitsCompleted;
@@ -88,9 +89,7 @@ public class Pacer {
       // Figure out if it's time to send, per catch up throughput:
       final long unitsCompletedSinceCatchUpStart = unitsCompleted - unitsCompletedAtCatchUpStart;
 
-      nextStartTime =
-          catchUpStartTime
-              + (long) (unitsCompletedSinceCatchUpStart / catchUpThroughputInUnitsPerNsec);
+      nextStartTime = catchUpStartTime + (long) (unitsCompletedSinceCatchUpStart / catchUpThroughputInUnitsPerNsec);
 
       if (nextStartTime > now) {
         // Not yet time to send, even at catch-up throughout:
@@ -102,8 +101,7 @@ public class Pacer {
   }
 
   /**
-   * Will wait for next operation time. After this the expectedNextOperationNanoTime() will move
-   * forward.
+   * Will wait for next operation time. After this the expectedNextOperationNanoTime() will move forward.
    *
    * @param unitCount
    */

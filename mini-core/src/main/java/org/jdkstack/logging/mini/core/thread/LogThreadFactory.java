@@ -13,11 +13,17 @@ import org.jdkstack.logging.mini.api.monitor.Monitor;
  */
 public class LogThreadFactory implements ThreadFactory {
 
-  /** 线程名前缀. */
+  /**
+   * 线程名前缀.
+   */
   private final String prefix;
-  /** 线程名后缀计数. */
+  /**
+   * 线程名后缀计数.
+   */
   private final AtomicInteger threadCount = new AtomicInteger(0);
-  /** 线程监听检查对象. */
+  /**
+   * 线程监听检查对象.
+   */
   private final Monitor checker;
 
   /**
@@ -25,7 +31,7 @@ public class LogThreadFactory implements ThreadFactory {
    *
    * <p>Another description after blank line.
    *
-   * @param prefix 线程名前缀.
+   * @param prefix       线程名前缀.
    * @param checkerParam 线程监听检查对象.
    * @author admin
    */

@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.Properties;
 
 public class PluginMeta {
+
   public static final String PLUGINPROPERTIES = "plugin-descriptor.properties";
   public static final String PLUGINPOLICY = "plugin-security.policy";
   private String name;
@@ -41,12 +42,12 @@ public class PluginMeta {
     return name;
   }
 
-  public String getDescription() {
-    return description;
-  }
-
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getDescription() {
+    return description;
   }
 
   public void setDescription(String description) {

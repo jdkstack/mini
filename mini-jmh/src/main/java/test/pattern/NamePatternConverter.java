@@ -1,6 +1,7 @@
 package test.pattern;
 
 public abstract class NamePatternConverter extends LogEventPatternConverter {
+
   private final NameAbbreviator abbreviator;
 
   protected NamePatternConverter(final String name, final String style, final String[] options) {

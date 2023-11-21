@@ -14,13 +14,17 @@ import java.util.Map;
  */
 public final class PluginServices {
 
-  /** 保存所有插件的元数据和实例 */
+  /**
+   * 保存所有插件的元数据和实例
+   */
   private static Map<String, PluginServiceLifecycle> pluginServiceLifecycles = new HashMap<>();
 
   private static PluginServices instance = new PluginServices();
   private static Path pluginHomeDirectory;
 
-  /** 插件服务 */
+  /**
+   * 插件服务
+   */
   private PluginServices() {
     // 读取资源国际化文件,测试
     // ResourceBundleManager rbm = ResourceBundleManager.getInstance();
@@ -28,7 +32,9 @@ public final class PluginServices {
     // Locale.US, "simpleServerAuthConfig.noModules"));
   }
 
-  /** 获得实例 */
+  /**
+   * 获得实例
+   */
   public static PluginServices getInstance() {
     return instance;
   }
@@ -38,15 +44,16 @@ public final class PluginServices {
     return instance;
   }
 
-  /** 加载所有插件 */
+  /**
+   * 加载所有插件
+   */
   public void loadPlugins() {
     try (DirectoryStream<Path> paths = Files.newDirectoryStream(pluginHomeDirectory)) {
       for (Path pluginParentDirectory : paths) {
         // 插件的种类目录
         String pluginParentDirectoryName = pluginParentDirectory.getFileName().toString();
         // 创建一个插件的服务
-        PluginServiceLifecycle pluginServiceLifecycle =
-            new PluginServiceLifecycle(pluginParentDirectory);
+        PluginServiceLifecycle pluginServiceLifecycle = new PluginServiceLifecycle(pluginParentDirectory);
         pluginServiceLifecycle.doInit();
         // 保存这个插件种类的服务
         pluginServiceLifecycles.put(pluginParentDirectoryName, pluginServiceLifecycle);

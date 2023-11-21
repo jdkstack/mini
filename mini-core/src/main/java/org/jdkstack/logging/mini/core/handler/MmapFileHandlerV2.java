@@ -16,16 +16,25 @@ import org.jdkstack.logging.mini.core.buffer.MmapByteArrayWriter;
  * @author admin
  */
 public class MmapFileHandlerV2 extends FileHandlerV2 {
-  /** MMAP文件固定1GB大小. */
+
+  /**
+   * MMAP文件固定1GB大小.
+   */
   private static final long DEFAULT_REGION_LENGTH = 1L << 30;
 
-  /** 目的地写入器. */
+  /**
+   * 目的地写入器.
+   */
   private final ByteWriter destination = new MmapByteArrayWriter();
 
-  /** . */
+  /**
+   * .
+   */
   private MappedByteBuffer mappedBuffer;
 
-  /** . */
+  /**
+   * .
+   */
   private FileChannel channel;
 
   /**
@@ -45,7 +54,7 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
    *
    * <p>文件大小.
    *
-   * @param lr lr.
+   * @param lr     lr.
    * @param length length.
    * @author admin
    */

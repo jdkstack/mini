@@ -7,8 +7,7 @@ public class Examples {
 
   private static final Recorder LOG = LogFactory.getRecorder(Examples.class);
 
-  private static final String customPattern =
-      "%d{yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSSZ} [%t] %-5level %logger{0} - %msg%n";
+  private static final String customPattern = "%d{yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSSZ} [%t] %-5level %logger{0} - %msg%n";
 
   public static void main(final String[] args) throws Exception {
 

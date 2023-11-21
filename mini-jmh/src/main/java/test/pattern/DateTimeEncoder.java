@@ -29,22 +29,31 @@ import org.jdkstack.logging.mini.core.record.LogRecord;
  *
  * @author admin
  */
-public final class DateTimeEncoder extends LogEventPatternConverter
-    implements ArrayPatternConverter, Encoder {
+public final class DateTimeEncoder extends LogEventPatternConverter implements ArrayPatternConverter, Encoder {
 
-  /** . */
+  /**
+   * .
+   */
   private static final int SECOND_IN_MILLIS = 1000;
 
-  /** . */
+  /**
+   * .
+   */
   private static final int MINUTE_IN_MILLIS = SECOND_IN_MILLIS * 60;
 
-  /** . */
+  /**
+   * .
+   */
   private static final int HOUR_IN_MILLIS = MINUTE_IN_MILLIS * 60;
 
-  /** . */
+  /**
+   * .
+   */
   private static final int DAY_IN_MILLIS = HOUR_IN_MILLIS * 24;
 
-  /** . */
+  /**
+   * .
+   */
   private static final int EPOCH_OFFSET = 719163;
 
   private DateTimeEncoder() {
@@ -70,8 +79,7 @@ public final class DateTimeEncoder extends LogEventPatternConverter
    * @return StringBuilder 返回UTC Z时区的日期时间格式.
    * @author admin
    */
-  public static StringBuilder encoder(
-      final StringBuilder sb, final long millis, final long offset) {
+  public static StringBuilder encoder(final StringBuilder sb, final long millis, final long offset) {
     // millis/1000得到秒.
     final long secondUtc = millis / Constants.MILLS_PER_SECOND;
     //  本地总秒数.
@@ -335,9 +343,7 @@ public final class DateTimeEncoder extends LogEventPatternConverter
       era = (zeroDay - Constants.N146096) / Constants.N146097;
     }
     final long doe = zeroDay - era * Constants.N146097;
-    final long yoe =
-        (doe - doe / Constants.N1460 + doe / Constants.N36524 - doe / Constants.N146096)
-            / Constants.N365;
+    final long yoe = (doe - doe / Constants.N1460 + doe / Constants.N36524 - doe / Constants.N146096) / Constants.N365;
     final long doy = doe - (Constants.N365 * yoe + yoe / Constants.N4 - yoe / Constants.N100);
     final long mp = (Constants.N5 * doy + Constants.N2) / Constants.N153;
     if (Constants.N10 > mp) {
@@ -381,9 +387,7 @@ public final class DateTimeEncoder extends LogEventPatternConverter
       era = (zeroDay - Constants.N146096) / Constants.N146097;
     }
     final long doe = zeroDay - era * Constants.N146097;
-    final long yoe =
-        (doe - doe / Constants.N1460 + doe / Constants.N36524 - doe / Constants.N146096)
-            / Constants.N365;
+    final long yoe = (doe - doe / Constants.N1460 + doe / Constants.N36524 - doe / Constants.N146096) / Constants.N365;
     final long doy = doe - (Constants.N365 * yoe + yoe / Constants.N4 - yoe / Constants.N100);
     final long mp = (Constants.N5 * doy + Constants.N2) / Constants.N153;
     return doy - (Constants.N153 * mp + Constants.N2) / Constants.N5 + Constants.N1;
@@ -543,7 +547,8 @@ public final class DateTimeEncoder extends LogEventPatternConverter
   }
 
   @Override
-  public void format(StringBuilder toAppendTo, Object... objects) {}
+  public void format(StringBuilder toAppendTo, Object... objects) {
+  }
 
   @Override
   public void format(LogRecord event, StringBuilder toAppendTo) {

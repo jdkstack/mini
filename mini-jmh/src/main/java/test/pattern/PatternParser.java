@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public final class PatternParser {
+
   static final String DISABLE_ANSI = "disableAnsi";
   static final String NO_CONSOLE_NO_ANSI = "noConsoleNoAnsi";
 
@@ -42,8 +43,7 @@ public final class PatternParser {
     this(converterKey, expected, null);
   }
 
-  public PatternParser(
-      final String converterKey, final Class<?> expectedClass, final Class<?> filterClass) {
+  public PatternParser(final String converterKey, final Class<?> expectedClass, final Class<?> filterClass) {
     final Map<String, Class<PatternConverter>> converters = new LinkedHashMap<>();
     Class datePatternConverterClass = DateTimeEncoder.class;
     converters.put("d", (Class<PatternConverter>) datePatternConverterClass);
@@ -70,12 +70,7 @@ public final class PatternParser {
     converterRules = converters;
   }
 
-  private static int extractConverter(
-      final char lastChar,
-      final String pattern,
-      final int start,
-      final StringBuilder convBuf,
-      final StringBuilder currentLiteral) {
+  private static int extractConverter(final char lastChar, final String pattern, final int start, final StringBuilder convBuf, final StringBuilder currentLiteral) {
     int i = start;
     convBuf.setLength(0);
 
@@ -99,8 +94,7 @@ public final class PatternParser {
     return i;
   }
 
-  private static int extractOptions(
-      final String pattern, final int start, final List<String> options) {
+  private static int extractOptions(final String pattern, final int start, final List<String> options) {
     int i = start;
     while (i < pattern.length() && pattern.charAt(i) == '{') {
       i++; // skip opening "{"
@@ -147,16 +141,11 @@ public final class PatternParser {
     return parse(pattern, false, false, false);
   }
 
-  public List<PatternFormatter> parse(
-      final String pattern, final boolean alwaysWriteExceptions, final boolean noConsoleNoAnsi) {
+  public List<PatternFormatter> parse(final String pattern, final boolean alwaysWriteExceptions, final boolean noConsoleNoAnsi) {
     return parse(pattern, alwaysWriteExceptions, false, noConsoleNoAnsi);
   }
 
-  public List<PatternFormatter> parse(
-      final String pattern,
-      final boolean alwaysWriteExceptions,
-      final boolean disableAnsi,
-      final boolean noConsoleNoAnsi) {
+  public List<PatternFormatter> parse(final String pattern, final boolean alwaysWriteExceptions, final boolean disableAnsi, final boolean noConsoleNoAnsi) {
     final List<PatternFormatter> list = new ArrayList<>();
     final List<PatternConverter> converters = new ArrayList<>();
     final List<FormattingInfo> fields = new ArrayList<>();
@@ -192,22 +181,11 @@ public final class PatternParser {
     return list;
   }
 
-  public void parse(
-      final String pattern,
-      final List<PatternConverter> patternConverters,
-      final List<FormattingInfo> formattingInfos,
-      final boolean noConsoleNoAnsi,
-      final boolean convertBackslashes) {
+  public void parse(final String pattern, final List<PatternConverter> patternConverters, final List<FormattingInfo> formattingInfos, final boolean noConsoleNoAnsi, final boolean convertBackslashes) {
     parse(pattern, patternConverters, formattingInfos, false, noConsoleNoAnsi, convertBackslashes);
   }
 
-  public void parse(
-      final String pattern,
-      final List<PatternConverter> patternConverters,
-      final List<FormattingInfo> formattingInfos,
-      final boolean disableAnsi,
-      final boolean noConsoleNoAnsi,
-      final boolean convertBackslashes) {
+  public void parse(final String pattern, final List<PatternConverter> patternConverters, final List<FormattingInfo> formattingInfos, final boolean disableAnsi, final boolean noConsoleNoAnsi, final boolean convertBackslashes) {
     Objects.requireNonNull(pattern, "pattern");
 
     final StringBuilder currentLiteral = new StringBuilder(BUF_SIZE);
@@ -242,8 +220,7 @@ public final class PatternParser {
 
               default:
                 if (currentLiteral.length() != 0) {
-                  patternConverters.add(
-                      literalPattern(currentLiteral.toString(), convertBackslashes));
+                  patternConverters.add(literalPattern(currentLiteral.toString(), convertBackslashes));
                   formattingInfos.add(FormattingInfo.getDefault());
                 }
 
@@ -264,23 +241,11 @@ public final class PatternParser {
           switch (c) {
             case '0':
               // a '0' directly after the % sign indicates zero-padding
-              formattingInfo =
-                  new FormattingInfo(
-                      formattingInfo.isLeftAligned(),
-                      formattingInfo.getMinLength(),
-                      formattingInfo.getMaxLength(),
-                      formattingInfo.isLeftTruncate(),
-                      true);
+              formattingInfo = new FormattingInfo(formattingInfo.isLeftAligned(), formattingInfo.getMinLength(), formattingInfo.getMaxLength(), formattingInfo.isLeftTruncate(), true);
               break;
 
             case '-':
-              formattingInfo =
-                  new FormattingInfo(
-                      true,
-                      formattingInfo.getMinLength(),
-                      formattingInfo.getMaxLength(),
-                      formattingInfo.isLeftTruncate(),
-                      formattingInfo.isZeroPad());
+              formattingInfo = new FormattingInfo(true, formattingInfo.getMinLength(), formattingInfo.getMaxLength(), formattingInfo.isLeftTruncate(), formattingInfo.isZeroPad());
               break;
 
             case '.':
@@ -289,28 +254,10 @@ public final class PatternParser {
 
             default:
               if (c >= '0' && c <= '9') {
-                formattingInfo =
-                    new FormattingInfo(
-                        formattingInfo.isLeftAligned(),
-                        c - '0',
-                        formattingInfo.getMaxLength(),
-                        formattingInfo.isLeftTruncate(),
-                        formattingInfo.isZeroPad());
+                formattingInfo = new FormattingInfo(formattingInfo.isLeftAligned(), c - '0', formattingInfo.getMaxLength(), formattingInfo.isLeftTruncate(), formattingInfo.isZeroPad());
                 state = ParserState.MIN_STATE;
               } else {
-                i =
-                    finalizeConverter(
-                        c,
-                        pattern,
-                        i,
-                        currentLiteral,
-                        formattingInfo,
-                        converterRules,
-                        patternConverters,
-                        formattingInfos,
-                        disableAnsi,
-                        noConsoleNoAnsi,
-                        convertBackslashes);
+                i = finalizeConverter(c, pattern, i, currentLiteral, formattingInfo, converterRules, patternConverters, formattingInfos, disableAnsi, noConsoleNoAnsi, convertBackslashes);
 
                 // Next pattern is assumed to be a literal.
                 state = ParserState.LITERAL_STATE;
@@ -326,29 +273,11 @@ public final class PatternParser {
 
           if (c >= '0' && c <= '9') {
             // Multiply the existing value and add the value of the number just encountered.
-            formattingInfo =
-                new FormattingInfo(
-                    formattingInfo.isLeftAligned(),
-                    formattingInfo.getMinLength() * DECIMAL + c - '0',
-                    formattingInfo.getMaxLength(),
-                    formattingInfo.isLeftTruncate(),
-                    formattingInfo.isZeroPad());
+            formattingInfo = new FormattingInfo(formattingInfo.isLeftAligned(), formattingInfo.getMinLength() * DECIMAL + c - '0', formattingInfo.getMaxLength(), formattingInfo.isLeftTruncate(), formattingInfo.isZeroPad());
           } else if (c == '.') {
             state = ParserState.DOT_STATE;
           } else {
-            i =
-                finalizeConverter(
-                    c,
-                    pattern,
-                    i,
-                    currentLiteral,
-                    formattingInfo,
-                    converterRules,
-                    patternConverters,
-                    formattingInfos,
-                    disableAnsi,
-                    noConsoleNoAnsi,
-                    convertBackslashes);
+            i = finalizeConverter(c, pattern, i, currentLiteral, formattingInfo, converterRules, patternConverters, formattingInfos, disableAnsi, noConsoleNoAnsi, convertBackslashes);
             state = ParserState.LITERAL_STATE;
             formattingInfo = FormattingInfo.getDefault();
             currentLiteral.setLength(0);
@@ -360,24 +289,12 @@ public final class PatternParser {
           currentLiteral.append(c);
           switch (c) {
             case '-':
-              formattingInfo =
-                  new FormattingInfo(
-                      formattingInfo.isLeftAligned(),
-                      formattingInfo.getMinLength(),
-                      formattingInfo.getMaxLength(),
-                      false,
-                      formattingInfo.isZeroPad());
+              formattingInfo = new FormattingInfo(formattingInfo.isLeftAligned(), formattingInfo.getMinLength(), formattingInfo.getMaxLength(), false, formattingInfo.isZeroPad());
               break;
 
             default:
               if (c >= '0' && c <= '9') {
-                formattingInfo =
-                    new FormattingInfo(
-                        formattingInfo.isLeftAligned(),
-                        formattingInfo.getMinLength(),
-                        c - '0',
-                        formattingInfo.isLeftTruncate(),
-                        formattingInfo.isZeroPad());
+                formattingInfo = new FormattingInfo(formattingInfo.isLeftAligned(), formattingInfo.getMinLength(), c - '0', formattingInfo.isLeftTruncate(), formattingInfo.isZeroPad());
                 state = ParserState.MAX_STATE;
               } else {
                 state = ParserState.LITERAL_STATE;
@@ -391,27 +308,9 @@ public final class PatternParser {
 
           if (c >= '0' && c <= '9') {
             // Multiply the existing value and add the value of the number just encountered.
-            formattingInfo =
-                new FormattingInfo(
-                    formattingInfo.isLeftAligned(),
-                    formattingInfo.getMinLength(),
-                    formattingInfo.getMaxLength() * DECIMAL + c - '0',
-                    formattingInfo.isLeftTruncate(),
-                    formattingInfo.isZeroPad());
+            formattingInfo = new FormattingInfo(formattingInfo.isLeftAligned(), formattingInfo.getMinLength(), formattingInfo.getMaxLength() * DECIMAL + c - '0', formattingInfo.isLeftTruncate(), formattingInfo.isZeroPad());
           } else {
-            i =
-                finalizeConverter(
-                    c,
-                    pattern,
-                    i,
-                    currentLiteral,
-                    formattingInfo,
-                    converterRules,
-                    patternConverters,
-                    formattingInfos,
-                    disableAnsi,
-                    noConsoleNoAnsi,
-                    convertBackslashes);
+            i = finalizeConverter(c, pattern, i, currentLiteral, formattingInfo, converterRules, patternConverters, formattingInfos, disableAnsi, noConsoleNoAnsi, convertBackslashes);
             state = ParserState.LITERAL_STATE;
             formattingInfo = FormattingInfo.getDefault();
             currentLiteral.setLength(0);
@@ -428,13 +327,7 @@ public final class PatternParser {
     }
   }
 
-  private PatternConverter createConverter(
-      final String converterId,
-      final StringBuilder currentLiteral,
-      final Map<String, Class<PatternConverter>> rules,
-      final List<String> options,
-      final boolean disableAnsi,
-      final boolean noConsoleNoAnsi) {
+  private PatternConverter createConverter(final String converterId, final StringBuilder currentLiteral, final Map<String, Class<PatternConverter>> rules, final List<String> options, final boolean disableAnsi, final boolean noConsoleNoAnsi) {
     String converterName = converterId;
     Class<PatternConverter> converterClass = null;
 
@@ -462,10 +355,7 @@ public final class PatternParser {
     final Method[] methods = converterClass.getDeclaredMethods();
     Method newInstanceMethod = null;
     for (final Method method : methods) {
-      if (Modifier.isStatic(method.getModifiers())
-          && method.getDeclaringClass().equals(converterClass)
-          && method.getName().equals("newInstance")
-          && areValidNewInstanceParameters(method.getParameterTypes())) {
+      if (Modifier.isStatic(method.getModifiers()) && method.getDeclaringClass().equals(converterClass) && method.getName().equals("newInstance") && areValidNewInstanceParameters(method.getParameterTypes())) {
         if (newInstanceMethod == null) {
           newInstanceMethod = method;
         } else if (method.getReturnType().equals(newInstanceMethod.getReturnType())) {
@@ -487,7 +377,7 @@ public final class PatternParser {
       boolean errors = false;
       for (final Class<?> clazz : parmTypes) {
         if (clazz.isArray() && clazz.getName().equals("[Ljava.lang.String;")) {
-          final String[] optionsArray = options.toArray(new String[] {});
+          final String[] optionsArray = options.toArray(new String[]{});
           parms[i] = optionsArray;
         } else {
           errors = true;
@@ -503,8 +393,7 @@ public final class PatternParser {
       final Object newObj = newInstanceMethod.invoke(null, parms);
 
       if (newObj instanceof PatternConverter) {
-        currentLiteral.delete(
-            0, currentLiteral.length() - (converterId.length() - converterName.length()));
+        currentLiteral.delete(0, currentLiteral.length() - (converterId.length() - converterName.length()));
 
         return (PatternConverter) newObj;
       }
@@ -516,18 +405,7 @@ public final class PatternParser {
     return null;
   }
 
-  private int finalizeConverter(
-      final char c,
-      final String pattern,
-      final int start,
-      final StringBuilder currentLiteral,
-      final FormattingInfo formattingInfo,
-      final Map<String, Class<PatternConverter>> rules,
-      final List<PatternConverter> patternConverters,
-      final List<FormattingInfo> formattingInfos,
-      final boolean disableAnsi,
-      final boolean noConsoleNoAnsi,
-      final boolean convertBackslashes) {
+  private int finalizeConverter(final char c, final String pattern, final int start, final StringBuilder currentLiteral, final FormattingInfo formattingInfo, final Map<String, Class<PatternConverter>> rules, final List<PatternConverter> patternConverters, final List<FormattingInfo> formattingInfos, final boolean disableAnsi, final boolean noConsoleNoAnsi, final boolean convertBackslashes) {
     int i = start;
     final StringBuilder convBuf = new StringBuilder();
     i = extractConverter(c, pattern, i, convBuf, currentLiteral);
@@ -537,8 +415,7 @@ public final class PatternParser {
     final List<String> options = new ArrayList<>();
     i = extractOptions(pattern, i, options);
 
-    final PatternConverter pc =
-        createConverter(converterId, currentLiteral, rules, options, disableAnsi, noConsoleNoAnsi);
+    final PatternConverter pc = createConverter(converterId, currentLiteral, rules, options, disableAnsi, noConsoleNoAnsi);
 
     if (pc == null) {
       StringBuilder msg;

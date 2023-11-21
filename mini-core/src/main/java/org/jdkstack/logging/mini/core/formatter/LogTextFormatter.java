@@ -5,6 +5,7 @@ import java.nio.CharBuffer;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.record.Record;
+import org.jdkstack.logging.mini.core.codec.Constants;
 
 /**
  * 日志记录对象Record转成纯Text格式(空格分割).
@@ -14,9 +15,11 @@ import org.jdkstack.logging.mini.api.record.Record;
  * @author admin
  */
 public final class LogTextFormatter implements Formatter {
-  /** 临时数组. */
-  private static final CharBuffer CHARBUF =
-      CharBuffer.allocate(org.jdkstack.logging.mini.core.codec.Constants.SOURCEN8);
+
+  /**
+   * 临时数组.
+   */
+  private static final CharBuffer CHARBUF = CharBuffer.allocate(Constants.SOURCEN8);
 
   /**
    * This is a method description.

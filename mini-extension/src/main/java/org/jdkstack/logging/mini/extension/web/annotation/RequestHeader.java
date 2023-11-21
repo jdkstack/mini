@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RequestHeader {
 
-    String value() default "";
+  String value() default "";
 
-    boolean required() default true;
+  boolean required() default true;
 }

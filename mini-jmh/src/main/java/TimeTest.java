@@ -22,6 +22,7 @@ import org.jdkstack.logging.mini.core.level.Constants;
  * @author admin
  */
 public class TimeTest {
+
   private static final Recorder LOG = LogFactory.getRecorder(TimeTest.class);
 
   private static final String LATENCY_MSG = new String(new char[64]);
@@ -40,8 +41,7 @@ public class TimeTest {
     final long warmTime = TimeUnit.MINUTES.toMillis(1);
     // 单个线程执行多少次业务方法（平均分配）。
     final int warmCount = 50000 / threadCount;
-    runLatencyTest(
-        warmTime, warmCount, eps, serviceTimeWarm, responseTimeWarm, latencyTimeWarm, threadCount);
+    runLatencyTest(warmTime, warmCount, eps, serviceTimeWarm, responseTimeWarm, latencyTimeWarm, threadCount);
     final long end1 = System.currentTimeMillis();
     System.out.printf("%n%s: %d threads, load %,f msg/sec", "Warm", threadCount, (float) eps);
     System.out.println(" ,Warm duration: " + (end1 - start1) / 1000.0 + " seconds");
@@ -71,17 +71,13 @@ public class TimeTest {
     resultLatencyTm.outputPercentileDistribution(System.out, 1000.0);
   }
 
-  private static void writeToFile(
-      final String suffix, final Histogram hist, final int thousandMsgPerSec, final double scale)
-      throws IOException {
-    try (PrintStream pout =
-        new PrintStream(new FileOutputStream(thousandMsgPerSec + "k" + suffix))) {
+  private static void writeToFile(final String suffix, final Histogram hist, final int thousandMsgPerSec, final double scale) throws IOException {
+    try (PrintStream pout = new PrintStream(new FileOutputStream(thousandMsgPerSec + "k" + suffix))) {
       hist.outputPercentileDistribution(pout, scale);
     }
   }
 
-  private static Histogram createResultHistogram(
-      final List<Histogram> list, final long start, final long end) {
+  private static Histogram createResultHistogram(final List<Histogram> list, final long start, final long end) {
     final Histogram result = new Histogram(TimeUnit.SECONDS.toMillis(1000), 3);
     result.setStartTimeStamp(start);
     result.setEndTimeStamp(end);
@@ -91,15 +87,7 @@ public class TimeTest {
     return result;
   }
 
-  public static void runLatencyTest(
-      final long durationMillis,
-      final int samples,
-      final double loadMessagesPerSec,
-      final List<Histogram> serviceTmHistograms,
-      final List<Histogram> responseTmHistograms,
-      List<Histogram> latencyTmHistograms,
-      final int threadCount)
-      throws InterruptedException {
+  public static void runLatencyTest(final long durationMillis, final int samples, final double loadMessagesPerSec, final List<Histogram> serviceTmHistograms, final List<Histogram> responseTmHistograms, List<Histogram> latencyTmHistograms, final int threadCount) throws InterruptedException {
     final Histogram latencyTmHist = new Histogram(TimeUnit.SECONDS.toMillis(1000), 3);
     final Histogram serviceTmHist = new Histogram(TimeUnit.SECONDS.toMillis(1000), 3);
     final Histogram responseTmHist = new Histogram(TimeUnit.SECONDS.toMillis(1000), 3);
@@ -113,43 +101,42 @@ public class TimeTest {
     final CountDownLatch latch = new CountDownLatch(threadCount);
     for (int i = 0; i < threadCount; i++) {
       // 创建一个线程，并启动线程。
-      threads[i] =
-          new Thread("timeTest-" + i) {
-            @Override
-            public void run() {
-              latch.countDown();
-              try {
-                latch.await(); // wait until all threads are ready to go
-              } catch (final InterruptedException e) {
-                interrupt();
-                return;
-              }
-              // 未来时间毫秒数，作为结束测试的标志。
-              final long endTimeMillis = System.currentTimeMillis() + durationMillis;
-              // 为每一个线程绑定一个对象。内部处理了时间毫秒相关的算法。
-              final Pacer pacer = new Pacer(loadMessagesPerSec);
-              // 如果当前的时间毫秒数大于等于未来时间毫秒数，结束测试。
-              do {
-                for (int i = 0; i < samples; i++) {
-                  // 一个时间延迟算法。
-                  final long latencyTime = pacer.expectedNextOperationNanoTime();
-                  // 计算下一个延迟时间。
-                  pacer.acquire(1);
-                  // 开始执行一次业务。
-                  final long serviceStartTime = System.currentTimeMillis();
-                  LOG.log(Constants.INFO, LATENCY_MSG);
-                  // 结束执行一次业务。
-                  final long serviceEndTime = System.currentTimeMillis();
-                  // 业务时间毫秒。
-                  serviceTmHist.recordValue(serviceEndTime - serviceStartTime);
-                  // 响应时间毫秒。
-                  responseTmHist.recordValue(serviceEndTime - latencyTime);
-                  // 延时时间毫秒。
-                  latencyTmHist.recordValue(serviceStartTime - latencyTime);
-                }
-              } while (System.currentTimeMillis() < endTimeMillis);
+      threads[i] = new Thread("timeTest-" + i) {
+        @Override
+        public void run() {
+          latch.countDown();
+          try {
+            latch.await(); // wait until all threads are ready to go
+          } catch (final InterruptedException e) {
+            interrupt();
+            return;
+          }
+          // 未来时间毫秒数，作为结束测试的标志。
+          final long endTimeMillis = System.currentTimeMillis() + durationMillis;
+          // 为每一个线程绑定一个对象。内部处理了时间毫秒相关的算法。
+          final Pacer pacer = new Pacer(loadMessagesPerSec);
+          // 如果当前的时间毫秒数大于等于未来时间毫秒数，结束测试。
+          do {
+            for (int i = 0; i < samples; i++) {
+              // 一个时间延迟算法。
+              final long latencyTime = pacer.expectedNextOperationNanoTime();
+              // 计算下一个延迟时间。
+              pacer.acquire(1);
+              // 开始执行一次业务。
+              final long serviceStartTime = System.currentTimeMillis();
+              LOG.log(Constants.INFO, LATENCY_MSG);
+              // 结束执行一次业务。
+              final long serviceEndTime = System.currentTimeMillis();
+              // 业务时间毫秒。
+              serviceTmHist.recordValue(serviceEndTime - serviceStartTime);
+              // 响应时间毫秒。
+              responseTmHist.recordValue(serviceEndTime - latencyTime);
+              // 延时时间毫秒。
+              latencyTmHist.recordValue(serviceStartTime - latencyTime);
             }
-          };
+          } while (System.currentTimeMillis() < endTimeMillis);
+        }
+      };
       threads[i].start();
     }
 

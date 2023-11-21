@@ -2,16 +2,14 @@ package test.pattern;
 
 import org.jdkstack.logging.mini.core.record.LogRecord;
 
-abstract class SimpleLiteralPatternConverter extends LogEventPatternConverter
-    implements ArrayPatternConverter {
+abstract class SimpleLiteralPatternConverter extends LogEventPatternConverter implements ArrayPatternConverter {
 
   private SimpleLiteralPatternConverter() {
     super("SimpleLiteral", "literal");
   }
 
   static LogEventPatternConverter of(final String literal, final boolean convertBackslashes) {
-    String value =
-        literal; // convertBackslashes ? OptionConverter.convertSpecialChars(literal) : literal;
+    String value = literal; // convertBackslashes ? OptionConverter.convertSpecialChars(literal) : literal;
     return of(value);
   }
 
@@ -53,6 +51,7 @@ abstract class SimpleLiteralPatternConverter extends LogEventPatternConverter
   }
 
   private static final class Noop extends SimpleLiteralPatternConverter {
+
     private static final Noop INSTANCE = new Noop();
 
     @Override
@@ -62,6 +61,7 @@ abstract class SimpleLiteralPatternConverter extends LogEventPatternConverter
   }
 
   private static final class Space extends SimpleLiteralPatternConverter {
+
     private static final Space INSTANCE = new Space();
 
     @Override

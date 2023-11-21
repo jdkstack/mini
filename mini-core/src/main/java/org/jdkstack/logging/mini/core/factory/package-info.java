@@ -1,7 +1,7 @@
 /**
- * .
+ * 管理Recorder，Filter，Level，Handler，Formatter.
  *
- * <p>.
+ * <p>提供CRUD方法，额外提供获取系统详细信息的方法。
  *
  * @author admin
  */

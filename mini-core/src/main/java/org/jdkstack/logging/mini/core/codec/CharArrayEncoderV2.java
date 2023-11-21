@@ -17,13 +17,21 @@ import org.jdkstack.logging.mini.api.codec.Encoder;
  */
 public class CharArrayEncoderV2 implements Encoder<CharBuffer> {
 
-  /** . */
+  /**
+   * .
+   */
   private final Charset charset;
-  /** . */
+  /**
+   * .
+   */
   private final CharsetEncoder charsetEncoder;
-  /** . */
+  /**
+   * .
+   */
   private final CharBuffer charBuffer;
-  /** . */
+  /**
+   * .
+   */
   private final ByteBuffer byteBuffer;
 
   /**
@@ -43,19 +51,14 @@ public class CharArrayEncoderV2 implements Encoder<CharBuffer> {
    *
    * <p>Another description after blank line.
    *
-   * @param charset .
+   * @param charset        .
    * @param charBufferSize .
    * @param byteBufferSize .
    * @author admin
    */
-  public CharArrayEncoderV2(
-      final Charset charset, final int charBufferSize, final int byteBufferSize) {
+  public CharArrayEncoderV2(final Charset charset, final int charBufferSize, final int byteBufferSize) {
     this.charset = charset;
-    this.charsetEncoder =
-        this.charset
-            .newEncoder()
-            .onMalformedInput(CodingErrorAction.REPLACE)
-            .onUnmappableCharacter(CodingErrorAction.REPLACE);
+    this.charsetEncoder = this.charset.newEncoder().onMalformedInput(CodingErrorAction.REPLACE).onUnmappableCharacter(CodingErrorAction.REPLACE);
     this.charBuffer = CharBuffer.allocate(charBufferSize);
     this.byteBuffer = ByteBuffer.allocate(byteBufferSize);
   }
@@ -65,20 +68,14 @@ public class CharArrayEncoderV2 implements Encoder<CharBuffer> {
    *
    * <p>Another description after blank line.
    *
-   * @param ce .
-   * @param charBuf .
-   * @param byteBuf .
-   * @param text .
+   * @param ce          .
+   * @param charBuf     .
+   * @param byteBuf     .
+   * @param text        .
    * @param destination .
    * @author admin
    */
-  public static void encodeText(
-      final CharsetEncoder ce,
-      final CharBuffer charBuf,
-      final ByteBuffer byteBuf,
-      final CharBuffer text,
-      final ByteWriter destination)
-      throws Exception {
+  public static void encodeText(final CharsetEncoder ce, final CharBuffer charBuf, final ByteBuffer byteBuf, final CharBuffer text, final ByteWriter destination) throws Exception {
     // 重置字符编码器.
     ce.reset();
     // 清除缓存.
@@ -113,12 +110,11 @@ public class CharArrayEncoderV2 implements Encoder<CharBuffer> {
    *
    * <p>Another description after blank line.
    *
-   * @param source .
+   * @param source      .
    * @param destination .
    * @author admin
    */
-  public static void writeTo(final ByteBuffer source, final ByteWriter destination)
-      throws Exception {
+  public static void writeTo(final ByteBuffer source, final ByteWriter destination) throws Exception {
     // 得到字节数组数据.
     final ByteBuffer destBuff = destination.getByteBuffer();
     // 如果空间不足,分批写入.
@@ -139,7 +135,7 @@ public class CharArrayEncoderV2 implements Encoder<CharBuffer> {
    *
    * <p>Another description after blank line.
    *
-   * @param source .
+   * @param source      .
    * @param destination .
    * @author admin
    */

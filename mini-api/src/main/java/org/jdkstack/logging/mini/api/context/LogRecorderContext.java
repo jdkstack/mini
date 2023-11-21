@@ -18,6 +18,7 @@ import org.jdkstack.logging.mini.api.recorder.Recorder;
  * @author admin
  */
 public interface LogRecorderContext {
+
   Recorder getRecorder(String name);
 
   void addRecorder(String name, Recorder recorder);
@@ -50,36 +51,7 @@ public interface LogRecorderContext {
 
   void consume(Record event);
 
-  void process(
-      String logLevel,
-      String dateTime,
-      String message,
-      String name,
-      Object arg1,
-      Object arg2,
-      Object arg3,
-      Object arg4,
-      Object arg5,
-      Object arg6,
-      Object arg7,
-      Object arg8,
-      Object arg9,
-      Throwable thrown);
+  void process(String logLevel, String dateTime, String message, String name, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5, Object arg6, Object arg7, Object arg8, Object arg9, Throwable thrown);
 
-  void produce(
-      String logLevel,
-      String dateTime,
-      String message,
-      String name,
-      Object arg1,
-      Object arg2,
-      Object arg3,
-      Object arg4,
-      Object arg5,
-      Object arg6,
-      Object arg7,
-      Object arg8,
-      Object arg9,
-      Throwable thrown,
-      Record lr);
+  void produce(String logLevel, String dateTime, String message, String name, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5, Object arg6, Object arg7, Object arg8, Object arg9, Throwable thrown, Record lr);
 }

@@ -9,7 +9,9 @@ package org.jdkstack.logging.mini.core.thread;
  */
 public final class LogThread extends Thread {
 
-  /** 线程开始运行的时间(毫秒). */
+  /**
+   * 线程开始运行的时间(毫秒).
+   */
   private long execStart;
 
   /**
@@ -18,7 +20,7 @@ public final class LogThread extends Thread {
    * <p>参数需要加final修饰.
    *
    * @param targetParam 线程任务.
-   * @param nameParam 线程名.
+   * @param nameParam   线程名.
    * @author admin
    */
   public LogThread(final Runnable targetParam, final String nameParam) {

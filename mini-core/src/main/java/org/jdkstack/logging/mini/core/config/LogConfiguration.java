@@ -27,22 +27,34 @@ public class LogConfiguration implements Configuration {
 
   private final Map<String, HandlerConfig> logHandlerConfigs = new ConcurrentHashMap<>(16);
 
-  /** . */
+  /**
+   * .
+   */
   private final Map<String, RecorderConfig> logRecorderConfigs = new ConcurrentHashMap<>(1024);
 
-  /** . */
+  /**
+   * .
+   */
   private final Map<String, Recorder> recorders = new ConcurrentHashMap<>(1000);
 
-  /** . */
+  /**
+   * .
+   */
   private final Map<String, Filter> filters = new ConcurrentHashMap<>(32);
 
-  /** . */
+  /**
+   * .
+   */
   private final Map<String, Formatter> formatters = new ConcurrentHashMap<>(32);
 
-  /** . */
+  /**
+   * .
+   */
   private final Map<String, Handler> handlers = new ConcurrentHashMap<>(32);
 
-  /** . */
+  /**
+   * .
+   */
   private final Map<String, Level> levels = new ConcurrentHashMap<>(32);
 
   @Override

@@ -23,6 +23,8 @@ public interface HandlerConfig {
 
   String getName();
 
+  void setName(String name);
+
   String getDirectory();
 
   String getPrefix();
@@ -32,6 +34,4 @@ public interface HandlerConfig {
   String getType();
 
   String getFormatter();
-
-  void setName(String name);
 }

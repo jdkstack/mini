@@ -1,40 +1,49 @@
 package test.pattern;
 
 public final class FormattingInfo {
-  /** Empty array. */
+
+  /**
+   * Empty array.
+   */
   public static final FormattingInfo[] EMPTY_ARRAY = {};
-  /** Array of spaces. */
-  private static final char[] SPACES = new char[] {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
-  /** Array of zeros. */
-  private static final char[] ZEROS = new char[] {'0', '0', '0', '0', '0', '0', '0', '0'};
-  /** Default instance. */
-  private static final FormattingInfo DEFAULT =
-      new FormattingInfo(false, 0, Integer.MAX_VALUE, true);
-  /** Minimum length. */
+  /**
+   * Array of spaces.
+   */
+  private static final char[] SPACES = new char[]{' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
+  /**
+   * Array of zeros.
+   */
+  private static final char[] ZEROS = new char[]{'0', '0', '0', '0', '0', '0', '0', '0'};
+  /**
+   * Default instance.
+   */
+  private static final FormattingInfo DEFAULT = new FormattingInfo(false, 0, Integer.MAX_VALUE, true);
+  /**
+   * Minimum length.
+   */
   private final int minLength;
-  /** Maximum length. */
+  /**
+   * Maximum length.
+   */
   private final int maxLength;
-  /** Alignment. */
+  /**
+   * Alignment.
+   */
   private final boolean leftAlign;
-  /** Left vs. right-hand side truncation. */
+  /**
+   * Left vs. right-hand side truncation.
+   */
   private final boolean leftTruncate;
-  /** Use zero-padding instead whitespace padding */
+  /**
+   * Use zero-padding instead whitespace padding
+   */
   private final boolean zeroPad;
 
-  public FormattingInfo(
-      final boolean leftAlign,
-      final int minLength,
-      final int maxLength,
-      final boolean leftTruncate) {
+  public FormattingInfo(final boolean leftAlign, final int minLength, final int maxLength, final boolean leftTruncate) {
     this(leftAlign, minLength, maxLength, leftTruncate, false);
   }
 
-  public FormattingInfo(
-      final boolean leftAlign,
-      final int minLength,
-      final int maxLength,
-      final boolean leftTruncate,
-      final boolean zeroPad) {
+  public FormattingInfo(final boolean leftAlign, final int minLength, final int maxLength, final boolean leftTruncate, final boolean zeroPad) {
     this.leftAlign = leftAlign;
     this.minLength = minLength;
     this.maxLength = maxLength;

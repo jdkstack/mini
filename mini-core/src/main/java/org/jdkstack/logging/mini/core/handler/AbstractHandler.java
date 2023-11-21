@@ -22,18 +22,22 @@ import org.jdkstack.logging.mini.core.formatter.LogFormatterV2;
  */
 public abstract class AbstractHandler implements Handler {
 
-  /** 临时数组. */
-  private final CharBuffer charBuf = CharBuffer.allocate(Constants.SOURCE);
-
-  /** 字符编码器. */
-  private final Encoder<CharBuffer> textEncoder = new CharArrayEncoderV2(Charset.defaultCharset());
-
-  /** . */
+  /**
+   * .
+   */
   protected final String key;
-
   protected final LogRecorderContext context;
-
-  /** 目的地写入器. */
+  /**
+   * 临时数组.
+   */
+  private final CharBuffer charBuf = CharBuffer.allocate(Constants.SOURCE);
+  /**
+   * 字符编码器.
+   */
+  private final Encoder<CharBuffer> textEncoder = new CharArrayEncoderV2(Charset.defaultCharset());
+  /**
+   * 目的地写入器.
+   */
   protected ByteWriter destination;
 
   /**
@@ -76,22 +80,7 @@ public abstract class AbstractHandler implements Handler {
   }
 
   @Override
-  public void produce(
-      final String logLevel,
-      final String dateTime,
-      final String message,
-      final String name,
-      final Object arg1,
-      final Object arg2,
-      final Object arg3,
-      final Object arg4,
-      final Object arg5,
-      final Object arg6,
-      final Object arg7,
-      final Object arg8,
-      final Object arg9,
-      final Throwable thrown,
-      final Record lr) {
+  public void produce(final String logLevel, final String dateTime, final String message, final String name, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5, final Object arg6, final Object arg7, final Object arg8, final Object arg9, final Throwable thrown, final Record lr) {
     // 设置日志级别.
     lr.setLevel(logLevel);
     // 设置日志日期时间.
@@ -145,7 +134,7 @@ public abstract class AbstractHandler implements Handler {
    *
    * <p>文件行数,文件大小,日期时间.
    *
-   * @param lr lr.
+   * @param lr     lr.
    * @param length length.
    * @author admin
    */

@@ -3,6 +3,7 @@ package test.pattern;
 import org.jdkstack.logging.mini.core.record.LogRecord;
 
 public final class LoggerPatternConverter extends NamePatternConverter {
+
   private static final LoggerPatternConverter INSTANCE = new LoggerPatternConverter(null);
 
   private LoggerPatternConverter(final String[] options) {

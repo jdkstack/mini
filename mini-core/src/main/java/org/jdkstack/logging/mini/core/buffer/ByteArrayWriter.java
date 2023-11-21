@@ -11,7 +11,9 @@ import java.io.RandomAccessFile;
  */
 public class ByteArrayWriter extends AbstractByteArrayWriter {
 
-  /** . */
+  /**
+   * .
+   */
   protected RandomAccessFile randomAccessFile;
 
   /**
@@ -19,14 +21,13 @@ public class ByteArrayWriter extends AbstractByteArrayWriter {
    *
    * <p>Another description after blank line.
    *
-   * @param bytes b.
+   * @param bytes  b.
    * @param offset o.
    * @param length l.
    * @author admin
    */
   @Override
-  public void writeToDestination(final byte[] bytes, final int offset, final int length)
-      throws Exception {
+  public void writeToDestination(final byte[] bytes, final int offset, final int length) throws Exception {
     this.randomAccessFile.write(bytes, offset, length);
   }
 

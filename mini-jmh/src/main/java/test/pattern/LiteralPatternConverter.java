@@ -2,8 +2,7 @@ package test.pattern;
 
 import org.jdkstack.logging.mini.core.record.LogRecord;
 
-public final class LiteralPatternConverter extends LogEventPatternConverter
-    implements ArrayPatternConverter {
+public final class LiteralPatternConverter extends LogEventPatternConverter implements ArrayPatternConverter {
 
   private String literal;
 

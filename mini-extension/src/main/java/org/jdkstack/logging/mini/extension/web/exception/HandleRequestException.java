@@ -7,7 +7,8 @@ package org.jdkstack.logging.mini.extension.web.exception;
  */
 public final class HandleRequestException extends RuntimeException {
 
-  public HandleRequestException() {}
+  public HandleRequestException() {
+  }
 
   public HandleRequestException(String message) {
     super(message);

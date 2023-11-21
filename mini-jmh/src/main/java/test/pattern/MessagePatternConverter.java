@@ -16,10 +16,7 @@ public class MessagePatternConverter extends LogEventPatternConverter {
   public static MessagePatternConverter newInstance(final String[] options) {
     String[] formats = withoutLookupOptions(options);
 
-    MessagePatternConverter result =
-        formats == null || formats.length == 0
-            ? SimpleMessagePatternConverter.INSTANCE
-            : new FormattedMessagePatternConverter(formats);
+    MessagePatternConverter result = formats == null || formats.length == 0 ? SimpleMessagePatternConverter.INSTANCE : new FormattedMessagePatternConverter(formats);
     return result;
   }
 
@@ -34,7 +31,7 @@ public class MessagePatternConverter extends LogEventPatternConverter {
         results.add(option);
       }
     }
-    return results.toArray(new String[] {});
+    return results.toArray(new String[]{});
   }
 
   @Override
@@ -43,6 +40,7 @@ public class MessagePatternConverter extends LogEventPatternConverter {
   }
 
   private static final class SimpleMessagePatternConverter extends MessagePatternConverter {
+
     private static final MessagePatternConverter INSTANCE = new SimpleMessagePatternConverter();
 
     @Override

@@ -23,24 +23,32 @@ import org.jdkstack.logging.mini.extension.web.data.ParameterMetaData;
  *
  * @author admin
  */
-public abstract class AbstractRestServiceModuleLifecycle{
+public abstract class AbstractRestServiceModuleLifecycle {
 
-  /** 存储RestController简单名和全限定名的映射,把类主动加载到就jvm中 */
+  /**
+   * 存储RestController简单名和全限定名的映射,把类主动加载到就jvm中
+   */
   protected Map<String, List<ParameterMetaData>> fullyPathsParams = new HashMap<>();
 
-  /** 存储RestController简单名和全限定名的映射,把类主动加载到就jvm中 */
+  /**
+   * 存储RestController简单名和全限定名的映射,把类主动加载到就jvm中
+   */
   protected Map<String, MethodMetaData> fullyPaths = new HashMap<>();
 
-  /** 存储RestController简单名和全限定名的映射,把类主动加载到就jvm中 */
+  /**
+   * 存储RestController简单名和全限定名的映射,把类主动加载到就jvm中
+   */
   protected Map<String, ControllerMetaData> controllerMetaDataMap = new HashMap<>();
 
-  /** Http URL路径的分割符 */
+  /**
+   * Http URL路径的分割符
+   */
   protected String pathSeparator = "/";
 
   /**
    * 参数元数据(Executable 代替 Method) 保存参数的元数据信息
    *
-   * @param method 方法
+   * @param method   方法
    * @param fullPath 完整路径
    */
   protected void parameterMetaData(Executable method, String fullPath) {
@@ -97,7 +105,7 @@ public abstract class AbstractRestServiceModuleLifecycle{
   /**
    * 元数据方法 保存方法的元数据信息
    *
-   * @param clazz clazz
+   * @param clazz    clazz
    * @param basePath 基本路径
    */
   protected void methodMetaData(Class<?> clazz, String basePath) {
@@ -173,7 +181,7 @@ public abstract class AbstractRestServiceModuleLifecycle{
   /**
    * get方法路径
    *
-   * @param method 方法
+   * @param method          方法
    * @param annotationClass 注释类
    * @return {@link String}
    */

@@ -12,11 +12,17 @@ import org.jdkstack.logging.mini.api.ringbuffer.RingBuffer;
  */
 public class ByteArrayRingBuffer implements RingBuffer<byte[]> {
 
-  /** . */
+  /**
+   * .
+   */
   private final Object[] rb;
-  /** . */
+  /**
+   * .
+   */
   private final int mask;
-  /** . */
+  /**
+   * .
+   */
   private int current;
 
   /**

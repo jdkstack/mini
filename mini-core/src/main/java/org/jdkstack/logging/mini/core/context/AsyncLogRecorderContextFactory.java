@@ -27,7 +27,10 @@ import org.jdkstack.logging.mini.core.recorder.LogRecorder;
  * @author admin
  */
 public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory {
-  /** 上下文对象，用来初始化，并提供业务方法. */
+
+  /**
+   * 上下文对象，用来初始化，并提供业务方法.
+   */
   private final LogRecorderContext context = new AsyncLogRecorderContext();
 
   /**

@@ -19,21 +19,32 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class PluginServiceLifecycle implements PluginService {
 
-  /** 用来保存正常的插件信息(成功的) */
+  /**
+   * 用来保存正常的插件信息(成功的)
+   */
   protected static Map<String, PluginEntity> pluginEntitys = new ConcurrentHashMap<>();
 
-  /** 用来保存不正常的插件信息(失败的) */
+  /**
+   * 用来保存不正常的插件信息(失败的)
+   */
   protected static Map<String, PluginEntity> abnormalPluginEntitys = new ConcurrentHashMap<>();
-
-  /** /{服务的home目录,从System中获取}/plugin/{插件的类型目录,例如:rest}/{具体插件的目录,例如:bank} */
-  private Path pluginParentDir;
-
-  /** 扫描具体插件目录下的所有的jar文件,例如:/bank/*.jar */
+  /**
+   * 扫描具体插件目录下的所有的jar文件,例如:/bank/*.jar
+   */
   private static String fileExtension = "*.jar";
+  /**
+   * /{服务的home目录,从System中获取}/plugin/{插件的类型目录,例如:rest}/{具体插件的目录,例如:bank}
+   */
+  private Path pluginParentDir;
 
   public PluginServiceLifecycle(Path pluginParentDirectory) {
     // 具体插件的上一层目录/rest
     pluginParentDir = pluginParentDirectory;
+  }
+
+  public static void main(String[] args) {
+    PluginServices pluginServices = PluginServices.getInstance(null);
+    pluginServices.loadPlugins();
   }
 
   /**
@@ -96,7 +107,7 @@ public class PluginServiceLifecycle implements PluginService {
    * 得到类装入器
    *
    * @param pluginName 插件名称
-   * @param urlsList url列表
+   * @param urlsList   url列表
    * @return {@link StandardPluginExecutorClassLoader}
    */
   private StandardPluginExecutorClassLoader getClassLoader(String pluginName, List<URL> urlsList) {
@@ -147,11 +158,10 @@ public class PluginServiceLifecycle implements PluginService {
    * gata类
    *
    * @param pluginClassName 插件类名
-   * @param specl specl
+   * @param specl           specl
    * @return {@link Class<? extends  Plugin >}
    */
-  private Class<? extends Plugin> getClass(
-      String pluginClassName, StandardPluginExecutorClassLoader specl) {
+  private Class<? extends Plugin> getClass(String pluginClassName, StandardPluginExecutorClassLoader specl) {
     // 从加载器中获取字节码Class对象,并检查是否继承于Plugin对象
     Class<? extends Plugin> classObj = null;
     try {
@@ -178,13 +188,10 @@ public class PluginServiceLifecycle implements PluginService {
     return urls;
   }
 
-  /** 获取正常的插件列表 */
+  /**
+   * 获取正常的插件列表
+   */
   public Map<String, PluginEntity> getPluginEntitys() {
     return pluginEntitys;
-  }
-
-  public static void main(String[] args) {
-    PluginServices pluginServices = PluginServices.getInstance(null);
-    pluginServices.loadPlugins();
   }
 }

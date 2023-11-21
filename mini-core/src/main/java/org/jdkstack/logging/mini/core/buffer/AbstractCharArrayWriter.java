@@ -12,7 +12,9 @@ import org.jdkstack.logging.mini.api.buffer.CharWriter;
  */
 public abstract class AbstractCharArrayWriter implements CharWriter {
 
-  /** 256KB. */
+  /**
+   * 256KB.
+   */
   protected final CharBuffer charBuffer = CharBuffer.allocate(Constants.N256 << Constants.N10);
 
   @Override
@@ -24,8 +26,7 @@ public abstract class AbstractCharArrayWriter implements CharWriter {
   public final void flush(final CharBuffer charBuf) throws Exception {
     charBuf.flip();
     if (0 < charBuf.remaining()) {
-      this.readToDestination(
-          charBuf.array(), charBuf.arrayOffset() + charBuf.position(), charBuf.remaining());
+      this.readToDestination(charBuf.array(), charBuf.arrayOffset() + charBuf.position(), charBuf.remaining());
     }
     charBuf.clear();
   }

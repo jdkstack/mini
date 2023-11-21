@@ -21,13 +21,17 @@ import org.jdkstack.logging.mini.extension.web.data.MethodMetaData;
  * @author admin
  */
 public final class RestServiceModuleLifecycle extends AbstractRestServiceModuleLifecycle {
+
   private static RestServiceModuleLifecycle instance = new RestServiceModuleLifecycle();
   private Map<String, String> fullyQualifiedNames = new HashMap<>();
 
-  /** 存储RestController的根URL路径和全限定名的映射,把类主动加载到就jvm中 */
+  /**
+   * 存储RestController的根URL路径和全限定名的映射,把类主动加载到就jvm中
+   */
   private Map<String, Class<?>> fullyQualifiedClasses = new HashMap<>();
 
-  private RestServiceModuleLifecycle() {}
+  private RestServiceModuleLifecycle() {
+  }
 
   public static RestServiceModuleLifecycle getInstance() {
     return instance;
@@ -36,10 +40,8 @@ public final class RestServiceModuleLifecycle extends AbstractRestServiceModuleL
   public void doInit() throws Exception {
     // 手动配置Rest类静态信息
     // 每增加一个Rest类,都需要在这个配置
-    fullyQualifiedNames.put(
-        "user", "org.nation.core.server.core.http.rest.controller.UserController");
-    fullyQualifiedNames.put(
-        "base", "org.nation.core.server.core.http.rest.controller.TestController");
+    fullyQualifiedNames.put("user", "org.nation.core.server.core.http.rest.controller.UserController");
+    fullyQualifiedNames.put("base", "org.nation.core.server.core.http.rest.controller.TestController");
     // 加载Rest类到jvm,保存类元数据和方法元数据
     for (Map.Entry<String, String> entry : fullyQualifiedNames.entrySet()) {
       // Rest类简单名称(类名)
@@ -56,8 +58,7 @@ public final class RestServiceModuleLifecycle extends AbstractRestServiceModuleL
     }
     // 注册插件中的rest服务
     PluginServices pluginServices = PluginServices.getInstance();
-    Map<String, PluginServiceLifecycle> pluginServiceLifecycles =
-        pluginServices.getPluginServiceLifecycles();
+    Map<String, PluginServiceLifecycle> pluginServiceLifecycles = pluginServices.getPluginServiceLifecycles();
     PluginServiceLifecycle pluginServiceLifecycle = pluginServiceLifecycles.get("rest");
     Map<String, PluginEntity> pluginEntitys = pluginServiceLifecycle.getPluginEntitys();
     // 注册插件中的rest服务
@@ -102,7 +103,7 @@ public final class RestServiceModuleLifecycle extends AbstractRestServiceModuleL
   /**
    * get方法路径
    *
-   * @param method 方法
+   * @param method          方法
    * @param annotationClass 注释类
    * @return {@link String}
    */
@@ -134,7 +135,9 @@ public final class RestServiceModuleLifecycle extends AbstractRestServiceModuleL
     return restController.singleton();
   }
 
-  /** 全限定名获取Class类,用来反射获取类信息 */
+  /**
+   * 全限定名获取Class类,用来反射获取类信息
+   */
   public Class<?> classForName(String fullyQualifiedName) {
     Class<?> classObj = null;
     try {

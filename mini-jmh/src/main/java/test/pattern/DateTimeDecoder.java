@@ -29,8 +29,7 @@ import org.jdkstack.logging.mini.core.record.LogRecord;
  *
  * @author admin
  */
-public final class DateTimeDecoder extends LogEventPatternConverter
-    implements ArrayPatternConverter, Decoder {
+public final class DateTimeDecoder extends LogEventPatternConverter implements ArrayPatternConverter, Decoder {
 
   private DateTimeDecoder() {
     super("Date", "date");
@@ -42,7 +41,7 @@ public final class DateTimeDecoder extends LogEventPatternConverter
    * <p>offset计算目前存在阔年错误问题，暂时只支持offset=0。
    *
    * @param dateTime 必须是Z时区的日期时间格式.
-   * @param offset 时区偏移量*3600秒(例如时区是+8:00,则offset=+8*3600).
+   * @param offset   时区偏移量*3600秒(例如时区是+8:00,则offset=+8*3600).
    * @return long 返回1970年开始UTC时区的毫秒.
    * @author admin
    */
@@ -66,23 +65,16 @@ public final class DateTimeDecoder extends LogEventPatternConverter
     }
     final long doy;
     if (Constants.N2 < mon) {
-      doy =
-          (Constants.N153 * (mon - Constants.N3) + Constants.N2) / Constants.N5
-              + day
-              - Constants.N1;
+      doy = (Constants.N153 * (mon - Constants.N3) + Constants.N2) / Constants.N5 + day - Constants.N1;
     } else {
-      doy =
-          (Constants.N153 * (mon + Constants.N9) + Constants.N2) / Constants.N5
-              + day
-              - Constants.N1;
+      doy = (Constants.N153 * (mon + Constants.N9) + Constants.N2) / Constants.N5 + day - Constants.N1;
     }
     final long yoe = year - era * Constants.N400;
     final long doe = yoe * Constants.N365 + yoe / Constants.N4 - yoe / Constants.N100 + doy;
     // 总天数.
     final long dayCount = era * Constants.N146097 + doe - Constants.DAYS_0000_TO_1970_MARCH_ONE;
     // 总天数换算成毫秒(减去当前时区的秒数).
-    long msSecond =
-        (dayCount * Constants.N24 * Constants.N60 * Constants.N60 - offset) * Constants.N1000;
+    long msSecond = (dayCount * Constants.N24 * Constants.N60 * Constants.N60 - offset) * Constants.N1000;
     // 小时换算成毫秒.
     msSecond += hour * Constants.N60 * Constants.N60 * Constants.N1000;
     // 分钟换算成毫秒.
@@ -204,7 +196,7 @@ public final class DateTimeDecoder extends LogEventPatternConverter
    * <p>Another description after blank line.
    *
    * @param dateTime .
-   * @param type .
+   * @param type     .
    * @return long .
    * @author admin
    */
@@ -375,8 +367,10 @@ public final class DateTimeDecoder extends LogEventPatternConverter
   }
 
   @Override
-  public void format(StringBuilder toAppendTo, Object... objects) {}
+  public void format(StringBuilder toAppendTo, Object... objects) {
+  }
 
   @Override
-  public void format(LogRecord event, StringBuilder toAppendTo) {}
+  public void format(LogRecord event, StringBuilder toAppendTo) {
+  }
 }

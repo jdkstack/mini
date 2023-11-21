@@ -10,6 +10,7 @@ import org.jdkstack.logging.mini.core.record.LogRecord;
 import org.jdkstack.logging.mini.core.tool.StringBuilderPool;
 
 public class Examples {
+
   private static final Recorder LOG = LogFactory.getRecorder(Examples.class);
 
   public static void main(final String[] args) throws Exception {
@@ -25,9 +26,7 @@ public class Examples {
     indices[6] = 1040;
     indices[7] = 1042;
     indices[8] = 1044;
-    final Object[] objects = {
-      StringBuilderPool.box(System.currentTimeMillis()), StringBuilderPool.box(2), "3", StringBuilderPool.box(4D), "5", "6", StringBuilderPool.box(7F), StringBuilderPool.box(8), "9"
-    };
+    final Object[] objects = {StringBuilderPool.box(System.currentTimeMillis()), StringBuilderPool.box(2), "3", StringBuilderPool.box(4D), "5", "6", StringBuilderPool.box(7F), StringBuilderPool.box(8), "9"};
 
     record.setMessage(
         "AAA1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901212345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012AAAA{}{}{}{}{}{}{}{}{}");
@@ -73,19 +72,7 @@ public class Examples {
         record.getMessageText().setLength(0);
         record.getEvent().setLength(0);
         record.getMap().clear();*/
-        LOG.log(
-            Constants.FATAL,
-            null,
-            record.getMessage(),
-            "((Boolean)true).booleanValue()",
-            "((Integer)Integer.MAX_VALUE).intValue()",
-            "Short.MAX_VALUE",
-            "3.999d",
-            "4.09f",
-            StringBuilderPool.box(888888),
-            StringBuilderPool.box(6),
-            StringBuilderPool.box(7),
-            StringBuilderPool.box(8777777));
+        LOG.log(Constants.FATAL, null, record.getMessage(), "((Boolean)true).booleanValue()", "((Integer)Integer.MAX_VALUE).intValue()", "Short.MAX_VALUE", "3.999d", "4.09f", StringBuilderPool.box(888888), StringBuilderPool.box(6), StringBuilderPool.box(7), StringBuilderPool.box(8777777));
       }
       final long e = System.currentTimeMillis();
       System.out.println(e - s);

@@ -13,36 +13,31 @@ import org.jdkstack.logging.mini.extension.web.context.Context;
  *
  * @author admin
  */
-@ComponentScan(
-        value = {
-                "org.jdkstack.logging.mini.extension.web.controller.BaseController",
-                "org.jdkstack.logging.mini.extension.web.controller.UserController"},
-        excludeFilters = {@Filter(String.class), @Filter(String.class)}
-)
+@ComponentScan(value = {"org.jdkstack.logging.mini.extension.web.controller.BaseController", "org.jdkstack.logging.mini.extension.web.controller.UserController"}, excludeFilters = {@Filter(String.class), @Filter(String.class)})
 public final class StartApplication {
 
-    /**
-     * 上下文环境.
-     */
-    private static final Context CONTEXT = new ApplicationContext();
+  /**
+   * 上下文环境.
+   */
+  private static final Context CONTEXT = new ApplicationContext();
 
-    static {
-        Application.run(StartApplication.class, CONTEXT);
-    }
+  static {
+    Application.run(StartApplication.class, CONTEXT);
+  }
 
-    private StartApplication() {
-        //
-    }
+  private StartApplication() {
+    //
+  }
 
-    /**
-     * This is a method description.
-     *
-     * <p>Another description after blank line.
-     *
-     * @return context.
-     * @author admin
-     */
-    public static Context context() {
-        return CONTEXT;
-    }
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @return context.
+   * @author admin
+   */
+  public static Context context() {
+    return CONTEXT;
+  }
 }

@@ -9,12 +9,13 @@ import java.net.URLClassLoader;
  * @author admin
  */
 public class StandardPluginExecutorClassLoader extends URLClassLoader {
+
   /**
    * 标准插件executor类装入器
    *
    * @param classLoaderName 类装入器的名字
-   * @param urls url
-   * @param parent 父
+   * @param urls            url
+   * @param parent          父
    */
   public StandardPluginExecutorClassLoader(String classLoaderName, URL[] urls, ClassLoader parent) {
     super(classLoaderName, urls, parent);

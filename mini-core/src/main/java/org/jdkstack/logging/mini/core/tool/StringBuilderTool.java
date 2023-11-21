@@ -18,7 +18,7 @@ public class StringBuilderTool {
    *
    * <p>Another description after blank line.
    *
-   * @param sb .
+   * @param sb  .
    * @param arg .
    * @author admin
    */

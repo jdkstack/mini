@@ -6,6 +6,7 @@ import org.jdkstack.logging.mini.core.level.LogLevel;
 import org.jdkstack.logging.mini.core.record.LogRecord;
 
 public class LevelPatternConverter extends LogEventPatternConverter {
+
   private static final String OPTION_LENGTH = "length";
   private static final String OPTION_LOWER = "lowerCase";
 

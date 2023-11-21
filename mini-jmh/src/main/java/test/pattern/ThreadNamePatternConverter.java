@@ -3,6 +3,7 @@ package test.pattern;
 import org.jdkstack.logging.mini.core.record.LogRecord;
 
 public final class ThreadNamePatternConverter extends LogEventPatternConverter {
+
   private static final ThreadNamePatternConverter INSTANCE = new ThreadNamePatternConverter();
 
   private ThreadNamePatternConverter() {

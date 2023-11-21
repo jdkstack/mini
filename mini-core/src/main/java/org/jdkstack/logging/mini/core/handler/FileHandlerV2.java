@@ -20,30 +20,45 @@ import org.jdkstack.logging.mini.core.ringbuffer.RandomAccessFileRingBuffer;
  * @author admin
  */
 public class FileHandlerV2 extends AbstractHandler {
-  /** 按照文件大小切割. */
+
+  /**
+   * 按照文件大小切割.
+   */
   private final AtomicInteger sizes = new AtomicInteger(0);
 
-  /** 按照文件条数切割. */
+  /**
+   * 按照文件条数切割.
+   */
   private final AtomicInteger lines = new AtomicInteger(0);
 
-  /** 目的地写入器. */
+  /**
+   * 目的地写入器.
+   */
   private final ByteWriter destination = new ByteArrayWriter();
 
-  /** 配置. */
+  /**
+   * 配置.
+   */
   private final HandlerConfig rc = this.context.getHandlerConfig(this.key);
 
-  /** 目录. */
+  /**
+   * 目录.
+   */
   private final File dir = new File(this.rc.getDirectory() + File.separator + this.rc.getPrefix());
 
-  /** . */
-  private final RingBuffer<File> fileBuffer =
-      new FileRingBuffer(this.dir, this.rc.getFileName(), this.rc.getFileNameExt(), 16);
+  /**
+   * .
+   */
+  private final RingBuffer<File> fileBuffer = new FileRingBuffer(this.dir, this.rc.getFileName(), this.rc.getFileNameExt(), 16);
 
-  /** . */
-  private final RingBuffer<RandomAccessFile> randomAccessFileBuffer =
-      new RandomAccessFileRingBuffer(this.fileBuffer, 16);
+  /**
+   * .
+   */
+  private final RingBuffer<RandomAccessFile> randomAccessFileBuffer = new RandomAccessFileRingBuffer(this.fileBuffer, 16);
 
-  /** . */
+  /**
+   * .
+   */
   protected RandomAccessFile randomAccessFile;
 
   /**
@@ -63,7 +78,7 @@ public class FileHandlerV2 extends AbstractHandler {
    *
    * <p>文件行数,文件大小,日期时间.
    *
-   * @param lr lr.
+   * @param lr     lr.
    * @param length length.
    * @author admin
    */

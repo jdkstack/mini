@@ -30,7 +30,7 @@ public final class LogFormatterV2 {
    * <p>Another description after blank line.
    *
    * @param message message.
-   * @param lr lr.
+   * @param lr      lr.
    * @author admin
    */
   public static void format(final Record lr, final String message) {

@@ -13,9 +13,7 @@ import java.util.TimeZone;
 import java.util.TreeSet;
 
 /**
- * Provides a parser and evaluator for unix-like cron expressions. Cron expressions provide the
- * ability to specify complex time combinations such as &quot;At 8:00am every Monday through
- * Friday&quot; or &quot;At 1:30am every last Friday of the month&quot;.
+ * Provides a parser and evaluator for unix-like cron expressions. Cron expressions provide the ability to specify complex time combinations such as &quot;At 8:00am every Monday through Friday&quot; or &quot;At 1:30am every last Friday of the month&quot;.
  *
  * <p>Cron expressions are comprised of 6 required fields and one optional field separated by white
  * space. The fields respectively are described as follows:
@@ -228,10 +226,8 @@ public final class CronExpression {
   /**
    * Constructs a new <CODE>CronExpression</CODE> based on the specified parameter.
    *
-   * @param cronExpression String representation of the cron expression the new object should
-   *     represent
-   * @throws ParseException if the string expression cannot be parsed into a valid <CODE>
-   *     CronExpression</CODE>
+   * @param cronExpression String representation of the cron expression the new object should represent
+   * @throws ParseException if the string expression cannot be parsed into a valid <CODE> CronExpression</CODE>
    */
   public CronExpression(final String cronExpression) throws ParseException {
     if (cronExpression == null) {
@@ -266,9 +262,7 @@ public final class CronExpression {
   }
 
   /**
-   * Indicates whether the given date satisfies the cron expression. Note that milliseconds are
-   * ignored, so two Dates falling on different milliseconds of the same second will always have the
-   * same result here.
+   * Indicates whether the given date satisfies the cron expression. Note that milliseconds are ignored, so two Dates falling on different milliseconds of the same second will always have the same result here.
    *
    * @param date the date to evaluate
    * @return a boolean indicating whether the given date satisfies the cron expression
@@ -287,8 +281,7 @@ public final class CronExpression {
   }
 
   /**
-   * Returns the next date/time <I>after</I> the given date/time which satisfies the cron
-   * expression.
+   * Returns the next date/time <I>after</I> the given date/time which satisfies the cron expression.
    *
    * @param date the date/time at which to begin the search for the next valid date/time
    * @return the next valid date/time
@@ -298,8 +291,7 @@ public final class CronExpression {
   }
 
   /**
-   * Returns the next date/time <I>after</I> the given date/time which does <I>not</I> satisfy the
-   * expression
+   * Returns the next date/time <I>after</I> the given date/time which does <I>not</I> satisfy the expression
    *
    * @param date the date/time at which to begin the search for the next invalid date/time
    * @return the next valid date/time
@@ -338,7 +330,9 @@ public final class CronExpression {
     return new Date(lastDate.getTime() + 1000);
   }
 
-  /** Returns the time zone for which this <code>CronExpression</code> will be resolved. */
+  /**
+   * Returns the time zone for which this <code>CronExpression</code> will be resolved.
+   */
   public TimeZone getTimeZone() {
     if (timeZone == null) {
       timeZone = TimeZone.getDefault();
@@ -347,7 +341,9 @@ public final class CronExpression {
     return timeZone;
   }
 
-  /** Sets the time zone for which this <code>CronExpression</code> will be resolved. */
+  /**
+   * Sets the time zone for which this <code>CronExpression</code> will be resolved.
+   */
   public void setTimeZone(final TimeZone timeZone) {
     this.timeZone = timeZone;
   }
@@ -403,27 +399,15 @@ public final class CronExpression {
         final String expr = exprsTok.nextToken().trim();
 
         // throw an exception if L is used with other days of the month
-        if (exprOn == DAY_OF_MONTH
-            && expr.indexOf('L') != -1
-            && expr.length() > 1
-            && expr.contains(",")) {
-          throw new ParseException(
-              "Support for specifying 'L' and 'LW' with other days of the month is not implemented",
-              -1);
+        if (exprOn == DAY_OF_MONTH && expr.indexOf('L') != -1 && expr.length() > 1 && expr.contains(",")) {
+          throw new ParseException("Support for specifying 'L' and 'LW' with other days of the month is not implemented", -1);
         }
         // throw an exception if L is used with other days of the week
-        if (exprOn == DAY_OF_WEEK
-            && expr.indexOf('L') != -1
-            && expr.length() > 1
-            && expr.contains(",")) {
-          throw new ParseException(
-              "Support for specifying 'L' with other days of the week is not implemented", -1);
+        if (exprOn == DAY_OF_WEEK && expr.indexOf('L') != -1 && expr.length() > 1 && expr.contains(",")) {
+          throw new ParseException("Support for specifying 'L' with other days of the week is not implemented", -1);
         }
-        if (exprOn == DAY_OF_WEEK
-            && expr.indexOf('#') != -1
-            && expr.indexOf('#', expr.indexOf('#') + 1) != -1) {
-          throw new ParseException(
-              "Support for specifying multiple \"nth\" days is not implemented.", -1);
+        if (exprOn == DAY_OF_WEEK && expr.indexOf('#') != -1 && expr.indexOf('#', expr.indexOf('#') + 1) != -1) {
+          throw new ParseException("Support for specifying multiple \"nth\" days is not implemented.", -1);
         }
 
         final StringTokenizer vTok = new StringTokenizer(expr, ",");
@@ -452,9 +436,7 @@ public final class CronExpression {
 
       if (!dayOfMSpec || dayOfWSpec) {
         if (!dayOfWSpec || dayOfMSpec) {
-          throw new ParseException(
-              "Support for specifying both a day-of-week AND a day-of-month parameter is not implemented.",
-              0);
+          throw new ParseException("Support for specifying both a day-of-week AND a day-of-month parameter is not implemented.", 0);
         }
       }
     } catch (final ParseException pe) {
@@ -464,8 +446,7 @@ public final class CronExpression {
     }
   }
 
-  protected int storeExpressionVals(final int pos, final String s, final int type)
-      throws ParseException {
+  protected int storeExpressionVals(final int pos, final String s, final int type) throws ParseException {
 
     int incr = 0;
     int i = skipWhiteSpace(pos, s);
@@ -473,11 +454,7 @@ public final class CronExpression {
       return i;
     }
     char c = s.charAt(i);
-    if ((c >= 'A')
-        && (c <= 'Z')
-        && (!s.equals("L"))
-        && (!s.equals("LW"))
-        && (!s.matches("^L-[0-9]*[W]?"))) {
+    if ((c >= 'A') && (c <= 'Z') && (!s.equals("L")) && (!s.equals("LW")) && (!s.matches("^L-[0-9]*[W]?"))) {
       String sub = s.substring(i, i + 3);
       int sval = -1;
       int eval = -1;
@@ -521,8 +498,7 @@ public final class CronExpression {
                   throw new Exception();
                 }
               } catch (final Exception e) {
-                throw new ParseException(
-                    "A numeric value between 1 and 5 must follow the '#' option", i);
+                throw new ParseException("A numeric value between 1 and 5 must follow the '#' option", i);
               }
               break;
             case 'L':
@@ -556,8 +532,7 @@ public final class CronExpression {
         if (type == DAY_OF_WEEK && !lastdayOfMonth) {
           final int val = daysOfMonth.last();
           if (val == NO_SPEC_INT) {
-            throw new ParseException(
-                "'?' can only be specfied for Day-of-Month -OR- Day-of-Week.", i);
+            throw new ParseException("'?' can only be specfied for Day-of-Month -OR- Day-of-Week.", i);
           }
         }
         addToSet(NO_SPEC_INT, -1, 0, type);
@@ -567,8 +542,7 @@ public final class CronExpression {
         if (c == '*' && (i + 1) >= s.length()) {
           addToSet(ALL_SPEC_INT, -1, incr, type);
           return i + 1;
-        } else if (c == '/'
-            && ((i + 1) >= s.length() || s.charAt(i + 1) == ' ' || s.charAt(i + 1) == '\t')) {
+        } else if (c == '/' && ((i + 1) >= s.length() || s.charAt(i + 1) == ' ' || s.charAt(i + 1) == '\t')) {
           throw new ParseException("'/' must be followed by an integer.", i);
         } else if (c == '*') {
           i++;
@@ -654,8 +628,7 @@ public final class CronExpression {
     return i;
   }
 
-  protected int checkNext(final int pos, final String s, final int val, final int type)
-      throws ParseException {
+  protected int checkNext(final int pos, final String s, final int val, final int type) throws ParseException {
 
     int end = -1;
     int i = pos;
@@ -689,9 +662,7 @@ public final class CronExpression {
         throw new ParseException("'W' option is not valid here. (pos=" + i + ")", i);
       }
       if (val > 31) {
-        throw new ParseException(
-            "The 'W' option does not make sense with values larger than 31 (max number of days in a month)",
-            i);
+        throw new ParseException("The 'W' option does not make sense with values larger than 31 (max number of days in a month)", i);
       }
       final TreeSet<Integer> set = getSet(type);
       set.add(val);
@@ -896,8 +867,7 @@ public final class CronExpression {
     return i;
   }
 
-  protected void addToSet(final int val, final int end, int incr, final int type)
-      throws ParseException {
+  protected void addToSet(final int val, final int end, int incr, final int type) throws ParseException {
 
     final TreeSet<Integer> set = getSet(type);
 
@@ -1450,8 +1420,7 @@ public final class CronExpression {
           }
         }
       } else { // dayOfWSpec && !dayOfMSpec
-        throw new UnsupportedOperationException(
-            "Support for specifying both a day-of-week AND a day-of-month parameter is not implemented.");
+        throw new UnsupportedOperationException("Support for specifying both a day-of-week AND a day-of-month parameter is not implemented.");
       }
       cl.set(Calendar.DAY_OF_MONTH, day);
 
@@ -1523,10 +1492,9 @@ public final class CronExpression {
   }
 
   /**
-   * Advance the calendar to the particular hour paying particular attention to daylight saving
-   * problems.
+   * Advance the calendar to the particular hour paying particular attention to daylight saving problems.
    *
-   * @param cal the calendar to operate on
+   * @param cal  the calendar to operate on
    * @param hour the hour to set
    */
   protected void setCalendarHour(final Calendar cal, final int hour) {
@@ -1646,6 +1614,7 @@ public final class CronExpression {
   }
 
   private class ValueSet {
+
     public int value;
 
     public int pos;

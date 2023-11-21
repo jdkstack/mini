@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
-/** A convenience class to convert property values to specific types. */
+/**
+ * A convenience class to convert property values to specific types.
+ */
 public final class OptionConverter {
 
   private static final String DELIM_START = "${";
@@ -14,8 +16,11 @@ public final class OptionConverter {
   private static final int DELIM_STOP_LEN = 1;
   private static final int ONE_K = 1024;
 
-  /** OptionConverter is a static class. */
-  private OptionConverter() {}
+  /**
+   * OptionConverter is a static class.
+   */
+  private OptionConverter() {
+  }
 
   public static String[] concatenateArrays(final String[] l, final String[] r) {
     final int len = l.length + r.length;
@@ -72,12 +77,11 @@ public final class OptionConverter {
   }
 
   /**
-   * If <code>value</code> is "true", then {@code true} is returned. If <code>value</code> is
-   * "false", then {@code false} is returned. Otherwise, <code>default</code> is returned.
+   * If <code>value</code> is "true", then {@code true} is returned. If <code>value</code> is "false", then {@code false} is returned. Otherwise, <code>default</code> is returned.
    *
    * <p>Case of value is unimportant.
    *
-   * @param value The value to convert.
+   * @param value        The value to convert.
    * @param defaultValue The default value.
    * @return true or false, depending on the value and/or default.
    */
@@ -98,7 +102,7 @@ public final class OptionConverter {
   /**
    * Convert the String value to an int.
    *
-   * @param value The value as a String.
+   * @param value        The value as a String.
    * @param defaultValue The default value.
    * @return The value as an int.
    */
@@ -114,7 +118,7 @@ public final class OptionConverter {
   }
 
   /**
-   * @param value The size of the file as a String.
+   * @param value        The size of the file as a String.
    * @param defaultValue The default value.
    * @return The size of the file as a long.
    */
@@ -145,10 +149,9 @@ public final class OptionConverter {
   }
 
   /**
-   * Find the value corresponding to <code>key</code> in <code>props</code>. Then perform variable
-   * substitution on the found value.
+   * Find the value corresponding to <code>key</code> in <code>props</code>. Then perform variable substitution on the found value.
    *
-   * @param key The key to locate.
+   * @param key   The key to locate.
    * @param props The properties.
    * @return The String after substitution.
    */
@@ -166,8 +169,7 @@ public final class OptionConverter {
   }
 
   /**
-   * Perform variable substitution in string <code>val</code> from the values of keys found in the
-   * system propeties.
+   * Perform variable substitution in string <code>val</code> from the values of keys found in the system propeties.
    *
    * <p>The variable substitution delimiters are <b>${</b> and <b>}</b>.
    *
@@ -180,8 +182,7 @@ public final class OptionConverter {
    * <p>will set the variable <code>s</code> to "Value of key is value.".
    *
    * <p>If no value could be found for the specified key, then the <code>props</code> parameter is
-   * searched, if the value could not be found there, then substitution defaults to the empty
-   * string.
+   * searched, if the value could not be found there, then substitution defaults to the empty string.
    *
    * <p>For example, if system properties contains no value for the key "inexistentKey", then the
    * call
@@ -195,18 +196,16 @@ public final class OptionConverter {
    * <p>An {@link IllegalArgumentException} is thrown if <code>val</code> contains a start delimeter
    * "${" which is not balanced by a stop delimeter "}".
    *
-   * @param val The string on which variable substitution is performed.
+   * @param val   The string on which variable substitution is performed.
    * @param props The properties to use for substitution.
    * @return The String after substitution.
    * @throws IllegalArgumentException if <code>val</code> is malformed.
    */
-  public static String substVars(final String val, final Properties props)
-      throws IllegalArgumentException {
+  public static String substVars(final String val, final Properties props) throws IllegalArgumentException {
     return substVars(val, props, new ArrayList<>());
   }
 
-  private static String substVars(final String val, final Properties props, List<String> keys)
-      throws IllegalArgumentException {
+  private static String substVars(final String val, final Properties props, List<String> keys) throws IllegalArgumentException {
 
     final StringBuilder sbuf = new StringBuilder();
 
@@ -228,8 +227,7 @@ public final class OptionConverter {
       sbuf.append(val.substring(i, j));
       k = val.indexOf(DELIM_STOP, j);
       if (k == -1) {
-        throw new IllegalArgumentException(
-            " has no closing brace. Opening brace at position " + j + '.');
+        throw new IllegalArgumentException(" has no closing brace. Opening brace at position " + j + '.');
       }
       j += DELIM_START_LEN;
       final String key = val.substring(j, k);

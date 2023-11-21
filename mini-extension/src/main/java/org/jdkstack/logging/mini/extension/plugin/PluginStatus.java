@@ -6,9 +6,13 @@ package org.jdkstack.logging.mini.extension.plugin;
  * @author admin
  */
 public enum PluginStatus {
-  /** 开放 */
+  /**
+   * 开放
+   */
   OPEN,
-  /** 关闭 */
+  /**
+   * 关闭
+   */
   CLOSE
 
   //上线

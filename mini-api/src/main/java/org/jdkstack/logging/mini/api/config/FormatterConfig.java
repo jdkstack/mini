@@ -7,4 +7,6 @@ package org.jdkstack.logging.mini.api.config;
  *
  * @author admin
  */
-public interface FormatterConfig {}
+public interface FormatterConfig {
+
+}

@@ -10,7 +10,10 @@ import java.nio.MappedByteBuffer;
  * @author admin
  */
 public class MmapByteArrayWriter extends ByteArrayWriter {
-  /** . */
+
+  /**
+   * .
+   */
   private MappedByteBuffer mappedBuffer;
 
   public MmapByteArrayWriter() {
@@ -22,14 +25,13 @@ public class MmapByteArrayWriter extends ByteArrayWriter {
    *
    * <p>Another description after blank line.
    *
-   * @param bytes b.
+   * @param bytes  b.
    * @param offset o.
    * @param length l.
    * @author admin
    */
   @Override
-  public final void writeToDestination(final byte[] bytes, final int offset, final int length)
-      throws Exception {
+  public final void writeToDestination(final byte[] bytes, final int offset, final int length) throws Exception {
     this.mappedBuffer.put(bytes, offset, length);
   }
 

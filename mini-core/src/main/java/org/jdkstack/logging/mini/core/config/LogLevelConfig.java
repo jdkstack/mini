@@ -11,10 +11,15 @@ import org.jdkstack.logging.mini.api.config.LevelConfig;
  * @author admin
  */
 public class LogLevelConfig implements LevelConfig {
-  /** . */
+
+  /**
+   * .
+   */
   private String name;
 
-  /** . */
+  /**
+   * .
+   */
   private String value;
 
   @Override

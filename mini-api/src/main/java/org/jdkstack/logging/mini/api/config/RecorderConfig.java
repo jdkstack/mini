@@ -15,11 +15,11 @@ public interface RecorderConfig {
 
   String getName();
 
+  void setName(String name);
+
   String getMinLevel();
 
   String getMaxLevel();
-
-  void setName(String name);
 
   String getHandlers();
 

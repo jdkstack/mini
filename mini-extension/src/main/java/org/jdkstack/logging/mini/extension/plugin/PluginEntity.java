@@ -3,6 +3,7 @@ package org.jdkstack.logging.mini.extension.plugin;
 import java.net.URLClassLoader;
 
 public class PluginEntity {
+
   private String pluginName;
   private URLClassLoader classLoader;
   private PluginMeta pluginMeta;

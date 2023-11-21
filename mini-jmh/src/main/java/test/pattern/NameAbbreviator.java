@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class NameAbbreviator {
+
   private static final NameAbbreviator DEFAULT = new NOPAbbreviator();
 
   public static NameAbbreviator getAbbreviator(final String pattern) {
@@ -38,11 +39,7 @@ public abstract class NameAbbreviator {
       //  if all blanks and digits
       //
       if (i == number.length()) {
-        return new MaxElementAbbreviator(
-            Integer.parseInt(number),
-            isNegativeNumber
-                ? MaxElementAbbreviator.Strategy.DROP
-                : MaxElementAbbreviator.Strategy.RETAIN);
+        return new MaxElementAbbreviator(Integer.parseInt(number), isNegativeNumber ? MaxElementAbbreviator.Strategy.DROP : MaxElementAbbreviator.Strategy.RETAIN);
       }
 
       final ArrayList<PatternAbbreviatorFragment> fragments = new ArrayList<>(5);
@@ -99,7 +96,9 @@ public abstract class NameAbbreviator {
   public abstract void abbreviate(final String original, final StringBuilder destination);
 
   private static class NOPAbbreviator extends NameAbbreviator {
-    public NOPAbbreviator() {}
+
+    public NOPAbbreviator() {
+    }
 
     @Override
     public void abbreviate(final String original, final StringBuilder destination) {
@@ -139,8 +138,7 @@ public abstract class NameAbbreviator {
           }
           destination.append(original, start, original.length());
         }
-      },
-      RETAIN(1) {
+      }, RETAIN(1) {
         @Override
         void abbreviate(final int count, final String original, final StringBuilder destination) {
           // We subtract 1 from 'len' when assigning to 'end' to avoid out of
@@ -165,8 +163,7 @@ public abstract class NameAbbreviator {
         this.minCount = minCount;
       }
 
-      abstract void abbreviate(
-          final int count, final String original, final StringBuilder destination);
+      abstract void abbreviate(final int count, final String original, final StringBuilder destination);
     }
   }
 
@@ -210,6 +207,7 @@ public abstract class NameAbbreviator {
   }
 
   private static final class PatternAbbreviator extends NameAbbreviator {
+
     private final PatternAbbreviatorFragment[] fragments;
 
     PatternAbbreviator(final List<PatternAbbreviatorFragment> fragments) {

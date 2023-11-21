@@ -13,8 +13,8 @@ import org.jdkstack.logging.mini.core.context.AsyncLogRecorderContext;
  *
  * @author admin
  */
-public class RingBufferLogEventHandler
-    implements SequenceReportingEventHandler<Record>, LifecycleAware {
+public class RingBufferLogEventHandler implements SequenceReportingEventHandler<Record>, LifecycleAware {
+
   private static final int NOTIFY_PROGRESS_THRESHOLD = 50;
   private Sequence sequenceCallback;
   private int counter;

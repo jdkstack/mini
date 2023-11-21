@@ -3,13 +3,12 @@ package test.tools;
 import java.lang.reflect.Array;
 
 /**
- * A bounded buffer containing elements of type T. When the number of elements to be added will
- * exceed the size of the buffer the oldest element will be overwritten. Access to the buffer is
- * thread safe.
+ * A bounded buffer containing elements of type T. When the number of elements to be added will exceed the size of the buffer the oldest element will be overwritten. Access to the buffer is thread safe.
  *
  * @param <T> The type of object stored in the buffer.
  */
 public final class CyclicBuffer<T> {
+
   private final T[] ring;
   private final Class<T> clazz;
   private int first = 0;
@@ -20,7 +19,7 @@ public final class CyclicBuffer<T> {
    * Instantiates a new CyclicBuffer of at most <code>maxSize</code> events.
    *
    * @param clazz The Class associate with the type of object in the buffer.
-   * @param size The number of items in the buffer.
+   * @param size  The number of items in the buffer.
    * @throws IllegalArgumentException if the size is negative.
    */
   public CyclicBuffer(final Class<T> clazz, final int size) throws IllegalArgumentException {
