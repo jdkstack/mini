@@ -298,6 +298,7 @@ public class LogRecorder implements Recorder {
    *
    * @param logLevel .
    * @param message  .
+   * @param thrown   .
    * @author admin
    */
   public final void core(final String logLevel, final String dateTime, final String message, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5, final Object arg6, final Object arg7, final Object arg8, final Object arg9, final Throwable thrown) {

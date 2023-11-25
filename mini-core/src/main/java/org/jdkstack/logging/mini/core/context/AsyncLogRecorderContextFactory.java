@@ -52,14 +52,16 @@ public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory
     // 默认配置.
     if (null == recorder) {
       // 创建默认配置。
-      final RecorderConfig recorderConfig = new LogRecorderConfig();
+      //final RecorderConfig recorderConfig = new LogRecorderConfig();
       // 覆盖名字。
-      recorderConfig.setName(name);
+      //recorderConfig.setName(name);
       // 增加新的Recorder.
-      this.addRecorder(recorderConfig);
-      this.context.addLogRecorderConfig(name, recorderConfig);
+      //this.addRecorder(recorderConfig);
+      //this.context.addLogRecorderConfig(name, recorderConfig);
       // 取出最新添加的Recorder.
-      recorder = this.context.getRecorder(name);
+      //recorder = this.context.getRecorder(name);
+      // 不需要创建，直接获取默认的recorder。
+      recorder = this.context.getRecorder("default");
     }
     return recorder;
   }

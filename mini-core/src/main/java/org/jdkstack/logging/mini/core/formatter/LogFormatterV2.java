@@ -4,16 +4,17 @@ import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.core.tool.StringBuilderTool;
 
 /**
- * 日志消息格式化.
+ * 日志消息格式化,性能最佳方案.
  *
  * <p>用参数替换掉消息中的 "{}" 大括号对.
  *
  * <pre>
  * 例如:
- *     1.LOG.info("{},{}", 1,2);
- *     2.日志消息是"{},{}"
+ *     1.LOG.info("message{}-message{}", 1,2);
+ *     2.日志消息是"message{}-message{}"
  *     3.日志消息参数是1,2
  *     4.日志消息参数替换日志消息中的占位符{}
+ *     5.替换后日志消息message1-message2
  * </pre>
  *
  * @author admin

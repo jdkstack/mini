@@ -1,7 +1,12 @@
 package test.tools;
 
+import java.util.List;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.core.factory.LogFactory;
+import org.jdkstack.logging.mini.core.record.LogRecord;
+import org.jdkstack.logging.mini.core.tool.StringBuilderPool;
+import test.pattern.PatternFormatter;
+import test.pattern.PatternParser;
 
 public class Examples {
 
@@ -11,12 +16,9 @@ public class Examples {
 
   public static void main(final String[] args) throws Exception {
 
- /*   final PatternParser parser = new PatternParser("Converter");
+    final PatternParser parser = new PatternParser("Converter");
     List<PatternFormatter> formatters = parser.parse(Examples.customPattern);
     LogRecord record = new LogRecord();
-    //  private static final Recorder LOG
-    // 1.有没有这个属性。
-    // 2.如果有这个属性，寻找LOG.开头的，并获取行号，方法名，类名。
     final int[] indices = new int[9];
     indices[0] = 1028;
     indices[1] = 1030;
@@ -79,7 +81,7 @@ public class Examples {
       formatter.format(record, sb);
     }
 
-    System.out.println(sb);*/
+    System.out.println(sb);
 
     /*for (int k = 0; k < 1000; k++) {
       final long s = System.currentTimeMillis();

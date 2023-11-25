@@ -72,8 +72,13 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
       }
     };
     this.disruptor.setDefaultExceptionHandler(errorHandler);
-    // 添加业务处理（单个线程，不支持多线程，会导致日志乱序写入不同的日志文件中）。
-    final RingBufferLogEventHandler[] handlers = {new RingBufferLogEventHandler(this)};
+    // 添加业务处理（单线程顺序写入文件。多线程乱序写入文件）。
+    // todo : 多线程需要处理线程安全问题。
+    int threadCount = 1;
+    final RingBufferLogEventHandler[] handlers = new RingBufferLogEventHandler[threadCount];
+    for (int i = 0; i < threadCount; i++) {
+      handlers[i] = new RingBufferLogEventHandler(this);
+    }
     this.disruptor.handleEventsWith(handlers);
     // 启动disruptor。
     this.disruptor.start();
