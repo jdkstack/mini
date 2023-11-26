@@ -19,8 +19,8 @@ import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.core.config.LogConfiguration;
 import org.jdkstack.logging.mini.core.record.RecordEventFactory;
-import org.jdkstack.logging.mini.core.ringbuffer.RingBufferLogEventHandler;
 import org.jdkstack.logging.mini.core.ringbuffer.RingBufferLogEventTranslator;
+import org.jdkstack.logging.mini.core.ringbuffer.RingBufferLogWorkHandler;
 import org.jdkstack.logging.mini.core.thread.LogThreadFactory;
 
 /**
@@ -72,14 +72,13 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
       }
     };
     this.disruptor.setDefaultExceptionHandler(errorHandler);
-    // 添加业务处理（单线程顺序写入文件。多线程乱序写入文件）。
-    // todo : 多线程需要处理线程安全问题。
-    int threadCount = 1;
-    final RingBufferLogEventHandler[] handlers = new RingBufferLogEventHandler[threadCount];
-    for (int i = 0; i < threadCount; i++) {
-      handlers[i] = new RingBufferLogEventHandler(this);
+    // 使用多消费者。
+    RingBufferLogWorkHandler[] workHandlers = new RingBufferLogWorkHandler[1];
+    for (int i = 0; i < workHandlers.length; i++) {
+      workHandlers[i] = new RingBufferLogWorkHandler(this);
     }
-    this.disruptor.handleEventsWith(handlers);
+    // 使用多消费者。
+    this.disruptor.handleEventsWithWorkerPool(workHandlers);
     // 启动disruptor。
     this.disruptor.start();
   }
@@ -219,6 +218,15 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
     translator.process(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
     // 从循环数组中取出一个对象，并向对象中插入数据。
     disruptor.publishEvent(translator);
+
+/*    long sequence = ringBuffer.next();
+    try {
+      Record lr = ringBuffer.get(sequence);
+      // 调用真正的生产逻辑。
+      produce(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown, lr);
+    } finally {
+      ringBuffer.publish(sequence);
+    }*/
   }
 
   private RingBufferLogEventTranslator getCachedTranslator() {

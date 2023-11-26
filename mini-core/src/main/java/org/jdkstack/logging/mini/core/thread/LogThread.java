@@ -1,5 +1,23 @@
 package org.jdkstack.logging.mini.core.thread;
 
+import java.io.File;
+import java.io.RandomAccessFile;
+import java.nio.CharBuffer;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
+import java.util.concurrent.atomic.AtomicInteger;
+import org.jdkstack.logging.mini.api.buffer.ByteWriter;
+import org.jdkstack.logging.mini.api.codec.Encoder;
+import org.jdkstack.logging.mini.api.config.HandlerConfig;
+import org.jdkstack.logging.mini.api.ringbuffer.RingBuffer;
+import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
+import org.jdkstack.logging.mini.core.buffer.MmapByteArrayWriter;
+import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
+import org.jdkstack.logging.mini.core.codec.Constants;
+import org.jdkstack.logging.mini.core.ringbuffer.FileRingBuffer;
+import org.jdkstack.logging.mini.core.ringbuffer.RandomAccessFileRingBuffer;
+
 /**
  * 自定义线程,便于系统内线程的监控.
  *
@@ -8,6 +26,178 @@ package org.jdkstack.logging.mini.core.thread;
  * @author admin
  */
 public final class LogThread extends Thread {
+
+
+  /**
+   * 按照文件大小切割.
+   */
+  private final AtomicInteger sizes = new AtomicInteger(0);
+
+  /**
+   * 按照文件条数切割.
+   */
+  private final AtomicInteger lines = new AtomicInteger(0);
+
+  /**
+   * 目的地写入器.
+   */
+  private final ByteWriter destination = new ByteArrayWriter();
+
+  /**
+   * 配置.
+   */
+  private HandlerConfig rc;
+
+  /**
+   * 目录.
+   */
+  private File dir;
+
+  /**
+   * .
+   */
+  private RingBuffer<File> fileBuffer;
+
+  /**
+   * .
+   */
+  private RingBuffer<RandomAccessFile> randomAccessFileBuffer;
+
+  /**
+   * .
+   */
+  private RandomAccessFile randomAccessFile;
+
+  /**
+   * 临时数组.
+   */
+  private final CharBuffer TEXT_CHARBUF = CharBuffer.allocate(Constants.SOURCEN8);
+
+  /**
+   * 临时数组.
+   */
+  private final CharBuffer JSON_CHARBUF = CharBuffer.allocate(Constants.SOURCEN8);
+
+  /**
+   * 目的地写入器.
+   */
+  private final ByteWriter mmapByteArrayWriter = new MmapByteArrayWriter();
+
+  /**
+   * .
+   */
+  private MappedByteBuffer mappedBuffer;
+
+  /**
+   * .
+   */
+  private FileChannel channel;
+
+  /**
+   * 临时数组.
+   */
+  private final CharBuffer charBuf = CharBuffer.allocate(org.jdkstack.logging.mini.core.handler.Constants.SOURCE);
+  /**
+   * 字符编码器.
+   */
+  private final Encoder<CharBuffer> textEncoder = new CharArrayEncoderV2(Charset.defaultCharset());
+
+  private ByteWriter destination3;
+
+  public ByteWriter getDestination3() {
+    return this.destination3;
+  }
+
+  public void setDestination3(ByteWriter destination3) {
+    this.destination3 = destination3;
+  }
+
+  public CharBuffer getCharBuf() {
+    return this.charBuf;
+  }
+
+  public Encoder<CharBuffer> getTextEncoder() {
+    return this.textEncoder;
+  }
+
+  public ByteWriter getMmapByteArrayWriter() {
+    return this.mmapByteArrayWriter;
+  }
+
+  public AtomicInteger getSizes() {
+    return this.sizes;
+  }
+
+  public AtomicInteger getLines() {
+    return this.lines;
+  }
+
+  public void setSizes(int i) {
+    this.sizes.set(i);
+  }
+
+  public void setLines(int i) {
+    this.lines.set(i);
+  }
+
+  public ByteWriter getDestination() {
+    return this.destination;
+  }
+
+  public MappedByteBuffer getMappedBuffer() {
+    return this.mappedBuffer;
+  }
+
+  public void setMappedBuffer(final MappedByteBuffer mappedBuffer) {
+    this.mappedBuffer = mappedBuffer;
+  }
+
+  public FileChannel getChannel() {
+    return this.channel;
+  }
+
+  public void setChannel(final FileChannel channel) {
+    this.channel = channel;
+  }
+
+  public HandlerConfig getRc() {
+    return this.rc;
+  }
+
+  public void setRc(final HandlerConfig rc) {
+    this.rc = rc;
+    dir = new File(this.rc.getDirectory() + File.separator + this.rc.getPrefix() + File.separator + Thread.currentThread().getName());
+    fileBuffer = new FileRingBuffer(this.dir, this.rc.getFileName(), this.rc.getFileNameExt(), 16);
+    randomAccessFileBuffer = new RandomAccessFileRingBuffer(this.fileBuffer, 16);
+  }
+
+  public File getDir() {
+    return this.dir;
+  }
+
+  public RingBuffer<File> getFileBuffer() {
+    return this.fileBuffer;
+  }
+
+  public RingBuffer<RandomAccessFile> getRandomAccessFileBuffer() {
+    return this.randomAccessFileBuffer;
+  }
+
+  public RandomAccessFile getRandomAccessFile() {
+    return this.randomAccessFile;
+  }
+
+  public void setRandomAccessFile(final RandomAccessFile randomAccessFile) {
+    this.randomAccessFile = randomAccessFile;
+  }
+
+  public CharBuffer getTEXT_CHARBUF() {
+    return this.TEXT_CHARBUF;
+  }
+
+  public CharBuffer getJSON_CHARBUF() {
+    return this.JSON_CHARBUF;
+  }
 
   /**
    * 线程开始运行的时间(毫秒).

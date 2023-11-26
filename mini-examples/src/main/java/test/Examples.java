@@ -72,7 +72,7 @@ public class Examples {
         record.getMessageText().setLength(0);
         record.getEvent().setLength(0);
         record.getMap().clear();*/
-        LOG.log(Constants.FATAL, null, record.getMessage(), "((Boolean)true).booleanValue()", "((Integer)Integer.MAX_VALUE).intValue()", "Short.MAX_VALUE", "3.999d", "4.09f", StringBuilderPool.box(888888), StringBuilderPool.box(6), StringBuilderPool.box(7), StringBuilderPool.box(8777777));
+        LOG.log(Constants.FATAL, null, record.getMessage(), "((Boolean)true).booleanValue()", "((Integer)Integer.MAX_VALUE).intValue()", "Short.MAX_VALUE", "3.999d", "4.09f", StringBuilderPool.box(888888), StringBuilderPool.box(6), StringBuilderPool.box(7), StringBuilderPool.box(9));
       }
       final long e = System.currentTimeMillis();
       System.out.println(e - s);
