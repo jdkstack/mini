@@ -218,15 +218,6 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
     translator.process(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
     // 从循环数组中取出一个对象，并向对象中插入数据。
     disruptor.publishEvent(translator);
-
-/*    long sequence = ringBuffer.next();
-    try {
-      Record lr = ringBuffer.get(sequence);
-      // 调用真正的生产逻辑。
-      produce(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown, lr);
-    } finally {
-      ringBuffer.publish(sequence);
-    }*/
   }
 
   private RingBufferLogEventTranslator getCachedTranslator() {
