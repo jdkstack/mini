@@ -3,15 +3,20 @@ package org.jdkstack.logging.mini.core.thread;
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.nio.CharBuffer;
+import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.codec.Encoder;
+import org.jdkstack.logging.mini.api.config.HandlerConfig;
 import org.jdkstack.logging.mini.api.ringbuffer.RingBuffer;
 import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
+import org.jdkstack.logging.mini.core.buffer.MmapByteArrayWriter;
 import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
-import org.jdkstack.logging.mini.core.handler.Constants;
+import org.jdkstack.logging.mini.core.codec.Constants;
+import org.jdkstack.logging.mini.core.ringbuffer.FileRingBuffer;
+import org.jdkstack.logging.mini.core.ringbuffer.RandomAccessFileRingBuffer;
 
 /**
  * 自定义线程,便于系统内线程的监控.
@@ -22,41 +27,74 @@ import org.jdkstack.logging.mini.core.handler.Constants;
  */
 public final class LogThread extends Thread {
 
-  /** 线程开始运行的时间(毫秒). */
-  private long execStart;
 
-  /** 按照文件大小切割. */
+  /**
+   * 按照文件大小切割.
+   */
   private final AtomicInteger sizes = new AtomicInteger(0);
 
-  /** 按照文件条数切割. */
+  /**
+   * 按照文件条数切割.
+   */
   private final AtomicInteger lines = new AtomicInteger(0);
 
-  /** 临时数组. */
-  private final CharBuffer charBuf = CharBuffer.allocate(Constants.SOURCE);
-
-  private final StringBuilder sb = new StringBuilder(20480);
-
-  public StringBuilder getSb() {
-    return this.sb;
-  }
-
-  /** 字符编码器. */
-  private final Encoder<CharBuffer> textEncoder = new CharArrayEncoderV2(Charset.defaultCharset());
-
-  /** 目的地写入器. */
+  /**
+   * 目的地写入器.
+   */
   private final ByteWriter destination = new ByteArrayWriter();
-
-  /** . */
-  private RingBuffer<File> buffer;
-
-  /** . */
-  private RingBuffer<RandomAccessFile> rabuffer;
-
-  /** . */
+  /**
+   * 临时数组.
+   */
+  private final CharBuffer TEXT_CHARBUF = CharBuffer.allocate(Constants.SOURCEN8);
+  /**
+   * 临时数组.
+   */
+  private final CharBuffer JSON_CHARBUF = CharBuffer.allocate(Constants.SOURCEN8);
+  /**
+   * 目的地写入器.
+   */
+  private final ByteWriter mmapByteArrayWriter = new MmapByteArrayWriter();
+  /**
+   * 临时数组.
+   */
+  private final CharBuffer charBuf = CharBuffer.allocate(org.jdkstack.logging.mini.core.handler.Constants.SOURCE);
+  /**
+   * 字符编码器.
+   */
+  private final Encoder<CharBuffer> textEncoder = new CharArrayEncoderV2(Charset.defaultCharset());
+  /**
+   * 配置.
+   */
+  private HandlerConfig rc;
+  /**
+   * 目录.
+   */
+  private File dir;
+  /**
+   * .
+   */
+  private RingBuffer<File> fileBuffer;
+  /**
+   * .
+   */
+  private RingBuffer<RandomAccessFile> randomAccessFileBuffer;
+  /**
+   * .
+   */
   private RandomAccessFile randomAccessFile;
-
-  /** . */
+  /**
+   * .
+   */
+  private MappedByteBuffer mappedBuffer;
+  /**
+   * .
+   */
   private FileChannel channel;
+  private ByteWriter destination3;
+  /**
+   * 线程开始运行的时间(毫秒).
+   */
+  private long execStart;
 
   /**
    * 自定义线程.
@@ -64,35 +102,19 @@ public final class LogThread extends Thread {
    * <p>参数需要加final修饰.
    *
    * @param targetParam 线程任务.
-   * @param nameParam 线程名.
+   * @param nameParam   线程名.
    * @author admin
    */
   public LogThread(final Runnable targetParam, final String nameParam) {
     super(targetParam, nameParam);
   }
 
-  public RingBuffer<File> getBuffer() {
-    return this.buffer;
+  public ByteWriter getDestination3() {
+    return this.destination3;
   }
 
-  public void setBuffer(final RingBuffer<File> buffer) {
-    this.buffer = buffer;
-  }
-
-  public RingBuffer<RandomAccessFile> getRabuffer() {
-    return this.rabuffer;
-  }
-
-  public void setRabuffer(final RingBuffer<RandomAccessFile> rabuffer) {
-    this.rabuffer = rabuffer;
-  }
-
-  public AtomicInteger getSizes() {
-    return this.sizes;
-  }
-
-  public AtomicInteger getLines() {
-    return this.lines;
+  public void setDestination3(ByteWriter destination3) {
+    this.destination3 = destination3;
   }
 
   public CharBuffer getCharBuf() {
@@ -103,8 +125,67 @@ public final class LogThread extends Thread {
     return this.textEncoder;
   }
 
+  public ByteWriter getMmapByteArrayWriter() {
+    return this.mmapByteArrayWriter;
+  }
+
+  public AtomicInteger getSizes() {
+    return this.sizes;
+  }
+
+  public void setSizes(int i) {
+    this.sizes.set(i);
+  }
+
+  public AtomicInteger getLines() {
+    return this.lines;
+  }
+
+  public void setLines(int i) {
+    this.lines.set(i);
+  }
+
   public ByteWriter getDestination() {
     return this.destination;
+  }
+
+  public MappedByteBuffer getMappedBuffer() {
+    return this.mappedBuffer;
+  }
+
+  public void setMappedBuffer(final MappedByteBuffer mappedBuffer) {
+    this.mappedBuffer = mappedBuffer;
+  }
+
+  public FileChannel getChannel() {
+    return this.channel;
+  }
+
+  public void setChannel(final FileChannel channel) {
+    this.channel = channel;
+  }
+
+  public HandlerConfig getRc() {
+    return this.rc;
+  }
+
+  public void setRc(final HandlerConfig rc) {
+    this.rc = rc;
+    dir = new File(this.rc.getDirectory() + File.separator + this.rc.getPrefix() + File.separator + Thread.currentThread().getName());
+    fileBuffer = new FileRingBuffer(this.dir, this.rc.getFileName(), this.rc.getFileNameExt(), 16);
+    randomAccessFileBuffer = new RandomAccessFileRingBuffer(this.fileBuffer, 16);
+  }
+
+  public File getDir() {
+    return this.dir;
+  }
+
+  public RingBuffer<File> getFileBuffer() {
+    return this.fileBuffer;
+  }
+
+  public RingBuffer<RandomAccessFile> getRandomAccessFileBuffer() {
+    return this.randomAccessFileBuffer;
   }
 
   public RandomAccessFile getRandomAccessFile() {
@@ -115,12 +196,12 @@ public final class LogThread extends Thread {
     this.randomAccessFile = randomAccessFile;
   }
 
-  public FileChannel getChannel() {
-    return this.channel;
+  public CharBuffer getTEXT_CHARBUF() {
+    return this.TEXT_CHARBUF;
   }
 
-  public void setChannel(final FileChannel channel) {
-    this.channel = channel;
+  public CharBuffer getJSON_CHARBUF() {
+    return this.JSON_CHARBUF;
   }
 
   /**

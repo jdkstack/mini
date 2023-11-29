@@ -14,5 +14,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RestController {
 
-    boolean singleton() default true;
+  boolean singleton() default true;
 }

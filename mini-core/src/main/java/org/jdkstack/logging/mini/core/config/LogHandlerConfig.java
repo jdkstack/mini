@@ -11,30 +11,43 @@ import org.jdkstack.logging.mini.api.config.HandlerConfig;
  * @author admin
  */
 public class LogHandlerConfig implements HandlerConfig {
-  /** . */
-  private String name = "default";
 
-  /** . */
+  /**
+   * .
+   */
   private final String directory = "logs";
-
-  /** . */
+  /**
+   * .
+   */
   private final String prefix = "default";
-
-  /** . */
+  /**
+   * .
+   */
   private final String encoding = "UTF-8";
-
-  /** . */
+  /**
+   * .
+   */
   private final String type = "line";
-
-  /** . */
+  /**
+   * .
+   */
   private final String formatter = "logJsonFormatter";
-
-  /** . */
+  /**
+   * .
+   */
+  private String name = "default";
+  /**
+   * .
+   */
   private String fileName = "default";
 
-  /** . */
+  /**
+   * .
+   */
   private String fileNameExt = ".log";
-  /** . */
+  /**
+   * .
+   */
   private String handlerConsumeFilter = "handlerConsumeFilter";
 
   @Override
@@ -73,6 +86,11 @@ public class LogHandlerConfig implements HandlerConfig {
   }
 
   @Override
+  public final void setName(final String name) {
+    this.name = name;
+  }
+
+  @Override
   public final String getDirectory() {
     return this.directory;
   }
@@ -95,10 +113,5 @@ public class LogHandlerConfig implements HandlerConfig {
   @Override
   public final String getFormatter() {
     return this.formatter;
-  }
-
-  @Override
-  public final void setName(final String name) {
-    this.name = name;
   }
 }

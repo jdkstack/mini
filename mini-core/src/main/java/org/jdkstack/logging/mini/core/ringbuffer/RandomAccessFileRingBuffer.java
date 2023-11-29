@@ -16,16 +16,24 @@ import org.jdkstack.logging.mini.api.ringbuffer.RingBuffer;
  */
 public class RandomAccessFileRingBuffer implements RingBuffer<RandomAccessFile> {
 
-  /** . */
+  /**
+   * .
+   */
   private final RandomAccessFile[] rb;
 
-  /** . */
+  /**
+   * .
+   */
   private final FileChannel[] rb2;
 
-  /** . */
+  /**
+   * .
+   */
   private final int mask;
 
-  /** . */
+  /**
+   * .
+   */
   private int current;
 
   /**

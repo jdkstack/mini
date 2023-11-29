@@ -10,7 +10,10 @@ package org.jdkstack.logging.mini.core.ringbuffer;
  * @author admin
  */
 public final class Constants {
-  /** . */
+
+  /**
+   * .
+   */
   public static final int CAPACITY = 2048;
 
   private Constants() {

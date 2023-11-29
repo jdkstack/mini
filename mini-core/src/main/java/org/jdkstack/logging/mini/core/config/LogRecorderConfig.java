@@ -11,19 +11,27 @@ import org.jdkstack.logging.mini.api.config.RecorderConfig;
  * @author admin
  */
 public class LogRecorderConfig implements RecorderConfig {
-  /** . */
-  private String name = "default";
 
-  /** . */
+  /**
+   * .
+   */
   private final String minLevel = "MIN";
-
-  /** . */
+  /**
+   * .
+   */
   private final String maxLevel = "MAX";
-
-  /** . */
+  /**
+   * .
+   */
+  private String name = "default";
+  /**
+   * .
+   */
   private String handlers = Constants.DEFAULT;
 
-  /** . */
+  /**
+   * .
+   */
   private String handlerProduceFilter = "handlerProduceFilter";
 
   @Override
@@ -42,6 +50,11 @@ public class LogRecorderConfig implements RecorderConfig {
   }
 
   @Override
+  public final void setName(final String name) {
+    this.name = name;
+  }
+
+  @Override
   public final String getMinLevel() {
     return this.minLevel;
   }
@@ -49,11 +62,6 @@ public class LogRecorderConfig implements RecorderConfig {
   @Override
   public final String getMaxLevel() {
     return this.maxLevel;
-  }
-
-  @Override
-  public final void setName(final String name) {
-    this.name = name;
   }
 
   @Override

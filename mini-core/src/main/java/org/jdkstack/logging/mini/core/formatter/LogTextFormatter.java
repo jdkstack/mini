@@ -5,6 +5,7 @@ import java.nio.CharBuffer;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.record.Record;
+import org.jdkstack.logging.mini.core.thread.LogThread;
 
 /**
  * 日志记录对象Record转成纯Text格式(空格分割).
@@ -14,9 +15,6 @@ import org.jdkstack.logging.mini.api.record.Record;
  * @author admin
  */
 public final class LogTextFormatter implements Formatter {
-  /** 临时数组. */
-  private static final CharBuffer CHARBUF =
-      CharBuffer.allocate(org.jdkstack.logging.mini.core.codec.Constants.SOURCEN8);
 
   /**
    * This is a method description.
@@ -51,6 +49,8 @@ public final class LogTextFormatter implements Formatter {
    */
   @Override
   public Buffer format(final Record logRecord) {
+    final LogThread logThread = (LogThread) Thread.currentThread();
+    CharBuffer CHARBUF = logThread.getTEXT_CHARBUF();
     // 文本格式的日志消息.
     CHARBUF.clear();
     // 日志对象中的特殊字段.
@@ -71,6 +71,8 @@ public final class LogTextFormatter implements Formatter {
    * @author admin
    */
   public void handle(final Record logRecord) {
+    final LogThread logThread = (LogThread) Thread.currentThread();
+    CharBuffer CHARBUF = logThread.getTEXT_CHARBUF();
     // 日志日期时间.
     final StringBuilder dateTime = logRecord.getEvent();
     final int position = CHARBUF.position();

@@ -1,42 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.jdkstack</groupId>
-        <artifactId>mini</artifactId>
-        <version>21</version>
-    </parent>
-    <artifactId>mini-core</artifactId>
-    <dependencies>
-        <dependency>
-            <groupId>org.jdkstack</groupId>
-            <artifactId>mini-api</artifactId>
-            <version>21</version>
-        </dependency>
-        <dependency>
-            <groupId>com.lmax</groupId>
-            <artifactId>disruptor</artifactId>
-            <version>3.4.4</version>
-        </dependency>
-    </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <!-- 覆盖父类的jar打包,并增加自动模块名称,导入依赖包,解决Unable to derive module descriptor for.-->
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <Automatic-Module-Name>org.jdkstack.logging.mini.core</Automatic-Module-Name>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-                <!-- https://maven.apache.org/plugins/maven-jar-plugin/examples/include-exclude.html-->
-                <groupId>org.apache.maven.plugins</groupId>
-                <version>3.3.0</version>
-            </plugin>
-        </plugins>
-    </build>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <artifactId>mini-core</artifactId>
+  <build>
+    <plugins>
+      <plugin>
+        <!-- 覆盖父类的jar打包,并增加自动模块名称,导入依赖包,解决Unable to derive module descriptor for.-->
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <Automatic-Module-Name>org.jdkstack.logging.mini.core</Automatic-Module-Name>
+            </manifestEntries>
+          </archive>
+        </configuration>
+        <!-- https://maven.apache.org/plugins/maven-jar-plugin/examples/include-exclude.html-->
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.3.0</version>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+      <artifactId>mini-api</artifactId>
+      <groupId>org.jdkstack</groupId>
+      <version>21</version>
+    </dependency>
+    <dependency>
+      <artifactId>disruptor</artifactId>
+      <groupId>com.lmax</groupId>
+      <version>3.4.4</version>
+    </dependency>
+  </dependencies>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>mini</artifactId>
+    <groupId>org.jdkstack</groupId>
+    <version>21</version>
+  </parent>
 </project>

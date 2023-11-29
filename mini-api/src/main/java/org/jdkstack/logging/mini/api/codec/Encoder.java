@@ -17,7 +17,7 @@ public interface Encoder<T> {
    *
    * <p>Another description after blank line.
    *
-   * @param source .
+   * @param source      .
    * @param destination .
    * @author admin
    */

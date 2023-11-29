@@ -45,8 +45,7 @@ public final class PluginServices {
         // 插件的种类目录
         String pluginParentDirectoryName = pluginParentDirectory.getFileName().toString();
         // 创建一个插件的服务
-        PluginServiceLifecycle pluginServiceLifecycle =
-            new PluginServiceLifecycle(pluginParentDirectory);
+        PluginServiceLifecycle pluginServiceLifecycle = new PluginServiceLifecycle(pluginParentDirectory);
         pluginServiceLifecycle.doInit();
         // 保存这个插件种类的服务
         pluginServiceLifecycles.put(pluginParentDirectoryName, pluginServiceLifecycle);

@@ -8,5 +8,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Filter {
 
-    Class<?>[] value() default {};
+  Class<?>[] value() default {};
 }

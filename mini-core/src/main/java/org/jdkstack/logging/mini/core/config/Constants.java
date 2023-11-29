@@ -9,7 +9,9 @@ package org.jdkstack.logging.mini.core.config;
  */
 public final class Constants {
 
-  /** . */
+  /**
+   * .
+   */
   public static final String DEFAULT = "default";
 
   private Constants() {

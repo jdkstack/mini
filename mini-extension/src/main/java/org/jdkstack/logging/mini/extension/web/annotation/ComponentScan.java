@@ -9,9 +9,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ComponentScan {
 
-    String[] value() default {};
+  String[] value() default {};
 
-    Filter[] includeFilters() default {};
+  Filter[] includeFilters() default {};
 
-    Filter[] excludeFilters() default {};
+  Filter[] excludeFilters() default {};
 }

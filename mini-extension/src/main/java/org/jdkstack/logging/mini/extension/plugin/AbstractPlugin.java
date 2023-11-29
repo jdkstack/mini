@@ -1,6 +1,7 @@
 package org.jdkstack.logging.mini.extension.plugin;
 
 public abstract class AbstractPlugin implements Plugin {
+
   private String name;
   private String description;
 

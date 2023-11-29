@@ -14,57 +14,101 @@ import org.jdkstack.logging.mini.api.recorder.Recorder;
  */
 public class LogRecord implements Record {
 
-  /** 日志级别. */
-  private String logLevel;
-
-  /** 日志消息. */
-  private String message;
-
-  /** 事件发生时的datetime. */
+  /**
+   * 事件发生时的datetime.
+   */
   private final StringBuilder event = new StringBuilder(100);
-
-  /** 接收事件时的datetime. */
+  private final Object[] params = new Object[9];
+  private final int[] paths = new int[9];
+  private final StringBuilder messageText = new StringBuilder(1024);
+  /**
+   * .
+   */
+  private final StringBuilder pid = new StringBuilder(16);
+  /**
+   * .
+   */
+  private final String appName = System.getProperty("appName", "app");
+  /**
+   * .
+   */
+  private final String hostName = System.getProperty("hostName", "localhost");
+  /**
+   * .
+   */
+  private final String ip = System.getProperty("ip", "127.0.0.1");
+  /**
+   * .
+   */
+  private final String port = System.getProperty("port", "0000");
+  /**
+   * .
+   */
+  private final String timeZone = System.getProperty("timeZone", "Z");
+  /**
+   * 日志级别.
+   */
+  private String logLevel;
+  /**
+   * 日志消息.
+   */
+  private String message;
+  /**
+   * 接收事件时的datetime.
+   */
   private String ingestion;
-
-  /** 处理事件时的datetime. */
+  /**
+   * 处理事件时的datetime.
+   */
   private String process;
-
-  /** . */
+  /**
+   * .
+   */
   private String offset;
-
-  /** 日志类. */
+  /**
+   * 日志类.
+   */
   private String name;
-
-  /** 日志类. */
+  /**
+   * 日志类.
+   */
   private String className;
-
-  /** 日志异常. */
+  /**
+   * 日志异常.
+   */
   private Throwable throwable;
-
-  /** map. */
+  /**
+   * map.
+   */
   private Map<String, String> map = new HashMap<>(16);
-
-  /** . */
+  /**
+   * .
+   */
   private long year;
-
-  /** . */
+  /**
+   * .
+   */
   private long month;
-
-  /** . */
+  /**
+   * .
+   */
   private long day;
-
-  /** . */
+  /**
+   * .
+   */
   private long hours;
-
-  /** . */
+  /**
+   * .
+   */
   private long minute;
-
-  /** . */
+  /**
+   * .
+   */
   private long second;
-
-  /** . */
+  /**
+   * .
+   */
   private long mills;
-
   private Object args1;
   private Object args2;
   private Object args3;
@@ -74,35 +118,10 @@ public class LogRecord implements Record {
   private Object args7;
   private Object args8;
   private Object args9;
-
-  private final Object[] params = new Object[9];
-
-  private final int[] paths = new int[9];
   private int argsCount;
   private int usedCount;
   private int placeholderCount;
-
   private Recorder recorder;
-
-  private final StringBuilder messageText = new StringBuilder(1024);
-
-  /** . */
-  private final StringBuilder pid = new StringBuilder(16);
-
-  /** . */
-  private final String appName = System.getProperty("appName", "app");
-
-  /** . */
-  private final String hostName = System.getProperty("hostName", "localhost");
-
-  /** . */
-  private final String ip = System.getProperty("ip", "127.0.0.1");
-
-  /** . */
-  private final String port = System.getProperty("port", "0000");
-
-  /** . */
-  private final String timeZone = System.getProperty("timeZone", "Z");
 
   public LogRecord() {
     this.pid.append(ProcessHandle.current().pid());

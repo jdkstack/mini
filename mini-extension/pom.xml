@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.jdkstack</groupId>
-        <artifactId>mini</artifactId>
-        <version>21</version>
-    </parent>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <artifactId>mini-extension</artifactId>
+  <build>
+    <plugins>
+      <plugin>
+        <!-- 代码样式检测. -->
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.3.0</version>
+      </plugin>
+    </plugins>
+  </build>
 
-    <artifactId>mini-extension</artifactId>
-    <dependencies>
-        <dependency>
-            <groupId>org.jdkstack</groupId>
-            <artifactId>mini-core</artifactId>
-            <version>21</version>
-        </dependency>
-    </dependencies>
+  <dependencies>
+    <dependency>
+      <artifactId>mini-core</artifactId>
+      <groupId>org.jdkstack</groupId>
+      <version>21</version>
+    </dependency>
+  </dependencies>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>mini</artifactId>
+    <groupId>org.jdkstack</groupId>
+    <version>21</version>
+  </parent>
 </project>

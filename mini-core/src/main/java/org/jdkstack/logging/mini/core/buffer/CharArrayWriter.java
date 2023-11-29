@@ -11,7 +11,9 @@ import java.io.BufferedWriter;
  */
 public class CharArrayWriter extends AbstractCharArrayWriter {
 
-  /** . */
+  /**
+   * .
+   */
   private BufferedWriter bufferedWriter;
 
   public CharArrayWriter() {
@@ -23,14 +25,13 @@ public class CharArrayWriter extends AbstractCharArrayWriter {
    *
    * <p>Another description after blank line.
    *
-   * @param bytes b.
+   * @param bytes  b.
    * @param offset o.
    * @param length l.
    * @author admin
    */
   @Override
-  public final void readToDestination(final char[] bytes, final int offset, final int length)
-      throws Exception {
+  public final void readToDestination(final char[] bytes, final int offset, final int length) throws Exception {
     this.bufferedWriter.write(bytes, offset, length);
   }
 

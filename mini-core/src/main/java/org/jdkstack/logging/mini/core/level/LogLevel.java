@@ -11,9 +11,13 @@ import org.jdkstack.logging.mini.api.level.Level;
  */
 public final class LogLevel implements Level {
 
-  /** 日志名. */
+  /**
+   * 日志名.
+   */
   private final String name;
-  /** 日志级别. */
+  /**
+   * 日志级别.
+   */
   private final int value;
 
   /**
@@ -21,7 +25,7 @@ public final class LogLevel implements Level {
    *
    * <p>Another description after blank line.
    *
-   * @param name 日志级别的名称.
+   * @param name  日志级别的名称.
    * @param value 日志级别的值.
    * @author admin
    */

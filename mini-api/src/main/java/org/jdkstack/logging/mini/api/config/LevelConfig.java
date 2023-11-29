@@ -8,6 +8,7 @@ package org.jdkstack.logging.mini.api.config;
  * @author admin
  */
 public interface LevelConfig {
+
   String getName();
 
   void setName(String name);

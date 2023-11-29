@@ -27,7 +27,10 @@ import org.jdkstack.logging.mini.core.recorder.LogRecorder;
  * @author admin
  */
 public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory {
-  /** 上下文对象，用来初始化，并提供业务方法. */
+
+  /**
+   * 上下文对象，用来初始化，并提供业务方法.
+   */
   private final LogRecorderContext context = new AsyncLogRecorderContext();
 
   /**
@@ -38,6 +41,68 @@ public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory
    * @author admin
    */
   public AsyncLogRecorderContextFactory() {
+    // 默认配置。
+    this.insideConfig();
+  }
+
+  @Override
+  public final Recorder getRecorder(final String name) {
+    // 全限定名配置.
+    Recorder recorder = this.context.getRecorder(name);
+    // 默认配置.
+    if (null == recorder) {
+      // 创建默认配置。
+      //final RecorderConfig recorderConfig = new LogRecorderConfig();
+      // 覆盖名字。
+      //recorderConfig.setName(name);
+      // 增加新的Recorder.
+      //this.addRecorder(recorderConfig);
+      //this.context.addLogRecorderConfig(name, recorderConfig);
+      // 取出最新添加的Recorder.
+      //recorder = this.context.getRecorder(name);
+      // 不需要创建，直接获取默认的recorder。
+      recorder = this.context.getRecorder("default");
+    }
+    return recorder;
+  }
+
+  @Override
+  public final void addRecorder(final RecorderConfig recorderConfig) {
+    final Recorder logRecorder = new LogRecorder(this.context, recorderConfig);
+    this.context.addRecorder(recorderConfig.getName(), logRecorder);
+  }
+
+  @Override
+  public final void addHandler(final String key, final Handler value) {
+    this.context.addHandler(key, value);
+  }
+
+  @Override
+  public final void addFilter(final String key, final Filter filter) {
+    this.context.addFilter(key, filter);
+  }
+
+  @Override
+  public final void addFormatter(final String key, final Formatter formatter) {
+    this.context.addFormatter(key, formatter);
+  }
+
+  @Override
+  public final void addLogRecorderConfig(final String key, final RecorderConfig logRecorderConfig) {
+    this.context.addLogRecorderConfig(key, logRecorderConfig);
+  }
+
+  @Override
+  public final void addLogHandlerConfig(final String key, final HandlerConfig logHandlerConfig) {
+    this.context.addLogHandlerConfig(key, logHandlerConfig);
+  }
+
+  @Override
+  public final void addLevel(final String name, final int value) {
+    this.context.addLevel(name, value);
+  }
+
+  private void insideConfig() {
     // 默认日志级别。
     this.addLevel(Constants.MIN, Constants.MIN_VALUE);
     this.addLevel(Constants.SEVERE, Constants.SEVERE_VALUE);
@@ -79,60 +144,5 @@ public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory
     this.addFormatter("logJsonFormatter", logJsonFormatter);
     final Formatter logTextFormatter = new LogTextFormatter(this.context);
     this.addFormatter("logTextFormatter", logTextFormatter);
-  }
-
-  @Override
-  public final Recorder getRecorder(final String name) {
-    // 全限定名配置.
-    Recorder recorder = this.context.getRecorder(name);
-    // 默认配置.
-    if (null == recorder) {
-      // 创建默认配置。
-      final RecorderConfig recorderConfig = new LogRecorderConfig();
-      // 覆盖名字。
-      recorderConfig.setName(name);
-      // 增加新的Recorder.
-      this.addRecorder(recorderConfig);
-      this.context.addLogRecorderConfig(name, recorderConfig);
-      // 取出最新添加的Recorder.
-      recorder = this.context.getRecorder(name);
-    }
-    return recorder;
-  }
-
-  @Override
-  public final void addRecorder(final RecorderConfig recorderConfig) {
-    final Recorder logRecorder = new LogRecorder(this.context, recorderConfig);
-    this.context.addRecorder(recorderConfig.getName(), logRecorder);
-  }
-
-  @Override
-  public final void addHandler(final String key, final Handler value) {
-    this.context.addHandler(key, value);
-  }
-
-  @Override
-  public final void addFilter(final String key, final Filter filter) {
-    this.context.addFilter(key, filter);
-  }
-
-  @Override
-  public final void addFormatter(final String key, final Formatter formatter) {
-    this.context.addFormatter(key, formatter);
-  }
-
-  @Override
-  public final void addLogRecorderConfig(final String key, final RecorderConfig logRecorderConfig) {
-    this.context.addLogRecorderConfig(key, logRecorderConfig);
-  }
-
-  @Override
-  public final void addLogHandlerConfig(final String key, final HandlerConfig logHandlerConfig) {
-    this.context.addLogHandlerConfig(key, logHandlerConfig);
-  }
-
-  @Override
-  public final void addLevel(final String name, final int value) {
-    this.context.addLevel(name, value);
   }
 }

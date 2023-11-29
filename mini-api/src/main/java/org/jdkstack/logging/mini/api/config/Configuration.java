@@ -16,6 +16,7 @@ import org.jdkstack.logging.mini.api.recorder.Recorder;
  * @author admin
  */
 public interface Configuration {
+
   Recorder getRecorder(String name);
 
   void addRecorder(String name, Recorder recorder);

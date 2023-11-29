@@ -17,13 +17,21 @@ import org.jdkstack.logging.mini.api.codec.Encoder;
  */
 public class CharArrayEncoder implements Encoder<char[]> {
 
-  /** . */
+  /**
+   * .
+   */
   private final Charset charset;
-  /** . */
+  /**
+   * .
+   */
   private final CharsetEncoder charsetEncoder;
-  /** . */
+  /**
+   * .
+   */
   private final CharBuffer charBuffer;
-  /** . */
+  /**
+   * .
+   */
   private final ByteBuffer byteBuffer;
 
   /**
@@ -43,19 +51,14 @@ public class CharArrayEncoder implements Encoder<char[]> {
    *
    * <p>Another description after blank line.
    *
-   * @param charset .
+   * @param charset        .
    * @param charBufferSize .
    * @param byteBufferSize .
    * @author admin
    */
-  public CharArrayEncoder(
-      final Charset charset, final int charBufferSize, final int byteBufferSize) {
+  public CharArrayEncoder(final Charset charset, final int charBufferSize, final int byteBufferSize) {
     this.charset = charset;
-    this.charsetEncoder =
-        this.charset
-            .newEncoder()
-            .onMalformedInput(CodingErrorAction.REPLACE)
-            .onUnmappableCharacter(CodingErrorAction.REPLACE);
+    this.charsetEncoder = this.charset.newEncoder().onMalformedInput(CodingErrorAction.REPLACE).onUnmappableCharacter(CodingErrorAction.REPLACE);
     this.charBuffer = CharBuffer.allocate(charBufferSize);
     this.byteBuffer = ByteBuffer.allocate(byteBufferSize);
   }
@@ -65,20 +68,14 @@ public class CharArrayEncoder implements Encoder<char[]> {
    *
    * <p>Another description after blank line.
    *
-   * @param ce .
-   * @param charBuf .
-   * @param byteBuf .
-   * @param text .
+   * @param ce          .
+   * @param charBuf     .
+   * @param byteBuf     .
+   * @param text        .
    * @param destination .
    * @author admin
    */
-  public static void encodeText(
-      final CharsetEncoder ce,
-      final CharBuffer charBuf,
-      final ByteBuffer byteBuf,
-      final char[] text,
-      final ByteWriter destination)
-      throws Exception {
+  public static void encodeText(final CharsetEncoder ce, final CharBuffer charBuf, final ByteBuffer byteBuf, final char[] text, final ByteWriter destination) throws Exception {
     ce.reset();
     charBuf.clear();
     charBuf.put(text, 0, text.length);
@@ -105,12 +102,11 @@ public class CharArrayEncoder implements Encoder<char[]> {
    *
    * <p>Another description after blank line.
    *
-   * @param source .
+   * @param source      .
    * @param destination .
    * @author admin
    */
-  public static void writeTo(final ByteBuffer source, final ByteWriter destination)
-      throws Exception {
+  public static void writeTo(final ByteBuffer source, final ByteWriter destination) throws Exception {
     final ByteBuffer destBuff = destination.getByteBuffer();
     while (source.remaining() > destBuff.remaining()) {
       // final int originalLimit = source.limit();
@@ -127,7 +123,7 @@ public class CharArrayEncoder implements Encoder<char[]> {
    *
    * <p>Another description after blank line.
    *
-   * @param source .
+   * @param source      .
    * @param destination .
    * @author admin
    */

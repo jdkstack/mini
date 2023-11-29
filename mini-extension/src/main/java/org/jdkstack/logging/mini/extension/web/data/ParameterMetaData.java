@@ -7,39 +7,39 @@ package org.jdkstack.logging.mini.extension.web.data;
  */
 public class ParameterMetaData {
 
-    private String parameterName;
-    private Class<?> parameterType;
-    private boolean isAnnotation = true;
+  private String parameterName;
+  private Class<?> parameterType;
+  private boolean isAnnotation = true;
 
-    public ParameterMetaData() {
-    }
+  public ParameterMetaData() {
+  }
 
-    public ParameterMetaData(final String parameterName, final Class<?> parameterType) {
-        this.parameterName = parameterName;
-        this.parameterType = parameterType;
-    }
+  public ParameterMetaData(final String parameterName, final Class<?> parameterType) {
+    this.parameterName = parameterName;
+    this.parameterType = parameterType;
+  }
 
-    public boolean isAnnotation() {
-        return this.isAnnotation;
-    }
+  public boolean isAnnotation() {
+    return this.isAnnotation;
+  }
 
-    public void setAnnotation(final boolean annotation) {
-        this.isAnnotation = annotation;
-    }
+  public void setAnnotation(final boolean annotation) {
+    this.isAnnotation = annotation;
+  }
 
-    public String getParameterName() {
-        return this.parameterName;
-    }
+  public String getParameterName() {
+    return this.parameterName;
+  }
 
-    public void setParameterName(final String parameterName) {
-        this.parameterName = parameterName;
-    }
+  public void setParameterName(final String parameterName) {
+    this.parameterName = parameterName;
+  }
 
-    public Class<?> getParameterType() {
-        return this.parameterType;
-    }
+  public Class<?> getParameterType() {
+    return this.parameterType;
+  }
 
-    public void setParameterType(final Class<?> parameterType) {
-        this.parameterType = parameterType;
-    }
+  public void setParameterType(final Class<?> parameterType) {
+    this.parameterType = parameterType;
+  }
 }

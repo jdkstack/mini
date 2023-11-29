@@ -13,13 +13,19 @@ import org.jdkstack.logging.mini.api.ringbuffer.RingBuffer;
  */
 public class FileRingBuffer implements RingBuffer<File> {
 
-  /** . */
+  /**
+   * .
+   */
   private final File[] rb;
 
-  /** . */
+  /**
+   * .
+   */
   private final int mask;
 
-  /** . */
+  /**
+   * .
+   */
   private int current;
 
   /**
@@ -30,8 +36,7 @@ public class FileRingBuffer implements RingBuffer<File> {
    * @param capacity .
    * @author admin
    */
-  public FileRingBuffer(
-      final File dir, final String fileName, final String fileNamePrefix, final int capacity) {
+  public FileRingBuffer(final File dir, final String fileName, final String fileNamePrefix, final int capacity) {
     // 创建目录。
     if (!dir.exists()) {
       dir.mkdirs();

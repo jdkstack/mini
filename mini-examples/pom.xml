@@ -1,34 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.jdkstack</groupId>
-        <artifactId>mini</artifactId>
-        <version>21</version>
-    </parent>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <artifactId>mini-examples</artifactId>
+  <build>
+    <plugins>
+      <plugin>
+        <!-- 代码样式检测. -->
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.3.0</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <!-- 2.是否追加<id>作为文件名后缀.-->
+          <appendAssemblyId>false</appendAssemblyId>
+          <!-- 3.必须设置成false解决一些错误信息.-->
+          <archive>
+            <addMavenDescriptor>false</addMavenDescriptor>
+            <manifest>
+              <mainClass>test.Examples</mainClass>
+            </manifest>
+          </archive>
+          <attach>false</attach>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <!-- 9.打包的目录名,或者打包的文件名.-->
+          <!--<finalName>mini-${project.version}</finalName>-->
+          <!-- 10.打包后存储的路径.-->
+          <outputDirectory>${project.build.directory}/releases/</outputDirectory>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <id>make-assembly</id>
+            <phase>package</phase>
+          </execution>
+        </executions>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.6.0</version>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+      <artifactId>mini-core</artifactId>
+      <groupId>org.jdkstack</groupId>
+      <version>21</version>
+    </dependency>
+  </dependencies>
+  <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mini-examples</artifactId>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.jdkstack</groupId>
-            <artifactId>mini-core</artifactId>
-            <version>21</version>
-        </dependency>
-    </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <!-- 代码样式检测. -->
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-                <groupId>org.apache.maven.plugins</groupId>
-                <version>3.3.0</version>
-            </plugin>
-        </plugins>
-    </build>
+  <parent>
+    <artifactId>mini</artifactId>
+    <groupId>org.jdkstack</groupId>
+    <version>21</version>
+  </parent>
 </project>

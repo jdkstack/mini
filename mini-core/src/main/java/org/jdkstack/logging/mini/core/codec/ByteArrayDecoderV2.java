@@ -17,13 +17,21 @@ import org.jdkstack.logging.mini.api.codec.Decoder;
  */
 public class ByteArrayDecoderV2 implements Decoder<ByteBuffer> {
 
-  /** . */
+  /**
+   * .
+   */
   private final Charset charset;
-  /** . */
+  /**
+   * .
+   */
   private final CharsetDecoder charsetDecoder;
-  /** . */
+  /**
+   * .
+   */
   private final CharBuffer charBuffer;
-  /** . */
+  /**
+   * .
+   */
   private final ByteBuffer byteBuffer;
 
   /**
@@ -43,19 +51,14 @@ public class ByteArrayDecoderV2 implements Decoder<ByteBuffer> {
    *
    * <p>Another description after blank line.
    *
-   * @param charset .
+   * @param charset        .
    * @param charBufferSize .
    * @param byteBufferSize .
    * @author admin
    */
-  public ByteArrayDecoderV2(
-      final Charset charset, final int charBufferSize, final int byteBufferSize) {
+  public ByteArrayDecoderV2(final Charset charset, final int charBufferSize, final int byteBufferSize) {
     this.charset = charset;
-    this.charsetDecoder =
-        this.charset
-            .newDecoder()
-            .onMalformedInput(CodingErrorAction.REPLACE)
-            .onUnmappableCharacter(CodingErrorAction.REPLACE);
+    this.charsetDecoder = this.charset.newDecoder().onMalformedInput(CodingErrorAction.REPLACE).onUnmappableCharacter(CodingErrorAction.REPLACE);
     this.charBuffer = CharBuffer.allocate(charBufferSize);
     this.byteBuffer = ByteBuffer.allocate(byteBufferSize);
   }
@@ -65,20 +68,14 @@ public class ByteArrayDecoderV2 implements Decoder<ByteBuffer> {
    *
    * <p>Another description after blank line.
    *
-   * @param cd .
+   * @param cd      .
    * @param charBuf .
    * @param byteBuf .
-   * @param text .
-   * @param reader .
+   * @param text    .
+   * @param reader  .
    * @author admin
    */
-  public static void encodeText(
-      final CharsetDecoder cd,
-      final CharBuffer charBuf,
-      final ByteBuffer byteBuf,
-      final ByteBuffer text,
-      final CharWriter reader)
-      throws Exception {
+  public static void encodeText(final CharsetDecoder cd, final CharBuffer charBuf, final ByteBuffer byteBuf, final ByteBuffer text, final CharWriter reader) throws Exception {
     cd.reset();
     byteBuf.clear();
     byteBuf.put(text.array(), text.arrayOffset(), text.remaining());
@@ -103,12 +100,11 @@ public class ByteArrayDecoderV2 implements Decoder<ByteBuffer> {
    *
    * <p>Another description after blank line.
    *
-   * @param source .
+   * @param source      .
    * @param destination .
    * @author admin
    */
-  public static void writeTo(final CharBuffer source, final CharWriter destination)
-      throws Exception {
+  public static void writeTo(final CharBuffer source, final CharWriter destination) throws Exception {
     final CharBuffer destBuff = destination.getCharBuffer();
     while (source.remaining() > destBuff.remaining()) {
       // final int originalLimit = source.limit();

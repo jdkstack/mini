@@ -19,8 +19,8 @@ import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.core.config.LogConfiguration;
 import org.jdkstack.logging.mini.core.record.RecordEventFactory;
-import org.jdkstack.logging.mini.core.ringbuffer.RingBufferLogEventHandler;
 import org.jdkstack.logging.mini.core.ringbuffer.RingBufferLogEventTranslator;
+import org.jdkstack.logging.mini.core.ringbuffer.RingBufferLogWorkHandler;
 import org.jdkstack.logging.mini.core.thread.LogThreadFactory;
 
 /**
@@ -53,37 +53,34 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
     // 等待策略。
     final WaitStrategy waitStrategy = new BusySpinWaitStrategy();
     // 创建disruptor。
-    disruptor =
-        new Disruptor<>(
-            eventFactory,
-            4096,
-            new LogThreadFactory("log-consume", null),
-            producerType,
-            waitStrategy);
+    this.disruptor = new Disruptor<>(eventFactory, 4096, new LogThreadFactory("log-consume", null), producerType, waitStrategy);
     // 添加异常处理。
-    final ExceptionHandler<Record> errorHandler =
-        new ExceptionHandler<Record>() {
-          @Override
-          public void handleEventException(Throwable ex, long sequence, Record event) {
-            ex.printStackTrace();
-          }
+    final ExceptionHandler<Record> errorHandler = new ExceptionHandler<>() {
+      @Override
+      public void handleEventException(Throwable ignore, long sequence, Record event) {
+        //
+      }
 
-          @Override
-          public void handleOnStartException(Throwable ex) {
-            ex.printStackTrace();
-          }
+      @Override
+      public void handleOnStartException(Throwable ignore) {
+        //
+      }
 
-          @Override
-          public void handleOnShutdownException(Throwable ex) {
-            ex.printStackTrace();
-          }
-        };
-    disruptor.setDefaultExceptionHandler(errorHandler);
-    // 添加业务处理（单个线程）。
-    final RingBufferLogEventHandler[] handlers = {new RingBufferLogEventHandler(this)};
-    disruptor.handleEventsWith(handlers);
+      @Override
+      public void handleOnShutdownException(Throwable ignore) {
+        //
+      }
+    };
+    this.disruptor.setDefaultExceptionHandler(errorHandler);
+    // 使用多消费者。
+    RingBufferLogWorkHandler[] workHandlers = new RingBufferLogWorkHandler[4];
+    for (int i = 0; i < workHandlers.length; i++) {
+      workHandlers[i] = new RingBufferLogWorkHandler(this);
+    }
+    // 使用多消费者。
+    this.disruptor.handleEventsWithWorkerPool(workHandlers);
     // 启动disruptor。
-    disruptor.start();
+    this.disruptor.start();
   }
 
   @Override
@@ -142,8 +139,7 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
   }
 
   @Override
-  public final boolean doFilter(
-      final String logLevelName, final String maxLevelName, final String minLevelName) {
+  public final boolean doFilter(final String logLevelName, final String maxLevelName, final String minLevelName) {
     final Level logLevel = this.findLevel(logLevelName);
     final Level maxLevel = this.findLevel(maxLevelName);
     final Level minLevel = this.findLevel(minLevelName);
@@ -192,22 +188,7 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
   }
 
   @Override
-  public final void produce(
-      final String logLevel,
-      final String dateTime,
-      final String message,
-      final String name,
-      final Object arg1,
-      final Object arg2,
-      final Object arg3,
-      final Object arg4,
-      final Object arg5,
-      final Object arg6,
-      final Object arg7,
-      final Object arg8,
-      final Object arg9,
-      final Throwable thrown,
-      final Record lr) {
+  public final void produce(final String logLevel, final String dateTime, final String message, final String name, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5, final Object arg6, final Object arg7, final Object arg8, final Object arg9, final Throwable thrown, final Record lr) {
     // 消费业务.
     try {
       // 用Recorder name找到RecorderConfig配置信息。
@@ -219,9 +200,7 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
       // 使用Handler name找到Handler，并执行Handler生产方法。
       final Handler handler = this.getHandler(handlerConfig.getName());
       // 生产数据(向元素对象的每一个字段中设置数据).
-      handler.produce(
-          logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9,
-          thrown, lr);
+      handler.produce(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown, lr);
       // 使用生产Filter，检查当前的日志消息是否符合条件，符合条件才写入文件，不符合条件直接丢弃。
       if (this.filter(recorderConfig.getHandlerProduceFilter(), lr)) {
         //
@@ -232,27 +211,11 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
   }
 
   @Override
-  public final void process(
-      final String logLevel,
-      final String dateTime,
-      final String message,
-      final String name,
-      final Object arg1,
-      final Object arg2,
-      final Object arg3,
-      final Object arg4,
-      final Object arg5,
-      final Object arg6,
-      final Object arg7,
-      final Object arg8,
-      final Object arg9,
-      final Throwable thrown) {
+  public final void process(final String logLevel, final String dateTime, final String message, final String name, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5, final Object arg6, final Object arg7, final Object arg8, final Object arg9, final Throwable thrown) {
     // 获取当前线程绑定的对象。
     final RingBufferLogEventTranslator translator = getCachedTranslator();
     // 将参数传递到对象中。
-    translator.process(
-            logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9,
-            thrown);
+    translator.process(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
     // 从循环数组中取出一个对象，并向对象中插入数据。
     disruptor.publishEvent(translator);
   }

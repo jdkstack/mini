@@ -12,7 +12,9 @@ import org.jdkstack.logging.mini.api.buffer.ByteWriter;
  */
 public abstract class AbstractByteArrayWriter implements ByteWriter {
 
-  /** 256KB. */
+  /**
+   * 256KB.
+   */
   protected final ByteBuffer byteBuffer = ByteBuffer.allocate(Constants.N256 << Constants.N10);
 
   /**

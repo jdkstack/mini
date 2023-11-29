@@ -14,7 +14,9 @@ import org.jdkstack.logging.mini.api.record.Record;
  */
 public class HandlerConsumeFilter implements Filter {
 
-  /** . */
+  /**
+   * .
+   */
   private final String key;
 
   /**

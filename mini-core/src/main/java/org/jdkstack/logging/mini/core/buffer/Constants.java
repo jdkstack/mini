@@ -11,9 +11,13 @@ package org.jdkstack.logging.mini.core.buffer;
  */
 public final class Constants {
 
-  /** . */
+  /**
+   * .
+   */
   public static final int N10 = 10;
-  /** . */
+  /**
+   * .
+   */
   public static final int N256 = 256;
 
   private Constants() {

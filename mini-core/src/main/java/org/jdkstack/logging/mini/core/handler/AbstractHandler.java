@@ -1,17 +1,16 @@
 package org.jdkstack.logging.mini.core.handler;
 
 import java.nio.CharBuffer;
-import java.nio.charset.Charset;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.codec.Encoder;
 import org.jdkstack.logging.mini.api.config.HandlerConfig;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.record.Record;
-import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
 import org.jdkstack.logging.mini.core.datetime.DateTimeEncoder;
 import org.jdkstack.logging.mini.core.datetime.TimeZone;
 import org.jdkstack.logging.mini.core.formatter.LogFormatterV2;
+import org.jdkstack.logging.mini.core.thread.LogThread;
 
 /**
  * This is a method description.
@@ -22,19 +21,11 @@ import org.jdkstack.logging.mini.core.formatter.LogFormatterV2;
  */
 public abstract class AbstractHandler implements Handler {
 
-  /** 临时数组. */
-  private final CharBuffer charBuf = CharBuffer.allocate(Constants.SOURCE);
-
-  /** 字符编码器. */
-  private final Encoder<CharBuffer> textEncoder = new CharArrayEncoderV2(Charset.defaultCharset());
-
-  /** . */
+  /**
+   * .
+   */
   protected final String key;
-
   protected final LogRecorderContext context;
-
-  /** 目的地写入器. */
-  protected ByteWriter destination;
 
   /**
    * This is a method description.
@@ -59,39 +50,28 @@ public abstract class AbstractHandler implements Handler {
    */
   @Override
   public void consume(final Record lr) throws Exception {
+    final LogThread logThread = (LogThread) Thread.currentThread();
+    ByteWriter destination3 = logThread.getDestination3();
+    CharBuffer charBuf = logThread.getCharBuf();
+    Encoder<CharBuffer> textEncoder = logThread.getTextEncoder();
     HandlerConfig value = this.context.getHandlerConfig(this.key);
     // 格式化日志对象.
     final CharBuffer logMessage = (CharBuffer) this.context.formatter(value.getFormatter(), lr);
     // 清除缓存.
-    this.charBuf.clear();
+    charBuf.clear();
     // 将数据写入缓存.
-    this.charBuf.put(logMessage.array(), logMessage.arrayOffset(), logMessage.remaining());
-    this.charBuf.flip();
+    charBuf.put(logMessage.array(), logMessage.arrayOffset(), logMessage.remaining());
+    charBuf.flip();
     // 切换规则.
-    this.rules(lr, this.charBuf.remaining());
+    this.rules(lr, charBuf.remaining());
     // 开始编码.
-    this.textEncoder.encode(this.charBuf, this.destination);
+    textEncoder.encode(charBuf, destination3);
     // 单条刷新到磁盘，速度最慢，但是数据丢失机率最小，批量速度最好，但是数据丢失机率最大，并且日志被缓存，延迟写入文件.
     this.flush();
   }
 
   @Override
-  public void produce(
-      final String logLevel,
-      final String dateTime,
-      final String message,
-      final String name,
-      final Object arg1,
-      final Object arg2,
-      final Object arg3,
-      final Object arg4,
-      final Object arg5,
-      final Object arg6,
-      final Object arg7,
-      final Object arg8,
-      final Object arg9,
-      final Throwable thrown,
-      final Record lr) {
+  public void produce(final String logLevel, final String dateTime, final String message, final String name, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5, final Object arg6, final Object arg7, final Object arg8, final Object arg9, final Throwable thrown, final Record lr) {
     // 设置日志级别.
     lr.setLevel(logLevel);
     // 设置日志日期时间.
@@ -132,12 +112,9 @@ public abstract class AbstractHandler implements Handler {
    * @author admin
    */
   public void flush() throws Exception {
-    this.destination.flush();
-  }
-
-  //
-  public void setDestination(ByteWriter destination) {
-    this.destination = destination;
+    final LogThread logThread = (LogThread) Thread.currentThread();
+    ByteWriter destination3 = logThread.getDestination3();
+    destination3.flush();
   }
 
   /**
@@ -145,7 +122,7 @@ public abstract class AbstractHandler implements Handler {
    *
    * <p>文件行数,文件大小,日期时间.
    *
-   * @param lr lr.
+   * @param lr     lr.
    * @param length length.
    * @author admin
    */

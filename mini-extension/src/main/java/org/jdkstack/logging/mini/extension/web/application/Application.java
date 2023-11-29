@@ -11,17 +11,17 @@ import org.jdkstack.logging.mini.extension.web.context.Context;
  */
 public class Application {
 
-    private final Context context;
+  private final Context context;
 
-    public Application(final Context context) {
-        this.context = context;
-    }
+  public Application(final Context context) {
+    this.context = context;
+  }
 
-    public static void run(final Class<?> application, final Context context) {
-        new Application(context).run(application);
-    }
+  public static void run(final Class<?> application, final Context context) {
+    new Application(context).run(application);
+  }
 
-    public final void run(final Class<?> application) {
-        this.context.scan(application);
-    }
+  public final void run(final Class<?> application) {
+    this.context.scan(application);
+  }
 }

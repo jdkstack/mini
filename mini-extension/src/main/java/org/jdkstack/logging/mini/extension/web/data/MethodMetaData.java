@@ -9,40 +9,40 @@ import java.lang.reflect.Method;
  */
 public class MethodMetaData {
 
-    private Method method;
-    private String fullPath;
-    private String basePath;
+  private Method method;
+  private String fullPath;
+  private String basePath;
 
-    public MethodMetaData(final Method method, final String fullPath, final String basePath) {
-        this.method = method;
-        this.fullPath = fullPath;
-        this.basePath = basePath;
-    }
+  public MethodMetaData(final Method method, final String fullPath, final String basePath) {
+    this.method = method;
+    this.fullPath = fullPath;
+    this.basePath = basePath;
+  }
 
-    public MethodMetaData() {
-    }
+  public MethodMetaData() {
+  }
 
-    public String getBasePath() {
-        return this.basePath;
-    }
+  public String getBasePath() {
+    return this.basePath;
+  }
 
-    public void setBasePath(final String basePath) {
-        this.basePath = basePath;
-    }
+  public void setBasePath(final String basePath) {
+    this.basePath = basePath;
+  }
 
-    public String getFullPath() {
-        return this.fullPath;
-    }
+  public String getFullPath() {
+    return this.fullPath;
+  }
 
-    public void setFullPath(final String fullPath) {
-        this.fullPath = fullPath;
-    }
+  public void setFullPath(final String fullPath) {
+    this.fullPath = fullPath;
+  }
 
-    public Method getMethod() {
-        return this.method;
-    }
+  public Method getMethod() {
+    return this.method;
+  }
 
-    public void setMethod(final Method method) {
-        this.method = method;
-    }
+  public void setMethod(final Method method) {
+    this.method = method;
+  }
 }

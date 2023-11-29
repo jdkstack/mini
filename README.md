@@ -33,3 +33,5 @@ mini-jmh (测试)
 **因为没有临时对象创建，即使GC线程一直处于运行中，但是因为不满足回收条件，并不会触发GC回收的动作。**
 
 **GC-F(GarbageCollection-free)，无GC的意思是没有可以回收的垃圾，并不是让GC线程停止，GC线程一直在运行中。**
+
+**运行时：OpenJDK 21和GraalVM for OpenJDK 21**

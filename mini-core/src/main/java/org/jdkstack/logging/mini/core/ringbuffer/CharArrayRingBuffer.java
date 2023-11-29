@@ -12,11 +12,17 @@ import org.jdkstack.logging.mini.api.ringbuffer.RingBuffer;
  */
 public class CharArrayRingBuffer implements RingBuffer<char[]> {
 
-  /** . */
+  /**
+   * .
+   */
   private final char[][] rb;
-  /** . */
+  /**
+   * .
+   */
   private final int mask;
-  /** . */
+  /**
+   * .
+   */
   private int current;
 
   /**
