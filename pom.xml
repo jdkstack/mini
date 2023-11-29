@@ -90,7 +90,7 @@
           </execution>
         </executions>
         <groupId>org.apache.maven.plugins</groupId>
-        <version>3.3.0</version>
+        <version>3.3.1</version>
       </plugin>
     </plugins>
   </build>
@@ -102,6 +102,7 @@
     <module>mini-extension</module>
     <module>mini-examples</module>
     <module>mini-jmh</module>
+    <module>mini-distribution</module>
   </modules>
   <packaging>pom</packaging>
   <properties>

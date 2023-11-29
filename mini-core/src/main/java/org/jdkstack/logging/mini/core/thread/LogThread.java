@@ -42,57 +42,18 @@ public final class LogThread extends Thread {
    * 目的地写入器.
    */
   private final ByteWriter destination = new ByteArrayWriter();
-
-  /**
-   * 配置.
-   */
-  private HandlerConfig rc;
-
-  /**
-   * 目录.
-   */
-  private File dir;
-
-  /**
-   * .
-   */
-  private RingBuffer<File> fileBuffer;
-
-  /**
-   * .
-   */
-  private RingBuffer<RandomAccessFile> randomAccessFileBuffer;
-
-  /**
-   * .
-   */
-  private RandomAccessFile randomAccessFile;
-
   /**
    * 临时数组.
    */
   private final CharBuffer TEXT_CHARBUF = CharBuffer.allocate(Constants.SOURCEN8);
-
   /**
    * 临时数组.
    */
   private final CharBuffer JSON_CHARBUF = CharBuffer.allocate(Constants.SOURCEN8);
-
   /**
    * 目的地写入器.
    */
   private final ByteWriter mmapByteArrayWriter = new MmapByteArrayWriter();
-
-  /**
-   * .
-   */
-  private MappedByteBuffer mappedBuffer;
-
-  /**
-   * .
-   */
-  private FileChannel channel;
-
   /**
    * 临时数组.
    */
@@ -101,8 +62,52 @@ public final class LogThread extends Thread {
    * 字符编码器.
    */
   private final Encoder<CharBuffer> textEncoder = new CharArrayEncoderV2(Charset.defaultCharset());
-
+  /**
+   * 配置.
+   */
+  private HandlerConfig rc;
+  /**
+   * 目录.
+   */
+  private File dir;
+  /**
+   * .
+   */
+  private RingBuffer<File> fileBuffer;
+  /**
+   * .
+   */
+  private RingBuffer<RandomAccessFile> randomAccessFileBuffer;
+  /**
+   * .
+   */
+  private RandomAccessFile randomAccessFile;
+  /**
+   * .
+   */
+  private MappedByteBuffer mappedBuffer;
+  /**
+   * .
+   */
+  private FileChannel channel;
   private ByteWriter destination3;
+  /**
+   * 线程开始运行的时间(毫秒).
+   */
+  private long execStart;
+
+  /**
+   * 自定义线程.
+   *
+   * <p>参数需要加final修饰.
+   *
+   * @param targetParam 线程任务.
+   * @param nameParam   线程名.
+   * @author admin
+   */
+  public LogThread(final Runnable targetParam, final String nameParam) {
+    super(targetParam, nameParam);
+  }
 
   public ByteWriter getDestination3() {
     return this.destination3;
@@ -128,12 +133,12 @@ public final class LogThread extends Thread {
     return this.sizes;
   }
 
-  public AtomicInteger getLines() {
-    return this.lines;
-  }
-
   public void setSizes(int i) {
     this.sizes.set(i);
+  }
+
+  public AtomicInteger getLines() {
+    return this.lines;
   }
 
   public void setLines(int i) {
@@ -197,24 +202,6 @@ public final class LogThread extends Thread {
 
   public CharBuffer getJSON_CHARBUF() {
     return this.JSON_CHARBUF;
-  }
-
-  /**
-   * 线程开始运行的时间(毫秒).
-   */
-  private long execStart;
-
-  /**
-   * 自定义线程.
-   *
-   * <p>参数需要加final修饰.
-   *
-   * @param targetParam 线程任务.
-   * @param nameParam   线程名.
-   * @author admin
-   */
-  public LogThread(final Runnable targetParam, final String nameParam) {
-    super(targetParam, nameParam);
   }
 
   /**

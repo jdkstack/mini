@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <artifactId>mini-extension</artifactId>
+  <build>
+    <plugins>
+      <plugin>
+        <!-- 代码样式检测. -->
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.3.1</version>
+      </plugin>
+    </plugins>
+  </build>
   <dependencies>
     <dependency>
       <artifactId>mini-core</artifactId>
@@ -8,7 +21,6 @@
       <version>11</version>
     </dependency>
   </dependencies>
-
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>mini</artifactId>

@@ -1,17 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <artifactId>mini-examples</artifactId>
+  <artifactId>mini-distribution</artifactId>
   <build>
     <plugins>
-      <plugin>
-        <!-- 代码样式检测. -->
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <configuration>
-          <skip>true</skip>
-        </configuration>
-        <groupId>org.apache.maven.plugins</groupId>
-        <version>3.3.1</version>
-      </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
@@ -20,14 +11,14 @@
           <!-- 3.必须设置成false解决一些错误信息.-->
           <archive>
             <addMavenDescriptor>false</addMavenDescriptor>
-            <manifest>
-              <mainClass>test.Examples</mainClass>
-            </manifest>
           </archive>
           <attach>false</attach>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
+          <!--内置打包描述符,http://maven.apache.org/components/plugins/maven-assembly-plugin/descriptor-refs.html-->
+          <!-- 4.自定义打包描述符.-->
+          <descriptors>
+            <!-- 5.zip打包描述符.-->
+            <descriptor>${project.basedir}/src/main/assemblies/zip-bin.xml</descriptor>
+          </descriptors>
           <!-- 9.打包的目录名,或者打包的文件名.-->
           <!--<finalName>mini-${project.version}</finalName>-->
           <!-- 10.打包后存储的路径.-->
@@ -35,15 +26,26 @@
         </configuration>
         <executions>
           <execution>
+            <!-- 11.与maven package绑定,在执行mvn package时执行.-->
             <goals>
+              <!-- 12.执行动作.-->
               <goal>single</goal>
             </goals>
-            <id>make-assembly</id>
+            <!-- 1.名字是任意的有意义的即可.-->
+            <id>bin</id>
             <phase>package</phase>
           </execution>
         </executions>
         <groupId>org.apache.maven.plugins</groupId>
         <version>3.6.0</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <!-- 排除父pom中的代码样式检查插件,有的插件不支持,需要查看插件skip参数 . -->
+          <skip>true</skip>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
       </plugin>
     </plugins>
   </build>
@@ -55,7 +57,6 @@
       <version>11</version>
     </dependency>
   </dependencies>
-
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>mini</artifactId>

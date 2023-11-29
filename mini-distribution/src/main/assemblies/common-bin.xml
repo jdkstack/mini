@@ -1,0 +1,56 @@
+<!-- 1.如何打包.-->
+<component>
+  <dependencySets>
+    <dependencySet>
+      <directoryMode>0755</directoryMode>
+      <fileMode>0644</fileMode>
+      <!-- 拷贝所有依赖jar到插件输出目录outputDirectory/{finalName}/lib下-->
+      <outputDirectory>/lib</outputDirectory>
+      <outputFileNameMapping>
+        ${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}
+      </outputFileNameMapping>
+      <scope>runtime</scope>
+      <!-- 如果是true,会将jar包解压到/lib下.如果为false,直接复制,不会解压默认false.-->
+      <unpack>false</unpack>
+      <unpackOptions>
+        <encoding>UTF-8</encoding>
+      </unpackOptions>
+      <!-- 配合 unpack=true -->
+      <useProjectArtifact>false</useProjectArtifact>
+      <useProjectAttachments>false</useProjectAttachments>
+      <useStrictFiltering>false</useStrictFiltering>
+      <!-- 如果当前项目有java代码,打包后的jar,是否需要一起打包到/lib目录下. 默认true,需要.-->
+      <useTransitiveDependencies>true</useTransitiveDependencies>
+      <useTransitiveFiltering>false</useTransitiveFiltering>
+    </dependencySet>
+  </dependencySets>
+  <!-- 需要拷贝特殊的项目下的文件夹到打包后的包中.-->
+  <fileSets>
+    <!-- .examples -->
+    <fileSet>
+      <!-- 从绝对目录或者相对目录下复制文件.-->
+      <directory>../mini-examples/target</directory>
+      <!-- 拷贝所有需要的文件到输出目录outputDirectory/{finalName}/examples下-->
+      <directoryMode>0755</directoryMode>
+      <!-- 类似于UNIX权限.The default value is 0644.-->
+      <fileMode>0644</fileMode>
+      <includes>
+        <include>mini-examples-11.jar</include>
+      </includes>
+      <!-- <lineEnding>unix</lineEnding> 应该只支持文本,不支持二进制.-->
+      <outputDirectory>examples</outputDirectory>
+    </fileSet>
+
+    <fileSet>
+      <directory>src/main/resources/conf</directory>
+      <fileMode>0644</fileMode>
+      <outputDirectory>conf</outputDirectory>
+    </fileSet>
+
+    <fileSet>
+      <directory>src/main/resources/bin</directory>
+      <fileMode>0644</fileMode>
+      <outputDirectory>bin</outputDirectory>
+    </fileSet>
+  </fileSets>
+</component>

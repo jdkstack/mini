@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<assembly>
+  <componentDescriptors>
+    <componentDescriptor>${project.basedir}/src/main/assemblies/common-bin.xml</componentDescriptor>
+  </componentDescriptors>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <id>zip</id>
+  <!-- true,打包时,包中的一级目录(值是finalName).-->
+  <includeBaseDirectory>true</includeBaseDirectory>
+</assembly>
