@@ -73,7 +73,7 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
     };
     this.disruptor.setDefaultExceptionHandler(errorHandler);
     // 使用多消费者。
-    RingBufferLogWorkHandler[] workHandlers = new RingBufferLogWorkHandler[1];
+    RingBufferLogWorkHandler[] workHandlers = new RingBufferLogWorkHandler[4];
     for (int i = 0; i < workHandlers.length; i++) {
       workHandlers[i] = new RingBufferLogWorkHandler(this);
     }
