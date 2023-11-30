@@ -14,6 +14,7 @@ mini-core (实现)
 mini-extension (扩展)
 mini-examples (例子)
 mini-jmh (测试)
+mini-distribution(分发包)
 ```
 
 执行main方法时，指定jvm 参数，gc日志会输出到控制台：
