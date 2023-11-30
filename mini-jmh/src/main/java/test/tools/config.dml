@@ -1,0 +1,31 @@
+<!DOCTYPE text>
+<text>
+<head>
+  <title>Hello</title>
+</head>
+<body>
+  <dateTime>%d{yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSSZ}</dateTime>
+  <str> </str>
+  <threadName>[%t]</threadName>
+  <str> </str>
+  <levelName>%-5level</levelName>
+  <str> </str>
+  <loggerName>%logger{0}</loggerName>
+  <str> - </str>
+  <message>%msg%n</message>
+</body>
+</text>
+
+<!DOCTYPE json>
+<json>
+<head>
+  <title>Hello</title>
+</head>
+<body>
+  <dateTime>%d{yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSSZ}</dateTime>
+  <threadName>[%t]</threadName>
+  <levelName>%-5level</levelName>
+  <loggerName>%logger{0}</loggerName>
+  <message>%msg%n</message>
+</body>
+</json>
