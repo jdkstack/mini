@@ -39,7 +39,6 @@ public class RingBufferLogEventTranslator implements EventTranslator<Record> {
    * 参数.
    */
   private Object args1;
-
   private Object args2;
   private Object args3;
   private Object args4;

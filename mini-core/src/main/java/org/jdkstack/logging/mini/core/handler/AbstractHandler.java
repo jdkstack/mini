@@ -56,11 +56,13 @@ public abstract class AbstractHandler implements Handler {
     Encoder<CharBuffer> textEncoder = logThread.getTextEncoder();
     HandlerConfig value = this.context.getHandlerConfig(this.key);
     // 格式化日志对象.
-    final CharBuffer logMessage = (CharBuffer) this.context.formatter(value.getFormatter(), lr);
+    final StringBuilder logMessage = this.context.formatter(value.getFormatter(), lr);
     // 清除缓存.
     charBuf.clear();
     // 将数据写入缓存.
-    charBuf.put(logMessage.array(), logMessage.arrayOffset(), logMessage.remaining());
+    final int position = charBuf.position();
+    logMessage.getChars(0, logMessage.length(), charBuf.array(), position);
+    charBuf.position(position + logMessage.length());
     charBuf.flip();
     // 切换规则.
     this.rules(lr, charBuf.remaining());
@@ -73,7 +75,7 @@ public abstract class AbstractHandler implements Handler {
   @Override
   public void produce(final String logLevel, final String dateTime, final String message, final String name, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5, final Object arg6, final Object arg7, final Object arg8, final Object arg9, final Throwable thrown, final Record lr) {
     // 设置日志级别.
-    lr.setLevel(logLevel);
+    lr.setLevelName(logLevel);
     // 设置日志日期时间.
     final StringBuilder event = lr.getEvent();
     // 如果参数为空,使用系统当前的时间戳,the current time(UTC 8) in milliseconds.

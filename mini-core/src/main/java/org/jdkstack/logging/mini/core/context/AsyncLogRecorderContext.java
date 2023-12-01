@@ -6,7 +6,6 @@ import com.lmax.disruptor.ExceptionHandler;
 import com.lmax.disruptor.WaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
-import java.nio.Buffer;
 import org.jdkstack.logging.mini.api.config.Configuration;
 import org.jdkstack.logging.mini.api.config.HandlerConfig;
 import org.jdkstack.logging.mini.api.config.RecorderConfig;
@@ -156,7 +155,7 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
   }
 
   @Override
-  public final Buffer formatter(final String formatterName, final Record logRecord) {
+  public final StringBuilder formatter(final String formatterName, final Record logRecord) {
     return this.configuration.formatter(formatterName, logRecord);
   }
 

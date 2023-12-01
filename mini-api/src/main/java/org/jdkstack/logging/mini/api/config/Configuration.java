@@ -1,6 +1,5 @@
 package org.jdkstack.logging.mini.api.config;
 
-import java.nio.Buffer;
 import org.jdkstack.logging.mini.api.filter.Filter;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.handler.Handler;
@@ -41,7 +40,7 @@ public interface Configuration {
 
   Level findLevel(String name);
 
-  Buffer formatter(String formatterName, Record logRecord);
+  StringBuilder formatter(String formatterName, Record logRecord);
 
   boolean filter(String filterName, Record logRecord);
 }

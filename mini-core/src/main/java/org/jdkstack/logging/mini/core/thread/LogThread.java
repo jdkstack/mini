@@ -50,6 +50,11 @@ public final class LogThread extends Thread {
    * 临时数组.
    */
   private final CharBuffer JSON_CHARBUF = CharBuffer.allocate(Constants.SOURCEN8);
+
+  private final StringBuilder text = new StringBuilder(Constants.SOURCEN8);
+
+  private final StringBuilder json = new StringBuilder(Constants.SOURCEN8);
+
   /**
    * 目的地写入器.
    */
@@ -107,6 +112,14 @@ public final class LogThread extends Thread {
    */
   public LogThread(final Runnable targetParam, final String nameParam) {
     super(targetParam, nameParam);
+  }
+
+  public StringBuilder getText() {
+    return this.text;
+  }
+
+  public StringBuilder getJson() {
+    return this.json;
   }
 
   public ByteWriter getDestination3() {
