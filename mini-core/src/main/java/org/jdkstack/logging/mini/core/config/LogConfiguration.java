@@ -1,6 +1,5 @@
 package org.jdkstack.logging.mini.core.config;
 
-import java.nio.Buffer;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import org.jdkstack.logging.mini.api.config.Configuration;
@@ -140,7 +139,7 @@ public class LogConfiguration implements Configuration {
   }
 
   @Override
-  public final Buffer formatter(final String formatterName, final Record logRecord) {
+  public final StringBuilder formatter(final String formatterName, final Record logRecord) {
     Formatter formatter = this.formatters.get(formatterName);
     if (formatter == null) {
       formatter = this.formatters.get("default");

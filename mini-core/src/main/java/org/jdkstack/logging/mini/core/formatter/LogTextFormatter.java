@@ -1,7 +1,5 @@
 package org.jdkstack.logging.mini.core.formatter;
 
-import java.nio.Buffer;
-import java.nio.CharBuffer;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.record.Record;
@@ -48,18 +46,17 @@ public final class LogTextFormatter implements Formatter {
    * @author admin
    */
   @Override
-  public Buffer format(final Record logRecord) {
+  public StringBuilder format(final Record logRecord) {
     final LogThread logThread = (LogThread) Thread.currentThread();
-    CharBuffer CHARBUF = logThread.getTEXT_CHARBUF();
+    StringBuilder text = logThread.getText();
     // 文本格式的日志消息.
-    CHARBUF.clear();
+    text.setLength(0);
     // 日志对象中的特殊字段.
     this.handle(logRecord);
     // 增加一个换行符号(按照平台获取)
     final String lineSeparator = System.lineSeparator();
-    CHARBUF.append(lineSeparator);
-    CHARBUF.flip();
-    return CHARBUF;
+    text.append(lineSeparator);
+    return text;
   }
 
   /**
@@ -72,53 +69,32 @@ public final class LogTextFormatter implements Formatter {
    */
   public void handle(final Record logRecord) {
     final LogThread logThread = (LogThread) Thread.currentThread();
-    CharBuffer CHARBUF = logThread.getTEXT_CHARBUF();
+    StringBuilder text = logThread.getText();
     // 日志日期时间.
     final StringBuilder dateTime = logRecord.getEvent();
-    final int position = CHARBUF.position();
-    dateTime.getChars(0, dateTime.length(), CHARBUF.array(), position);
-    CHARBUF.position(position + dateTime.length());
-    CHARBUF.append(' ');
+    text.append(dateTime);
+    text.append(' ');
     // 日志级别.
-    CHARBUF.append(logRecord.getLevelName());
-    CHARBUF.append(' ');
+    text.append(logRecord.getLevelName());
+    text.append(' ');
     // 线程名.
-    CHARBUF.append(Thread.currentThread().getName());
-    CHARBUF.append(' ');
+    text.append(Thread.currentThread().getName());
+    text.append(' ');
     // 类.
-    CHARBUF.append(logRecord.getName());
-    CHARBUF.append(' ');
+    text.append(logRecord.getName());
+    text.append(' ');
     // 日志对象中的消息字段.
-    final int position1 = CHARBUF.position();
     final StringBuilder format = logRecord.getMessageText();
-    format.getChars(0, format.length(), CHARBUF.array(), position1);
-    CHARBUF.position(position1 + format.length());
+    text.append(format);
     // 日志对象中的异常堆栈信息.
     final Throwable thrown = logRecord.getThrowable();
     if (null != thrown) {
-      CHARBUF.append(' ');
-      CHARBUF.append('[');
-      CHARBUF.append(thrown.getClass().getName());
-      CHARBUF.append(':');
-      CHARBUF.append(thrown.getMessage());
-      CHARBUF.append(',');
-      String separator = "";
-      final StackTraceElement[] stackTraceElements = thrown.getStackTrace();
-      final int length = stackTraceElements.length;
-      for (int i = 0; i < length; i++) {
-        CHARBUF.append(separator);
-        final StackTraceElement stackTraceElement = stackTraceElements[i];
-        CHARBUF.append(stackTraceElement.getClassName());
-        CHARBUF.append('.');
-        CHARBUF.append(stackTraceElement.getMethodName());
-        CHARBUF.append('(');
-        CHARBUF.append(stackTraceElement.getFileName());
-        CHARBUF.append(':');
-        CHARBUF.append(stackTraceElement.getLineNumber() + "");
-        CHARBUF.append(')');
-        separator = ",";
-      }
-      CHARBUF.append(']');
+      text.append(' ');
+      text.append('[');
+      text.append(thrown.getClass().getName());
+      text.append(':');
+      text.append(thrown.getMessage());
+      text.append(']');
     }
   }
 }

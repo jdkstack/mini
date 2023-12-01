@@ -1,7 +1,6 @@
 package org.jdkstack.logging.mini.core.formatter;
 
-import java.nio.Buffer;
-import java.nio.CharBuffer;
+import java.util.Map;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.record.Record;
@@ -48,21 +47,20 @@ public final class LogJsonFormatter implements Formatter {
    * @author admin
    */
   @Override
-  public Buffer format(final Record logRecord) {
+  public StringBuilder format(final Record logRecord) {
     final LogThread logThread = (LogThread) Thread.currentThread();
-    CharBuffer CHARBUF = logThread.getJSON_CHARBUF();
+    StringBuilder json = logThread.getJson();
     // json格式的日志消息.
-    CHARBUF.clear();
+    json.setLength(0);
     // json字符串开始.
-    CHARBUF.append('{');
+    json.append('{');
     // 日志对象中的特殊字段.
     this.handle(logRecord);
     // 增加一个换行符号(按照平台获取)
     final String lineSeparator = System.lineSeparator();
     // json字符串结束.
-    CHARBUF.append('}').append(lineSeparator);
-    CHARBUF.flip();
-    return CHARBUF;
+    json.append('}').append(lineSeparator);
+    return json;
   }
 
   /**
@@ -75,119 +73,93 @@ public final class LogJsonFormatter implements Formatter {
    */
   public void handle(final Record logRecord) {
     final LogThread logThread = (LogThread) Thread.currentThread();
-    CharBuffer CHARBUF = logThread.getJSON_CHARBUF();
+    StringBuilder json = logThread.getJson();
+    Map<String, String> map = logRecord.getMap();
     // 日志日期时间.
-    CHARBUF.append('"');
-    CHARBUF.append("dateTime");
-    CHARBUF.append('"');
-    CHARBUF.append(':');
-    CHARBUF.append('"');
+    json.append('"');
+    json.append("dateTime");
+    json.append('"');
+    json.append(':');
+    json.append('"');
     final StringBuilder dateTime = logRecord.getEvent();
-    final int position = CHARBUF.position();
-    dateTime.getChars(0, dateTime.length(), CHARBUF.array(), position);
-    CHARBUF.position(position + dateTime.length());
+    json.append(dateTime);
     // 日志级别.
-    CHARBUF.append('"');
-    CHARBUF.append(',');
-    CHARBUF.append("\"levelName\"");
-    CHARBUF.append(':');
-    CHARBUF.append('"');
-    CHARBUF.append(logRecord.getLevelName());
+    json.append('"');
+    json.append(',');
+    json.append("\"levelName\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getLevelName());
     // hostName.
-    CHARBUF.append('"');
-    CHARBUF.append(',');
-    CHARBUF.append("\"hostName\"");
-    CHARBUF.append(':');
-    CHARBUF.append('"');
-    CHARBUF.append(logRecord.getHostName());
+    json.append('"');
+    json.append(',');
+    json.append("\"hostName\"");
+    json.append(':');
+    json.append('"');
+    json.append(map.get("hostName"));
     // appName.
-    CHARBUF.append('"');
-    CHARBUF.append(',');
-    CHARBUF.append("\"appName\"");
-    CHARBUF.append(':');
-    CHARBUF.append('"');
-    CHARBUF.append(logRecord.getAppName());
+    json.append('"');
+    json.append(',');
+    json.append("\"appName\"");
+    json.append(':');
+    json.append('"');
+    json.append(map.get("appName"));
     // ip.
-    CHARBUF.append('"');
-    CHARBUF.append(',');
-    CHARBUF.append("\"ip\"");
-    CHARBUF.append(':');
-    CHARBUF.append('"');
-    CHARBUF.append(logRecord.getIp());
+    json.append('"');
+    json.append(',');
+    json.append("\"ip\"");
+    json.append(':');
+    json.append('"');
+    json.append(map.get("ip"));
     // port.
-    CHARBUF.append('"');
-    CHARBUF.append(',');
-    CHARBUF.append("\"port\"");
-    CHARBUF.append(':');
-    CHARBUF.append('"');
-    CHARBUF.append(logRecord.getPort());
+    json.append('"');
+    json.append(',');
+    json.append("\"port\"");
+    json.append(':');
+    json.append('"');
+    json.append(map.get("port"));
     // 进程id.
-    CHARBUF.append('"');
-    CHARBUF.append(',');
-    CHARBUF.append("\"pid\"");
-    CHARBUF.append(':');
-    CHARBUF.append('"');
-    final StringBuilder pid = logRecord.getPid();
-    final int position2 = CHARBUF.position();
-    pid.getChars(0, pid.length(), CHARBUF.array(), position2);
-    CHARBUF.position(position2 + pid.length());
+    json.append('"');
+    json.append(',');
+    json.append("\"pid\"");
+    json.append(':');
+    json.append('"');
+    json.append(map.get("pid"));
     // 线程名.
-    CHARBUF.append('"');
-    CHARBUF.append(',');
-    CHARBUF.append("\"threadName\"");
-    CHARBUF.append(':');
-    CHARBUF.append('"');
-    CHARBUF.append(Thread.currentThread().getName());
+    json.append('"');
+    json.append(',');
+    json.append("\"threadName\"");
+    json.append(':');
+    json.append('"');
+    json.append(Thread.currentThread().getName());
     // 类.
-    CHARBUF.append('"');
-    CHARBUF.append(',');
-    CHARBUF.append("\"name\"");
-    CHARBUF.append(':');
-    CHARBUF.append('"');
-    CHARBUF.append(logRecord.getName());
+    json.append('"');
+    json.append(',');
+    json.append("\"name\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getName());
     // 日志对象中的消息字段.
-    CHARBUF.append('"');
-    CHARBUF.append(',');
-    CHARBUF.append("\"message\"");
-    CHARBUF.append(':');
-    CHARBUF.append('"');
-    final StringBuilder format = logRecord.getMessageText();
-    final int position1 = CHARBUF.position();
-    format.getChars(0, format.length(), CHARBUF.array(), position1);
-    CHARBUF.position(position1 + format.length());
+    json.append('"');
+    json.append(',');
+    json.append("\"message\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getMessageText());
     // 日志对象中的异常堆栈信息.
-    CHARBUF.append('"');
+    json.append('"');
     final Throwable thrown = logRecord.getThrowable();
     if (null != thrown) {
-      CHARBUF.append(',');
-      CHARBUF.append("\"stacktrace\"");
-      CHARBUF.append(':');
-      CHARBUF.append('[');
-      CHARBUF.append('"');
-      CHARBUF.append(thrown.getClass().getName());
-      CHARBUF.append(':');
-      CHARBUF.append(thrown.getMessage());
-      CHARBUF.append('"');
-      CHARBUF.append(',');
-      String separator = "";
-      final StackTraceElement[] stackTraceElements = thrown.getStackTrace();
-      final int length = stackTraceElements.length;
-      for (int i = 0; i < length; i++) {
-        CHARBUF.append(separator);
-        final StackTraceElement stackTraceElement = stackTraceElements[i];
-        CHARBUF.append('"');
-        CHARBUF.append(stackTraceElement.getClassName());
-        CHARBUF.append('.');
-        CHARBUF.append(stackTraceElement.getMethodName());
-        CHARBUF.append('(');
-        CHARBUF.append(stackTraceElement.getFileName());
-        CHARBUF.append(':');
-        CHARBUF.append(stackTraceElement.getLineNumber() + "");
-        CHARBUF.append(')');
-        CHARBUF.append('"');
-        separator = ",";
-      }
-      CHARBUF.append(']');
+      json.append(',');
+      json.append("\"stacktrace\"");
+      json.append(':');
+      json.append('[');
+      json.append('"');
+      json.append(thrown.getClass().getName());
+      json.append(':');
+      json.append(thrown.getMessage());
+      json.append('"');
+      json.append(']');
     }
   }
 }

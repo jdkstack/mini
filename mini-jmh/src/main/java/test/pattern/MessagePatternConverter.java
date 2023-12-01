@@ -45,7 +45,7 @@ public class MessagePatternConverter extends LogEventPatternConverter {
 
     @Override
     public void format(final LogRecord event, final StringBuilder toAppendTo) {
-      toAppendTo.append(event.getMessage());
+      toAppendTo.append(event.getMessageText());
     }
   }
 
@@ -59,7 +59,7 @@ public class MessagePatternConverter extends LogEventPatternConverter {
 
     @Override
     public void format(final LogRecord event, final StringBuilder toAppendTo) {
-      toAppendTo.append(event.getMessage());
+      toAppendTo.append(event.getMessageText());
     }
   }
 

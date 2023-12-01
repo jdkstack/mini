@@ -73,7 +73,7 @@ public class LevelPatternConverter extends LogEventPatternConverter {
   @Override
   public String getStyleClass(final Object e) {
     if (e instanceof LogRecord) {
-      return "level " + ((LogRecord) e).getLevel().toLowerCase(Locale.ENGLISH);
+      return "level " + ((LogRecord) e).getLevelName().toLowerCase(Locale.ENGLISH);
     }
     return "level";
   }
@@ -82,7 +82,7 @@ public class LevelPatternConverter extends LogEventPatternConverter {
 
     @Override
     public void format(final LogRecord event, final StringBuilder output) {
-      output.append(event.getLevel());
+      output.append(event.getLevelName());
     }
   }
 
@@ -96,7 +96,7 @@ public class LevelPatternConverter extends LogEventPatternConverter {
 
     @Override
     public void format(final LogRecord event, final StringBuilder output) {
-      output.append(levelMap.get(event.getLevel()));
+      output.append(levelMap.get(event.getLevelName()));
     }
   }
 }

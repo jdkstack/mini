@@ -69,7 +69,7 @@ public final class Constants {
   /**
    * 最大级别日志.
    */
-  public static final int MAX_VALUE = Integer.MAX_VALUE;
+  public static final int MAX_VALUE = 10000;
   /**
    * 非常致命 .
    */
@@ -117,7 +117,7 @@ public final class Constants {
   /**
    * 最小级别日志.
    */
-  public static final int MIN_VALUE = Integer.MIN_VALUE;
+  public static final int MIN_VALUE = -10000;
 
   private Constants() {
     //
