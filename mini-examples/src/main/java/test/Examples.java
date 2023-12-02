@@ -1,8 +1,8 @@
 package test;
 
-
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy;
 import java.util.concurrent.TimeUnit;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.core.factory.LogFactory;
@@ -14,7 +14,7 @@ public class Examples {
   private static final Recorder LOG = LogFactory.getRecorder(Examples.class);
 
   public static void main(final String[] args) throws Exception {
-    ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(4, 4, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
+    ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(4, 4, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(100), new CallerRunsPolicy());
     String message = "AAA1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901212345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012AAAA{}{}{}{}{}{}{}{}{}";
     for (int k = 0; k < 10; k++) {
       final long s = System.currentTimeMillis();
@@ -26,8 +26,6 @@ public class Examples {
       final long e = System.currentTimeMillis();
       System.out.println(e - s);
     }
-
-
     Thread.sleep(99999999);
   }
 }
