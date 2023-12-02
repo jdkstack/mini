@@ -51,7 +51,6 @@ public abstract class AbstractHandler implements Handler {
   @Override
   public void consume(final Record lr) throws Exception {
     final LogThread logThread = (LogThread) Thread.currentThread();
-    ByteWriter destination3 = logThread.getDestination3();
     CharBuffer charBuf = logThread.getCharBuf();
     Encoder<CharBuffer> textEncoder = logThread.getTextEncoder();
     HandlerConfig value = this.context.getHandlerConfig(this.key);
@@ -66,6 +65,8 @@ public abstract class AbstractHandler implements Handler {
     charBuf.flip();
     // 切换规则.
     this.rules(lr, charBuf.remaining());
+    // 获取 destination3。
+    ByteWriter destination3 = logThread.getDestination3();
     // 开始编码.
     textEncoder.encode(charBuf, destination3);
     // 单条刷新到磁盘，速度最慢，但是数据丢失机率最小，批量速度最好，但是数据丢失机率最大，并且日志被缓存，延迟写入文件.
