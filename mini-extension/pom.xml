@@ -14,7 +14,6 @@
       </plugin>
     </plugins>
   </build>
-
   <dependencies>
     <dependency>
       <artifactId>mini-core</artifactId>

@@ -7,6 +7,13 @@
       </value>
     </option>
   </AndroidXmlCodeStyleSettings>
+  <HTMLCodeStyleSettings>
+    <option name="HTML_ATTRIBUTE_WRAP" value="0"/>
+    <option name="HTML_TEXT_WRAP" value="0"/>
+    <option name="HTML_KEEP_LINE_BREAKS" value="false"/>
+    <option name="HTML_KEEP_LINE_BREAKS_IN_TEXT" value="false"/>
+    <option name="HTML_ALIGN_ATTRIBUTES" value="false"/>
+  </HTMLCodeStyleSettings>
   <JSCodeStyleSettings>
     <option name="INDENT_CHAINED_CALLS" value="false"/>
   </JSCodeStyleSettings>
@@ -78,6 +85,10 @@
     <option name="INDENT_CHAINED_CALLS" value="false"/>
   </TypeScriptCodeStyleSettings>
   <XML>
+    <option name="XML_ATTRIBUTE_WRAP" value="0"/>
+    <option name="XML_TEXT_WRAP" value="0"/>
+    <option name="XML_KEEP_LINE_BREAKS" value="false"/>
+    <option name="XML_KEEP_LINE_BREAKS_IN_TEXT" value="false"/>
     <option name="XML_ALIGN_ATTRIBUTES" value="false"/>
   </XML>
   <codeStyleSettings language="CSS">
@@ -153,7 +164,7 @@
       <option name="INDENT_SIZE" value="2"/>
       <option name="TAB_SIZE" value="2"/>
     </indentOptions>
-    <option name="RIGHT_MARGIN" value="180"/>
+    <option name="RIGHT_MARGIN" value="800"/>
     <option name="KEEP_BLANK_LINES_IN_CODE" value="1"/>
     <option name="ALIGN_MULTILINE_PARAMETERS" value="false"/>
     <option name="ALIGN_MULTILINE_FOR" value="false"/>
@@ -176,7 +187,7 @@
       <option name="INDENT_SIZE" value="2"/>
       <option name="CONTINUATION_INDENT_SIZE" value="4"/>
     </indentOptions>
-    <option name="RIGHT_MARGIN" value="180"/>
+    <option name="RIGHT_MARGIN" value="800"/>
     <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="1"/>
     <option name="BLANK_LINES_BEFORE_IMPORTS" value="0"/>
     <option name="BLANK_LINES_AFTER_IMPORTS" value="0"/>
@@ -194,7 +205,7 @@
       <option name="CONTINUATION_INDENT_SIZE" value="2"/>
       <option name="TAB_SIZE" value="2"/>
     </indentOptions>
-    <option name="RIGHT_MARGIN" value="180"/>
+    <option name="RIGHT_MARGIN" value="800"/>
   </codeStyleSettings>
   <codeStyleSettings language="Python">
     <indentOptions>
@@ -202,7 +213,7 @@
       <option name="CONTINUATION_INDENT_SIZE" value="4"/>
       <option name="TAB_SIZE" value="2"/>
     </indentOptions>
-    <option name="RIGHT_MARGIN" value="180"/>
+    <option name="RIGHT_MARGIN" value="800"/>
     <option name="ALIGN_MULTILINE_PARAMETERS" value="false"/>
     <option name="PARENT_SETTINGS_INSTALLED" value="true"/>
     <option name="KEEP_BLANK_LINES_IN_CODE" value="1"/>
@@ -557,7 +568,7 @@
       <option name="CONTINUATION_INDENT_SIZE" value="2"/>
       <option name="TAB_SIZE" value="2"/>
     </indentOptions>
-    <option name="RIGHT_MARGIN" value="180"/>
+    <option name="RIGHT_MARGIN" value="800"/>
   </codeStyleSettings>
   <option name="OTHER_INDENT_OPTIONS">
     <value>
@@ -567,7 +578,7 @@
     </value>
   </option>
   <option name="LINE_SEPARATOR" value="&#10;"/>
-  <option name="RIGHT_MARGIN" value="180"/>
+  <option name="RIGHT_MARGIN" value="800"/>
   <option name="KEEP_CONTROL_STATEMENT_IN_ONE_LINE" value="false"/>
   <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="0"/>
   <option name="ALIGN_MULTILINE_PARAMETERS" value="false"/>
