@@ -22,18 +22,6 @@
         <version>3.11.0</version>
       </plugin>
       <plugin>
-        <!-- 打包-->
-        <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive>
-            <addMavenDescriptor>false</addMavenDescriptor>
-          </archive>
-        </configuration>
-        <!-- https://maven.apache.org/plugins/maven-jar-plugin/examples/include-exclude.html-->
-        <groupId>org.apache.maven.plugins</groupId>
-        <version>3.3.0</version>
-      </plugin>
-      <plugin>
         <!-- 测试-->
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
