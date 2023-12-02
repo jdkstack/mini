@@ -3,6 +3,7 @@ package org.jdkstack.logging.mini.core.context;
 import com.lmax.disruptor.BusySpinWaitStrategy;
 import com.lmax.disruptor.EventFactory;
 import com.lmax.disruptor.ExceptionHandler;
+import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.WaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
@@ -212,11 +213,20 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
   @Override
   public final void process(final String logLevel, final String dateTime, final String message, final String name, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5, final Object arg6, final Object arg7, final Object arg8, final Object arg9, final Throwable thrown) {
     // 获取当前线程绑定的对象。
-    final RingBufferLogEventTranslator translator = getCachedTranslator();
+    //final RingBufferLogEventTranslator translator = getCachedTranslator();
     // 将参数传递到对象中。
-    translator.process(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
+    //translator.process(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
     // 从循环数组中取出一个对象，并向对象中插入数据。
-    disruptor.publishEvent(translator);
+    //disruptor.publishEvent(translator);
+    //可以把ringBuffer看做一个事件队列，那么next就是得到下面一个事件槽
+    RingBuffer<Record> ringBuffer = disruptor.getRingBuffer();
+    long sequence = ringBuffer.next();
+    try {
+      Record record = ringBuffer.get(sequence);
+      this.produce(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown, record);
+    } finally {
+      ringBuffer.publish(sequence);
+    }
   }
 
   private RingBufferLogEventTranslator getCachedTranslator() {
