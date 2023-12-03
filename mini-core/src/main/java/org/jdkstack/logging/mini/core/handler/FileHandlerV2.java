@@ -1,7 +1,6 @@
 package org.jdkstack.logging.mini.core.handler;
 
 import java.io.RandomAccessFile;
-import java.util.concurrent.atomic.AtomicInteger;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.config.HandlerConfig;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
@@ -44,42 +43,32 @@ public class FileHandlerV2 extends AbstractHandler {
    * @author admin
    */
   @Override
-  public void rules(final Record lr, final int length) throws Exception {
+  public void rules(final Record lr) throws Exception {
     final LogThread logThread = (LogThread) Thread.currentThread();
     RandomAccessFile randomAccessFile = logThread.getRandomAccessFile();
-    AtomicInteger lines = logThread.getLines();
-    AtomicInteger sizes = logThread.getSizes();
     // 首次初始化。
     if (null == randomAccessFile) {
       logThread.setRc(rc);
       // 创建文件。
       this.remap();
     }
+    // 获取 destination3。
+    ByteWriter destination3 = logThread.getDestination3();
     // 切换日志文件规则.
     final String type = rc.getType();
     switch (type) {
       case Constants.LINES:
-        // 1.按line切换.
-        final int line = lines.incrementAndGet();
-        // 100W行切换一次.
-        if (Constants.LC < line) {
-          // 每次切换文件时，都会创建20个对象，这个问题暂时无法解决(对无GC影响很小，但是需要解决才能100%达到无GC要求)。
+        long line1 = destination3.getLine();
+        // 1.按line切换,10W行切换一次.
+        if (Constants.LC <= line1) {
           this.remap();
-          //lines.set(1);
-          logThread.setLines(1);
         }
         break;
       case Constants.SIZES:
-        // 2.按size切换.
-        final int size = sizes.addAndGet(length);
-        // 100MB切换一次.
-        if (Constants.SC < size) {
-          // 每次切换文件时，都会创建20个对象，这个问题暂时无法解决(对无GC影响很小，但是需要解决才能100%达到无GC要求)。
+        long size1 = destination3.getSize();
+        // 2.按size切换,100MB切换一次.
+        if (Constants.SC <= size1) {
           this.remap();
-          //sizes.set(length);
-          //lines.set(1);
-          logThread.setSizes(1);
-          logThread.setLines(1);
         }
         break;
       default:

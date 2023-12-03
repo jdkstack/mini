@@ -129,9 +129,10 @@ public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory
     final Handler fileHandlerV2 = new FileHandlerV2(this.context, "default");
     this.addHandler("default", fileHandlerV2);
     // 默认配置。
-    final LogHandlerConfig mmapRecorderConfig = new LogHandlerConfig();
-    this.addLogHandlerConfig("mmapDefault", mmapRecorderConfig);
-    final Handler mmap = new MmapFileHandlerV2(this.context, "default");
+    final HandlerConfig mmapRecorderConfig = new LogHandlerConfig();
+    mmapRecorderConfig.setName("mmap");
+    this.addLogHandlerConfig("mmap", mmapRecorderConfig);
+    final Handler mmap = new MmapFileHandlerV2(this.context, "mmap");
     this.addHandler("mmap", mmap);
     // 默认Filter。
     final Filter handlerConsumeFilter = new HandlerConsumeFilter(this.context, "default");

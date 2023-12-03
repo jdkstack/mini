@@ -45,20 +45,24 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
    * @author admin
    */
   @Override
-  public final void rules(final Record lr, final int length) throws Exception {
+  public final void rules(final Record lr) throws Exception {
     final LogThread logThread = (LogThread) Thread.currentThread();
     MappedByteBuffer mappedBuffer = logThread.getMappedBuffer();
     if (null == mappedBuffer) {
       logThread.setRc(rc);
       this.remap();
-    }
-    // 切换日志文件规则只有一种,按size切换.
-    // 剩余空间.
-    final int chunk = mappedBuffer.remaining();
-    // 数据长度大于剩余空间,分段写.  todo: 不使用这个方法时，有问题，this.flush。
-    if (length > chunk) {
-      // 一旦文件达到了上限(不能完整存储一条日志,只能存储半条)，重新打开一个文件.
-      this.remap();
+    } else {
+      // 切换日志文件规则只有一种,按size切换.
+      // 剩余空间.
+      final int chunk = mappedBuffer.remaining();
+      // 获取 destination3。
+      ByteWriter destination3 = logThread.getDestination3();
+      long size1 = destination3.getSize();
+      // 数据长度大于剩余空间,分段写.  todo: 不使用这个方法时，有问题，this.flush。
+      if (size1 > chunk) {
+        // 一旦文件达到了上限(不能完整存储一条日志,只能存储半条)，重新打开一个文件.
+        this.remap();
+      }
     }
   }
 

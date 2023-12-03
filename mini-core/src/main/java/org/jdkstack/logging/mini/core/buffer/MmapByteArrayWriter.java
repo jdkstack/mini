@@ -32,11 +32,13 @@ public class MmapByteArrayWriter extends ByteArrayWriter {
    */
   @Override
   public final void writeToDestination(final byte[] bytes, final int offset, final int length) throws Exception {
+    this.size = length;
     this.mappedBuffer.put(bytes, offset, length);
   }
 
   @Override
   public void setDestination(Object obj) {
+    this.size = 0L;
     this.mappedBuffer = (MappedByteBuffer) obj;
   }
 }
