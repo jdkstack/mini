@@ -11,6 +11,8 @@ import java.io.RandomAccessFile;
  */
 public class ByteArrayWriter extends AbstractByteArrayWriter {
 
+  protected long size;
+  protected long line;
   /**
    * .
    */
@@ -28,6 +30,8 @@ public class ByteArrayWriter extends AbstractByteArrayWriter {
    */
   @Override
   public void writeToDestination(final byte[] bytes, final int offset, final int length) throws Exception {
+    this.size += length;
+    this.line += 1;
     this.randomAccessFile.write(bytes, offset, length);
   }
 
@@ -41,6 +45,18 @@ public class ByteArrayWriter extends AbstractByteArrayWriter {
    */
   @Override
   public void setDestination(final Object obj) {
+    this.size = 0L;
+    this.line = 0L;
     this.randomAccessFile = (RandomAccessFile) obj;
+  }
+
+  @Override
+  public long getSize() {
+    return this.size;
+  }
+
+  @Override
+  public long getLine() {
+    return this.line;
   }
 }

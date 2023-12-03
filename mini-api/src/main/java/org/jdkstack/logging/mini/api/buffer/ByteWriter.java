@@ -61,4 +61,8 @@ public interface ByteWriter {
    * @author admin
    */
   void setDestination(Object obj);
+
+  long getSize();
+
+  long getLine();
 }

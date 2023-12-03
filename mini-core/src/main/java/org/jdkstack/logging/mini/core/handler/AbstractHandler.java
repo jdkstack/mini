@@ -64,7 +64,7 @@ public abstract class AbstractHandler implements Handler {
     charBuf.position(position + logMessage.length());
     charBuf.flip();
     // 切换规则.
-    this.rules(lr, charBuf.remaining());
+    this.rules(lr);
     // 获取 destination3。
     ByteWriter destination3 = logThread.getDestination3();
     // 开始编码.
@@ -126,8 +126,7 @@ public abstract class AbstractHandler implements Handler {
    * <p>文件行数,文件大小,日期时间.
    *
    * @param lr     lr.
-   * @param length length.
    * @author admin
    */
-  public abstract void rules(final Record lr, final int length) throws Exception;
+  public abstract void rules(final Record lr) throws Exception;
 }
