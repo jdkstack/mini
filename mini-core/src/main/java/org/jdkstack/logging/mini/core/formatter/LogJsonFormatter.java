@@ -1,10 +1,12 @@
 package org.jdkstack.logging.mini.core.formatter;
 
 import java.util.Map;
+import java.util.Map.Entry;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.core.thread.LogThread;
+import org.jdkstack.logging.mini.core.tool.StringBuilderTool;
 
 /**
  * 日志记录对象Record转成Json格式.
@@ -74,7 +76,7 @@ public final class LogJsonFormatter implements Formatter {
   public void handle(final Record logRecord) {
     final LogThread logThread = (LogThread) Thread.currentThread();
     StringBuilder json = logThread.getJson();
-    Map<String, String> map = logRecord.getMap();
+    Map<String, Object> map = logRecord.getMap();
     // 日志日期时间.
     json.append('"');
     json.append("dateTime");
@@ -90,44 +92,20 @@ public final class LogJsonFormatter implements Formatter {
     json.append(':');
     json.append('"');
     json.append(logRecord.getLevelName());
-    // hostName.
     json.append('"');
-    json.append(',');
-    json.append("\"hostName\"");
-    json.append(':');
-    json.append('"');
-    json.append(map.get("hostName"));
-    // appName.
-    json.append('"');
-    json.append(',');
-    json.append("\"appName\"");
-    json.append(':');
-    json.append('"');
-    json.append(map.get("appName"));
-    // ip.
-    json.append('"');
-    json.append(',');
-    json.append("\"ip\"");
-    json.append(':');
-    json.append('"');
-    json.append(map.get("ip"));
-    // port.
-    json.append('"');
-    json.append(',');
-    json.append("\"port\"");
-    json.append(':');
-    json.append('"');
-    json.append(map.get("port"));
-    // 进程id.
-    json.append('"');
-    json.append(',');
-    json.append("\"pid\"");
-    json.append(':');
-    json.append('"');
-    json.append(map.get("pid"));
+    for (Entry<String, Object> entry : map.entrySet()) {
+      String key = entry.getKey();
+      Object value = entry.getValue();
+      json.append(',');
+      json.append("\"");
+      json.append(key);
+      json.append("\"");
+      json.append(':');
+      json.append('"');
+      StringBuilderTool.unbox(json, value);
+      json.append('"');
+    }
     // 线程名.
-    json.append('"');
-    json.append(',');
     json.append("\"threadName\"");
     json.append(':');
     json.append('"');
@@ -146,8 +124,8 @@ public final class LogJsonFormatter implements Formatter {
     json.append(':');
     json.append('"');
     json.append(logRecord.getMessageText());
-    // 日志对象中的异常堆栈信息.
     json.append('"');
+    // 日志对象中的异常堆栈信息.
     final Throwable thrown = logRecord.getThrowable();
     if (null != thrown) {
       json.append(',');

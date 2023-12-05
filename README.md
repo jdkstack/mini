@@ -1,10 +1,21 @@
 这是一个日志框架内核，可扩展。
 
-1. 仅实现核心功能FileHandler, MmapFileHandler用于写文件。
-2. jvm启动后会创建稳定数量的对象，之后没有临时对象创建(临时对象包括objects, String, char arrays, byte arrays)。
-3. 仅依赖高性能开源库com.lmax.disruptor。
-4. 仅支持输出字符串(参数)。
-5. 无GC。
+核心功能：
+
+1. 仅支持RandomAccessFile，MappedByteBuffer写日志文件。
+2. 仅依赖高性能开源库com.lmax.disruptor。
+3. 日志消息支持输出字符串(最大9个参数和1个异常参数)。
+4. 日志消息支持json text和plain text格式化。
+5. 支持无垃圾(GarbageCollection-Free)，无临时对象创建(临时对象包括objects, String, char arrays, byte arrays)。
+6. 日志消息支持多线程生产和多线程消费。
+7. 日志文件支持行数和大小来切割。
+8. 支持自定义日志级别。
+9. 支持不同包，不同类输出到指定日志文件。
+10. 日志文件支持单条和批量写入。
+11. 不支持MDC。
+12. 不支持MDC。
+13. 不支持异常堆栈。
+14. 不支持Location。
 
 目录结构：
 
