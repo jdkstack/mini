@@ -51,10 +51,6 @@ public interface Record {
 
   Throwable getThrowable();
 
-  Map<String, String> getContext();
-
-  void setContext(String key, String value);
-
   StringBuilder getMessageText();
 
   void setMessageText(String message);
@@ -65,5 +61,5 @@ public interface Record {
 
   void setName(String name);
 
-  Map<String, String> getMap();
+  Map<String, Object> getMap();
 }

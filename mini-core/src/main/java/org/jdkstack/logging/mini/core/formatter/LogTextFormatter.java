@@ -1,9 +1,12 @@
 package org.jdkstack.logging.mini.core.formatter;
 
+import java.util.Map;
+import java.util.Map.Entry;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.core.thread.LogThread;
+import org.jdkstack.logging.mini.core.tool.StringBuilderTool;
 
 /**
  * 日志记录对象Record转成纯Text格式(空格分割).
@@ -70,6 +73,7 @@ public final class LogTextFormatter implements Formatter {
   public void handle(final Record logRecord) {
     final LogThread logThread = (LogThread) Thread.currentThread();
     StringBuilder text = logThread.getText();
+    Map<String, Object> map = logRecord.getMap();
     // 日志日期时间.
     final StringBuilder dateTime = logRecord.getEvent();
     text.append(dateTime);
@@ -77,6 +81,11 @@ public final class LogTextFormatter implements Formatter {
     // 日志级别.
     text.append(logRecord.getLevelName());
     text.append(' ');
+    for (Entry<String, Object> entry : map.entrySet()) {
+      Object value = entry.getValue();
+      StringBuilderTool.unbox(text, value);
+      text.append(' ');
+    }
     // 线程名.
     text.append(Thread.currentThread().getName());
     text.append(' ');

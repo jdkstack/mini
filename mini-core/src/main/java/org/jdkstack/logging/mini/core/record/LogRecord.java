@@ -1,7 +1,7 @@
 package org.jdkstack.logging.mini.core.record;
 
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import org.jdkstack.logging.mini.api.record.Record;
 
@@ -37,11 +37,7 @@ public class LogRecord implements Record {
   /**
    * map.
    */
-  private Map<String, String> map = new HashMap<>(64);
-  /**
-   * map.
-   */
-  private Map<String, String> context = new HashMap<>(64);
+  private Map<String, Object> map = new LinkedHashMap<>(64);
   /**
    * 日志级别名.
    */
@@ -56,11 +52,11 @@ public class LogRecord implements Record {
   private Throwable throwable;
 
   public LogRecord() {
-    this.map.put("pid", ProcessHandle.current().pid() + "");
-    this.map.put("appName", System.getProperty("appName", ""));
     this.map.put("hostName", System.getProperty("hostName", ""));
+    this.map.put("appName", System.getProperty("appName", ""));
     this.map.put("ip", System.getProperty("ip", ""));
     this.map.put("port", System.getProperty("port", ""));
+    this.map.put("pid", ProcessHandle.current().pid());
     this.map.put("timeZone", System.getProperty("timeZone", "Z"));
   }
 
@@ -154,16 +150,6 @@ public class LogRecord implements Record {
   }
 
   @Override
-  public final Map<String, String> getContext() {
-    return this.context;
-  }
-
-  @Override
-  public final void setContext(String key, String value) {
-    this.context.put(key, value);
-  }
-
-  @Override
   public final StringBuilder getMessageText() {
     return this.messageText;
   }
@@ -180,14 +166,13 @@ public class LogRecord implements Record {
     this.setName(null);
     this.messageText.setLength(0);
     this.datetime.setLength(0);
-    this.context.clear();
     this.setThrown(null);
     Arrays.fill(this.params, null);
     Arrays.fill(this.paths, 0);
   }
 
   @Override
-  public Map<String, String> getMap() {
+  public Map<String, Object> getMap() {
     return this.map;
   }
 }
