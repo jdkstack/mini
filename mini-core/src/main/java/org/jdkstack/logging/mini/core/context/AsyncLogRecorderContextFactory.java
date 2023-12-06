@@ -2,11 +2,11 @@ package org.jdkstack.logging.mini.core.context;
 
 import org.jdkstack.logging.mini.api.config.HandlerConfig;
 import org.jdkstack.logging.mini.api.config.RecorderConfig;
-import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.context.LogRecorderContextFactory;
 import org.jdkstack.logging.mini.api.filter.Filter;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.handler.Handler;
+import org.jdkstack.logging.mini.api.lifecycle.LifecycleState;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.core.config.LogHandlerConfig;
 import org.jdkstack.logging.mini.core.config.LogRecorderConfig;
@@ -31,7 +31,7 @@ public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory
   /**
    * 上下文对象，用来初始化，并提供业务方法.
    */
-  private final LogRecorderContext context = new AsyncLogRecorderContext();
+  private final AsyncLogRecorderContext context = new AsyncLogRecorderContext();
 
   /**
    * This is a method description.
@@ -41,8 +41,10 @@ public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory
    * @author admin
    */
   public AsyncLogRecorderContextFactory() {
+    this.context.setState(LifecycleState.STARTING);
     // 默认配置。
     this.insideConfig();
+    this.context.setState(LifecycleState.STARTED);
   }
 
   @Override
@@ -100,6 +102,11 @@ public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory
   @Override
   public final void addLevel(final String name, final int value) {
     this.context.addLevel(name, value);
+  }
+
+  @Override
+  public void shutdown() {
+    this.context.shutdown();
   }
 
   private void insideConfig() {

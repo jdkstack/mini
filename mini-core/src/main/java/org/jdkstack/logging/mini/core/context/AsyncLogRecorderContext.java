@@ -15,9 +15,12 @@ import org.jdkstack.logging.mini.api.filter.Filter;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.level.Level;
+import org.jdkstack.logging.mini.api.lifecycle.LifecycleState;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.core.config.LogConfiguration;
+import org.jdkstack.logging.mini.core.lifecycle.LifecycleBase;
+import org.jdkstack.logging.mini.core.record.LogRecord;
 import org.jdkstack.logging.mini.core.record.RecordEventFactory;
 import org.jdkstack.logging.mini.core.ringbuffer.RingBufferLogEventTranslator;
 import org.jdkstack.logging.mini.core.ringbuffer.RingBufferLogWorkHandler;
@@ -30,12 +33,12 @@ import org.jdkstack.logging.mini.core.thread.LogThreadFactory;
  *
  * @author admin
  */
-public class AsyncLogRecorderContext implements LogRecorderContext {
+public class AsyncLogRecorderContext extends LifecycleBase implements LogRecorderContext {
 
   private final Configuration configuration = new LogConfiguration();
 
   private final ThreadLocal<RingBufferLogEventTranslator> tlt = new ThreadLocal<>();
-
+  private final ThreadLocal<Record> rtl = new ThreadLocal<>();
   private final Disruptor<Record> disruptor;
 
   /**
@@ -46,6 +49,7 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
    * @author admin
    */
   public AsyncLogRecorderContext() {
+    this.setState(LifecycleState.INITIALIZING);
     // 对象工厂。
     final EventFactory<Record> eventFactory = new RecordEventFactory();
     // 生产者使用多线程模式。
@@ -81,6 +85,7 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
     this.disruptor.handleEventsWithWorkerPool(workHandlers);
     // 启动disruptor。
     this.disruptor.start();
+    this.setState(LifecycleState.INITIALIZED);
   }
 
   @Override
@@ -184,6 +189,7 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
       }
     } catch (final Exception ignore) {
       // ignore.
+      ignore.printStackTrace();
     }
   }
 
@@ -207,6 +213,7 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
       }
     } catch (final Exception ignore) {
       // ignore.
+      ignore.printStackTrace();
     }
   }
 
@@ -218,14 +225,33 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
     //translator.process(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
     // 从循环数组中取出一个对象，并向对象中插入数据。
     //disruptor.publishEvent(translator);
-    RingBuffer<Record> ringBuffer = disruptor.getRingBuffer();
-    long sequence = ringBuffer.next();
-    try {
-      Record record = ringBuffer.get(sequence);
-      this.produce(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown, record);
-    } finally {
-      ringBuffer.publish(sequence);
+    if (LifecycleState.STARTED == getState()) {
+      RingBuffer<Record> ringBuffer = disruptor.getRingBuffer();
+      long sequence = ringBuffer.next();
+      try {
+        Record record = ringBuffer.get(sequence);
+        this.produce(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown, record);
+      } finally {
+        ringBuffer.publish(sequence);
+      }
+    } else {
+      Record record = getLogRecord();
+      try {
+        this.produce(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown, record);
+        this.consume(record);
+      } finally {
+        record.clear();
+      }
     }
+  }
+
+  private Record getLogRecord() {
+    Record result = rtl.get();
+    if (result == null) {
+      result = new LogRecord();
+      rtl.set(result);
+    }
+    return result;
   }
 
   private RingBufferLogEventTranslator getCachedTranslator() {
@@ -235,5 +261,12 @@ public class AsyncLogRecorderContext implements LogRecorderContext {
       tlt.set(result);
     }
     return result;
+  }
+
+  @Override
+  public void shutdown() {
+    this.setState(LifecycleState.STOPPING);
+    this.disruptor.shutdown();
+    this.setState(LifecycleState.STOPPED);
   }
 }

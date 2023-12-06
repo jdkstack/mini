@@ -6,6 +6,7 @@ import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.core.thread.LogThread;
+import org.jdkstack.logging.mini.core.tool.ThreadLocalTool;
 import org.jdkstack.logging.mini.core.tool.StringBuilderTool;
 
 /**
@@ -50,7 +51,7 @@ public final class LogJsonFormatter implements Formatter {
    */
   @Override
   public StringBuilder format(final Record logRecord) {
-    final LogThread logThread = (LogThread) Thread.currentThread();
+    final LogThread logThread = ThreadLocalTool.getLogThread();
     StringBuilder json = logThread.getJson();
     // json格式的日志消息.
     json.setLength(0);
@@ -74,7 +75,7 @@ public final class LogJsonFormatter implements Formatter {
    * @author admin
    */
   public void handle(final Record logRecord) {
-    final LogThread logThread = (LogThread) Thread.currentThread();
+    final LogThread logThread = ThreadLocalTool.getLogThread();
     StringBuilder json = logThread.getJson();
     Map<String, Object> map = logRecord.getMap();
     // 日志日期时间.
