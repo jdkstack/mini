@@ -8,6 +8,7 @@ import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.core.thread.LogThread;
+import org.jdkstack.logging.mini.core.tool.ThreadLocalTool;
 
 /**
  * 写文件.
@@ -46,7 +47,7 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
    */
   @Override
   public final void rules(final Record lr) throws Exception {
-    final LogThread logThread = (LogThread) Thread.currentThread();
+    final LogThread logThread = ThreadLocalTool.getLogThread();
     MappedByteBuffer mappedBuffer = logThread.getMappedBuffer();
     if (null == mappedBuffer) {
       logThread.setRc(rc);
@@ -75,7 +76,7 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
    */
   @Override
   public final void remap() throws Exception {
-    final LogThread logThread = (LogThread) Thread.currentThread();
+    final LogThread logThread = ThreadLocalTool.getLogThread();
     MappedByteBuffer mappedBuffer = logThread.getMappedBuffer();
     if (null != mappedBuffer) {
       // 强制刷新.

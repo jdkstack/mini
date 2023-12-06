@@ -6,6 +6,7 @@ import org.jdkstack.logging.mini.api.config.HandlerConfig;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.core.thread.LogThread;
+import org.jdkstack.logging.mini.core.tool.ThreadLocalTool;
 
 /**
  * 写文件.
@@ -44,7 +45,7 @@ public class FileHandlerV2 extends AbstractHandler {
    */
   @Override
   public void rules(final Record lr) throws Exception {
-    final LogThread logThread = (LogThread) Thread.currentThread();
+    final LogThread logThread = ThreadLocalTool.getLogThread();
     RandomAccessFile randomAccessFile = logThread.getRandomAccessFile();
     // 首次初始化。
     if (null == randomAccessFile) {
@@ -84,7 +85,7 @@ public class FileHandlerV2 extends AbstractHandler {
    * @author admin
    */
   public void remap() throws Exception {
-    final LogThread logThread = (LogThread) Thread.currentThread();
+    final LogThread logThread = ThreadLocalTool.getLogThread();
     RandomAccessFile randomAccessFile = logThread.getRandomAccessFile();
     // 关闭流.
     if (null != randomAccessFile) {

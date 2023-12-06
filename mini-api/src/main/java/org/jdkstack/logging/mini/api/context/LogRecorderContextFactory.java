@@ -31,4 +31,6 @@ public interface LogRecorderContextFactory {
   void addLogHandlerConfig(String key, HandlerConfig logHandlerConfig);
 
   void addLevel(String name, int value);
+
+  void shutdown();
 }

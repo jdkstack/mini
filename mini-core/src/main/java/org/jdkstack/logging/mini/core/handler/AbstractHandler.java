@@ -11,6 +11,7 @@ import org.jdkstack.logging.mini.core.datetime.DateTimeEncoder;
 import org.jdkstack.logging.mini.core.datetime.TimeZone;
 import org.jdkstack.logging.mini.core.formatter.LogFormatterV2;
 import org.jdkstack.logging.mini.core.thread.LogThread;
+import org.jdkstack.logging.mini.core.tool.ThreadLocalTool;
 
 /**
  * This is a method description.
@@ -50,7 +51,7 @@ public abstract class AbstractHandler implements Handler {
    */
   @Override
   public void consume(final Record lr) throws Exception {
-    final LogThread logThread = (LogThread) Thread.currentThread();
+    final LogThread logThread = ThreadLocalTool.getLogThread();
     CharBuffer charBuf = logThread.getCharBuf();
     Encoder<CharBuffer> textEncoder = logThread.getTextEncoder();
     HandlerConfig value = this.context.getHandlerConfig(this.key);
@@ -115,7 +116,7 @@ public abstract class AbstractHandler implements Handler {
    * @author admin
    */
   public void flush() throws Exception {
-    final LogThread logThread = (LogThread) Thread.currentThread();
+    final LogThread logThread = ThreadLocalTool.getLogThread();
     ByteWriter destination3 = logThread.getDestination3();
     destination3.flush();
   }
@@ -125,7 +126,7 @@ public abstract class AbstractHandler implements Handler {
    *
    * <p>文件行数,文件大小,日期时间.
    *
-   * @param lr     lr.
+   * @param lr lr.
    * @author admin
    */
   public abstract void rules(final Record lr) throws Exception;

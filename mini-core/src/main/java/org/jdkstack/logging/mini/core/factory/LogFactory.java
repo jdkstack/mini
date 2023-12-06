@@ -150,4 +150,8 @@ public final class LogFactory implements Factory {
   public static void addLevel(final String name, final int value) {
     FACTORY.addLevel(name, value);
   }
+
+  public static void shutdown() {
+    FACTORY.shutdown();
+  }
 }
