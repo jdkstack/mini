@@ -2,7 +2,7 @@ package org.jdkstack.logging.mini.core.ringbuffer;
 
 import com.lmax.disruptor.EventTranslator;
 import org.jdkstack.logging.mini.api.record.Record;
-import org.jdkstack.logging.mini.core.context.AsyncLogRecorderContext;
+import org.jdkstack.logging.mini.core.context.DefaultLogRecorderContext;
 
 /**
  * .
@@ -13,7 +13,7 @@ import org.jdkstack.logging.mini.core.context.AsyncLogRecorderContext;
  */
 public class RingBufferLogEventTranslator implements EventTranslator<Record> {
 
-  private AsyncLogRecorderContext context;
+  private DefaultLogRecorderContext context;
 
   /**
    * 日志级别.
@@ -53,7 +53,7 @@ public class RingBufferLogEventTranslator implements EventTranslator<Record> {
    */
   private String dateTime;
 
-  public RingBufferLogEventTranslator(final AsyncLogRecorderContext context) {
+  public RingBufferLogEventTranslator(final DefaultLogRecorderContext context) {
     this.context = context;
   }
 

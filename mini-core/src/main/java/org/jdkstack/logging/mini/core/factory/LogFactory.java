@@ -8,7 +8,7 @@ import org.jdkstack.logging.mini.api.filter.Filter;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
-import org.jdkstack.logging.mini.core.context.AsyncLogRecorderContextFactory;
+import org.jdkstack.logging.mini.core.context.DefaultLogRecorderContextFactory;
 
 /**
  * LogFactory核心类.
@@ -22,7 +22,7 @@ public final class LogFactory implements Factory {
   /**
    * 静态的上下文对象工厂，创建一个上下文对象.
    */
-  private static final LogRecorderContextFactory FACTORY = new AsyncLogRecorderContextFactory();
+  private static final LogRecorderContextFactory FACTORY = new DefaultLogRecorderContextFactory();
 
   /**
    * This is a method description.

@@ -26,12 +26,12 @@ import org.jdkstack.logging.mini.core.recorder.LogRecorder;
  *
  * @author admin
  */
-public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory {
+public class DefaultLogRecorderContextFactory implements LogRecorderContextFactory {
 
   /**
    * 上下文对象，用来初始化，并提供业务方法.
    */
-  private final AsyncLogRecorderContext context = new AsyncLogRecorderContext();
+  private final DefaultLogRecorderContext context = new DefaultLogRecorderContext();
 
   /**
    * This is a method description.
@@ -40,7 +40,7 @@ public class AsyncLogRecorderContextFactory implements LogRecorderContextFactory
    *
    * @author admin
    */
-  public AsyncLogRecorderContextFactory() {
+  public DefaultLogRecorderContextFactory() {
     this.context.setState(LifecycleState.STARTING);
     // 默认配置。
     this.insideConfig();
