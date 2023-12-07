@@ -8,6 +8,7 @@ import com.lmax.disruptor.WaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 import org.jdkstack.logging.mini.api.config.Configuration;
+import org.jdkstack.logging.mini.api.config.ContextConfiguration;
 import org.jdkstack.logging.mini.api.config.HandlerConfig;
 import org.jdkstack.logging.mini.api.config.RecorderConfig;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
@@ -18,7 +19,8 @@ import org.jdkstack.logging.mini.api.level.Level;
 import org.jdkstack.logging.mini.api.lifecycle.LifecycleState;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
-import org.jdkstack.logging.mini.core.config.LogConfiguration;
+import org.jdkstack.logging.mini.core.config.LogRecorderConfiguration;
+import org.jdkstack.logging.mini.core.config.LogRecorderContextConfiguration;
 import org.jdkstack.logging.mini.core.lifecycle.LifecycleBase;
 import org.jdkstack.logging.mini.core.record.LogRecord;
 import org.jdkstack.logging.mini.core.record.RecordEventFactory;
@@ -33,10 +35,10 @@ import org.jdkstack.logging.mini.core.thread.LogThreadFactory;
  *
  * @author admin
  */
-public class AsyncLogRecorderContext extends LifecycleBase implements LogRecorderContext {
+public class DefaultLogRecorderContext extends LifecycleBase implements LogRecorderContext {
 
-  private final Configuration configuration = new LogConfiguration();
-
+  private final Configuration configuration = new LogRecorderConfiguration();
+  private final ContextConfiguration contextConfiguration = new LogRecorderContextConfiguration();
   private final ThreadLocal<RingBufferLogEventTranslator> tlt = new ThreadLocal<>();
   private final ThreadLocal<Record> rtl = new ThreadLocal<>();
   private final Disruptor<Record> disruptor;
@@ -48,7 +50,7 @@ public class AsyncLogRecorderContext extends LifecycleBase implements LogRecorde
    *
    * @author admin
    */
-  public AsyncLogRecorderContext() {
+  public DefaultLogRecorderContext() {
     this.setState(LifecycleState.INITIALIZING);
     // 对象工厂。
     final EventFactory<Record> eventFactory = new RecordEventFactory();
@@ -57,7 +59,7 @@ public class AsyncLogRecorderContext extends LifecycleBase implements LogRecorde
     // 等待策略。
     final WaitStrategy waitStrategy = new BusySpinWaitStrategy();
     // 创建disruptor。
-    this.disruptor = new Disruptor<>(eventFactory, 4096, new LogThreadFactory("log-consume", null), producerType, waitStrategy);
+    this.disruptor = new Disruptor<>(eventFactory, contextConfiguration.getRingBufferSize(), new LogThreadFactory("log-consume", null), producerType, waitStrategy);
     // 添加异常处理。
     final ExceptionHandler<Record> errorHandler = new ExceptionHandler<>() {
       @Override
@@ -77,7 +79,7 @@ public class AsyncLogRecorderContext extends LifecycleBase implements LogRecorde
     };
     this.disruptor.setDefaultExceptionHandler(errorHandler);
     // 使用多消费者。
-    RingBufferLogWorkHandler[] workHandlers = new RingBufferLogWorkHandler[4];
+    RingBufferLogWorkHandler[] workHandlers = new RingBufferLogWorkHandler[contextConfiguration.getConsumers()];
     for (int i = 0; i < workHandlers.length; i++) {
       workHandlers[i] = new RingBufferLogWorkHandler(this);
     }
@@ -225,23 +227,41 @@ public class AsyncLogRecorderContext extends LifecycleBase implements LogRecorde
     //translator.process(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
     // 从循环数组中取出一个对象，并向对象中插入数据。
     //disruptor.publishEvent(translator);
-    if (LifecycleState.STARTED == getState()) {
-      RingBuffer<Record> ringBuffer = disruptor.getRingBuffer();
-      long sequence = ringBuffer.next();
-      try {
-        Record record = ringBuffer.get(sequence);
-        this.produce(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown, record);
-      } finally {
-        ringBuffer.publish(sequence);
-      }
-    } else {
-      Record record = getLogRecord();
-      try {
-        this.produce(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown, record);
-        this.consume(record);
-      } finally {
-        record.clear();
-      }
+    String state = contextConfiguration.getState();
+    switch (state) {
+      case "synchronous":
+        synchronous(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
+        break;
+      case "asynchronous":
+        if (LifecycleState.STARTED == getState()) {
+          asynchronous(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
+        } else {
+          synchronous(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
+        }
+        break;
+      default:
+        throw new RuntimeException("不支持。");
+    }
+  }
+
+  private void asynchronous(String logLevel, String dateTime, String message, String name, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5, Object arg6, Object arg7, Object arg8, Object arg9, Throwable thrown) {
+    RingBuffer<Record> ringBuffer = disruptor.getRingBuffer();
+    long sequence = ringBuffer.next();
+    try {
+      Record record = ringBuffer.get(sequence);
+      this.produce(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown, record);
+    } finally {
+      ringBuffer.publish(sequence);
+    }
+  }
+
+  private void synchronous(String logLevel, String dateTime, String message, String name, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5, Object arg6, Object arg7, Object arg8, Object arg9, Throwable thrown) {
+    Record record = getLogRecord();
+    try {
+      this.produce(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown, record);
+      this.consume(record);
+    } finally {
+      record.clear();
     }
   }
 

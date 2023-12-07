@@ -22,7 +22,7 @@ import org.jdkstack.logging.mini.core.level.LogLevel;
  * @param <E> .
  * @author admin
  */
-public class LogConfiguration implements Configuration {
+public class LogRecorderConfiguration implements Configuration {
 
   private final Map<String, HandlerConfig> logHandlerConfigs = new ConcurrentHashMap<>(16);
 
