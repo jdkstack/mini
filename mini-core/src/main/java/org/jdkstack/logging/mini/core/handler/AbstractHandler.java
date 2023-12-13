@@ -3,12 +3,13 @@ package org.jdkstack.logging.mini.core.handler;
 import java.nio.CharBuffer;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.codec.Encoder;
+import org.jdkstack.logging.mini.api.config.ContextConfiguration;
 import org.jdkstack.logging.mini.api.config.HandlerConfig;
+import org.jdkstack.logging.mini.api.config.RecorderConfig;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.core.datetime.DateTimeEncoder;
-import org.jdkstack.logging.mini.core.datetime.TimeZone;
 import org.jdkstack.logging.mini.core.formatter.LogFormatterV2;
 import org.jdkstack.logging.mini.core.thread.LogThread;
 import org.jdkstack.logging.mini.core.tool.ThreadLocalTool;
@@ -78,18 +79,15 @@ public abstract class AbstractHandler implements Handler {
   public void produce(final String logLevel, final String dateTime, final String message, final String name, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5, final Object arg6, final Object arg7, final Object arg8, final Object arg9, final Throwable thrown, final Record lr) {
     // 设置日志级别.
     lr.setLevelName(logLevel);
+    // 设置日志级别.
+    lr.setLevelValue(context.findLevel(logLevel).intValue());
     // 设置日志日期时间.
     final StringBuilder event = lr.getEvent();
-    // 如果参数为空,使用系统当前的时间戳,the current time(UTC 8) in milliseconds.
-    if (null == dateTime) {
-      // 系统当前的时间戳.
-      final long current = System.currentTimeMillis();
-      // 使用固定时区+8:00(8小时x3600秒).
-      DateTimeEncoder.encoder(event, current, TimeZone.EAST8);
-    } else {
-      // 不处理参数传递过来的日期时间.
-      event.append(dateTime);
-    }
+    // 系统当前的时间戳.
+    final long current = System.currentTimeMillis();
+    // 使用固定时区+8:00(8小时x3600秒).
+    ContextConfiguration contextConfiguration = context.getContextConfiguration();
+    DateTimeEncoder.encoder(event, current, contextConfiguration.getTimeZone());
     // 设置9个参数.
     lr.setParams(arg1, 0);
     lr.setParams(arg2, 1);
@@ -106,6 +104,16 @@ public abstract class AbstractHandler implements Handler {
     lr.setName(name);
     // 异常信息.
     lr.setThrown(thrown);
+    // 增加元数据。
+    RecorderConfig recorderConfig = context.getRecorderConfig(name);
+    lr.setMap("logTypeName", recorderConfig.getLogTypeName());
+    lr.setMap("logTypeValue", recorderConfig.getLogTypeValue());
+    lr.setMap("hostName", contextConfiguration.getHostName());
+    lr.setMap("applicationName", contextConfiguration.getAppName());
+    lr.setMap("processId", contextConfiguration.getPid());
+    lr.setMap("timeZone", contextConfiguration.getTimeZone());
+    lr.setMap("producerThreadName", Thread.currentThread().getName());
+    lr.setMap("producerThreadValue", Thread.currentThread().getId());
   }
 
   /**

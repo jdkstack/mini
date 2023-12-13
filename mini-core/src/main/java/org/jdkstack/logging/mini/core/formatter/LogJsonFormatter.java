@@ -94,6 +94,11 @@ public final class LogJsonFormatter implements Formatter {
     json.append('"');
     json.append(logRecord.getLevelName());
     json.append('"');
+    // 日志级别.
+    json.append(',');
+    json.append("\"levelValue\"");
+    json.append(':');
+    json.append(logRecord.getLevelValue());
     for (Entry<String, Object> entry : map.entrySet()) {
       String key = entry.getKey();
       Object value = entry.getValue();
@@ -107,10 +112,18 @@ public final class LogJsonFormatter implements Formatter {
       json.append('"');
     }
     // 线程名.
-    json.append("\"threadName\"");
+    json.append(',');
+    json.append("\"consumerThreadName\"");
     json.append(':');
     json.append('"');
     json.append(Thread.currentThread().getName());
+    json.append('"');
+    // 线程名.
+    json.append(',');
+    json.append("\"consumerThreadValue\"");
+    json.append(':');
+    json.append('"');
+    json.append(Thread.currentThread().getId());
     // 类.
     json.append('"');
     json.append(',');

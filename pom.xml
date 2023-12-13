@@ -67,7 +67,7 @@
           <execution>
             <goals>
               <!-- 执行哪些步骤-->
-              <!-- checkstyle 只检测,并统计总的问题数量,不会停止编译打包. -->
+              <!-- checkstyle只检测,并统计总的问题数量,不会停止编译打包. -->
               <!-- check 会停止编译打包. -->
               <goal>check</goal>
             </goals>
@@ -78,7 +78,7 @@
           </execution>
         </executions>
         <groupId>org.apache.maven.plugins</groupId>
-        <version>3.3.0</version>
+        <version>3.3.1</version>
       </plugin>
     </plugins>
   </build>
@@ -106,5 +106,25 @@
     <!-- 编译级别. -->
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
+  <reporting>
+    <plugins>
+      <plugin>
+        <artifactId>maven-changes-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+          <xmlPath>${basedir}/changes/changes.xml</xmlPath>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>changes-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+        <version>2.12.1</version>
+      </plugin>
+    </plugins>
+  </reporting>
   <version>21</version>
 </project>

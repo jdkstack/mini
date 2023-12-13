@@ -2,11 +2,16 @@ package org.jdkstack.logging.mini.core.config;
 
 import java.util.concurrent.atomic.AtomicReference;
 import org.jdkstack.logging.mini.api.config.ContextConfiguration;
+import org.jdkstack.logging.mini.core.datetime.TimeZone;
 
 public class LogRecorderContextConfiguration implements ContextConfiguration {
 
   private int ringBufferSize = 4096;
   private int consumers = 4;
+  private String hostName;
+  private String appName;
+  private long pid = ProcessHandle.current().pid();
+  private long timeZone = TimeZone.EAST8;
   private AtomicReference<String> state = new AtomicReference<>("asynchronous");
 
   @Override
@@ -37,5 +42,45 @@ public class LogRecorderContextConfiguration implements ContextConfiguration {
   @Override
   public void setConsumers(final int consumers) {
     this.consumers = consumers;
+  }
+
+  @Override
+  public String getHostName() {
+    return this.hostName;
+  }
+
+  @Override
+  public void setHostName(final String hostName) {
+    this.hostName = hostName;
+  }
+
+  @Override
+  public String getAppName() {
+    return this.appName;
+  }
+
+  @Override
+  public void setAppName(final String appName) {
+    this.appName = appName;
+  }
+
+  @Override
+  public long getPid() {
+    return this.pid;
+  }
+
+  @Override
+  public void setPid(final long pid) {
+    this.pid = pid;
+  }
+
+  @Override
+  public long getTimeZone() {
+    return this.timeZone;
+  }
+
+  @Override
+  public void setTimeZone(final long timeZone) {
+    this.timeZone = timeZone;
   }
 }

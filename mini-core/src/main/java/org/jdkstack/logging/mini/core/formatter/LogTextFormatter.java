@@ -82,6 +82,9 @@ public final class LogTextFormatter implements Formatter {
     // 日志级别.
     text.append(logRecord.getLevelName());
     text.append(' ');
+    // 日志级别.
+    text.append(logRecord.getLevelValue());
+    text.append(' ');
     for (Entry<String, Object> entry : map.entrySet()) {
       Object value = entry.getValue();
       StringBuilderTool.unbox(text, value);
@@ -89,6 +92,8 @@ public final class LogTextFormatter implements Formatter {
     }
     // 线程名.
     text.append(Thread.currentThread().getName());
+    text.append(' ');
+    text.append(Thread.currentThread().getId());
     text.append(' ');
     // 类.
     text.append(logRecord.getName());

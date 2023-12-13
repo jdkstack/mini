@@ -34,6 +34,9 @@ public class LogRecorderConfig implements RecorderConfig {
    */
   private String handlerProduceFilter = "handlerProduceFilter";
 
+  private String logTypeName;
+  private int logTypeValue;
+
   @Override
   public String getHandlerProduceFilter() {
     return this.handlerProduceFilter;
@@ -72,5 +75,25 @@ public class LogRecorderConfig implements RecorderConfig {
   @Override
   public final void setHandlers(final String handlers) {
     this.handlers = handlers;
+  }
+
+  @Override
+  public int getLogTypeValue() {
+    return logTypeValue;
+  }
+
+  @Override
+  public void setLogTypeValue(final int logTypeValue) {
+    this.logTypeValue = logTypeValue;
+  }
+
+  @Override
+  public String getLogTypeName() {
+    return logTypeName;
+  }
+
+  @Override
+  public void setLogTypeName(final String logTypeName) {
+    this.logTypeName = logTypeName;
   }
 }

@@ -13,4 +13,20 @@ public interface ContextConfiguration {
   int getConsumers();
 
   void setConsumers(int consumers);
+
+  String getHostName();
+
+  void setHostName(String hostName);
+
+  String getAppName();
+
+  void setAppName(String appName);
+
+  long getPid();
+
+  void setPid(long pid);
+
+  long getTimeZone();
+
+  void setTimeZone(long timeZone);
 }

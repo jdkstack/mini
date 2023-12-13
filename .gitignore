@@ -22,6 +22,7 @@
 !*/
 #3.保留代码样式检查文件目录.
 !style/**
+!changes/**
 #4.保留根目录下自定义的目录和文件.
 !mini-*/**/src/**
 #5.保留根目录下的所有pom.xml
@@ -31,9 +32,9 @@
 !/.gitignore
 !.github/**/**
 #8.保留根目录下的README和LICENSE
-!README.md
+!/README.md
 !LICENSE.txt
 #9.文件换行符使用LF.
-!.gitattributes
-!CNAME
+!/.gitattributes
+!/CNAME
 #10.除此之外的所有文件和文件夹全部忽略.

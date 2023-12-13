@@ -3,6 +3,7 @@ package org.jdkstack.logging.mini.core.ringbuffer;
 import com.lmax.disruptor.LifecycleAware;
 import com.lmax.disruptor.Sequence;
 import com.lmax.disruptor.SequenceReportingEventHandler;
+import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.core.context.DefaultLogRecorderContext;
 
@@ -20,7 +21,7 @@ public class RingBufferLogEventHandler implements SequenceReportingEventHandler<
   private int counter;
   private long threadId = -1;
 
-  private DefaultLogRecorderContext context;
+  private LogRecorderContext context;
 
   public RingBufferLogEventHandler(DefaultLogRecorderContext context) {
     this.context = context;

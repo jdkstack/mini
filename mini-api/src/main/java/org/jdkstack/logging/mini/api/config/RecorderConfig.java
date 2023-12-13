@@ -24,4 +24,12 @@ public interface RecorderConfig {
   String getHandlers();
 
   void setHandlers(String handlers);
+
+  int getLogTypeValue();
+
+  void setLogTypeValue(int logTypeValue);
+
+  String getLogTypeName();
+
+  void setLogTypeName(String logTypeName);
 }

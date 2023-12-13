@@ -20,6 +20,7 @@
 16. 暂时不支持web端管理。
 17. 暂时不支持分布式。
 18. 暂时不支持配置持久化到后端存储。
+19. 仅处理事件日志（Event logs）。 特别是应用日志（application logs），应用日志包括诊断日志（diagnostic logs ），审计日志（audit logs）。
 
 目录结构：
 

@@ -19,10 +19,6 @@ public class LogHandlerConfig implements HandlerConfig {
   /**
    * .
    */
-  private final String prefix = "default";
-  /**
-   * .
-   */
   private final String encoding = "UTF-8";
   /**
    * .
@@ -32,6 +28,10 @@ public class LogHandlerConfig implements HandlerConfig {
    * .
    */
   private final String formatter = "logJsonFormatter";
+  /**
+   * .
+   */
+  private String prefix = "default";
   /**
    * .
    */
@@ -98,6 +98,11 @@ public class LogHandlerConfig implements HandlerConfig {
   @Override
   public final String getPrefix() {
     return this.prefix;
+  }
+
+  @Override
+  public final void setPrefix(String prefix) {
+    this.prefix = prefix;
   }
 
   @Override

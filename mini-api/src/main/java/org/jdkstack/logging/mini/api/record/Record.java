@@ -61,5 +61,23 @@ public interface Record {
 
   void setName(String name);
 
+  void setMap(String key, Object value);
+
   Map<String, Object> getMap();
+
+  String getProducerThreadName();
+
+  void setProducerThreadName(String producerThreadName);
+
+  int getProducerThreadValue();
+
+  void setProducerThreadValue(int producerThreadValue);
+
+  String getConsumerThreadName();
+
+  void setConsumerThreadName(String consumerThreadName);
+
+  int getConsumerThreadValue();
+
+  void setConsumerThreadValue(int consumerThreadValue);
 }
