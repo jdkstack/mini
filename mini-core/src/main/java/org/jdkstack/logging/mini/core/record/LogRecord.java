@@ -46,19 +46,28 @@ public class LogRecord implements Record {
    * 日志级别值.
    */
   private int levelValue;
+
+  /**
+   * 名.
+   */
+  private String producerThreadName;
+  /**
+   * 值.
+   */
+  private int producerThreadValue;
+
+  /**
+   * 名.
+   */
+  private String consumerThreadName;
+  /**
+   * 值.
+   */
+  private int consumerThreadValue;
   /**
    * 日志异常.
    */
   private Throwable throwable;
-
-  public LogRecord() {
-    this.map.put("hostName", System.getProperty("hostName", ""));
-    this.map.put("appName", System.getProperty("appName", ""));
-    this.map.put("ip", System.getProperty("ip", ""));
-    this.map.put("port", System.getProperty("port", ""));
-    this.map.put("pid", ProcessHandle.current().pid());
-    this.map.put("timeZone", System.getProperty("timeZone", "Z"));
-  }
 
   @Override
   public int getLevelValue() {
@@ -161,18 +170,68 @@ public class LogRecord implements Record {
 
   @Override
   public final void clear() {
-    this.setLevelName(null);
-    this.setLevelValue(0);
-    this.setName(null);
+    this.levelName = null;
+    this.levelValue = 0;
+    this.name = null;
     this.messageText.setLength(0);
     this.datetime.setLength(0);
-    this.setThrown(null);
+    this.throwable = null;
     Arrays.fill(this.params, null);
     Arrays.fill(this.paths, 0);
+    this.map.clear();
+    this.producerThreadName = null;
+    this.producerThreadValue = 0;
+    this.consumerThreadName = null;
+    this.consumerThreadValue = 0;
+  }
+
+  @Override
+  public void setMap(String key, Object value) {
+    this.map.put(key, value);
   }
 
   @Override
   public Map<String, Object> getMap() {
     return this.map;
+  }
+
+  @Override
+  public String getProducerThreadName() {
+    return this.producerThreadName;
+  }
+
+  @Override
+  public void setProducerThreadName(final String producerThreadName) {
+    this.producerThreadName = producerThreadName;
+  }
+
+  @Override
+  public int getProducerThreadValue() {
+    return this.producerThreadValue;
+  }
+
+  @Override
+  public void setProducerThreadValue(final int producerThreadValue) {
+    this.producerThreadValue = producerThreadValue;
+  }
+
+  @Override
+  public String getConsumerThreadName() {
+    return this.consumerThreadName;
+  }
+
+  @Override
+  public void setConsumerThreadName(final String consumerThreadName) {
+    this.consumerThreadName = consumerThreadName;
+  }
+
+  @Override
+  public int getConsumerThreadValue() {
+    return this.consumerThreadValue;
+  }
+
+  @Override
+  public void setConsumerThreadValue(final int consumerThreadValue) {
+    this.consumerThreadValue = consumerThreadValue;
   }
 }

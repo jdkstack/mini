@@ -1,14 +1,14 @@
 package org.jdkstack.logging.mini.core.ringbuffer;
 
 import com.lmax.disruptor.WorkHandler;
+import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.record.Record;
-import org.jdkstack.logging.mini.core.context.DefaultLogRecorderContext;
 
 public class RingBufferLogWorkHandler implements WorkHandler<Record> {
 
-  private DefaultLogRecorderContext context;
+  private LogRecorderContext context;
 
-  public RingBufferLogWorkHandler(DefaultLogRecorderContext context) {
+  public RingBufferLogWorkHandler(LogRecorderContext context) {
     this.context = context;
   }
 

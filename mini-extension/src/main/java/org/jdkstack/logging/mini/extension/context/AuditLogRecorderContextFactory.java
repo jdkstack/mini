@@ -1,4 +1,4 @@
-package org.jdkstack.logging.mini.core.context;
+package org.jdkstack.logging.mini.extension.context;
 
 import org.jdkstack.logging.mini.api.config.HandlerConfig;
 import org.jdkstack.logging.mini.api.config.RecorderConfig;
@@ -18,7 +18,7 @@ import org.jdkstack.logging.mini.core.handler.FileHandlerV2;
 import org.jdkstack.logging.mini.core.handler.MmapFileHandlerV2;
 import org.jdkstack.logging.mini.core.level.Constants;
 import org.jdkstack.logging.mini.core.level.LogType;
-import org.jdkstack.logging.mini.core.recorder.LogRecorder;
+import org.jdkstack.logging.mini.extension.recorder.AuditLogRecorder;
 
 /**
  * Factory用来扩展功能，Context用来提供业务方法。
@@ -27,12 +27,12 @@ import org.jdkstack.logging.mini.core.recorder.LogRecorder;
  *
  * @author admin
  */
-public class DefaultLogRecorderContextFactory implements LogRecorderContextFactory {
+public class AuditLogRecorderContextFactory implements LogRecorderContextFactory {
 
   /**
    * 上下文对象，用来初始化，并提供业务方法.
    */
-  private final DefaultLogRecorderContext context = new DefaultLogRecorderContext();
+  private final AuditLogRecorderContext context = new AuditLogRecorderContext();
 
   /**
    * This is a method description.
@@ -41,7 +41,7 @@ public class DefaultLogRecorderContextFactory implements LogRecorderContextFacto
    *
    * @author admin
    */
-  public DefaultLogRecorderContextFactory() {
+  public AuditLogRecorderContextFactory() {
     this.context.setState(LifecycleState.STARTING);
     // 默认配置。
     this.insideConfig();
@@ -71,7 +71,7 @@ public class DefaultLogRecorderContextFactory implements LogRecorderContextFacto
 
   @Override
   public final void addRecorder(final RecorderConfig recorderConfig) {
-    final Recorder logRecorder = new LogRecorder(this.context, recorderConfig);
+    final Recorder logRecorder = new AuditLogRecorder(this.context, recorderConfig);
     this.context.addRecorder(recorderConfig.getName(), logRecorder);
   }
 
@@ -127,14 +127,14 @@ public class DefaultLogRecorderContextFactory implements LogRecorderContextFacto
     this.addLevel(Constants.MAX, Constants.MAX_VALUE);
     // 默认配置。
     final RecorderConfig recorderConfig = new LogRecorderConfig();
-    recorderConfig.setLogTypeName(LogType.DL.getName());
-    recorderConfig.setLogTypeValue(LogType.DL.intValue());
+    recorderConfig.setLogTypeName(LogType.AL.getName());
+    recorderConfig.setLogTypeValue(LogType.AL.intValue());
     this.addLogRecorderConfig("default", recorderConfig);
     // 默认Recorder。
     this.addRecorder(recorderConfig);
     // 默认配置。
     final HandlerConfig handlerConfig = new LogHandlerConfig();
-    handlerConfig.setPrefix("dl");
+    handlerConfig.setPrefix("al");
     this.addLogHandlerConfig("default", handlerConfig);
     // 默认FileHandler。
     final Handler fileHandlerV2 = new FileHandlerV2(this.context, "default");

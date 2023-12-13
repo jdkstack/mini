@@ -29,6 +29,8 @@ public interface HandlerConfig {
 
   String getPrefix();
 
+  void setPrefix(String prefix);
+
   String getEncoding();
 
   String getType();

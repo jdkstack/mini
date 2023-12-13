@@ -1,0 +1,296 @@
+<document>
+  <body>
+    <release date="2023-12-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2023-11-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2023-10-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2023-09-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2023-08-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2023-07-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2023-06-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2023-05-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2023-04-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2023-03-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2023-02-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2023-01-10" dev="jdkstack" description="" version="11">
+      <action type="update" dev="jdkstack">增强特性。</action>
+      <action type="add" dev="jdkstack">添加新特性。</action>
+      <action type="fix" dev="jdkstack">修复BUG。</action>
+      <action type="remove" dev="jdkstack">删除代码。</action>
+    </release>
+
+    <release date="2022-12-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2022-11-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2022-10-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2022-09-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2022-08-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2022-07-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2022-06-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2022-05-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2022-04-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2022-03-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2022-02-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2022-01-10" dev="jdkstack" description="" version="11">
+      <action type="update" dev="jdkstack">增强特性。</action>
+      <action type="add" dev="jdkstack">添加新特性。</action>
+      <action type="fix" dev="jdkstack">修复BUG。</action>
+      <action type="remove" dev="jdkstack">删除代码。</action>
+    </release>
+
+    <release date="2021-12-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2021-11-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2021-10-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2021-09-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2021-08-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2021-07-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2021-06-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2021-05-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2021-04-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2021-03-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2021-02-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2021-01-10" dev="jdkstack" description="" version="11">
+      <action type="update" dev="jdkstack">增强特性。</action>
+      <action type="add" dev="jdkstack">添加新特性。</action>
+      <action type="fix" dev="jdkstack">修复BUG。</action>
+      <action type="remove" dev="jdkstack">删除代码。</action>
+    </release>
+
+    <release date="2020-12-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2020-11-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2020-10-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2020-09-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2020-08-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2020-07-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2020-06-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2020-05-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2020-04-10" dev="jdkstack" description="" version="11">
+      <action type="update">增强特性。</action>
+      <action type="add">添加新特性。</action>
+      <action type="fix">修复BUG。</action>
+      <action type="remove">删除代码。</action>
+    </release>
+    <release date="2020-03-10" dev="jdkstack" description="" version="11">
+      <action type="update" dev="jdkstack">增强特性。</action>
+      <action type="add" dev="jdkstack">添加新特性。</action>
+      <action type="fix" dev="jdkstack">修复BUG。</action>
+      <action type="remove" dev="jdkstack">删除代码。</action>
+    </release>
+    <release date="2020-02-10" dev="jdkstack" description="" version="11">
+      <action type="update" dev="jdkstack">增强特性。</action>
+      <action type="add" dev="jdkstack">添加新特性。</action>
+      <action type="fix" dev="jdkstack">修复BUG。</action>
+      <action type="remove" dev="jdkstack">删除代码。</action>
+    </release>
+    <release date="2020-01-10" description="" version="11">
+      <action type="add" date="2020-01-10" dev="jdkstack">初始化项目.</action>
+    </release>
+  </body>
+  <properties>
+    <author email="jdkstack@gmail.com">jdkstack</author>
+    <title>mini 11</title>
+  </properties>
+</document>

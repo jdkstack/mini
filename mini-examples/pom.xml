@@ -54,6 +54,12 @@
       <groupId>org.jdkstack</groupId>
       <version>11</version>
     </dependency>
+    <dependency>
+      <artifactId>mini-extension</artifactId>
+      <groupId>org.jdkstack</groupId>
+      <scope>compile</scope>
+      <version>11</version>
+    </dependency>
   </dependencies>
   <modelVersion>4.0.0</modelVersion>
   <parent>

@@ -106,5 +106,25 @@
     <!-- 编译级别. -->
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
+  <reporting>
+    <plugins>
+      <plugin>
+        <artifactId>maven-changes-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+          <xmlPath>${basedir}/changes/changes.xml</xmlPath>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>changes-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+        <version>2.12.1</version>
+      </plugin>
+    </plugins>
+  </reporting>
   <version>11</version>
 </project>
