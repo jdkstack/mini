@@ -37,7 +37,7 @@ Execute the main method, specify the JVM parameter, and the GC log will be outpu
 
 Use G1GC：
 
--Xmx32m -Xmx32m -Xlog:gc*
+-Xmx32m -Xms32m -Xlog:gc*
 
 Log storage directory path:
 
