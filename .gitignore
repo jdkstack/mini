@@ -32,7 +32,7 @@
 !/.gitignore
 !.github/**/**
 #8.保留根目录下的README和LICENSE
-!/README.md
+!/README*.md
 !LICENSE.txt
 #9.文件换行符使用LF.
 !/.gitattributes
