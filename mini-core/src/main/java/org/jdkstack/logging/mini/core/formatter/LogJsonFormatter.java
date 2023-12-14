@@ -1,12 +1,9 @@
 package org.jdkstack.logging.mini.core.formatter;
 
-import java.util.Map;
-import java.util.Map.Entry;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.core.thread.LogThread;
-import org.jdkstack.logging.mini.core.tool.StringBuilderTool;
 import org.jdkstack.logging.mini.core.tool.ThreadLocalTool;
 
 /**
@@ -77,7 +74,6 @@ public final class LogJsonFormatter implements Formatter {
   public void handle(final Record logRecord) {
     final LogThread logThread = ThreadLocalTool.getLogThread();
     StringBuilder json = logThread.getJson();
-    Map<String, Object> map = logRecord.getMap();
     // 日志日期时间.
     json.append('"');
     json.append("dateTime");
@@ -99,18 +95,6 @@ public final class LogJsonFormatter implements Formatter {
     json.append("\"levelValue\"");
     json.append(':');
     json.append(logRecord.getLevelValue());
-    for (Entry<String, Object> entry : map.entrySet()) {
-      String key = entry.getKey();
-      Object value = entry.getValue();
-      json.append(',');
-      json.append("\"");
-      json.append(key);
-      json.append("\"");
-      json.append(':');
-      json.append('"');
-      StringBuilderTool.unbox(json, value);
-      json.append('"');
-    }
     // 线程名.
     json.append(',');
     json.append("\"consumerThreadName\"");
