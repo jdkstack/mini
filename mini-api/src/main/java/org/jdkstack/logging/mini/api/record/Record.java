@@ -1,7 +1,5 @@
 package org.jdkstack.logging.mini.api.record;
 
-import java.util.Map;
-
 /**
  * This is a class description.
  *
@@ -61,17 +59,13 @@ public interface Record {
 
   void setName(String name);
 
-  void setMap(String key, Object value);
-
-  Map<String, Object> getMap();
-
   String getProducerThreadName();
 
   void setProducerThreadName(String producerThreadName);
 
-  int getProducerThreadValue();
+  long getProducerThreadValue();
 
-  void setProducerThreadValue(int producerThreadValue);
+  void setProducerThreadValue(long producerThreadValue);
 
   String getConsumerThreadName();
 
@@ -80,4 +74,28 @@ public interface Record {
   int getConsumerThreadValue();
 
   void setConsumerThreadValue(int consumerThreadValue);
+
+  String getLogTypeName();
+
+  void setLogTypeName(String logTypeName);
+
+  int getLogTypeValue();
+
+  void setLogTypeValue(int logTypeValue);
+
+  String getHostName();
+
+  void setHostName(String hostName);
+
+  String getApplicationName();
+
+  void setApplicationName(String applicationName);
+
+  long getProcessId();
+
+  void setProcessId(long processId);
+
+  long getTimeZone();
+
+  void setTimeZone(long timeZone);
 }

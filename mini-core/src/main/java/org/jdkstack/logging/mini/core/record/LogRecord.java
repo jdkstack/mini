@@ -1,8 +1,6 @@
 package org.jdkstack.logging.mini.core.record;
 
 import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import org.jdkstack.logging.mini.api.record.Record;
 
 /**
@@ -34,10 +32,7 @@ public class LogRecord implements Record {
    * 日志记录器名.
    */
   private String name;
-  /**
-   * map.
-   */
-  private Map<String, Object> map = new LinkedHashMap<>(64);
+
   /**
    * 日志级别名.
    */
@@ -54,7 +49,7 @@ public class LogRecord implements Record {
   /**
    * 值.
    */
-  private int producerThreadValue;
+  private long producerThreadValue;
 
   /**
    * 名.
@@ -68,6 +63,13 @@ public class LogRecord implements Record {
    * 日志异常.
    */
   private Throwable throwable;
+
+  private String logTypeName;
+  private int logTypeValue;
+  private String hostName;
+  private String applicationName;
+  private long processId;
+  private long timeZone;
 
   @Override
   public int getLevelValue() {
@@ -178,21 +180,10 @@ public class LogRecord implements Record {
     this.throwable = null;
     Arrays.fill(this.params, null);
     Arrays.fill(this.paths, 0);
-    this.map.clear();
     this.producerThreadName = null;
     this.producerThreadValue = 0;
     this.consumerThreadName = null;
     this.consumerThreadValue = 0;
-  }
-
-  @Override
-  public void setMap(String key, Object value) {
-    this.map.put(key, value);
-  }
-
-  @Override
-  public Map<String, Object> getMap() {
-    return this.map;
   }
 
   @Override
@@ -206,12 +197,12 @@ public class LogRecord implements Record {
   }
 
   @Override
-  public int getProducerThreadValue() {
+  public long getProducerThreadValue() {
     return this.producerThreadValue;
   }
 
   @Override
-  public void setProducerThreadValue(final int producerThreadValue) {
+  public void setProducerThreadValue(final long producerThreadValue) {
     this.producerThreadValue = producerThreadValue;
   }
 
@@ -233,5 +224,65 @@ public class LogRecord implements Record {
   @Override
   public void setConsumerThreadValue(final int consumerThreadValue) {
     this.consumerThreadValue = consumerThreadValue;
+  }
+
+  @Override
+  public String getLogTypeName() {
+    return this.logTypeName;
+  }
+
+  @Override
+  public void setLogTypeName(final String logTypeName) {
+    this.logTypeName = logTypeName;
+  }
+
+  @Override
+  public int getLogTypeValue() {
+    return this.logTypeValue;
+  }
+
+  @Override
+  public void setLogTypeValue(final int logTypeValue) {
+    this.logTypeValue = logTypeValue;
+  }
+
+  @Override
+  public String getHostName() {
+    return this.hostName;
+  }
+
+  @Override
+  public void setHostName(final String hostName) {
+    this.hostName = hostName;
+  }
+
+  @Override
+  public String getApplicationName() {
+    return this.applicationName;
+  }
+
+  @Override
+  public void setApplicationName(final String applicationName) {
+    this.applicationName = applicationName;
+  }
+
+  @Override
+  public long getProcessId() {
+    return this.processId;
+  }
+
+  @Override
+  public void setProcessId(final long processId) {
+    this.processId = processId;
+  }
+
+  @Override
+  public long getTimeZone() {
+    return this.timeZone;
+  }
+
+  @Override
+  public void setTimeZone(final long timeZone) {
+    this.timeZone = timeZone;
   }
 }
