@@ -15,7 +15,7 @@ public class Examples {
   /** 诊断日志. */
   private static final Recorder LOG = LogFactory.getRecorder(Examples.class);
   /** 审计日志. */
-  //private static final Recorder AUDIT_LOG = AuditLogFactory.getRecorder(Examples.class);
+  private static final Recorder AUDIT_LOG = AuditLogFactory.getRecorder(Examples.class);
 
   public static void main(final String[] args) throws Exception {
     //ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(4, 4, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(100), new CallerRunsPolicy());
@@ -24,7 +24,7 @@ public class Examples {
       final long s = System.currentTimeMillis();
       for (int i = 0; i < 1000000; i++) {
         final int j = i;
-        //AUDIT_LOG.log(Constants.INFO, message, StringBuilderPool.box(j));
+        AUDIT_LOG.log(Constants.INFO, message, StringBuilderPool.box(j));
         //threadPoolExecutor.submit(() -> LOG.log(Constants.FATAL, message, StringBuilderPool.box(j)));
         LOG.log(Constants.FATAL, message, StringBuilderPool.box(i));
       }
