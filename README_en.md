@@ -50,9 +50,3 @@ Default to current directory\logs\default\default[0-15].log。
 **Because there is no temporary object creation, even if the GC thread is always running, the GC recycling action will not be triggered because the recycling conditions are not met.**
 
 **GC-F(GarbageCollection-Free),The meaning of no GC is that there is no garbage that can be collected, and it does not mean that the GC thread stops running.**
-
-**mini11:OpenJDK 11,GraalVM for OpenJDK 11.**
-
-**mini21:OpenJDK 21,GraalVM for OpenJDK 21.**
-
-**Support GraalVm native image**
