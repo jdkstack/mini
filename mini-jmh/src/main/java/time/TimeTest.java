@@ -1,3 +1,5 @@
+package time;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -31,7 +33,7 @@ public class TimeTest {
     // 线程数量。
     final int threadCount = 1;
     // 每秒要执行多少次业务方法，execute times per second。
-    final int eps = 200000;
+    final int eps = 250000;
     final long start1 = System.currentTimeMillis();
     List<Histogram> serviceTimeWarm = new ArrayList<>(1);
     List<Histogram> responseTimeWarm = new ArrayList<>(1);
@@ -50,7 +52,7 @@ public class TimeTest {
     List<Histogram> responseTime = new ArrayList<>(1);
     List<Histogram> latencyTime = new ArrayList<>(1);
     // 正式测试一分钟业务方法。
-    final long testTime = TimeUnit.MINUTES.toMillis(1);
+    final long testTime = TimeUnit.MINUTES.toMillis(4);
     //
     final int count = eps / threadCount;
     runLatencyTest(testTime, count, serviceTime, responseTime, latencyTime, threadCount);
@@ -68,6 +70,7 @@ public class TimeTest {
     System.out.println("延迟时间：");
     final Histogram resultLatencyTm = createResultHistogram(latencyTime, start, end);
     resultLatencyTm.outputPercentileDistribution(System.out, 1000.0);
+    Thread.sleep(99999);
   }
 
   private static void writeToFile(final String suffix, final Histogram hist, final int thousandMsgPerSec, final double scale) throws IOException {

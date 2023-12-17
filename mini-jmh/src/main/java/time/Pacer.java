@@ -1,3 +1,5 @@
+package time;
+
 /**
  * Pacer determines the pace at which measurements are taken. Sample usage:
  *
@@ -117,7 +119,7 @@ public class Pacer {
     long now = System.currentTimeMillis();
     final long deadline = now + ns;
     while ((now = System.currentTimeMillis()) < deadline) {
-      // Thread.yield();
+      Thread.yield();
     }
   }
 }
