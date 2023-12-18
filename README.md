@@ -1,4 +1,4 @@
-# Application logs library for Java (Alpha). Java应用日志库(Alpha)。
+# Application logs library for Java (Alpha).
 
 - en [English](README_en.md)
 - zh_CN [简体中文](README_cn.md)
