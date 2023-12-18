@@ -1,4 +1,4 @@
-# README.md
+# Application logs library for Java (Alpha). Java应用日志库(Alpha)。
 
 - en [English](README_en.md)
 - zh_CN [简体中文](README_cn.md)
