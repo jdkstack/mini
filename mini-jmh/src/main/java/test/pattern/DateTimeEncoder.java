@@ -136,7 +136,7 @@ public final class DateTimeEncoder extends LogEventPatternConverter implements A
     check(sb, day, '-');
     sb.append('T');
     // 还余下多少秒.
-    final int secondOfDay = Math.floorMod(localSecond, Constants.SECONDS_PER_DAY);
+    final long secondOfDay = Math.floorMod(localSecond, Constants.SECONDS_PER_DAY);
     // 将余下的秒转成纳秒.
     final long nanoSecondDay = secondOfDay * Constants.NANOS_PER_SECOND;
     // millis%1000得到毫秒(减去秒).
@@ -420,7 +420,7 @@ public final class DateTimeEncoder extends LogEventPatternConverter implements A
     final long epochSecond = millis / Constants.N1000;
     final long nanoOfSecond = millis % Constants.N1000 * Constants.NANOS_PER_MILLI;
     final long localSecond = epochSecond + offset;
-    final int secsOfDay = Math.floorMod(localSecond, Constants.SECONDS_PER_DAY);
+    final long secsOfDay = Math.floorMod(localSecond, Constants.SECONDS_PER_DAY);
     final long nanoOfDay = secsOfDay * Constants.NANOS_PER_SECOND + nanoOfSecond;
     return nanoOfDay / Constants.NANOS_PER_HOUR;
   }
@@ -452,7 +452,7 @@ public final class DateTimeEncoder extends LogEventPatternConverter implements A
     final long epochSecond = millis / Constants.N1000;
     final long nanoOfSecond = millis % Constants.N1000 * Constants.NANOS_PER_MILLI;
     final long localSecond = epochSecond + offset;
-    final int secsOfDay = Math.floorMod(localSecond, Constants.SECONDS_PER_DAY);
+    final long secsOfDay = Math.floorMod(localSecond, Constants.SECONDS_PER_DAY);
     long nanoOfDay = secsOfDay * Constants.NANOS_PER_SECOND + nanoOfSecond;
     final long hours = nanoOfDay / Constants.NANOS_PER_HOUR;
     nanoOfDay -= hours * Constants.NANOS_PER_HOUR;
@@ -486,7 +486,7 @@ public final class DateTimeEncoder extends LogEventPatternConverter implements A
     final long epochSecond = millis / Constants.N1000;
     final long nanoOfSecond = millis % Constants.N1000 * Constants.NANOS_PER_MILLI;
     final long localSecond = epochSecond + offset;
-    final int secsOfDay = Math.floorMod(localSecond, Constants.SECONDS_PER_DAY);
+    final long secsOfDay = Math.floorMod(localSecond, Constants.SECONDS_PER_DAY);
     long nanoOfDay = secsOfDay * Constants.NANOS_PER_SECOND + nanoOfSecond;
     final long hours = nanoOfDay / Constants.NANOS_PER_HOUR;
     nanoOfDay -= hours * Constants.NANOS_PER_HOUR;
@@ -522,7 +522,7 @@ public final class DateTimeEncoder extends LogEventPatternConverter implements A
     final long epochSecond = millis / Constants.N1000;
     final long nanoOfSecond = millis % Constants.N1000 * Constants.NANOS_PER_MILLI;
     final long localSecond = epochSecond + offset;
-    final int secsOfDay = Math.floorMod(localSecond, Constants.SECONDS_PER_DAY);
+    final long secsOfDay = Math.floorMod(localSecond, Constants.SECONDS_PER_DAY);
     long nanoOfDay = secsOfDay * Constants.NANOS_PER_SECOND + nanoOfSecond;
     final long hours = nanoOfDay / Constants.NANOS_PER_HOUR;
     nanoOfDay -= hours * Constants.NANOS_PER_HOUR;

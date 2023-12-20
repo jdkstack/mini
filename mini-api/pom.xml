@@ -23,6 +23,6 @@
   <parent>
     <artifactId>mini</artifactId>
     <groupId>org.jdkstack</groupId>
-    <version>11</version>
+    <version>1.8</version>
   </parent>
 </project>

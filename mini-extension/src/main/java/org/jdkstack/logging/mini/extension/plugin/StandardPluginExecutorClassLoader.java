@@ -10,6 +10,8 @@ import java.net.URLClassLoader;
  */
 public class StandardPluginExecutorClassLoader extends URLClassLoader {
 
+  private String classLoaderName;
+
   /**
    * 标准插件executor类装入器
    *
@@ -18,6 +20,7 @@ public class StandardPluginExecutorClassLoader extends URLClassLoader {
    * @param parent          父
    */
   public StandardPluginExecutorClassLoader(String classLoaderName, URL[] urls, ClassLoader parent) {
-    super(classLoaderName, urls, parent);
+    super(urls, parent);
+    this.classLoaderName = classLoaderName;
   }
 }

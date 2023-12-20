@@ -36,7 +36,7 @@ public class RestHandler implements HttpHandler {
       // 静态资源。
       if (path.contains(".")) {
         // 静态资源(支持什么HTTP METHOD?).
-        path = URLDecoder.decode(path, StandardCharsets.UTF_8);
+        path = URLDecoder.decode(path, "UTF-8");
         Path normalize = FileSystems.getDefault().getPath("apps").toAbsolutePath();
         File file = Paths.get(normalize.toString(), path).toFile();
         int code = 200;
