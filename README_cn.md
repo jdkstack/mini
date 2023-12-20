@@ -39,7 +39,7 @@ mini-distribution(分发包)
 
 使用G1GC：
 
--Xmx32m -Xms32m -Xlog:gc*
+-Xmx32m -Xms32m -Xlog:gc* -XX:+UseG1GC
 
 日志存储目录路径：
 
