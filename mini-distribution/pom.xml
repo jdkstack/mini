@@ -53,13 +53,13 @@
     <dependency>
       <artifactId>mini-core</artifactId>
       <groupId>org.jdkstack</groupId>
-      <version>11</version>
+      <version>17</version>
     </dependency>
   </dependencies>
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>mini</artifactId>
     <groupId>org.jdkstack</groupId>
-    <version>11</version>
+    <version>17</version>
   </parent>
 </project>
