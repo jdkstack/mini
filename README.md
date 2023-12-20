@@ -5,7 +5,9 @@
 
 Branches:
 
+- mini8(Runtime OpenJDK 1.8).
 - mini11(Runtime OpenJDK 11,GraalVM for OpenJDK 11).
+- mini17(Runtime OpenJDK 17,GraalVM for OpenJDK 17).
 - mini21(Runtime OpenJDK 21,GraalVM for OpenJDK 21).
 
 # License
