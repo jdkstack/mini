@@ -1,6 +1,7 @@
 package org.jdkstack.logging.mini.core.handler;
 
 import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.config.HandlerConfig;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
@@ -91,10 +92,14 @@ public class FileHandlerV2 extends AbstractHandler {
     if (null != randomAccessFile) {
       // 刷数据.
       this.flush();
+      // 强制刷新内容和元数据.
+      FileChannel channel = logThread.getChannel();
+      channel.force(true);
     }
     // 从缓存中获取一个流.
     randomAccessFile = logThread.getRandomAccessFileBuffer().poll();
     logThread.setRandomAccessFile(randomAccessFile);
+    logThread.setChannel(randomAccessFile.getChannel());
     ByteWriter destination1 = logThread.getDestination();
     logThread.setDestination3(destination1);
     ByteWriter destination3 = logThread.getDestination3();
