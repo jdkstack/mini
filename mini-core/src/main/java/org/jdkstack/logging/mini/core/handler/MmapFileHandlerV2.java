@@ -59,7 +59,7 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
       // 获取 destination3。
       ByteWriter destination3 = logThread.getDestination3();
       long size1 = destination3.getSize();
-      // 数据长度大于剩余空间,分段写.  todo: 不使用这个方法时，有问题，this.flush。
+      // 数据长度大于剩余空间,分段写.  
       if (size1 > chunk) {
         // 一旦文件达到了上限(不能完整存储一条日志,只能存储半条)，重新打开一个文件.
         this.remap();
@@ -79,7 +79,9 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
     final LogThread logThread = ThreadLocalTool.getLogThread();
     MappedByteBuffer mappedBuffer = logThread.getMappedBuffer();
     if (null != mappedBuffer) {
-      // 强制刷新.
+      // 刷数据.
+      this.flush();
+      // 强制刷新内容和元数据.
       mappedBuffer.force();
     }
     // 调用父方法,先重新创建文件流.
