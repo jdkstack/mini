@@ -3,7 +3,7 @@ package org.jdkstack.logging.mini.core.formatter;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.record.Record;
-import org.jdkstack.logging.mini.core.thread.LogThread;
+import org.jdkstack.logging.mini.core.thread.LogConsumeThread;
 import org.jdkstack.logging.mini.core.tool.ThreadLocalTool;
 
 /**
@@ -48,8 +48,8 @@ public final class LogTextFormatter implements Formatter {
    */
   @Override
   public StringBuilder format(final Record logRecord) {
-    final LogThread logThread = ThreadLocalTool.getLogThread();
-    StringBuilder text = logThread.getText();
+    final LogConsumeThread logConsumeThread = ThreadLocalTool.getLogConsumeThread();
+    StringBuilder text = logConsumeThread.getText();
     // 文本格式的日志消息.
     text.setLength(0);
     // 日志对象中的特殊字段.
@@ -69,8 +69,8 @@ public final class LogTextFormatter implements Formatter {
    * @author admin
    */
   public void handle(final Record logRecord) {
-    final LogThread logThread = ThreadLocalTool.getLogThread();
-    StringBuilder text = logThread.getText();
+    final LogConsumeThread logConsumeThread = ThreadLocalTool.getLogConsumeThread();
+    StringBuilder text = logConsumeThread.getText();
     // 日志日期时间.
     final StringBuilder dateTime = logRecord.getEvent();
     text.append(dateTime);
