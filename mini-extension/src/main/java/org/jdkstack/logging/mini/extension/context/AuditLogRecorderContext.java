@@ -26,7 +26,7 @@ import org.jdkstack.logging.mini.core.record.LogRecord;
 import org.jdkstack.logging.mini.core.record.RecordEventFactory;
 import org.jdkstack.logging.mini.core.ringbuffer.RingBufferLogEventTranslator;
 import org.jdkstack.logging.mini.core.ringbuffer.RingBufferLogWorkHandler;
-import org.jdkstack.logging.mini.core.thread.LogThreadFactory;
+import org.jdkstack.logging.mini.core.thread.LogConsumeThreadFactory;
 
 /**
  * .
@@ -59,7 +59,7 @@ public class AuditLogRecorderContext extends LifecycleBase implements LogRecorde
     // 等待策略。
     final WaitStrategy waitStrategy = new BusySpinWaitStrategy();
     // 创建disruptor。
-    this.disruptor = new Disruptor<>(eventFactory, contextConfiguration.getRingBufferSize(), new LogThreadFactory("al-log-consume", null), producerType, waitStrategy);
+    this.disruptor = new Disruptor<>(eventFactory, contextConfiguration.getRingBufferSize(), new LogConsumeThreadFactory("al-log-consume", null), producerType, waitStrategy);
     // 添加异常处理。
     final ExceptionHandler<Record> errorHandler = new ExceptionHandler<Record>() {
       @Override

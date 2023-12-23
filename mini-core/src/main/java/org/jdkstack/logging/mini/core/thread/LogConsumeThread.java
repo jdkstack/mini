@@ -25,7 +25,7 @@ import org.jdkstack.logging.mini.core.ringbuffer.RandomAccessFileRingBuffer;
  *
  * @author admin
  */
-public final class LogThread extends Thread {
+public final class LogConsumeThread extends Thread {
 
 
   /**
@@ -110,7 +110,7 @@ public final class LogThread extends Thread {
    * @param nameParam   线程名.
    * @author admin
    */
-  public LogThread(final Runnable targetParam, final String nameParam) {
+  public LogConsumeThread(final Runnable targetParam, final String nameParam) {
     super(targetParam, nameParam);
   }
 

@@ -3,7 +3,7 @@ package org.jdkstack.logging.mini.core.formatter;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.record.Record;
-import org.jdkstack.logging.mini.core.thread.LogThread;
+import org.jdkstack.logging.mini.core.thread.LogConsumeThread;
 import org.jdkstack.logging.mini.core.tool.ThreadLocalTool;
 
 /**
@@ -48,8 +48,8 @@ public final class LogJsonFormatter implements Formatter {
    */
   @Override
   public StringBuilder format(final Record logRecord) {
-    final LogThread logThread = ThreadLocalTool.getLogThread();
-    StringBuilder json = logThread.getJson();
+    final LogConsumeThread logConsumeThread = ThreadLocalTool.getLogConsumeThread();
+    StringBuilder json = logConsumeThread.getJson();
     // json格式的日志消息.
     json.setLength(0);
     // json字符串开始.
@@ -72,8 +72,8 @@ public final class LogJsonFormatter implements Formatter {
    * @author admin
    */
   public void handle(final Record logRecord) {
-    final LogThread logThread = ThreadLocalTool.getLogThread();
-    StringBuilder json = logThread.getJson();
+    final LogConsumeThread logConsumeThread = ThreadLocalTool.getLogConsumeThread();
+    StringBuilder json = logConsumeThread.getJson();
     // 日志日期时间.
     json.append('"');
     json.append("dateTime");

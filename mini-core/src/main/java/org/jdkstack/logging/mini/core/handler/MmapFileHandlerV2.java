@@ -7,7 +7,7 @@ import java.nio.channels.FileChannel;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.record.Record;
-import org.jdkstack.logging.mini.core.thread.LogThread;
+import org.jdkstack.logging.mini.core.thread.LogConsumeThread;
 import org.jdkstack.logging.mini.core.tool.ThreadLocalTool;
 
 /**
@@ -47,17 +47,17 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
    */
   @Override
   public final void rules(final Record lr) throws Exception {
-    final LogThread logThread = ThreadLocalTool.getLogThread();
-    MappedByteBuffer mappedBuffer = logThread.getMappedBuffer();
+    final LogConsumeThread logConsumeThread = ThreadLocalTool.getLogConsumeThread();
+    MappedByteBuffer mappedBuffer = logConsumeThread.getMappedBuffer();
     if (null == mappedBuffer) {
-      logThread.setRc(rc);
+      logConsumeThread.setRc(rc);
       this.remap();
     } else {
       // 切换日志文件规则只有一种,按size切换.
       // 剩余空间.
       final int chunk = mappedBuffer.remaining();
       // 获取 destination3。
-      ByteWriter destination3 = logThread.getDestination3();
+      ByteWriter destination3 = logConsumeThread.getDestination3();
       long size1 = destination3.getSize();
       // 数据长度大于剩余空间,分段写.  
       if (size1 > chunk) {
@@ -76,8 +76,8 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
    */
   @Override
   public final void remap() throws Exception {
-    final LogThread logThread = ThreadLocalTool.getLogThread();
-    MappedByteBuffer mappedBuffer = logThread.getMappedBuffer();
+    final LogConsumeThread logConsumeThread = ThreadLocalTool.getLogConsumeThread();
+    MappedByteBuffer mappedBuffer = logConsumeThread.getMappedBuffer();
     if (null != mappedBuffer) {
       // 刷数据.
       this.flush();
@@ -86,17 +86,17 @@ public class MmapFileHandlerV2 extends FileHandlerV2 {
     }
     // 调用父方法,先重新创建文件流.
     super.remap();
-    RandomAccessFile randomAccessFile = logThread.getRandomAccessFile();
+    RandomAccessFile randomAccessFile = logConsumeThread.getRandomAccessFile();
     // 重新打开流channel.
     FileChannel channel = randomAccessFile.getChannel();
     // 重新映射文件.
     mappedBuffer = channel.map(FileChannel.MapMode.READ_WRITE, 0, DEFAULT_REGION_LENGTH);
     // 设置写顺序.
     mappedBuffer.order(ByteOrder.nativeOrder());
-    logThread.setMappedBuffer(mappedBuffer);
-    ByteWriter destination1 = logThread.getMmapByteArrayWriter();
-    logThread.setDestination3(destination1);
-    ByteWriter destination3 = logThread.getDestination3();
+    logConsumeThread.setMappedBuffer(mappedBuffer);
+    ByteWriter destination1 = logConsumeThread.getMmapByteArrayWriter();
+    logConsumeThread.setDestination3(destination1);
+    ByteWriter destination3 = logConsumeThread.getDestination3();
     destination3.setDestination(mappedBuffer);
   }
 }
