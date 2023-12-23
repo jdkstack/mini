@@ -6,7 +6,7 @@ import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.config.HandlerConfig;
 import org.jdkstack.logging.mini.api.context.LogRecorderContext;
 import org.jdkstack.logging.mini.api.record.Record;
-import org.jdkstack.logging.mini.core.thread.LogThread;
+import org.jdkstack.logging.mini.core.thread.LogConsumeThread;
 import org.jdkstack.logging.mini.core.tool.ThreadLocalTool;
 
 /**
@@ -46,16 +46,16 @@ public class FileHandlerV2 extends AbstractHandler {
    */
   @Override
   public void rules(final Record lr) throws Exception {
-    final LogThread logThread = ThreadLocalTool.getLogThread();
-    RandomAccessFile randomAccessFile = logThread.getRandomAccessFile();
+    final LogConsumeThread logConsumeThread = ThreadLocalTool.getLogConsumeThread();
+    RandomAccessFile randomAccessFile = logConsumeThread.getRandomAccessFile();
     // 首次初始化。
     if (null == randomAccessFile) {
-      logThread.setRc(rc);
+      logConsumeThread.setRc(rc);
       // 创建文件。
       this.remap();
     }
     // 获取 destination3。
-    ByteWriter destination3 = logThread.getDestination3();
+    ByteWriter destination3 = logConsumeThread.getDestination3();
     // 切换日志文件规则.
     final String type = rc.getType();
     switch (type) {
@@ -86,23 +86,23 @@ public class FileHandlerV2 extends AbstractHandler {
    * @author admin
    */
   public void remap() throws Exception {
-    final LogThread logThread = ThreadLocalTool.getLogThread();
-    RandomAccessFile randomAccessFile = logThread.getRandomAccessFile();
+    final LogConsumeThread logConsumeThread = ThreadLocalTool.getLogConsumeThread();
+    RandomAccessFile randomAccessFile = logConsumeThread.getRandomAccessFile();
     // 关闭流.
     if (null != randomAccessFile) {
       // 刷数据.
       this.flush();
       // 强制刷新内容和元数据.
-      FileChannel channel = logThread.getChannel();
+      FileChannel channel = logConsumeThread.getChannel();
       channel.force(true);
     }
     // 从缓存中获取一个流.
-    randomAccessFile = logThread.getRandomAccessFileBuffer().poll();
-    logThread.setRandomAccessFile(randomAccessFile);
-    logThread.setChannel(randomAccessFile.getChannel());
-    ByteWriter destination1 = logThread.getDestination();
-    logThread.setDestination3(destination1);
-    ByteWriter destination3 = logThread.getDestination3();
+    randomAccessFile = logConsumeThread.getRandomAccessFileBuffer().poll();
+    logConsumeThread.setRandomAccessFile(randomAccessFile);
+    logConsumeThread.setChannel(randomAccessFile.getChannel());
+    ByteWriter destination1 = logConsumeThread.getDestination();
+    logConsumeThread.setDestination3(destination1);
+    ByteWriter destination3 = logConsumeThread.getDestination3();
     destination3.setDestination(randomAccessFile);
   }
 }

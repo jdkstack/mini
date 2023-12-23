@@ -11,7 +11,7 @@ import org.jdkstack.logging.mini.api.monitor.Monitor;
  *
  * @author admin
  */
-public class LogThreadFactory implements ThreadFactory {
+public class LogConsumeThreadFactory implements ThreadFactory {
 
   /**
    * 线程名前缀.
@@ -35,7 +35,7 @@ public class LogThreadFactory implements ThreadFactory {
    * @param checkerParam 线程监听检查对象.
    * @author admin
    */
-  public LogThreadFactory(final String prefix, final Monitor checkerParam) {
+  public LogConsumeThreadFactory(final String prefix, final Monitor checkerParam) {
     // 线程名前缀.
     this.prefix = prefix;
     // 线程检查对象,线程会注册到上面.
@@ -55,7 +55,7 @@ public class LogThreadFactory implements ThreadFactory {
   public final Thread newThread(final Runnable runnable) {
     // 创建线程,由线程工厂触发.
     final int andIncrement = this.threadCount.getAndIncrement();
-    final Thread logThread = new LogThread(runnable, this.prefix + andIncrement);
+    final Thread logThread = new LogConsumeThread(runnable, this.prefix + andIncrement);
     // 如果线程检查对象不为空.
     if (null != this.checker) {
       // 注册线程.
