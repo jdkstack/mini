@@ -2,12 +2,10 @@ name: Sonar
 on:
   push:
     branches:
-      - master
-      - dev
+      - mini11
   pull_request:
     branches:
-      - master
-      - dev
+      - mini11
 jobs:
   build:
     name: Sonar
