@@ -9,6 +9,12 @@ package org.jdkstack.logging.mini.core.thread;
  */
 public final class LogProduceThread extends Thread {
 
+  /** 最大9个参数，容量16足够. */
+  private static final int CAPACITY = 16;
+  private static final int MASK = CAPACITY - 1;
+  private final StringBuilder[] ringBuffer = new StringBuilder[CAPACITY];
+  private int current;
+
   /**
    * 线程开始运行的时间(毫秒).
    */
@@ -25,6 +31,9 @@ public final class LogProduceThread extends Thread {
    */
   public LogProduceThread(final Runnable targetParam, final String nameParam) {
     super(targetParam, nameParam);
+    for (int i = 0; i < ringBuffer.length; i++) {
+      ringBuffer[i] = new StringBuilder(21);
+    }
   }
 
   /**
@@ -74,5 +83,11 @@ public final class LogProduceThread extends Thread {
   public void endEmission() {
     // 设置执行结束时间.
     this.executeEnd();
+  }
+
+  public StringBuilder poll() {
+    final StringBuilder result = ringBuffer[MASK & current++];
+    result.setLength(0);
+    return result;
   }
 }
