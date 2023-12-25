@@ -12,7 +12,7 @@ package org.jdkstack.logging.mini.core.level;
  */
 public enum LogType {
 
-  DL("diagnostic logs", 0), AL("audit logs", 1);
+  EL("event logs", -2), APL("application logs", -1), DL("diagnostic logs", 0), AL("audit logs", 1);
   /**
    * 日志名.
    */

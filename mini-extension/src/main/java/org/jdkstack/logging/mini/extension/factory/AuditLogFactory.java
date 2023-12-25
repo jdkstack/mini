@@ -4,10 +4,12 @@ import org.jdkstack.logging.mini.api.config.HandlerConfig;
 import org.jdkstack.logging.mini.api.config.RecorderConfig;
 import org.jdkstack.logging.mini.api.context.LogRecorderContextFactory;
 import org.jdkstack.logging.mini.api.factory.Factory;
+import org.jdkstack.logging.mini.api.factory.Log;
 import org.jdkstack.logging.mini.api.filter.Filter;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
+import org.jdkstack.logging.mini.core.factory.DefaultLog;
 import org.jdkstack.logging.mini.extension.context.AuditLogRecorderContextFactory;
 
 /**
@@ -33,6 +35,32 @@ public final class AuditLogFactory implements Factory {
    */
   private AuditLogFactory() {
     //
+  }
+
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param name 日志的标志.
+   * @return 返回一个Log对象.
+   * @author admin
+   */
+  public static Log getLog(final String name) {
+    return new DefaultLog(name, FACTORY);
+  }
+
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param clazz 使用类的简单名称作为日志的标志.
+   * @return 返回一个Log对象.
+   * @author admin
+   */
+  public static Log getLog(final Class<?> clazz) {
+    return new DefaultLog(clazz.getName(), FACTORY);
   }
 
   /**
