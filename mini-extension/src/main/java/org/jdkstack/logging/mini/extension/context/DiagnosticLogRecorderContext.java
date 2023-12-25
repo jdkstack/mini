@@ -1,4 +1,4 @@
-package org.jdkstack.logging.mini.core.context;
+package org.jdkstack.logging.mini.extension.context;
 
 import com.lmax.disruptor.BusySpinWaitStrategy;
 import com.lmax.disruptor.EventFactory;
@@ -35,7 +35,7 @@ import org.jdkstack.logging.mini.core.thread.LogConsumeThreadFactory;
  *
  * @author admin
  */
-public class DefaultLogRecorderContext extends LifecycleBase implements LogRecorderContext {
+public class DiagnosticLogRecorderContext extends LifecycleBase implements LogRecorderContext {
 
   private final Configuration configuration = new LogRecorderConfiguration();
   private final ContextConfiguration contextConfiguration = new LogRecorderContextConfiguration();
@@ -50,7 +50,7 @@ public class DefaultLogRecorderContext extends LifecycleBase implements LogRecor
    *
    * @author admin
    */
-  public DefaultLogRecorderContext() {
+  public DiagnosticLogRecorderContext() {
     this.setState(LifecycleState.INITIALIZING);
     // 对象工厂。
     final EventFactory<Record> eventFactory = new RecordEventFactory();
@@ -59,7 +59,7 @@ public class DefaultLogRecorderContext extends LifecycleBase implements LogRecor
     // 等待策略。
     final WaitStrategy waitStrategy = new BusySpinWaitStrategy();
     // 创建disruptor。
-    this.disruptor = new Disruptor<>(eventFactory, contextConfiguration.getRingBufferSize(), new LogConsumeThreadFactory("apl-log-consume", null), producerType, waitStrategy);
+    this.disruptor = new Disruptor<>(eventFactory, contextConfiguration.getRingBufferSize(), new LogConsumeThreadFactory("dl-log-consume", null), producerType, waitStrategy);
     // 添加异常处理。
     final ExceptionHandler<Record> errorHandler = new ExceptionHandler<Record>() {
       @Override
