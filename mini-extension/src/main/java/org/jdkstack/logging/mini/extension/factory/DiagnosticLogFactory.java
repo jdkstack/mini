@@ -1,4 +1,4 @@
-package org.jdkstack.logging.mini.core.factory;
+package org.jdkstack.logging.mini.extension.factory;
 
 import org.jdkstack.logging.mini.api.config.HandlerConfig;
 import org.jdkstack.logging.mini.api.config.RecorderConfig;
@@ -9,7 +9,8 @@ import org.jdkstack.logging.mini.api.filter.Filter;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
-import org.jdkstack.logging.mini.core.context.DefaultLogRecorderContextFactory;
+import org.jdkstack.logging.mini.core.factory.DefaultLog;
+import org.jdkstack.logging.mini.extension.context.DiagnosticLogRecorderContextFactory;
 
 /**
  * LogFactory核心类.
@@ -18,12 +19,12 @@ import org.jdkstack.logging.mini.core.context.DefaultLogRecorderContextFactory;
  *
  * @author admin
  */
-public final class LogFactory implements Factory {
+public final class DiagnosticLogFactory implements Factory {
 
   /**
    * 静态的上下文对象工厂，创建一个上下文对象.
    */
-  private static final LogRecorderContextFactory FACTORY = new DefaultLogRecorderContextFactory();
+  private static final LogRecorderContextFactory FACTORY = new DiagnosticLogRecorderContextFactory();
 
   /**
    * This is a method description.
@@ -32,7 +33,7 @@ public final class LogFactory implements Factory {
    *
    * @author admin
    */
-  private LogFactory() {
+  private DiagnosticLogFactory() {
     //
   }
 
