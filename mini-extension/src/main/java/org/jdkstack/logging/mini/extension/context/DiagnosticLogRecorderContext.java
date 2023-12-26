@@ -17,16 +17,21 @@ import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.level.Level;
 import org.jdkstack.logging.mini.api.lifecycle.LifecycleState;
+import org.jdkstack.logging.mini.api.monitor.Monitor;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.core.config.LogRecorderConfiguration;
 import org.jdkstack.logging.mini.core.config.LogRecorderContextConfiguration;
 import org.jdkstack.logging.mini.core.lifecycle.LifecycleBase;
+import org.jdkstack.logging.mini.core.monitor.ThreadMonitor;
 import org.jdkstack.logging.mini.core.record.LogRecord;
 import org.jdkstack.logging.mini.core.record.RecordEventFactory;
 import org.jdkstack.logging.mini.core.ringbuffer.RingBufferLogEventTranslator;
 import org.jdkstack.logging.mini.core.ringbuffer.RingBufferLogWorkHandler;
+import org.jdkstack.logging.mini.core.thread.LogConsumeThread;
 import org.jdkstack.logging.mini.core.thread.LogConsumeThreadFactory;
+import org.jdkstack.logging.mini.core.thread.LogProduceThread;
+import org.jdkstack.logging.mini.core.tool.ThreadLocalTool;
 
 /**
  * .
@@ -42,6 +47,7 @@ public class DiagnosticLogRecorderContext extends LifecycleBase implements LogRe
   private final ThreadLocal<RingBufferLogEventTranslator> tlt = new ThreadLocal<>();
   private final ThreadLocal<Record> rtl = new ThreadLocal<>();
   private final Disruptor<Record> disruptor;
+  private final ThreadMonitor threadMonitor = new ThreadMonitor();
 
   /**
    * .
@@ -192,6 +198,12 @@ public class DiagnosticLogRecorderContext extends LifecycleBase implements LogRe
     } catch (final Exception ignore) {
       // ignore.
       ignore.printStackTrace();
+    } finally {
+      // 当前线程是日志库提供的吗?
+      LogConsumeThread logConsumeThread = ThreadLocalTool.getLogConsumeThread();
+      if (threadMonitor.isNull(logConsumeThread.getName())) {
+        threadMonitor.registerThread(logConsumeThread);
+      }
     }
   }
 
@@ -216,6 +228,12 @@ public class DiagnosticLogRecorderContext extends LifecycleBase implements LogRe
     } catch (final Exception ignore) {
       // ignore.
       ignore.printStackTrace();
+    } finally {
+      // 当前线程是日志库提供的吗?
+      LogProduceThread logProduceThread = ThreadLocalTool.getLogProduceThread();
+      if (threadMonitor.isNull(logProduceThread.getName())) {
+        threadMonitor.registerThread(logProduceThread);
+      }
     }
   }
 
@@ -288,6 +306,11 @@ public class DiagnosticLogRecorderContext extends LifecycleBase implements LogRe
     this.setState(LifecycleState.STOPPING);
     this.disruptor.shutdown();
     this.setState(LifecycleState.STOPPED);
+  }
+
+  @Override
+  public Monitor threadMonitor() {
+    return this.threadMonitor;
   }
 
   @Override
