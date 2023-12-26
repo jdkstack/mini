@@ -7,6 +7,7 @@ import org.jdkstack.logging.mini.api.filter.Filter;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.lifecycle.LifecycleState;
+import org.jdkstack.logging.mini.api.monitor.Monitor;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.core.config.LogHandlerConfig;
 import org.jdkstack.logging.mini.core.config.LogRecorderConfig;
@@ -108,6 +109,11 @@ public class DefaultLogRecorderContextFactory implements LogRecorderContextFacto
   @Override
   public void shutdown() {
     this.context.shutdown();
+  }
+
+  @Override
+  public Monitor threadMonitor() {
+    return this.context.threadMonitor();
   }
 
   private void insideConfig() {

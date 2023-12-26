@@ -5,6 +5,7 @@ import org.jdkstack.logging.mini.api.config.RecorderConfig;
 import org.jdkstack.logging.mini.api.filter.Filter;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.handler.Handler;
+import org.jdkstack.logging.mini.api.monitor.Monitor;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 
 /**
@@ -33,4 +34,6 @@ public interface LogRecorderContextFactory {
   void addLevel(String name, int value);
 
   void shutdown();
+
+  Monitor threadMonitor();
 }
