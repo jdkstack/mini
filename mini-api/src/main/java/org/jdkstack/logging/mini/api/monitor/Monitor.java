@@ -21,12 +21,5 @@ public interface Monitor {
     //
   }
 
-  /**
-   * This is a method description.
-   *
-   * <p>Another description after blank line.
-   *
-   * @author admin
-   */
-  void close();
+  boolean isNull(String name);
 }

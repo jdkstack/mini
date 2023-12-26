@@ -31,7 +31,7 @@ public class ThreadLocalTool {
     } else {
       logProduceThread = lpt.get();
       if (logProduceThread == null) {
-        logProduceThread = new LogProduceThread(null, "log-c");
+        logProduceThread = new LogProduceThread(null, "log-p");
         lpt.set(logProduceThread);
       }
     }

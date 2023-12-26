@@ -1,5 +1,9 @@
 package org.jdkstack.logging.mini.core.thread;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
+
 /**
  * 自定义线程,便于系统内线程的监控.
  *
@@ -14,6 +18,15 @@ public final class LogProduceThread extends Thread {
   private static final int MASK = CAPACITY - 1;
   private final StringBuilder[] ringBuffer = new StringBuilder[CAPACITY];
   private int current;
+
+  /** 全局Recorder日志计数. */
+  private final AtomicLong globalRecorderCounter = new AtomicLong(0L);
+  /** 所有方法计数. */
+  private final AtomicLong totalMethodCounter = new AtomicLong(0L);
+  /** 单个方法计数. */
+  private final AtomicLong methodCounter = new AtomicLong(0L);
+  /** 单个方法内每个日志级别分别计数. */
+  private final Map<String, AtomicLong> maps = new HashMap<>(16);
 
   /**
    * 线程开始运行的时间(毫秒).
