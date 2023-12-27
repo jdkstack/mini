@@ -26,7 +26,6 @@ import org.jdkstack.logging.mini.core.lifecycle.LifecycleBase;
 import org.jdkstack.logging.mini.core.monitor.ThreadMonitor;
 import org.jdkstack.logging.mini.core.record.LogRecord;
 import org.jdkstack.logging.mini.core.record.RecordEventFactory;
-import org.jdkstack.logging.mini.core.ringbuffer.RingBufferLogEventTranslator;
 import org.jdkstack.logging.mini.core.ringbuffer.RingBufferLogWorkHandler;
 import org.jdkstack.logging.mini.core.thread.LogConsumeThread;
 import org.jdkstack.logging.mini.core.thread.LogConsumeThreadFactory;
@@ -44,9 +43,8 @@ public class AuditLogRecorderContext extends LifecycleBase implements LogRecorde
 
   private final Configuration configuration = new LogRecorderConfiguration();
   private final ContextConfiguration contextConfiguration = new LogRecorderContextConfiguration();
-  private final ThreadLocal<RingBufferLogEventTranslator> tlt = new ThreadLocal<>();
   private final ThreadLocal<Record> rtl = new ThreadLocal<>();
-  private final Disruptor<Record> disruptor;
+  private Disruptor<Record> disruptor = null;
   private final ThreadMonitor threadMonitor = new ThreadMonitor();
 
   /**
@@ -58,6 +56,21 @@ public class AuditLogRecorderContext extends LifecycleBase implements LogRecorde
    */
   public AuditLogRecorderContext() {
     this.setState(LifecycleState.INITIALIZING);
+    String state = contextConfiguration.getState();
+    switch (state) {
+      case "synchronous":
+        //
+        break;
+      case "asynchronous":
+        getRecordDisruptor();
+        break;
+      default:
+        throw new RuntimeException("不支持。");
+    }
+    this.setState(LifecycleState.INITIALIZED);
+  }
+
+  private void getRecordDisruptor() {
     // 对象工厂。
     final EventFactory<Record> eventFactory = new RecordEventFactory();
     // 生产者使用多线程模式。
@@ -65,7 +78,7 @@ public class AuditLogRecorderContext extends LifecycleBase implements LogRecorde
     // 等待策略。
     final WaitStrategy waitStrategy = new BusySpinWaitStrategy();
     // 创建disruptor。
-    this.disruptor = new Disruptor<>(eventFactory, contextConfiguration.getRingBufferSize(), new LogConsumeThreadFactory("al-log-consume", null), producerType, waitStrategy);
+    this.disruptor = new Disruptor<>(eventFactory, contextConfiguration.getRingBufferSize(), new LogConsumeThreadFactory("apl-log-consume", null), producerType, waitStrategy);
     // 添加异常处理。
     final ExceptionHandler<Record> errorHandler = new ExceptionHandler<Record>() {
       @Override
@@ -93,7 +106,6 @@ public class AuditLogRecorderContext extends LifecycleBase implements LogRecorde
     this.disruptor.handleEventsWithWorkerPool(workHandlers);
     // 启动disruptor。
     this.disruptor.start();
-    this.setState(LifecycleState.INITIALIZED);
   }
 
   @Override
@@ -288,15 +300,6 @@ public class AuditLogRecorderContext extends LifecycleBase implements LogRecorde
     if (result == null) {
       result = new LogRecord();
       rtl.set(result);
-    }
-    return result;
-  }
-
-  private RingBufferLogEventTranslator getCachedTranslator() {
-    RingBufferLogEventTranslator result = tlt.get();
-    if (result == null) {
-      result = new RingBufferLogEventTranslator(this);
-      tlt.set(result);
     }
     return result;
   }
