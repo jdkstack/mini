@@ -1,4 +1,4 @@
-This is a logging framework kernel that is scalable.
+This is a logging framework kernel(logging library).
 
 Core features:
 
