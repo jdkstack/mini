@@ -36,4 +36,12 @@ public interface HandlerConfig {
   String getType();
 
   String getFormatter();
+
+  int getCapacity();
+
+  void setCapacity(int capacity);
+
+  String getMode();
+
+  void setMode(String mode);
 }
