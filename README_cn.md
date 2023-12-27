@@ -23,6 +23,7 @@
 19. 仅处理事件日志（Event logs）。 特别是应用日志（application logs），应用日志包括诊断日志（diagnostic logs ），审计日志（audit logs）。
 20. 不兼容任何已经存在的日志库和日志框架，包括但不限于Log4j，Logback等。
 21. 吞吐量比Log4j2高，延时比Log4j2低。
+22. 动态更新Recorder(修改，删除)。
 
 目录结构：
 
@@ -34,16 +35,6 @@ mini-examples (例子)
 mini-jmh (测试)
 mini-distribution(分发包)
 ```
-
-执行main方法时，指定jvm 参数，gc日志会输出到控制台：
-
-使用G1GC：
-
--Xmx32m -Xms32m -Xlog:gc*
-
-日志存储目录路径：
-
-默认当前目录下\logs\default\default[0-15].log。
 
 # **注意:**
 

@@ -33,16 +33,6 @@ mini-jmh (jmh)
 mini-distribution(distribution)
 ```
 
-Execute the main method, specify the JVM parameter, and the GC log will be output to the console:
-
-Use G1GC：
-
--Xmx32m -Xms32m -Xlog:gc*
-
-Log storage directory path:
-
-Default to current directory\logs\default\default[0-15].log。
-
 # **Attention:**
 
 **The log library itself does not generate temporary objects. When the GC thread performs the collection of temporary objects, it collects them quickly, minimizing the burden on the GC.**
