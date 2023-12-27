@@ -17,16 +17,20 @@ import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.level.Level;
 import org.jdkstack.logging.mini.api.lifecycle.LifecycleState;
+import org.jdkstack.logging.mini.api.monitor.Monitor;
 import org.jdkstack.logging.mini.api.record.Record;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.core.config.LogRecorderConfiguration;
 import org.jdkstack.logging.mini.core.config.LogRecorderContextConfiguration;
 import org.jdkstack.logging.mini.core.lifecycle.LifecycleBase;
+import org.jdkstack.logging.mini.core.monitor.ThreadMonitor;
 import org.jdkstack.logging.mini.core.record.LogRecord;
 import org.jdkstack.logging.mini.core.record.RecordEventFactory;
-import org.jdkstack.logging.mini.core.ringbuffer.RingBufferLogEventTranslator;
 import org.jdkstack.logging.mini.core.ringbuffer.RingBufferLogWorkHandler;
+import org.jdkstack.logging.mini.core.thread.LogConsumeThread;
 import org.jdkstack.logging.mini.core.thread.LogConsumeThreadFactory;
+import org.jdkstack.logging.mini.core.thread.LogProduceThread;
+import org.jdkstack.logging.mini.core.tool.ThreadLocalTool;
 
 /**
  * .
@@ -39,9 +43,9 @@ public class DefaultLogRecorderContext extends LifecycleBase implements LogRecor
 
   private final Configuration configuration = new LogRecorderConfiguration();
   private final ContextConfiguration contextConfiguration = new LogRecorderContextConfiguration();
-  private final ThreadLocal<RingBufferLogEventTranslator> tlt = new ThreadLocal<>();
   private final ThreadLocal<Record> rtl = new ThreadLocal<>();
-  private final Disruptor<Record> disruptor;
+  private Disruptor<Record> disruptor = null;
+  private final ThreadMonitor threadMonitor = new ThreadMonitor();
 
   /**
    * .
@@ -52,6 +56,21 @@ public class DefaultLogRecorderContext extends LifecycleBase implements LogRecor
    */
   public DefaultLogRecorderContext() {
     this.setState(LifecycleState.INITIALIZING);
+    String state = contextConfiguration.getState();
+    switch (state) {
+      case "synchronous":
+        //
+        break;
+      case "asynchronous":
+        getRecordDisruptor();
+        break;
+      default:
+        throw new RuntimeException("不支持。");
+    }
+    this.setState(LifecycleState.INITIALIZED);
+  }
+
+  private void getRecordDisruptor() {
     // 对象工厂。
     final EventFactory<Record> eventFactory = new RecordEventFactory();
     // 生产者使用多线程模式。
@@ -87,7 +106,6 @@ public class DefaultLogRecorderContext extends LifecycleBase implements LogRecor
     this.disruptor.handleEventsWithWorkerPool(workHandlers);
     // 启动disruptor。
     this.disruptor.start();
-    this.setState(LifecycleState.INITIALIZED);
   }
 
   @Override
@@ -192,6 +210,12 @@ public class DefaultLogRecorderContext extends LifecycleBase implements LogRecor
     } catch (final Exception ignore) {
       // ignore.
       ignore.printStackTrace();
+    } finally {
+      // 当前线程是日志库提供的吗?
+      LogConsumeThread logConsumeThread = ThreadLocalTool.getLogConsumeThread();
+      if (threadMonitor.isNull(logConsumeThread.getName())) {
+        threadMonitor.registerThread(logConsumeThread);
+      }
     }
   }
 
@@ -216,17 +240,17 @@ public class DefaultLogRecorderContext extends LifecycleBase implements LogRecor
     } catch (final Exception ignore) {
       // ignore.
       ignore.printStackTrace();
+    } finally {
+      // 当前线程是日志库提供的吗?
+      LogProduceThread logProduceThread = ThreadLocalTool.getLogProduceThread();
+      if (threadMonitor.isNull(logProduceThread.getName())) {
+        threadMonitor.registerThread(logProduceThread);
+      }
     }
   }
 
   @Override
   public final void process(final String logLevel, final String dateTime, final String message, final String name, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5, final Object arg6, final Object arg7, final Object arg8, final Object arg9, final Throwable thrown) {
-    // 获取当前线程绑定的对象。
-    //final RingBufferLogEventTranslator translator = getCachedTranslator();
-    // 将参数传递到对象中。
-    //translator.process(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
-    // 从循环数组中取出一个对象，并向对象中插入数据。
-    //disruptor.publishEvent(translator);
     String state = contextConfiguration.getState();
     switch (state) {
       case "synchronous":
@@ -274,20 +298,16 @@ public class DefaultLogRecorderContext extends LifecycleBase implements LogRecor
     return result;
   }
 
-  private RingBufferLogEventTranslator getCachedTranslator() {
-    RingBufferLogEventTranslator result = tlt.get();
-    if (result == null) {
-      result = new RingBufferLogEventTranslator(this);
-      tlt.set(result);
-    }
-    return result;
-  }
-
   @Override
   public void shutdown() {
     this.setState(LifecycleState.STOPPING);
     this.disruptor.shutdown();
     this.setState(LifecycleState.STOPPED);
+  }
+
+  @Override
+  public Monitor threadMonitor() {
+    return this.threadMonitor;
   }
 
   @Override

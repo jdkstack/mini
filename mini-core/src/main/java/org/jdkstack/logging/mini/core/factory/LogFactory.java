@@ -8,6 +8,7 @@ import org.jdkstack.logging.mini.api.factory.Log;
 import org.jdkstack.logging.mini.api.filter.Filter;
 import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.handler.Handler;
+import org.jdkstack.logging.mini.api.monitor.Monitor;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
 import org.jdkstack.logging.mini.core.context.DefaultLogRecorderContextFactory;
 
@@ -180,5 +181,9 @@ public final class LogFactory implements Factory {
 
   public static void shutdown() {
     FACTORY.shutdown();
+  }
+
+  public static Monitor threadMonitor() {
+    return FACTORY.threadMonitor();
   }
 }

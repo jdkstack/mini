@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
+import org.jdkstack.logging.mini.api.config.HandlerConfig;
 import org.jdkstack.logging.mini.api.ringbuffer.RingBuffer;
 
 /**
@@ -44,15 +45,15 @@ public class RandomAccessFileRingBuffer implements RingBuffer<RandomAccessFile> 
    * @param capacity .
    * @author admin
    */
-  public RandomAccessFileRingBuffer(final RingBuffer<File> buffer, final int capacity) {
-    final int size = Power2.power2(capacity);
+  public RandomAccessFileRingBuffer(final RingBuffer<File> buffer, final HandlerConfig rc) {
+    final int size = Power2.power2(rc.getCapacity());
     this.mask = size - 1;
     this.rb = new RandomAccessFile[size];
     this.rb2 = new FileChannel[size];
     for (int i = 0; i < size; i++) {
       RandomAccessFile file = null;
       try {
-        file = new RandomAccessFile(buffer.poll(), "rw");
+        file = new RandomAccessFile(buffer.poll(), rc.getMode());
       } catch (FileNotFoundException ignore) {
         //
       }
