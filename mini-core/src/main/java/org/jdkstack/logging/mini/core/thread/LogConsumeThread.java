@@ -185,8 +185,8 @@ public final class LogConsumeThread extends Thread {
   public void setRc(final HandlerConfig rc) {
     this.rc = rc;
     dir = new File(this.rc.getDirectory() + File.separator + this.rc.getPrefix() + File.separator + Thread.currentThread().getName());
-    fileBuffer = new FileRingBuffer(this.dir, this.rc.getFileName(), this.rc.getFileNameExt(), 16);
-    randomAccessFileBuffer = new RandomAccessFileRingBuffer(this.fileBuffer, 16);
+    fileBuffer = new FileRingBuffer(this.dir, this.rc);
+    randomAccessFileBuffer = new RandomAccessFileRingBuffer(this.fileBuffer, this.rc);
   }
 
   public File getDir() {

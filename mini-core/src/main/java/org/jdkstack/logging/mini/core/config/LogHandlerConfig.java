@@ -41,6 +41,11 @@ public class LogHandlerConfig implements HandlerConfig {
    */
   private String fileName = "default";
 
+  private int capacity = 16;
+  /**
+   * .
+   */
+  private String mode = "rw";
   /**
    * .
    */
@@ -118,5 +123,25 @@ public class LogHandlerConfig implements HandlerConfig {
   @Override
   public final String getFormatter() {
     return this.formatter;
+  }
+
+  @Override
+  public int getCapacity() {
+    return this.capacity;
+  }
+
+  @Override
+  public void setCapacity(final int capacity) {
+    this.capacity = capacity;
+  }
+
+  @Override
+  public String getMode() {
+    return this.mode;
+  }
+
+  @Override
+  public void setMode(final String mode) {
+    this.mode = mode;
   }
 }
