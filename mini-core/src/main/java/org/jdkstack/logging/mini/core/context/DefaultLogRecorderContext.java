@@ -46,7 +46,7 @@ public class DefaultLogRecorderContext extends LifecycleBase implements LogRecor
   private final ContextConfiguration contextConfiguration = new LogRecorderContextConfiguration();
   private final ThreadLocal<RingBufferLogEventTranslator> tlt = new ThreadLocal<>();
   private final ThreadLocal<Record> rtl = new ThreadLocal<>();
-  private final Disruptor<Record> disruptor;
+  private Disruptor<Record> disruptor = null;
   private final ThreadMonitor threadMonitor = new ThreadMonitor();
 
   /**
@@ -58,6 +58,21 @@ public class DefaultLogRecorderContext extends LifecycleBase implements LogRecor
    */
   public DefaultLogRecorderContext() {
     this.setState(LifecycleState.INITIALIZING);
+    String state = contextConfiguration.getState();
+    switch (state) {
+      case "synchronous":
+        //
+        break;
+      case "asynchronous":
+        getRecordDisruptor();
+        break;
+      default:
+        throw new RuntimeException("不支持。");
+    }
+    this.setState(LifecycleState.INITIALIZED);
+  }
+
+  private void getRecordDisruptor() {
     // 对象工厂。
     final EventFactory<Record> eventFactory = new RecordEventFactory();
     // 生产者使用多线程模式。
@@ -93,7 +108,6 @@ public class DefaultLogRecorderContext extends LifecycleBase implements LogRecor
     this.disruptor.handleEventsWithWorkerPool(workHandlers);
     // 启动disruptor。
     this.disruptor.start();
-    this.setState(LifecycleState.INITIALIZED);
   }
 
   @Override
