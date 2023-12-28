@@ -51,6 +51,7 @@ public class FileRingBuffer implements RingBuffer<File> {
         file.createNewFile();
       } catch (IOException ignore) {
         //
+        ignore.printStackTrace();
       }
       this.rb[i] = file;
     }

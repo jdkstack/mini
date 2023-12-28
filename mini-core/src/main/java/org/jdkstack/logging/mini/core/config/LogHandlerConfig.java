@@ -15,7 +15,7 @@ public class LogHandlerConfig implements HandlerConfig {
   /**
    * .
    */
-  private final String directory = "logs";
+  private final String directory = System.getProperty("log", "logs");
   /**
    * .
    */
