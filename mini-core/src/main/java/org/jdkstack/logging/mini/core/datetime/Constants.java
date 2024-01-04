@@ -36,6 +36,14 @@ public final class Constants {
    */
   public static final long MILLS_PER_SECOND = 1000L;
   /**
+   * 一秒1000000微秒.
+   */
+  public static final long MICROS_PER_SECOND = MILLS_PER_SECOND * 1000L;
+  /**
+   * 一毫秒1000微秒.
+   */
+  public static final long MICROS_PER_MILLI = 1000L;
+  /**
    * 一毫秒1000000纳秒.
    */
   public static final long NANOS_PER_MILLI = MILLS_PER_SECOND * 1000L;
