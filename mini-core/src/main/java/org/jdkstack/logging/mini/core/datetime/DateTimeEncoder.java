@@ -11,8 +11,8 @@ import org.jdkstack.logging.mini.api.datetime.Encoder;
  *
  * <pre>
  *   输入: 1667660701105(输入必须UTC0时区毫秒)
- *   返回: 2022-11-05T23:05:01.105.000Z(支持其他时区)
- *   注意：不支持纳秒，必须含有毫秒。
+ *   返回: 2022-11-05T23:05:01.105Z(支持其他时区)
+ *   注意：不支持纳秒，微秒，必须含有毫秒(未来支持)。
  *
  *   ISO 8601日期表示法：
  *   公元纪年由4位数组成，公历公元1年为0001，月为2位数(01-12)，日为2位数(01-31).
@@ -164,14 +164,14 @@ public final class DateTimeEncoder implements Encoder {
       if (-10 > h) {
         sb.append(h);
       } else {
-        sb.append('0');
-        sb.append(h);
+        sb.append("-0");
+        sb.append(-h);
       }
       sb.append(':');
       if (-10 > m) {
         sb.append(m);
       } else {
-        sb.append('0');
+        sb.append("0");
         sb.append(m);
       }
     } else {
