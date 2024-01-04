@@ -63,11 +63,17 @@ public class LogRecord implements Record {
    * 日志异常.
    */
   private Throwable throwable;
-
+  private String eventSourceName;
+  private String eventSourceValue;
   private String logTypeName;
   private int logTypeValue;
   private String hostName;
+  private String appId;
+  private String appVersion;
   private String applicationName;
+  private String deviceId;
+  private String deviceVersion;
+  private String deviceName;
   private long processId;
   private long timeZone;
 
