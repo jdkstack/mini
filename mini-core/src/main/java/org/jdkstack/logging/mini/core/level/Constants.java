@@ -62,6 +62,14 @@ public final class Constants {
    */
   public static final String TRACE = "TRACE";
   /**
+   * VERBOSE.
+   */
+  public static final String VERBOSE = "VERBOSE";
+  /**
+   * ASSERT.
+   */
+  public static final String ASSERT = "ASSERT";
+  /**
    * 最小级别日志.
    */
   public static final String MIN = "MIN";
@@ -114,6 +122,14 @@ public final class Constants {
    * 跟踪.
    */
   public static final int TRACE_VALUE = 100;
+  /**
+   * VERBOSE.
+   */
+  public static final int VERBOSE_VALUE = 50;
+  /**
+   * ASSERT.
+   */
+  public static final int ASSERT_VALUE = 10;
   /**
    * 最小级别日志.
    */

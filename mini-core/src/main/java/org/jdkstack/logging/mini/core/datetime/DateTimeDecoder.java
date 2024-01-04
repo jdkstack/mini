@@ -7,12 +7,12 @@ import org.jdkstack.logging.mini.api.datetime.Decoder;
  *
  * <p>此工具可以表示公元纪年(0001-9999),公元前纪年(-N年-0000),公元后纪年(+10000-+N年).
  *
- * <p>目前仅支持0时区的日期时间格式转换成UTC毫秒.
+ * <p>目前仅支持0时区的日期时间格式转换成UTC0时区毫秒.
  *
  * <pre>
- *   输入: 2022-11-05T23:05:01.105.000Z(输入的日期格式必须是Z时区,不支持其他时区)
+ *   输入: 2022-11-05T23:05:01.105Z(支持其他时区)
  *   返回: 1667660701105(UTC0时区毫秒)
- *   注意：不支持纳秒，必须含有毫秒。
+ *   注意：不支持纳秒，微秒，必须含有毫秒(未来支持)。
  *
  *   ISO 8601日期表示法：
  *   公元纪年由4位数组成，公历公元1年为0001，月为2位数(01-12)，日为2位数(01-31).
@@ -73,7 +73,7 @@ public final class DateTimeDecoder implements Decoder {
     // 总天数.
     final long dayCount = era * Constants.N146097 + doe - Constants.DAYS_0000_TO_1970_MARCH_ONE;
     // 总天数换算成毫秒(减去当前时区的秒数).
-    long msSecond = (dayCount * Constants.N24 * Constants.N60 * Constants.N60 - offset) * Constants.N1000;
+    long msSecond = (dayCount * Constants.N24 * Constants.N60 * Constants.N60 + offset) * Constants.N1000;
     // 小时换算成毫秒.
     msSecond += hour * Constants.N60 * Constants.N60 * Constants.N1000;
     // 分钟换算成毫秒.
