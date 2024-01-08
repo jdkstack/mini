@@ -2,6 +2,7 @@ package org.jdkstack.logging.mini.core.thread;
 
 import java.io.File;
 import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
@@ -15,6 +16,7 @@ import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
 import org.jdkstack.logging.mini.core.buffer.MmapByteArrayWriter;
 import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
 import org.jdkstack.logging.mini.core.codec.Constants;
+import org.jdkstack.logging.mini.core.lz4.Lz4Encoder;
 import org.jdkstack.logging.mini.core.ringbuffer.FileRingBuffer;
 import org.jdkstack.logging.mini.core.ringbuffer.RandomAccessFileRingBuffer;
 
@@ -100,6 +102,21 @@ public final class LogConsumeThread extends Thread {
    * 线程开始运行的时间(毫秒).
    */
   private long execStart;
+  public final org.jdkstack.logging.mini.api.lz4.Encoder encoderLz4 = new Lz4Encoder();
+  public final ByteBuffer out = ByteBuffer.allocate(2048);
+  public final ByteBuffer out2 = ByteBuffer.allocate(2048);
+
+  public org.jdkstack.logging.mini.api.lz4.Encoder getEncoderLz4() {
+    return this.encoderLz4;
+  }
+
+  public ByteBuffer getOut() {
+    return this.out;
+  }
+
+  public ByteBuffer getOut2() {
+    return this.out2;
+  }
 
   /**
    * 自定义线程.
