@@ -10,7 +10,6 @@ import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.monitor.Monitor;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
-import org.jdkstack.logging.mini.core.factory.DefaultLog;
 import org.jdkstack.logging.mini.extension.context.AuditLogRecorderContextFactory;
 
 /**
@@ -48,7 +47,7 @@ public final class AuditLogFactory implements Factory {
    * @author admin
    */
   public static Log getLog(final String name) {
-    return new DefaultLog(name, FACTORY);
+    return new AuditLog(name, FACTORY);
   }
 
   /**
@@ -61,7 +60,7 @@ public final class AuditLogFactory implements Factory {
    * @author admin
    */
   public static Log getLog(final Class<?> clazz) {
-    return new DefaultLog(clazz.getName(), FACTORY);
+    return new AuditLog(clazz.getName(), FACTORY);
   }
 
   /**
