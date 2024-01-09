@@ -1,289 +1,153 @@
 <document>
   <body>
-    <release date="2023-12-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2023-12-10" dev="jdkstack" description="无GC版" version="11">
+      <action type="add">支持LZ4和Base64。</action>
     </release>
-    <release date="2023-11-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2023-11-10" dev="jdkstack" description="无GC版" version="11">
+      <action type="add">添加日志文件支持行数和大小来切割。</action>
     </release>
-    <release date="2023-10-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2023-10-10" dev="jdkstack" description="无GC版" version="11">
+      <action type="add">添加日志消息支持多线程生产和多线程消费。</action>
     </release>
-    <release date="2023-09-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2023-09-10" dev="jdkstack" description="无GC版" version="11">
+      <action type="add">添加无垃圾(GarbageCollection-Free)。</action>
     </release>
-    <release date="2023-08-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2023-08-10" dev="jdkstack" description="无GC版" version="11">
+      <action type="add">添加优雅关闭支持。</action>
     </release>
-    <release date="2023-07-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2023-07-10" dev="jdkstack" description="无GC版" version="11">
+      <action type="add">添加disruptor支持。</action>
     </release>
-    <release date="2023-06-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2023-06-10" dev="jdkstack" description="无GC版" version="11">
+      <action type="add">添加Context支持。</action>
     </release>
-    <release date="2023-05-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2023-05-10" dev="jdkstack" description="无GC版" version="11">
+      <action type="add">添加线程监控。</action>
     </release>
-    <release date="2023-04-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2023-04-10" dev="jdkstack" description="无GC版" version="11">
+      <action type="add">添加Mmap支持。</action>
     </release>
-    <release date="2023-03-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2023-03-10" dev="jdkstack" description="无GC版" version="11">
+      <action type="add">添加应用日志。</action>
     </release>
-    <release date="2023-02-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2023-02-10" dev="jdkstack" description="无GC版" version="11">
+      <action type="add">添加审计日志。</action>
     </release>
-    <release date="2023-01-10" dev="jdkstack" description="" version="11">
-      <action type="update" dev="jdkstack">增强特性。</action>
-      <action type="add" dev="jdkstack">添加新特性。</action>
-      <action type="fix" dev="jdkstack">修复BUG。</action>
-      <action type="remove" dev="jdkstack">删除代码。</action>
+    <release date="2023-01-10" dev="jdkstack" description="无GC版" version="11">
+      <action type="add">添加自定义线程池。</action>
     </release>
 
-    <release date="2022-12-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2022-12-10" dev="jdkstack" description="无GC版" version="11">
+      <action type="add">添加Datetime编码解码器。</action>
     </release>
-    <release date="2022-11-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2022-11-10" dev="jdkstack" description="无GC版" version="11">
+      <action type="add" date="2022-11-10" dev="jdkstack">初始化项目.</action>
     </release>
-    <release date="2022-10-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2022-10-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add">GC版停止开发。</action>
+      <action type="add">添加MpmcBlockingQueueV4。</action>
+      <action type="add">添加MpmcBlockingQueueV3。</action>
     </release>
-    <release date="2022-09-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2022-09-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add">添加MpscBlockingQueueV4。</action>
+      <action type="add">添加MpscBlockingQueueV3。</action>
     </release>
-    <release date="2022-08-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2022-08-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add">添加SpscBlockingQueueV4。</action>
+      <action type="add">添加SpscBlockingQueueV3。</action>
     </release>
-    <release date="2022-07-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2022-07-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add">添加SpmcBlockingQueueV4。</action>
+      <action type="add">添加SpmcBlockingQueueV3。</action>
     </release>
-    <release date="2022-06-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2022-06-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add">添加SpmcBlockingQueueV2。</action>
     </release>
-    <release date="2022-05-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2022-05-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add">添加SpscBlockingQueueV2。</action>
     </release>
-    <release date="2022-04-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2022-04-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add">添加MpmcBlockingQueueV2。</action>
     </release>
-    <release date="2022-03-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2022-03-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add">添加MpscBlockingQueueV2。</action>
     </release>
-    <release date="2022-02-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2022-02-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add">添加MpscBlockingQueueV1。</action>
     </release>
-    <release date="2022-01-10" dev="jdkstack" description="" version="11">
-      <action type="update" dev="jdkstack">增强特性。</action>
-      <action type="add" dev="jdkstack">添加新特性。</action>
-      <action type="fix" dev="jdkstack">修复BUG。</action>
-      <action type="remove" dev="jdkstack">删除代码。</action>
+    <release date="2022-01-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add">添加SpscBlockingQueueV1。</action>
     </release>
 
-    <release date="2021-12-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2021-12-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add">添加SpmcBlockingQueueV1。</action>
     </release>
-    <release date="2021-11-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2021-11-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add">添加MpmcBlockingQueueV1。</action>
     </release>
-    <release date="2021-10-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2021-10-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add">自定义线程和线程工厂，线程监听。</action>
     </release>
-    <release date="2021-09-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2021-09-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add">.github workflows。</action>
     </release>
-    <release date="2021-08-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2021-08-10" dev="jdkstack" description="GC版" version="11">
+      <action type="update">更新.gitignore。</action>
     </release>
-    <release date="2021-07-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2021-07-10" dev="jdkstack" description="GC版" version="11">
+      <action type="update">接口和实现分离。</action>
     </release>
-    <release date="2021-06-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2021-06-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add" dev="jdkstack">增加bean管理 module。</action>
     </release>
-    <release date="2021-05-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2021-05-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add" dev="jdkstack">增加ConsoleHandler。</action>
     </release>
-    <release date="2021-04-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2021-04-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add" dev="jdkstack">增加jmh module。</action>
     </release>
-    <release date="2021-03-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2021-03-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add" dev="jdkstack">增加FileHandler4(BufferedOutputStream)处理逻辑。</action>
     </release>
-    <release date="2021-02-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2021-02-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add" dev="jdkstack">增加inspection。</action>
     </release>
-    <release date="2021-01-10" dev="jdkstack" description="" version="11">
-      <action type="update" dev="jdkstack">增强特性。</action>
-      <action type="add" dev="jdkstack">添加新特性。</action>
-      <action type="fix" dev="jdkstack">修复BUG。</action>
-      <action type="remove" dev="jdkstack">删除代码。</action>
+    <release date="2021-01-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add" dev="jdkstack">增加code style。</action>
     </release>
 
-    <release date="2020-12-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2020-12-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add" dev="jdkstack">增加check style。</action>
     </release>
-    <release date="2020-11-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2020-11-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add" dev="jdkstack">增加MessageFormat2(plain text)。</action>
     </release>
-    <release date="2020-10-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2020-10-10" dev="jdkstack" description="GC版" version="11">
+      <action type="add" dev="jdkstack">增加MessageFormat1(json text)。</action>
     </release>
-    <release date="2020-09-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2020-09-10" dev="jdkstack" description="gc版" version="11">
+      <action type="add" dev="jdkstack">增加FileHandler3(FileChannel)处理逻辑。</action>
     </release>
-    <release date="2020-08-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2020-08-10" dev="jdkstack" description="gc版" version="11">
+      <action type="add" dev="jdkstack">增加FileHandler2(BufferedWriter)处理逻辑。</action>
     </release>
-    <release date="2020-07-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2020-07-10" dev="jdkstack" description="gc版" version="11">
+      <action type="add" dev="jdkstack">增加FileHandler(PrintWriter)处理逻辑。</action>
     </release>
-    <release date="2020-06-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2020-06-10" dev="jdkstack" description="gc版" version="11">
+      <action type="add" dev="jdkstack">增加Logger，提供所有日志方法。</action>
     </release>
-    <release date="2020-05-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2020-05-10" dev="jdkstack" description="gc版" version="11">
+      <action type="add" dev="jdkstack">增加log.properties配置，增加LogManager，用来保存日志配置信息和日志对象（Level,Logger,Filter...）。</action>
     </release>
-    <release date="2020-04-10" dev="jdkstack" description="" version="11">
-      <action type="update">增强特性。</action>
-      <action type="add">添加新特性。</action>
-      <action type="fix">修复BUG。</action>
-      <action type="remove">删除代码。</action>
+    <release date="2020-04-10" dev="jdkstack" description="gc版" version="11">
+      <action type="add" dev="jdkstack">增加ArrayBlockingQueue，实现多线程生产，多线程消费消费。</action>
     </release>
-    <release date="2020-03-10" dev="jdkstack" description="" version="11">
-      <action type="update" dev="jdkstack">增强特性。</action>
-      <action type="add" dev="jdkstack">添加新特性。</action>
-      <action type="fix" dev="jdkstack">修复BUG。</action>
-      <action type="remove" dev="jdkstack">删除代码。</action>
+    <release date="2020-03-10" dev="jdkstack" description="gc版" version="11">
+      <action type="add" dev="jdkstack">参考JUL，实现GC版本，会创建临时对象。</action>
     </release>
-    <release date="2020-02-10" dev="jdkstack" description="" version="11">
-      <action type="update" dev="jdkstack">增强特性。</action>
-      <action type="add" dev="jdkstack">添加新特性。</action>
-      <action type="fix" dev="jdkstack">修复BUG。</action>
-      <action type="remove" dev="jdkstack">删除代码。</action>
+    <release date="2020-02-10" dev="jdkstack" description="gc版" version="11">
+      <action type="add" dev="jdkstack">参考JUL，日志库整体架构设计。</action>
     </release>
     <release date="2020-01-10" description="" version="11">
       <action type="add" date="2020-01-10" dev="jdkstack">初始化项目.</action>
