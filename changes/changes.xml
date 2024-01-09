@@ -1,7 +1,11 @@
 <document>
   <body>
-    <release date="2023-12-10" dev="jdkstack" description="无GC版" version="11">
+    <release date="2024-01-10" dev="jdkstack" description="无GC版" version="11">
       <action type="add">支持LZ4和Base64。</action>
+    </release>
+
+    <release date="2023-12-10" dev="jdkstack" description="无GC版" version="11">
+      <action type="add">支持android。</action>
     </release>
     <release date="2023-11-10" dev="jdkstack" description="无GC版" version="11">
       <action type="add">添加日志文件支持行数和大小来切割。</action>
