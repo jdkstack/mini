@@ -5,14 +5,16 @@ package org.jdkstack.logging.mini.core.level;
  *
  * <p>Another description after blank line.
  * <pre>
- *   事件日志Event logs包括：application logs（diagnostic logs ，audit logs）。
+ *   事件日志Event logs包括：application logs，system logs。
+ *   应用日志application logs包括：diagnostic logs ，audit logs。
+ *   系统日志system logs包括： logs ， logs。
  * </pre>
  *
  * @author admin
  */
 public enum LogType {
 
-  EL("event logs", -2), APL("application logs", -1), DL("diagnostic logs", 0), AL("audit logs", 1);
+  EL("event logs", -2), SL("system logs", -1), APL("application logs", -1), DL("diagnostic logs", 0), AL("audit logs", 1);
   /**
    * 日志名.
    */
