@@ -63,19 +63,43 @@ public class LogRecord implements Record {
    * 日志异常.
    */
   private Throwable throwable;
-  private String eventSourceName;
-  private String eventSourceValue;
+
+  // 事件日志
   private String logTypeName;
   private int logTypeValue;
+  // 当前hostName
   private String hostName;
-  private String appId;
-  private String appVersion;
-  private String applicationName;
-  private String deviceId;
-  private String deviceVersion;
-  private String deviceName;
+  // 当前hostIp
+  private String hostIp;
+  // 当前进程
   private long processId;
+  // 当前时区
   private long timeZone;
+
+  // 事件触发类型(定时器触发,用户操作触发)
+  private String eventTriggerType;
+
+  // 事件来源应用软件的哪个模块。
+  private String eventSourceId;
+  private String eventSourceName;
+  private String eventSourceValue;
+
+  // 抖音/浏览器
+  private String applicationSoftwareId;
+  private String applicationSoftwareVersion;
+  private String applicationName;
+
+  // windows/android/linux/Xiaomi HyperOS
+  private String systemSoftwareId;
+  private String systemSoftwareVersion;
+  private String systemSoftwareName;
+
+  // 硬件设备：桌面/移动
+  private String hardwareId;
+  // R6615/14
+  private String hardwareVersion;
+  // 例如：PowerEdge/小米
+  private String hardwareName;
 
   @Override
   public int getLevelValue() {

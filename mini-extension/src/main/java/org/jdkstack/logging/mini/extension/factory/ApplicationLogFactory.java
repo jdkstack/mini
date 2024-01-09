@@ -10,7 +10,7 @@ import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.monitor.Monitor;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
-import org.jdkstack.logging.mini.extension.context.DiagnosticLogRecorderContextFactory;
+import org.jdkstack.logging.mini.extension.context.ApplicationLogRecorderContextFactory;
 
 /**
  * LogFactory核心类.
@@ -19,12 +19,12 @@ import org.jdkstack.logging.mini.extension.context.DiagnosticLogRecorderContextF
  *
  * @author admin
  */
-public final class DiagnosticLogFactory implements Factory {
+public final class ApplicationLogFactory implements Factory {
 
   /**
    * 静态的上下文对象工厂，创建一个上下文对象.
    */
-  private static final LogRecorderContextFactory FACTORY = new DiagnosticLogRecorderContextFactory();
+  private static final LogRecorderContextFactory FACTORY = new ApplicationLogRecorderContextFactory();
 
   /**
    * This is a method description.
@@ -33,7 +33,7 @@ public final class DiagnosticLogFactory implements Factory {
    *
    * @author admin
    */
-  private DiagnosticLogFactory() {
+  private ApplicationLogFactory() {
     //
   }
 
@@ -47,7 +47,7 @@ public final class DiagnosticLogFactory implements Factory {
    * @author admin
    */
   public static Log getLog(final String name) {
-    return new DiagnosticLog(name, FACTORY);
+    return new ApplicationLog(name, FACTORY);
   }
 
   /**
@@ -60,7 +60,7 @@ public final class DiagnosticLogFactory implements Factory {
    * @author admin
    */
   public static Log getLog(final Class<?> clazz) {
-    return new DiagnosticLog(clazz.getName(), FACTORY);
+    return new ApplicationLog(clazz.getName(), FACTORY);
   }
 
   /**
