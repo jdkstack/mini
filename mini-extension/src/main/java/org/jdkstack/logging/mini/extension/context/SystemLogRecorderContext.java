@@ -78,7 +78,7 @@ public class SystemLogRecorderContext extends LifecycleBase implements LogRecord
     // 等待策略。
     final WaitStrategy waitStrategy = new BusySpinWaitStrategy();
     // 创建disruptor。
-    this.disruptor = new Disruptor<>(eventFactory, contextConfiguration.getRingBufferSize(), new LogConsumeThreadFactory("apl-log-consume", null), producerType, waitStrategy);
+    this.disruptor = new Disruptor<>(eventFactory, contextConfiguration.getRingBufferSize(), new LogConsumeThreadFactory("sl-log-consume", null), producerType, waitStrategy);
     // 添加异常处理。
     final ExceptionHandler<Record> errorHandler = new ExceptionHandler<>() {
       @Override
