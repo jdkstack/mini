@@ -1,7 +1,7 @@
 <document>
   <body>
     <release date="2023-12-10" dev="jdkstack" description="无GC版" version="11">
-      <action type="add">无GC版。</action>
+      <action type="add">支持LZ4和Base64。</action>
     </release>
     <release date="2023-11-10" dev="jdkstack" description="无GC版" version="11">
       <action type="add">添加日志文件支持行数和大小来切割。</action>
@@ -22,16 +22,16 @@
       <action type="add">添加Context支持。</action>
     </release>
     <release date="2023-05-10" dev="jdkstack" description="无GC版" version="11">
-      <action type="add">添加Mmap支持。</action>
+      <action type="add">添加线程监控。</action>
     </release>
     <release date="2023-04-10" dev="jdkstack" description="无GC版" version="11">
       <action type="add">添加Mmap支持。</action>
     </release>
     <release date="2023-03-10" dev="jdkstack" description="无GC版" version="11">
-      <action type="add">添加RingBuffer。</action>
+      <action type="add">添加应用日志。</action>
     </release>
     <release date="2023-02-10" dev="jdkstack" description="无GC版" version="11">
-      <action type="add">添加RingBuffer。</action>
+      <action type="add">添加审计日志。</action>
     </release>
     <release date="2023-01-10" dev="jdkstack" description="无GC版" version="11">
       <action type="add">添加自定义线程池。</action>
