@@ -39,7 +39,7 @@ import org.jdkstack.logging.mini.core.tool.ThreadLocalTool;
  *
  * @author admin
  */
-public class DefaultLogRecorderContext extends LifecycleBase implements LogRecorderContext {
+public class EventLogRecorderContext extends LifecycleBase implements LogRecorderContext {
 
   private final Configuration configuration = new LogRecorderConfiguration();
   private final ContextConfiguration contextConfiguration = new LogRecorderContextConfiguration();
@@ -54,7 +54,7 @@ public class DefaultLogRecorderContext extends LifecycleBase implements LogRecor
    *
    * @author admin
    */
-  public DefaultLogRecorderContext() {
+  public EventLogRecorderContext() {
     this.setState(LifecycleState.INITIALIZING);
     String state = contextConfiguration.getState();
     switch (state) {
@@ -78,7 +78,7 @@ public class DefaultLogRecorderContext extends LifecycleBase implements LogRecor
     // 等待策略。
     final WaitStrategy waitStrategy = new BusySpinWaitStrategy();
     // 创建disruptor。
-    this.disruptor = new Disruptor<>(eventFactory, contextConfiguration.getRingBufferSize(), new LogConsumeThreadFactory("apl-log-consume", null), producerType, waitStrategy);
+    this.disruptor = new Disruptor<>(eventFactory, contextConfiguration.getRingBufferSize(), new LogConsumeThreadFactory("el-log-consume", null), producerType, waitStrategy);
     // 添加异常处理。
     final ExceptionHandler<Record> errorHandler = new ExceptionHandler<>() {
       @Override

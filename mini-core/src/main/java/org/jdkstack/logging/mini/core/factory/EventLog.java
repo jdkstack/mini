@@ -11,7 +11,7 @@ import org.jdkstack.logging.mini.api.recorder.Recorder;
  *
  * @author admin
  */
-public class DefaultLog implements Log {
+public class EventLog implements Log {
 
   /** Recorder日志记录器对象名. */
   public String name;
@@ -25,7 +25,7 @@ public class DefaultLog implements Log {
    * @param name .
    * @author admin
    */
-  public DefaultLog(final String name, final LogRecorderContextFactory factory) {
+  public EventLog(final String name, final LogRecorderContextFactory factory) {
     this.name = name;
     this.factory = factory;
   }
