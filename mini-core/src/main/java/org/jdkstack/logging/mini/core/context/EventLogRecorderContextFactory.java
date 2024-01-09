@@ -28,12 +28,12 @@ import org.jdkstack.logging.mini.core.recorder.LogRecorder;
  *
  * @author admin
  */
-public class DefaultLogRecorderContextFactory implements LogRecorderContextFactory {
+public class EventLogRecorderContextFactory implements LogRecorderContextFactory {
 
   /**
    * 上下文对象，用来初始化，并提供业务方法.
    */
-  private final DefaultLogRecorderContext context = new DefaultLogRecorderContext();
+  private final EventLogRecorderContext context = new EventLogRecorderContext();
 
   /**
    * This is a method description.
@@ -42,7 +42,7 @@ public class DefaultLogRecorderContextFactory implements LogRecorderContextFacto
    *
    * @author admin
    */
-  public DefaultLogRecorderContextFactory() {
+  public EventLogRecorderContextFactory() {
     this.context.setState(LifecycleState.STARTING);
     // 默认配置。
     this.insideConfig();
@@ -140,7 +140,7 @@ public class DefaultLogRecorderContextFactory implements LogRecorderContextFacto
     this.addRecorder(recorderConfig);
     // 默认配置。
     final HandlerConfig handlerConfig = new LogHandlerConfig();
-    handlerConfig.setPrefix("apl");
+    handlerConfig.setPrefix("el");
     this.addLogHandlerConfig("default", handlerConfig);
     // 默认FileHandler。
     final Handler fileHandlerV2 = new FileHandlerV2(this.context, "default");

@@ -10,7 +10,7 @@ import org.jdkstack.logging.mini.api.formatter.Formatter;
 import org.jdkstack.logging.mini.api.handler.Handler;
 import org.jdkstack.logging.mini.api.monitor.Monitor;
 import org.jdkstack.logging.mini.api.recorder.Recorder;
-import org.jdkstack.logging.mini.core.context.DefaultLogRecorderContextFactory;
+import org.jdkstack.logging.mini.core.context.EventLogRecorderContextFactory;
 
 /**
  * LogFactory核心类.
@@ -24,7 +24,7 @@ public final class LogFactory implements Factory {
   /**
    * 静态的上下文对象工厂，创建一个上下文对象.
    */
-  private static final LogRecorderContextFactory FACTORY = new DefaultLogRecorderContextFactory();
+  private static final LogRecorderContextFactory FACTORY = new EventLogRecorderContextFactory();
 
   /**
    * This is a method description.
@@ -47,7 +47,7 @@ public final class LogFactory implements Factory {
    * @author admin
    */
   public static Log getLog(final String name) {
-    return new DefaultLog(name, FACTORY);
+    return new EventLog(name, FACTORY);
   }
 
   /**
@@ -60,7 +60,7 @@ public final class LogFactory implements Factory {
    * @author admin
    */
   public static Log getLog(final Class<?> clazz) {
-    return new DefaultLog(clazz.getName(), FACTORY);
+    return new EventLog(clazz.getName(), FACTORY);
   }
 
   /**
