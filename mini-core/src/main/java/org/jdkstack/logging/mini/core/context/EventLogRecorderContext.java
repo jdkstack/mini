@@ -41,10 +41,15 @@ import org.jdkstack.logging.mini.core.tool.ThreadLocalTool;
  */
 public class EventLogRecorderContext extends LifecycleBase implements LogRecorderContext {
 
+  /** 单个Recorder配置. */
   private final Configuration configuration = new LogRecorderConfiguration();
+  /** Recorder共享配置. */
   private final ContextConfiguration contextConfiguration = new LogRecorderContextConfiguration();
+  /** 当使用同步方式时，共享一个Record对象. */
   private final ThreadLocal<Record> rtl = new ThreadLocal<>();
+  /** 当使用异步方式时，共享多个Record对象. */
   private Disruptor<Record> disruptor = null;
+  /** 监控每一个线程对象. */
   private final ThreadMonitor threadMonitor = new ThreadMonitor();
 
   /**
@@ -78,7 +83,7 @@ public class EventLogRecorderContext extends LifecycleBase implements LogRecorde
     // 等待策略。
     final WaitStrategy waitStrategy = new BusySpinWaitStrategy();
     // 创建disruptor。
-    this.disruptor = new Disruptor<>(eventFactory, contextConfiguration.getRingBufferSize(), new LogConsumeThreadFactory("el-log-consume", null), producerType, waitStrategy);
+    this.disruptor = new Disruptor<>(eventFactory, contextConfiguration.getRingBufferSize(), new LogConsumeThreadFactory("default-log-consume", null), producerType, waitStrategy);
     // 添加异常处理。
     final ExceptionHandler<Record> errorHandler = new ExceptionHandler<>() {
       @Override

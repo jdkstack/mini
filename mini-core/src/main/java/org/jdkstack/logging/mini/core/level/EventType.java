@@ -15,9 +15,9 @@ package org.jdkstack.logging.mini.core.level;
  *
  * @author admin
  */
-public enum LogType {
+public enum EventType {
 
-  DL("diagnostic logs", 0), AL("audit logs", 1);
+  SE("system software events", 0), APE("application software events", 1);
   /**
    * 日志名.
    */
@@ -36,7 +36,7 @@ public enum LogType {
    * @param value 日志级别的值.
    * @author admin
    */
-  LogType(final String name, final int value) {
+  EventType(final String name, final int value) {
     this.name = name;
     this.value = value;
   }

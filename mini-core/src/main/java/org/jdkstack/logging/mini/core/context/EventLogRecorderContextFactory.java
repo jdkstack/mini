@@ -18,7 +18,6 @@ import org.jdkstack.logging.mini.core.formatter.LogTextFormatter;
 import org.jdkstack.logging.mini.core.handler.FileHandlerV2;
 import org.jdkstack.logging.mini.core.handler.MmapFileHandlerV2;
 import org.jdkstack.logging.mini.core.level.Constants;
-import org.jdkstack.logging.mini.core.level.LogType;
 import org.jdkstack.logging.mini.core.recorder.LogRecorder;
 
 /**
@@ -133,14 +132,11 @@ public class EventLogRecorderContextFactory implements LogRecorderContextFactory
     this.addLevel(Constants.MAX, Constants.MAX_VALUE);
     // 默认配置。
     final RecorderConfig recorderConfig = new LogRecorderConfig();
-    recorderConfig.setLogTypeName(LogType.APL.getName());
-    recorderConfig.setLogTypeValue(LogType.APL.intValue());
     this.addLogRecorderConfig("default", recorderConfig);
     // 默认Recorder。
     this.addRecorder(recorderConfig);
     // 默认配置。
     final HandlerConfig handlerConfig = new LogHandlerConfig();
-    handlerConfig.setPrefix("el");
     this.addLogHandlerConfig("default", handlerConfig);
     // 默认FileHandler。
     final Handler fileHandlerV2 = new FileHandlerV2(this.context, "default");
