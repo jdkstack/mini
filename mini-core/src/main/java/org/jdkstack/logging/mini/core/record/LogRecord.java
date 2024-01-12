@@ -64,7 +64,7 @@ public class LogRecord implements Record {
    */
   private Throwable throwable;
 
-  // 事件日志
+  // diagnostic logs/audit logs
   private String logTypeName;
   private int logTypeValue;
   // 当前hostName
@@ -76,10 +76,11 @@ public class LogRecord implements Record {
   // 当前时区
   private long timeZone;
 
-  // 事件触发类型(定时器触发,用户操作触发)
-  private String eventTriggerType;
+  // Application Software events/System Software events
+  private String eventTypeName;
+  private int eventTypeValue;
 
-  // 事件来源应用软件的哪个模块。
+  // 事件来源软件的哪个模块。
   private String eventSourceId;
   private String eventSourceName;
   private String eventSourceValue;
@@ -87,7 +88,7 @@ public class LogRecord implements Record {
   // 抖音/浏览器
   private String applicationSoftwareId;
   private String applicationSoftwareVersion;
-  private String applicationName;
+  private String applicationSoftwareName;
 
   // windows/android/linux/Xiaomi HyperOS
   private String systemSoftwareId;
@@ -100,6 +101,156 @@ public class LogRecord implements Record {
   private String hardwareVersion;
   // 例如：PowerEdge/小米
   private String hardwareName;
+
+  @Override
+  public StringBuilder getDatetime() {
+    return this.datetime;
+  }
+
+  @Override
+  public void setThrowable(final Throwable throwable) {
+    this.throwable = throwable;
+  }
+
+  @Override
+  public String getHostIp() {
+    return this.hostIp;
+  }
+
+  @Override
+  public void setHostIp(final String hostIp) {
+    this.hostIp = hostIp;
+  }
+
+  @Override
+  public String getEventTypeName() {
+    return this.eventTypeName;
+  }
+
+  @Override
+  public void setEventTypeName(final String eventTypeName) {
+    this.eventTypeName = eventTypeName;
+  }
+
+  @Override
+  public int getEventTypeValue() {
+    return this.eventTypeValue;
+  }
+
+  @Override
+  public void setEventTypeValue(final int eventTypeValue) {
+    this.eventTypeValue = eventTypeValue;
+  }
+
+  @Override
+  public String getEventSourceId() {
+    return this.eventSourceId;
+  }
+
+  @Override
+  public void setEventSourceId(final String eventSourceId) {
+    this.eventSourceId = eventSourceId;
+  }
+
+  @Override
+  public String getEventSourceName() {
+    return this.eventSourceName;
+  }
+
+  @Override
+  public void setEventSourceName(final String eventSourceName) {
+    this.eventSourceName = eventSourceName;
+  }
+
+  @Override
+  public String getEventSourceValue() {
+    return this.eventSourceValue;
+  }
+
+  @Override
+  public void setEventSourceValue(final String eventSourceValue) {
+    this.eventSourceValue = eventSourceValue;
+  }
+
+  @Override
+  public String getApplicationSoftwareId() {
+    return this.applicationSoftwareId;
+  }
+
+  @Override
+  public void setApplicationSoftwareId(final String applicationSoftwareId) {
+    this.applicationSoftwareId = applicationSoftwareId;
+  }
+
+  @Override
+  public String getApplicationSoftwareVersion() {
+    return this.applicationSoftwareVersion;
+  }
+
+  @Override
+  public void setApplicationSoftwareVersion(final String applicationSoftwareVersion) {
+    this.applicationSoftwareVersion = applicationSoftwareVersion;
+  }
+
+  @Override
+  public String getSystemSoftwareId() {
+    return this.systemSoftwareId;
+  }
+
+  @Override
+  public void setSystemSoftwareId(final String systemSoftwareId) {
+    this.systemSoftwareId = systemSoftwareId;
+  }
+
+  @Override
+  public String getSystemSoftwareVersion() {
+    return this.systemSoftwareVersion;
+  }
+
+  @Override
+  public void setSystemSoftwareVersion(final String systemSoftwareVersion) {
+    this.systemSoftwareVersion = systemSoftwareVersion;
+  }
+
+  @Override
+  public String getSystemSoftwareName() {
+    return this.systemSoftwareName;
+  }
+
+  @Override
+  public void setSystemSoftwareName(final String systemSoftwareName) {
+    this.systemSoftwareName = systemSoftwareName;
+  }
+
+  @Override
+  public String getHardwareId() {
+    return this.hardwareId;
+  }
+
+  @Override
+  public void setHardwareId(final String hardwareId) {
+    this.hardwareId = hardwareId;
+  }
+
+  @Override
+  public String getHardwareVersion() {
+    return this.hardwareVersion;
+  }
+
+  @Override
+  public void setHardwareVersion(final String hardwareVersion) {
+    this.hardwareVersion = hardwareVersion;
+  }
+
+  @Override
+  public String getHardwareName() {
+    return this.hardwareName;
+  }
+
+  @Override
+  public void setHardwareName(final String hardwareName) {
+    this.hardwareName = hardwareName;
+  }
 
   @Override
   public int getLevelValue() {
@@ -287,13 +438,13 @@ public class LogRecord implements Record {
   }
 
   @Override
-  public String getApplicationName() {
-    return this.applicationName;
+  public String getApplicationSoftwareName() {
+    return this.applicationSoftwareName;
   }
 
   @Override
-  public void setApplicationName(final String applicationName) {
-    this.applicationName = applicationName;
+  public void setApplicationSoftwareName(final String applicationName) {
+    this.applicationSoftwareName = applicationName;
   }
 
   @Override

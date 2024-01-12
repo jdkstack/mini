@@ -106,10 +106,12 @@ public abstract class AbstractHandler implements Handler {
     lr.setThrown(thrown);
     // 增加元数据。
     RecorderConfig recorderConfig = context.getRecorderConfig(name);
+    lr.setEventTypeName(recorderConfig.getEventTypeName());
+    lr.setEventTypeValue(recorderConfig.getEventTypeValue());
     lr.setLogTypeName(recorderConfig.getLogTypeName());
     lr.setLogTypeValue(recorderConfig.getLogTypeValue());
     lr.setHostName(contextConfiguration.getHostName());
-    lr.setApplicationName(contextConfiguration.getAppName());
+    lr.setApplicationSoftwareName(contextConfiguration.getAppName());
     lr.setProcessId(contextConfiguration.getPid());
     lr.setTimeZone(contextConfiguration.getTimeZone());
     lr.setProducerThreadName(Thread.currentThread().getName());
