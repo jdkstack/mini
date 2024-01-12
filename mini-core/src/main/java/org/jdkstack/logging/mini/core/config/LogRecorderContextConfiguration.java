@@ -10,13 +10,34 @@ public class LogRecorderContextConfiguration implements ContextConfiguration {
 
   private int ringBufferSize = 4096;
   private int consumers = 4;
-  private String hostName;
   private String appName;
   private RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
   private String name = runtimeMXBean.getName();
   private long pid = Long.parseLong(name.split("@")[0]);
   private long timeZone = TimeZone.EAST8;
+  // 当前hostName
+  private String hostName;
+  // 当前hostIp
+  private String hostIp;
+  // 当前进程
+  private long processId;
   private AtomicReference<String> state = new AtomicReference<>("asynchronous");
+  // 抖音/浏览器
+  private String applicationSoftwareId;
+  private String applicationSoftwareVersion;
+  private String applicationSoftwareName;
+
+  // windows/android/linux/Xiaomi HyperOS
+  private String systemSoftwareId;
+  private String systemSoftwareVersion;
+  private String systemSoftwareName;
+
+  // 硬件设备：桌面/移动
+  private String hardwareId;
+  // R6615/14
+  private String hardwareVersion;
+  // 例如：PowerEdge/小米
+  private String hardwareName;
 
   @Override
   public String getState() {

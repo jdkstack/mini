@@ -6,6 +6,7 @@ import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
 import java.nio.charset.Charset;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
@@ -99,6 +100,11 @@ public final class LogConsumeThread extends Thread {
   private FileChannel channel;
   private ByteWriter destination3;
   /**
+   * 共享锁.
+   */
+  FileLock lock;
+
+  /**
    * 线程开始运行的时间(毫秒).
    */
   private long execStart;
@@ -116,6 +122,14 @@ public final class LogConsumeThread extends Thread {
 
   public ByteBuffer getOut2() {
     return this.out2;
+  }
+
+  public FileLock getLock() {
+    return this.lock;
+  }
+
+  public void setLock(final FileLock lock) {
+    this.lock = lock;
   }
 
   /**
