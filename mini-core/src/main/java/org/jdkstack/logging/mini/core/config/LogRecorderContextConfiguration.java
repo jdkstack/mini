@@ -1,7 +1,5 @@
 package org.jdkstack.logging.mini.core.config;
 
-import java.lang.management.ManagementFactory;
-import java.lang.management.RuntimeMXBean;
 import java.util.concurrent.atomic.AtomicReference;
 import org.jdkstack.logging.mini.api.config.ContextConfiguration;
 import org.jdkstack.logging.mini.core.datetime.TimeZone;
@@ -11,9 +9,7 @@ public class LogRecorderContextConfiguration implements ContextConfiguration {
   private int ringBufferSize = 4096;
   private int consumers = 4;
   private String appName;
-  private RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
-  private String name = runtimeMXBean.getName();
-  private long pid = Long.parseLong(name.split("@")[0]);
+  private long pid = 0L;
   private long timeZone = TimeZone.EAST8;
   // 当前hostName
   private String hostName;

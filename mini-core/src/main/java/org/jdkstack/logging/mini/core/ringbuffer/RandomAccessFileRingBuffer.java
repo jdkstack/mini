@@ -56,6 +56,7 @@ public class RandomAccessFileRingBuffer implements RingBuffer<RandomAccessFile> 
         file = new RandomAccessFile(buffer.poll(), rc.getMode());
       } catch (FileNotFoundException ignore) {
         //
+        ignore.printStackTrace();
       }
       this.rb[i] = file;
       final FileChannel channel = file.getChannel();
@@ -64,6 +65,7 @@ public class RandomAccessFileRingBuffer implements RingBuffer<RandomAccessFile> 
         channel.truncate(0);
       } catch (IOException ignore) {
         //
+        ignore.printStackTrace();
       }
       this.rb2[i] = channel;
     }
