@@ -9,6 +9,66 @@ package org.jdkstack.logging.mini.api.record;
  */
 public interface Record {
 
+  StringBuilder getDatetime();
+
+  void setThrowable(Throwable throwable);
+
+  String getHostIp();
+
+  void setHostIp(String hostIp);
+
+  String getEventTypeName();
+
+  void setEventTypeName(String eventTypeName);
+
+  int getEventTypeValue();
+
+  void setEventTypeValue(int eventTypeValue);
+
+  String getEventSourceId();
+
+  void setEventSourceId(String eventSourceId);
+
+  String getEventSourceName();
+
+  void setEventSourceName(String eventSourceName);
+
+  String getEventSourceValue();
+
+  void setEventSourceValue(String eventSourceValue);
+
+  String getApplicationSoftwareId();
+
+  void setApplicationSoftwareId(String applicationSoftwareId);
+
+  String getApplicationSoftwareVersion();
+
+  void setApplicationSoftwareVersion(String applicationSoftwareVersion);
+
+  String getSystemSoftwareId();
+
+  void setSystemSoftwareId(String systemSoftwareId);
+
+  String getSystemSoftwareVersion();
+
+  void setSystemSoftwareVersion(String systemSoftwareVersion);
+
+  String getSystemSoftwareName();
+
+  void setSystemSoftwareName(String systemSoftwareName);
+
+  String getHardwareId();
+
+  void setHardwareId(String hardwareId);
+
+  String getHardwareVersion();
+
+  void setHardwareVersion(String hardwareVersion);
+
+  String getHardwareName();
+
+  void setHardwareName(String hardwareName);
+
   int getLevelValue();
 
   void setLevelValue(int levelValue);
@@ -87,9 +147,9 @@ public interface Record {
 
   void setHostName(String hostName);
 
-  String getApplicationName();
+  String getApplicationSoftwareName();
 
-  void setApplicationName(String applicationName);
+  void setApplicationSoftwareName(String applicationSoftwareName);
 
   long getProcessId();
 

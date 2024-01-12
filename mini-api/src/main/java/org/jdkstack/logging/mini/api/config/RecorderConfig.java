@@ -9,6 +9,26 @@ package org.jdkstack.logging.mini.api.config;
  */
 public interface RecorderConfig {
 
+  String getEventTypeName();
+
+  void setEventTypeName(String eventTypeName);
+
+  int getEventTypeValue();
+
+  void setEventTypeValue(int eventTypeValue);
+
+  String getEventSourceId();
+
+  void setEventSourceId(String eventSourceId);
+
+  String getEventSourceName();
+
+  void setEventSourceName(String eventSourceName);
+
+  String getEventSourceValue();
+
+  void setEventSourceValue(String eventSourceValue);
+
   String getHandlerProduceFilter();
 
   void setHandlerProduceFilter(String handlerProduceFilter);
