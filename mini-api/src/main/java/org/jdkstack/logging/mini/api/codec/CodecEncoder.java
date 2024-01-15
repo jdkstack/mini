@@ -10,7 +10,7 @@ import org.jdkstack.logging.mini.api.buffer.ByteWriter;
  * @param <T> .
  * @author admin
  */
-public interface Encoder<T> {
+public interface CodecEncoder<T> {
 
   /**
    * This is a method description.

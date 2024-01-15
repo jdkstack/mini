@@ -10,14 +10,15 @@ import java.nio.channels.FileLock;
 import java.nio.charset.Charset;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
-import org.jdkstack.logging.mini.api.codec.Encoder;
+import org.jdkstack.logging.mini.api.codec.CodecEncoder;
 import org.jdkstack.logging.mini.api.config.HandlerConfig;
+import org.jdkstack.logging.mini.api.lz4.Lz4Encoder;
 import org.jdkstack.logging.mini.api.ringbuffer.RingBuffer;
+import org.jdkstack.logging.mini.core.algo.lz4.Lz4Lz4Encoder;
 import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
 import org.jdkstack.logging.mini.core.buffer.MmapByteArrayWriter;
 import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
 import org.jdkstack.logging.mini.core.codec.Constants;
-import org.jdkstack.logging.mini.core.lz4.Lz4Encoder;
 import org.jdkstack.logging.mini.core.ringbuffer.FileRingBuffer;
 import org.jdkstack.logging.mini.core.ringbuffer.RandomAccessFileRingBuffer;
 
@@ -69,7 +70,7 @@ public final class LogConsumeThread extends Thread {
   /**
    * 字符编码器.
    */
-  private final Encoder<CharBuffer> textEncoder = new CharArrayEncoderV2(Charset.defaultCharset());
+  private final CodecEncoder<CharBuffer> textCodecEncoder = new CharArrayEncoderV2(Charset.defaultCharset());
   /**
    * 配置.
    */
@@ -108,12 +109,12 @@ public final class LogConsumeThread extends Thread {
    * 线程开始运行的时间(毫秒).
    */
   private long execStart;
-  public final org.jdkstack.logging.mini.api.lz4.Encoder encoderLz4 = new Lz4Encoder();
+  public final Lz4Encoder lz4EncoderLz4 = new Lz4Lz4Encoder();
   public final ByteBuffer out = ByteBuffer.allocate(2048);
   public final ByteBuffer out2 = ByteBuffer.allocate(2048);
 
-  public org.jdkstack.logging.mini.api.lz4.Encoder getEncoderLz4() {
-    return this.encoderLz4;
+  public Lz4Encoder getEncoderLz4() {
+    return this.lz4EncoderLz4;
   }
 
   public ByteBuffer getOut() {
@@ -165,8 +166,8 @@ public final class LogConsumeThread extends Thread {
     return this.charBuf;
   }
 
-  public Encoder<CharBuffer> getTextEncoder() {
-    return this.textEncoder;
+  public CodecEncoder<CharBuffer> getTextEncoder() {
+    return this.textCodecEncoder;
   }
 
   public ByteWriter getMmapByteArrayWriter() {

@@ -6,7 +6,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CodingErrorAction;
 import org.jdkstack.logging.mini.api.buffer.CharWriter;
-import org.jdkstack.logging.mini.api.codec.Decoder;
+import org.jdkstack.logging.mini.api.codec.CodecDecoder;
 
 /**
  * .
@@ -15,7 +15,7 @@ import org.jdkstack.logging.mini.api.codec.Decoder;
  *
  * @author admin
  */
-public class ByteArrayDecoder implements Decoder<byte[]> {
+public class ByteArrayCodecDecoder implements CodecDecoder<byte[]> {
 
   /**
    * .
@@ -42,7 +42,7 @@ public class ByteArrayDecoder implements Decoder<byte[]> {
    * @param charset .
    * @author admin
    */
-  public ByteArrayDecoder(final Charset charset) {
+  public ByteArrayCodecDecoder(final Charset charset) {
     this(charset, Constants.DESTINATION, Constants.SOURCE);
   }
 
@@ -56,7 +56,7 @@ public class ByteArrayDecoder implements Decoder<byte[]> {
    * @param byteBufferSize .
    * @author admin
    */
-  public ByteArrayDecoder(final Charset charset, final int charBufferSize, final int byteBufferSize) {
+  public ByteArrayCodecDecoder(final Charset charset, final int charBufferSize, final int byteBufferSize) {
     this.charset = charset;
     this.charsetDecoder = this.charset.newDecoder().onMalformedInput(CodingErrorAction.REPLACE).onUnmappableCharacter(CodingErrorAction.REPLACE);
     this.charBuffer = CharBuffer.allocate(charBufferSize);
