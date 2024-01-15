@@ -1,9 +1,10 @@
-package org.jdkstack.logging.mini.core.lz4;
+package org.jdkstack.logging.mini.core.algo.lz4;
 
-import static org.jdkstack.logging.mini.core.lz4.UnsafeUtil.UNSAFE;
+import sun.misc.Unsafe;
 
 public class Lz4RawDecoder {
 
+  public static final Unsafe UNSAFE = Unsafe.getUnsafe();
   public static final int LAST_LITERAL_SIZE = 5;
   public static final int MIN_MATCH = 4;
   public static final int SIZE_OF_SHORT = 2;

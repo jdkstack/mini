@@ -1,4 +1,4 @@
-package org.jdkstack.logging.mini.core.lz4;
+package org.jdkstack.logging.mini.core.algo.lz4;
 
 public class EncodeException extends RuntimeException {
 

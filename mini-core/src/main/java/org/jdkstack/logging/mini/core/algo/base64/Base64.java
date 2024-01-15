@@ -1,4 +1,4 @@
-package org.jdkstack.logging.mini.core.lz4;
+package org.jdkstack.logging.mini.core.algo.base64;
 
 import java.nio.ByteBuffer;
 import java.util.HashMap;
