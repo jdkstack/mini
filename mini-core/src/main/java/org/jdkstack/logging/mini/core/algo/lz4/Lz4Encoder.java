@@ -4,6 +4,7 @@ import static org.jdkstack.logging.mini.core.algo.lz4.Lz4RawEncoder.MAX_TABLE_SI
 import static sun.misc.Unsafe.ARRAY_BYTE_BASE_OFFSET;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
+import org.jdkstack.logging.mini.api.lz4.Encoder;
 
 /**
  * This class is not thread-safe
@@ -12,7 +13,7 @@ import java.nio.ByteBuffer;
  * 数据统计冗余度的理论限制为2:1到5:1，所以无损压缩的压缩比一般比较低。这类方法广泛应用于文本数据、程序等需要精确存储数据的压缩，
  * 有损压缩：利用了人类视觉、听觉对图像、声音中的某些频率成分不敏感的特性，允许压缩的过程中损失一定的信息，以此换来更大的压缩比。广泛应用于语音、图像和视频数据的压缩。
  */
-public class Lz4Encoder implements org.jdkstack.logging.mini.api.lz4.Lz4Encoder {
+public class Lz4Encoder implements Encoder {
 
   private final int[] table = new int[MAX_TABLE_SIZE];
 
