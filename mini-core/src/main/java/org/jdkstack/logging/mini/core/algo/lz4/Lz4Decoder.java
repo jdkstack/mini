@@ -3,11 +3,12 @@ package org.jdkstack.logging.mini.core.algo.lz4;
 import static sun.misc.Unsafe.ARRAY_BYTE_BASE_OFFSET;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
+import org.jdkstack.logging.mini.api.lz4.Decoder;
 
 /**
  * This class is not thread-safe
  */
-public class Lz4Decoder implements org.jdkstack.logging.mini.api.lz4.Lz4Decoder {
+public class Lz4Decoder implements Decoder {
 
   private static void verifyRange(byte[] data, int offset, int length) {
     if (data == null) {
