@@ -2,7 +2,7 @@ package org.jdkstack.logging.mini.core.handler;
 
 import java.nio.CharBuffer;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
-import org.jdkstack.logging.mini.api.codec.Encoder;
+import org.jdkstack.logging.mini.api.codec.CodecEncoder;
 import org.jdkstack.logging.mini.api.config.ContextConfiguration;
 import org.jdkstack.logging.mini.api.config.HandlerConfig;
 import org.jdkstack.logging.mini.api.config.RecorderConfig;
@@ -54,7 +54,7 @@ public abstract class AbstractHandler implements Handler {
   public void consume(final Record lr) throws Exception {
     final LogConsumeThread logConsumeThread = ThreadLocalTool.getLogConsumeThread();
     CharBuffer charBuf = logConsumeThread.getCharBuf();
-    Encoder<CharBuffer> textEncoder = logConsumeThread.getTextEncoder();
+    CodecEncoder<CharBuffer> textCodecEncoder = logConsumeThread.getTextEncoder();
     HandlerConfig value = this.context.getHandlerConfig(this.key);
     // 格式化日志对象.
     final StringBuilder logMessage = this.context.formatter(value.getFormatter(), lr);
@@ -70,7 +70,7 @@ public abstract class AbstractHandler implements Handler {
     // 获取 destination3。
     ByteWriter destination3 = logConsumeThread.getDestination3();
     // 开始编码.
-    textEncoder.encode(charBuf, destination3);
+    textCodecEncoder.encode(charBuf, destination3);
     // 单条刷新到磁盘，速度最慢，但是数据丢失机率最小，批量速度最好，但是数据丢失机率最大，并且日志被缓存，延迟写入文件.
     this.flush();
   }

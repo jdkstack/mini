@@ -6,7 +6,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.nio.charset.CodingErrorAction;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
-import org.jdkstack.logging.mini.api.codec.Encoder;
+import org.jdkstack.logging.mini.api.codec.CodecEncoder;
 
 /**
  * .
@@ -15,7 +15,7 @@ import org.jdkstack.logging.mini.api.codec.Encoder;
  *
  * @author admin
  */
-public class CharArrayEncoder implements Encoder<char[]> {
+public class CharArrayEncoder implements CodecEncoder<char[]> {
 
   /**
    * .

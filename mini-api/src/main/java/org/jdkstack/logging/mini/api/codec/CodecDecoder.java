@@ -10,7 +10,7 @@ import org.jdkstack.logging.mini.api.buffer.CharWriter;
  * @param <T> .
  * @author admin
  */
-public interface Decoder<T> {
+public interface CodecDecoder<T> {
 
   /**
    * This is a method description.
