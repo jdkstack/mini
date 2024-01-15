@@ -12,9 +12,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.codec.CodecEncoder;
 import org.jdkstack.logging.mini.api.config.HandlerConfig;
-import org.jdkstack.logging.mini.api.lz4.Lz4Encoder;
 import org.jdkstack.logging.mini.api.ringbuffer.RingBuffer;
-import org.jdkstack.logging.mini.core.algo.lz4.Lz4Lz4Encoder;
+import org.jdkstack.logging.mini.core.algo.lz4.Lz4Encoder;
 import org.jdkstack.logging.mini.core.buffer.ByteArrayWriter;
 import org.jdkstack.logging.mini.core.buffer.MmapByteArrayWriter;
 import org.jdkstack.logging.mini.core.codec.CharArrayEncoderV2;
@@ -109,11 +108,11 @@ public final class LogConsumeThread extends Thread {
    * 线程开始运行的时间(毫秒).
    */
   private long execStart;
-  public final Lz4Encoder lz4EncoderLz4 = new Lz4Lz4Encoder();
+  public final org.jdkstack.logging.mini.api.lz4.Lz4Encoder lz4EncoderLz4 = new Lz4Encoder();
   public final ByteBuffer out = ByteBuffer.allocate(2048);
   public final ByteBuffer out2 = ByteBuffer.allocate(2048);
 
-  public Lz4Encoder getEncoderLz4() {
+  public org.jdkstack.logging.mini.api.lz4.Lz4Encoder getEncoderLz4() {
     return this.lz4EncoderLz4;
   }
 
