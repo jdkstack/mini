@@ -5,11 +5,10 @@ import org.jdkstack.logging.mini.core.level.EventType;
 import org.jdkstack.logging.mini.core.level.LogType;
 
 /**
- * .
+ * 每一个LogRecorder都有自己的配置信息.
  *
  * <p>Another description after blank line.
  *
- * @param <E> .
  * @author admin
  */
 public class LogRecorderConfig implements RecorderConfig {
@@ -36,17 +35,17 @@ public class LogRecorderConfig implements RecorderConfig {
    */
   private String handlerProduceFilter = "handlerProduceFilter";
   // diagnostic logs/audit logs
-  private String logTypeName = LogType.AL.getName();
-  private int logTypeValue = LogType.AL.intValue();
+  private String logTypeName = LogType.DL.getName();
+  private int logTypeValue = LogType.DL.intValue();
 
   // Application Software events/System Software events
   private String eventTypeName = EventType.APE.getName();
   private int eventTypeValue = EventType.APE.intValue();
 
   // 事件来源软件的哪个模块。
-  private String eventSourceId;
-  private String eventSourceName;
-  private String eventSourceValue;
+  private String eventSourceId = "-";
+  private String eventSourceName = "-";
+  private String eventSourceValue = "-";
 
   @Override
   public String getEventTypeName() {

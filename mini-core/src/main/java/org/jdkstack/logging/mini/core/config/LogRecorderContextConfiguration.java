@@ -4,36 +4,42 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.jdkstack.logging.mini.api.config.ContextConfiguration;
 import org.jdkstack.logging.mini.core.datetime.TimeZone;
 
+/**
+ * 所有LogRecorder共享的配置信息.
+ *
+ * <p>Another description after blank line.
+ *
+ * @author admin
+ */
 public class LogRecorderContextConfiguration implements ContextConfiguration {
 
   private int ringBufferSize = 4096;
   private int consumers = 4;
-  private String appName;
   private long pid = 0L;
   private long timeZone = TimeZone.EAST8;
   // 当前hostName
-  private String hostName;
+  private String hostName = "-";
   // 当前hostIp
-  private String hostIp;
+  private String hostIp = "-";
   // 当前进程
   private long processId;
   private AtomicReference<String> state = new AtomicReference<>("asynchronous");
   // 抖音/浏览器
-  private String applicationSoftwareId;
-  private String applicationSoftwareVersion;
-  private String applicationSoftwareName;
+  private String applicationSoftwareId = "-";
+  private String applicationSoftwareVersion = "-";
+  private String applicationSoftwareName = "-";
 
   // windows/android/linux/Xiaomi HyperOS
-  private String systemSoftwareId;
-  private String systemSoftwareVersion;
-  private String systemSoftwareName;
+  private String systemSoftwareId = "-";
+  private String systemSoftwareVersion = "-";
+  private String systemSoftwareName = "-";
 
   // 硬件设备：桌面/移动
-  private String hardwareId;
+  private String hardwareId = "-";
   // R6615/14
-  private String hardwareVersion;
+  private String hardwareVersion = "-";
   // 例如：PowerEdge/小米
-  private String hardwareName;
+  private String hardwareName = "-";
 
   @Override
   public String getState() {
@@ -73,16 +79,6 @@ public class LogRecorderContextConfiguration implements ContextConfiguration {
   @Override
   public void setHostName(final String hostName) {
     this.hostName = hostName;
-  }
-
-  @Override
-  public String getAppName() {
-    return this.appName;
-  }
-
-  @Override
-  public void setAppName(final String appName) {
-    this.appName = appName;
   }
 
   @Override

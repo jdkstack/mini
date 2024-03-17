@@ -43,11 +43,6 @@ public class LogRecorder implements Recorder {
   }
 
   @Override
-  public void log(final String logLevel, final String datetime, final String message, final Throwable thrown) {
-    this.core(logLevel, datetime, message, null, null, null, null, null, null, null, null, null, thrown);
-  }
-
-  @Override
   public final void log(final String logLevel, final String message) {
     this.core(logLevel, message, null, null, null, null, null, null, null, null, null);
   }
@@ -156,6 +151,115 @@ public class LogRecorder implements Recorder {
     }
   }
 
+  @Override
+  public final void process(int index, final String logLevel, final String name, final String dateTime, final String message, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5, final Object arg6, final Object arg7, final Object arg8, final Object arg9, final Throwable thrown) {
+    // 日志级别是否匹配，这个过滤器。
+    if (this.context.doFilter(logLevel, recorderConfig.getMaxLevel(), recorderConfig.getMinLevel())) {
+      // 使用当前线程执行生产业务。
+      this.context.process(index, logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
+    }
+  }
+
+  @Override
+  public void log(int index, String logLevel, String message) {
+
+  }
+
+  @Override
+  public void log(int index, String logLevel, String message, Object arg1) {
+    this.core(index, logLevel, null, message, arg1, null, null, null, null, null, null, null, null, null);
+  }
+
+  @Override
+  public void log(int index, String logLevel, String message, Object arg1, Object arg2) {
+
+  }
+
+  @Override
+  public void log(int index, String logLevel, String message, Object arg1, Object arg2, Object arg3) {
+
+  }
+
+  @Override
+  public void log(int index, String logLevel, String message, Object arg1, Object arg2, Object arg3, Object arg4) {
+
+  }
+
+  @Override
+  public void log(int index, String logLevel, String message, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5) {
+
+  }
+
+  @Override
+  public void log(int index, String logLevel, String message, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5, Object arg6) {
+
+  }
+
+  @Override
+  public void log(int index, String logLevel, String message, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5, Object arg6, Object arg7) {
+
+  }
+
+  @Override
+  public void log(int index, String logLevel, String message, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5, Object arg6, Object arg7, Object arg8) {
+
+  }
+
+  @Override
+  public void log(int index, String logLevel, String message, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5, Object arg6, Object arg7, Object arg8, Object arg9) {
+    this.core(index, logLevel, null, message, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+  }
+
+  @Override
+  public void log(int index, String logLevel, String message, Throwable thrown) {
+
+  }
+
+  @Override
+  public void log(int index, String logLevel, String message, Object arg1, Throwable thrown) {
+
+  }
+
+  @Override
+  public void log(int index, String logLevel, String message, Object arg1, Object arg2, Throwable thrown) {
+
+  }
+
+  @Override
+  public void log(int index, String logLevel, String message, Object arg1, Object arg2, Object arg3, Throwable thrown) {
+
+  }
+
+  @Override
+  public void log(int index, String logLevel, String message, Object arg1, Object arg2, Object arg3, Object arg4, Throwable thrown) {
+
+  }
+
+  @Override
+  public void log(int index, String logLevel, String message, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5, Throwable thrown) {
+
+  }
+
+  @Override
+  public void log(int index, String logLevel, String message, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5, Object arg6, Throwable thrown) {
+
+  }
+
+  @Override
+  public void log(int index, String logLevel, String message, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5, Object arg6, Object arg7, Throwable thrown) {
+
+  }
+
+  @Override
+  public void log(int index, String logLevel, String message, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5, Object arg6, Object arg7, Object arg8, Throwable thrown) {
+
+  }
+
+  @Override
+  public void log(int index, String logLevel, String message, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5, Object arg6, Object arg7, Object arg8, Object arg9, Throwable thrown) {
+    this.core(index, logLevel, null, message, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
+  }
+
   /**
    * This is a method description.
    *
@@ -189,6 +293,20 @@ public class LogRecorder implements Recorder {
    * <p>Another description after blank line.
    *
    * @param logLevel .
+   * @param dateTime .
+   * @param message  .
+   * @author admin
+   */
+  public final void core(int index, final String logLevel, final String dateTime, final String message, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5, final Object arg6, final Object arg7, final Object arg8, final Object arg9) {
+    this.process(index, logLevel, this.recorderConfig.getName(), dateTime, message, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, null);
+  }
+
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param logLevel .
    * @param message  .
    * @author admin
    */
@@ -208,5 +326,20 @@ public class LogRecorder implements Recorder {
    */
   public final void core(final String logLevel, final String dateTime, final String message, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5, final Object arg6, final Object arg7, final Object arg8, final Object arg9, final Throwable thrown) {
     this.process(logLevel, this.recorderConfig.getName(), dateTime, message, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
+  }
+
+
+  /**
+   * This is a method description.
+   *
+   * <p>Another description after blank line.
+   *
+   * @param logLevel .
+   * @param message  .
+   * @param thrown   .
+   * @author admin
+   */
+  public final void core(int index, final String logLevel, final String dateTime, final String message, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5, final Object arg6, final Object arg7, final Object arg8, final Object arg9, final Throwable thrown) {
+    this.process(index, logLevel, this.recorderConfig.getName(), dateTime, message, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
   }
 }

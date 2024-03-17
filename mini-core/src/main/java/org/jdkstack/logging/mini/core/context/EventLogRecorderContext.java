@@ -7,6 +7,8 @@ import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.WaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
+import java.util.HashMap;
+import java.util.Map;
 import org.jdkstack.logging.mini.api.config.Configuration;
 import org.jdkstack.logging.mini.api.config.ContextConfiguration;
 import org.jdkstack.logging.mini.api.config.HandlerConfig;
@@ -51,6 +53,8 @@ public class EventLogRecorderContext extends LifecycleBase implements LogRecorde
   private Disruptor<Record> disruptor = null;
   /** 监控每一个线程对象. */
   private final ThreadMonitor threadMonitor = new ThreadMonitor();
+  /** 堆栈<=3600个不会扩容. */
+  private Map<Integer, StackTraceElement[]> stackTraces = new HashMap<>(4800);
 
   /**
    * .
@@ -255,6 +259,36 @@ public class EventLogRecorderContext extends LifecycleBase implements LogRecorde
   }
 
   @Override
+  public final void produce(StackTraceElement stackTraceElement, final String logLevel, final String dateTime, final String message, final String name, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5, final Object arg6, final Object arg7, final Object arg8, final Object arg9, final Throwable thrown, final Record lr) {
+    // 消费业务.
+    try {
+      // 用Recorder name找到RecorderConfig配置信息。
+      final RecorderConfig recorderConfig = this.getRecorderConfig(name);
+      // 从配置中读取Recorder引用的Handler name。
+      final String handlers = recorderConfig.getHandlers();
+      // 使用Handler name找到HandlerConfig配置信息。
+      final HandlerConfig handlerConfig = this.getHandlerConfig(handlers);
+      // 使用Handler name找到Handler，并执行Handler生产方法。
+      final Handler handler = this.getHandler(handlerConfig.getName());
+      // 生产数据(向元素对象的每一个字段中设置数据).
+      handler.produce(stackTraceElement, logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown, lr);
+      // 使用生产Filter，检查当前的日志消息是否符合条件，符合条件才写入文件，不符合条件直接丢弃。
+      if (this.filter(recorderConfig.getHandlerProduceFilter(), lr)) {
+        //
+      }
+    } catch (final Exception ignore) {
+      // ignore.
+      ignore.printStackTrace();
+    } finally {
+      // 当前线程是日志库提供的吗?
+      LogProduceThread logProduceThread = ThreadLocalTool.getLogProduceThread();
+      if (threadMonitor.isNull(logProduceThread.getName())) {
+        threadMonitor.registerThread(logProduceThread);
+      }
+    }
+  }
+
+  @Override
   public final void process(final String logLevel, final String dateTime, final String message, final String name, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5, final Object arg6, final Object arg7, final Object arg8, final Object arg9, final Throwable thrown) {
     String state = contextConfiguration.getState();
     switch (state) {
@@ -273,12 +307,50 @@ public class EventLogRecorderContext extends LifecycleBase implements LogRecorde
     }
   }
 
+  @Override
+  public final void process(int index, final String logLevel, final String dateTime, final String message, final String name, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5, final Object arg6, final Object arg7, final Object arg8, final Object arg9, final Throwable thrown) {
+    String state = contextConfiguration.getState();
+    switch (state) {
+      case "synchronous":
+        synchronous(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
+        break;
+      case "asynchronous":
+        if (LifecycleState.STARTED == getState()) {
+          asynchronous(index, logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
+        } else {
+          synchronous(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
+        }
+        break;
+      default:
+        throw new RuntimeException("不支持。");
+    }
+  }
+
   private void asynchronous(String logLevel, String dateTime, String message, String name, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5, Object arg6, Object arg7, Object arg8, Object arg9, Throwable thrown) {
     RingBuffer<Record> ringBuffer = disruptor.getRingBuffer();
     long sequence = ringBuffer.next();
     try {
       Record record = ringBuffer.get(sequence);
       this.produce(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown, record);
+    } finally {
+      ringBuffer.publish(sequence);
+    }
+  }
+
+  private void asynchronous(int index, String logLevel, String dateTime, String message, String name, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5, Object arg6, Object arg7, Object arg8, Object arg9, Throwable thrown) {
+    RingBuffer<Record> ringBuffer = disruptor.getRingBuffer();
+    long sequence = ringBuffer.next();
+    try {
+      Record record = ringBuffer.get(sequence);
+      StackTraceElement[] stackTraceElements = this.stackTraces.get(index);
+      if (stackTraceElements == null) {
+        Throwable t = new Throwable();
+        this.stackTraces.put(index, t.getStackTrace());
+        stackTraceElements = this.stackTraces.get(index);
+      }
+      // 调用栈共6个元素，调用链开始位置是5。
+      StackTraceElement stackTraceElement = stackTraceElements[5];
+      this.produce(stackTraceElement, logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown, record);
     } finally {
       ringBuffer.publish(sequence);
     }
