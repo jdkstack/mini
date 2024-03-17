@@ -18,10 +18,6 @@ public interface ContextConfiguration {
 
   void setHostName(String hostName);
 
-  String getAppName();
-
-  void setAppName(String appName);
-
   long getPid();
 
   void setPid(long pid);

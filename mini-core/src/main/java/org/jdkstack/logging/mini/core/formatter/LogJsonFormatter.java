@@ -95,6 +95,158 @@ public final class LogJsonFormatter implements Formatter {
     json.append("\"levelValue\"");
     json.append(':');
     json.append(logRecord.getLevelValue());
+
+    json.append(',');
+    json.append("\"logTypeName\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getLogTypeName());
+    json.append('"');
+
+    json.append(',');
+    json.append("\"logTypeValue\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getLogTypeValue());
+    json.append('"');
+
+    json.append(',');
+    json.append("\"hostName\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getHostName());
+    json.append('"');
+
+    json.append(',');
+    json.append("\"hostIp\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getHostIp());
+    json.append('"');
+
+    json.append(',');
+    json.append("\"processId\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getProcessId());
+    json.append('"');
+
+    json.append(',');
+    json.append("\"timeZone\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getTimeZone());
+    json.append('"');
+
+    json.append(',');
+    json.append("\"eventTypeName\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getEventTypeName());
+    json.append('"');
+
+    json.append(',');
+    json.append("\"eventTypeValue\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getEventTypeValue());
+    json.append('"');
+
+    json.append(',');
+    json.append("\"eventSourceId\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getEventSourceId());
+    json.append('"');
+    json.append(',');
+    json.append("\"eventSourceName\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getEventSourceName());
+    json.append('"');
+
+    json.append(',');
+    json.append("\"eventSourceValue\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getEventSourceValue());
+    json.append('"');
+
+    json.append(',');
+    json.append("\"applicationSoftwareId\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getApplicationSoftwareId());
+    json.append('"');
+
+    json.append(',');
+    json.append("\"applicationSoftwareVersion\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getApplicationSoftwareVersion());
+    json.append('"');
+
+    json.append(',');
+    json.append("\"applicationSoftwareName\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getApplicationSoftwareName());
+    json.append('"');
+
+    json.append(',');
+    json.append("\"systemSoftwareId\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getSystemSoftwareId());
+    json.append('"');
+
+    json.append(',');
+    json.append("\"systemSoftwareVersion\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getSystemSoftwareVersion());
+    json.append('"');
+
+    json.append(',');
+    json.append("\"systemSoftwareName\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getSystemSoftwareName());
+    json.append('"');
+
+    json.append(',');
+    json.append("\"hardwareId\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getHardwareId());
+    json.append('"');
+
+    json.append(',');
+    json.append("\"hardwareVersion\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getHardwareVersion());
+    json.append('"');
+    json.append(',');
+    json.append("\"hardwareName\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getHardwareName());
+    json.append('"');
+    // 线程名.
+    json.append(',');
+    json.append("\"producerThreadName\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getProducerThreadName());
+    json.append('"');
+    // 线程名.
+    json.append(',');
+    json.append("\"producerThreadValue\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getProducerThreadValue());
+    json.append('"');
     // 线程名.
     json.append(',');
     json.append("\"consumerThreadName\"");
@@ -108,8 +260,8 @@ public final class LogJsonFormatter implements Formatter {
     json.append(':');
     json.append('"');
     json.append(Thread.currentThread().getId());
-    // 类.
     json.append('"');
+
     json.append(',');
     json.append("\"name\"");
     json.append(':');
@@ -117,6 +269,35 @@ public final class LogJsonFormatter implements Formatter {
     json.append(logRecord.getName());
     // 日志对象中的消息字段.
     json.append('"');
+
+    json.append(',');
+    json.append("\"className\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getClassName());
+    json.append('"');
+
+    json.append(',');
+    json.append("\"methodName\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getMethodName());
+    json.append('"');
+
+    json.append(',');
+    json.append("\"lineNumber\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getLineNumber());
+    json.append('"');
+
+    json.append(',');
+    json.append("\"fileName\"");
+    json.append(':');
+    json.append('"');
+    json.append(logRecord.getFileName());
+    json.append('"');
+
     json.append(',');
     json.append("\"message\"");
     json.append(':');
