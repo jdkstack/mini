@@ -158,4 +158,20 @@ public interface Record {
   long getTimeZone();
 
   void setTimeZone(long timeZone);
+
+  String getClassName();
+
+  void setClassName(String className);
+
+  String getMethodName();
+
+  void setMethodName(String methodName);
+
+  int getLineNumber();
+
+  void setLineNumber(int lineNumber);
+
+  String getFileName();
+
+  void setFileName(String fileName);
 }

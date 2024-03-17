@@ -17,7 +17,7 @@ package org.jdkstack.logging.mini.core.level;
  */
 public enum EventType {
 
-  SE("system software events", 0), APE("application software events", 1);
+  SE("System Software Events", 0), APE("Application Software Events", 1);
   /**
    * 日志名.
    */

@@ -32,7 +32,22 @@ public class LogRecord implements Record {
    * 日志记录器名.
    */
   private String name;
-
+  /**
+   * 日志记录器完全限定名.
+   */
+  private String className = "-";
+  /**
+   * 日志记录器方法名.
+   */
+  private String methodName = "-";
+  /**
+   * 日志记录器行号.
+   */
+  private int lineNumber = 0;
+  /**
+   * 日志记录器所在的文件.
+   */
+  private String fileName = "-";
   /**
    * 日志级别名.
    */
@@ -68,9 +83,9 @@ public class LogRecord implements Record {
   private String logTypeName;
   private int logTypeValue;
   // 当前hostName
-  private String hostName;
+  private String hostName = "-";
   // 当前hostIp
-  private String hostIp;
+  private String hostIp = "-";
   // 当前进程
   private long processId;
   // 当前时区
@@ -81,26 +96,26 @@ public class LogRecord implements Record {
   private int eventTypeValue;
 
   // 事件来源软件的哪个模块。
-  private String eventSourceId;
-  private String eventSourceName;
-  private String eventSourceValue;
+  private String eventSourceId = "-";
+  private String eventSourceName = "-";
+  private String eventSourceValue = "-";
 
   // 抖音/浏览器
-  private String applicationSoftwareId;
-  private String applicationSoftwareVersion;
-  private String applicationSoftwareName;
+  private String applicationSoftwareId = "-";
+  private String applicationSoftwareVersion = "-";
+  private String applicationSoftwareName = "-";
 
   // windows/android/linux/Xiaomi HyperOS
-  private String systemSoftwareId;
-  private String systemSoftwareVersion;
-  private String systemSoftwareName;
+  private String systemSoftwareId = "-";
+  private String systemSoftwareVersion = "-";
+  private String systemSoftwareName = "-";
 
   // 硬件设备：桌面/移动
-  private String hardwareId;
+  private String hardwareId = "-";
   // R6615/14
-  private String hardwareVersion;
+  private String hardwareVersion = "-";
   // 例如：PowerEdge/小米
-  private String hardwareName;
+  private String hardwareName = "-";
 
   @Override
   public StringBuilder getDatetime() {
@@ -465,5 +480,45 @@ public class LogRecord implements Record {
   @Override
   public void setTimeZone(final long timeZone) {
     this.timeZone = timeZone;
+  }
+
+  @Override
+  public String getClassName() {
+    return this.className;
+  }
+
+  @Override
+  public void setClassName(final String className) {
+    this.className = className;
+  }
+
+  @Override
+  public String getMethodName() {
+    return this.methodName;
+  }
+
+  @Override
+  public void setMethodName(final String methodName) {
+    this.methodName = methodName;
+  }
+
+  @Override
+  public int getLineNumber() {
+    return this.lineNumber;
+  }
+
+  @Override
+  public void setLineNumber(final int lineNumber) {
+    this.lineNumber = lineNumber;
+  }
+
+  @Override
+  public String getFileName() {
+    return this.fileName;
+  }
+
+  @Override
+  public void setFileName(final String fileName) {
+    this.fileName = fileName;
   }
 }
