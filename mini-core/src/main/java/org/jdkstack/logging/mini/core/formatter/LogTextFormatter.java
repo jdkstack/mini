@@ -82,9 +82,26 @@ public final class LogTextFormatter implements Formatter {
     text.append(logRecord.getLevelValue());
     text.append(' ');
     // 线程名.
+    text.append(logRecord.getProducerThreadName());
+    text.append(' ');
+    text.append(logRecord.getProducerThreadValue());
+    text.append(' ');
+    // 线程名.
     text.append(Thread.currentThread().getName());
     text.append(' ');
     text.append(Thread.currentThread().getId());
+    text.append(' ');
+    // 类.
+    text.append(logRecord.getClassName());
+    text.append(' ');
+    // 类.
+    text.append(logRecord.getMethodName());
+    text.append(' ');
+    // 类.
+    text.append(logRecord.getLineNumber());
+    text.append(' ');
+    // 类.
+    text.append(logRecord.getFileName());
     text.append(' ');
     // 类.
     text.append(logRecord.getName());

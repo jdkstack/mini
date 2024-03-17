@@ -15,7 +15,7 @@ import org.jdkstack.logging.mini.core.context.EventLogRecorderContextFactory;
 /**
  * LogFactory核心类.
  *
- * <p>.
+ * <p>可以用来添加任何需要暴露给web服务的业务方法，比如线程信息，优雅下线和上线，CRUD方法.
  *
  * @author admin
  */

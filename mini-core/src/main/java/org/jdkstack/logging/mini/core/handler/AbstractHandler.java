@@ -111,7 +111,54 @@ public abstract class AbstractHandler implements Handler {
     lr.setLogTypeName(recorderConfig.getLogTypeName());
     lr.setLogTypeValue(recorderConfig.getLogTypeValue());
     lr.setHostName(contextConfiguration.getHostName());
-    lr.setApplicationSoftwareName(contextConfiguration.getAppName());
+    //lr.setApplicationSoftwareName(contextConfiguration.getAppName());
+    lr.setProcessId(contextConfiguration.getPid());
+    lr.setTimeZone(contextConfiguration.getTimeZone());
+    lr.setProducerThreadName(Thread.currentThread().getName());
+    lr.setProducerThreadValue(Thread.currentThread().getId());
+  }
+
+  @Override
+  public void produce(StackTraceElement stackTraceElement, final String logLevel, final String dateTime, final String message, final String name, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5, final Object arg6, final Object arg7, final Object arg8, final Object arg9, final Throwable thrown, final Record lr) {
+    // 设置日志级别.
+    lr.setLevelName(logLevel);
+    // 设置日志级别.
+    lr.setLevelValue(context.findLevel(logLevel).intValue());
+    // 设置日志日期时间.
+    final StringBuilder event = lr.getEvent();
+    // 系统当前的时间戳.
+    final long current = System.currentTimeMillis();
+    // 使用固定时区+8:00(8小时x3600秒).
+    ContextConfiguration contextConfiguration = context.getContextConfiguration();
+    DateTimeEncoder.encoder(event, current, contextConfiguration.getTimeZone());
+    // 设置9个参数.
+    lr.setParams(arg1, 0);
+    lr.setParams(arg2, 1);
+    lr.setParams(arg3, 2);
+    lr.setParams(arg4, 3);
+    lr.setParams(arg5, 4);
+    lr.setParams(arg6, 5);
+    lr.setParams(arg7, 6);
+    lr.setParams(arg8, 7);
+    lr.setParams(arg9, 8);
+    // 用9个参数替换掉message中的占位符{}.
+    LogFormatterV2.format(lr, message);
+    // location中的className,method和lineNumber,暂时不处理.
+    lr.setName(name);
+    // 异常信息.
+    lr.setThrown(thrown);
+    lr.setMethodName(stackTraceElement.getMethodName());
+    lr.setClassName(stackTraceElement.getClassName());
+    lr.setLineNumber(stackTraceElement.getLineNumber());
+    lr.setFileName(stackTraceElement.getFileName());
+    // 增加元数据。
+    RecorderConfig recorderConfig = context.getRecorderConfig(name);
+    lr.setEventTypeName(recorderConfig.getEventTypeName());
+    lr.setEventTypeValue(recorderConfig.getEventTypeValue());
+    lr.setLogTypeName(recorderConfig.getLogTypeName());
+    lr.setLogTypeValue(recorderConfig.getLogTypeValue());
+    lr.setHostName(contextConfiguration.getHostName());
+    //lr.setApplicationSoftwareName(contextConfiguration.getAppName());
     lr.setProcessId(contextConfiguration.getPid());
     lr.setTimeZone(contextConfiguration.getTimeZone());
     lr.setProducerThreadName(Thread.currentThread().getName());
