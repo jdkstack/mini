@@ -70,7 +70,7 @@ public class LogRecorderConfiguration implements Configuration {
   public final Handler getHandler(final String name) {
     Handler handler = this.handlers.get(name);
     if (handler == null) {
-      handler = this.handlers.get("default");
+      handler = this.handlers.get(org.jdkstack.logging.mini.core.config.Constants.DEFAULT);
     }
     return handler;
   }
@@ -100,7 +100,7 @@ public class LogRecorderConfiguration implements Configuration {
     // 获取
     RecorderConfig value = this.logRecorderConfigs.get(key);
     if (value == null) {
-      value = this.logRecorderConfigs.get("default");
+      value = this.logRecorderConfigs.get(org.jdkstack.logging.mini.core.config.Constants.DEFAULT);
     }
     return value;
   }
@@ -115,7 +115,7 @@ public class LogRecorderConfiguration implements Configuration {
     // 获取
     HandlerConfig value = this.logHandlerConfigs.get(key);
     if (value == null) {
-      value = this.logHandlerConfigs.get("default");
+      value = this.logHandlerConfigs.get(org.jdkstack.logging.mini.core.config.Constants.DEFAULT);
     }
     return value;
   }
@@ -142,7 +142,7 @@ public class LogRecorderConfiguration implements Configuration {
   public final StringBuilder formatter(final String formatterName, final Record logRecord) {
     Formatter formatter = this.formatters.get(formatterName);
     if (formatter == null) {
-      formatter = this.formatters.get("default");
+      formatter = this.formatters.get(org.jdkstack.logging.mini.core.config.Constants.DEFAULT);
     }
     return formatter.format(logRecord);
   }
@@ -151,7 +151,7 @@ public class LogRecorderConfiguration implements Configuration {
   public final boolean filter(final String filterName, final Record logRecord) {
     Filter filter = this.filters.get(filterName);
     if (filter == null) {
-      filter = this.filters.get("default");
+      filter = this.filters.get(org.jdkstack.logging.mini.core.config.Constants.DEFAULT);
     }
     return filter.doFilter(logRecord);
   }
