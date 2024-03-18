@@ -64,7 +64,7 @@ public class EventLogRecorderContextFactory implements LogRecorderContextFactory
       // 取出最新添加的Recorder.
       //recorder = this.context.getRecorder(name);
       // 不需要创建，直接获取默认的recorder。
-      recorder = this.context.getRecorder("default");
+      recorder = this.context.getRecorder(org.jdkstack.logging.mini.core.config.Constants.DEFAULT);
     }
     return recorder;
   }
@@ -132,15 +132,15 @@ public class EventLogRecorderContextFactory implements LogRecorderContextFactory
     this.addLevel(Constants.MAX, Constants.MAX_VALUE);
     // 默认配置。
     final RecorderConfig recorderConfig = new LogRecorderConfig();
-    this.addLogRecorderConfig("default", recorderConfig);
+    this.addLogRecorderConfig(org.jdkstack.logging.mini.core.config.Constants.DEFAULT, recorderConfig);
     // 默认Recorder。
     this.addRecorder(recorderConfig);
     // 默认配置。
     final HandlerConfig handlerConfig = new LogHandlerConfig();
-    this.addLogHandlerConfig("default", handlerConfig);
+    this.addLogHandlerConfig(org.jdkstack.logging.mini.core.config.Constants.DEFAULT, handlerConfig);
     // 默认FileHandler。
-    final Handler fileHandlerV2 = new FileHandlerV2(this.context, "default");
-    this.addHandler("default", fileHandlerV2);
+    final Handler fileHandlerV2 = new FileHandlerV2(this.context, org.jdkstack.logging.mini.core.config.Constants.DEFAULT);
+    this.addHandler(org.jdkstack.logging.mini.core.config.Constants.DEFAULT, fileHandlerV2);
     // 默认配置。
     final HandlerConfig mmapRecorderConfig = new LogHandlerConfig();
     mmapRecorderConfig.setName("mmap");
@@ -148,10 +148,10 @@ public class EventLogRecorderContextFactory implements LogRecorderContextFactory
     final Handler mmap = new MmapFileHandlerV2(this.context, "mmap");
     this.addHandler("mmap", mmap);
     // 默认Filter。
-    final Filter handlerConsumeFilter = new HandlerConsumeFilter(this.context, "default");
+    final Filter handlerConsumeFilter = new HandlerConsumeFilter(this.context, org.jdkstack.logging.mini.core.config.Constants.DEFAULT);
     this.addFilter("handlerConsumeFilter", handlerConsumeFilter);
     // 默认Filter。
-    final Filter handlerProduceFilter = new HandlerProduceFilter(this.context, "default");
+    final Filter handlerProduceFilter = new HandlerProduceFilter(this.context, org.jdkstack.logging.mini.core.config.Constants.DEFAULT);
     this.addFilter("handlerProduceFilter", handlerProduceFilter);
     // 默认Formatter。
     final Formatter logJsonFormatter = new LogJsonFormatter(this.context);
