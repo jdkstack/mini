@@ -8,6 +8,7 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.charset.Charset;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jdkstack.logging.mini.api.buffer.ByteWriter;
 import org.jdkstack.logging.mini.api.codec.CodecEncoder;
@@ -216,7 +217,14 @@ public final class LogConsumeThread extends Thread {
 
   public void setRc(final HandlerConfig rc) {
     this.rc = rc;
+    // 重新命名日志目录（备份到其他目录中）。
+    dir = new File(this.rc.getDirectory() + File.separator + this.rc.getPrefix());
+    if (dir.exists()) {
+      dir.renameTo(new File(this.rc.getDirectory(), UUID.randomUUID().toString()));
+    }
+    // 重新创建日志目录。
     dir = new File(this.rc.getDirectory() + File.separator + this.rc.getPrefix() + File.separator + Thread.currentThread().getName());
+    dir.mkdirs();
     fileBuffer = new FileRingBuffer(this.dir, this.rc);
     randomAccessFileBuffer = new RandomAccessFileRingBuffer(this.fileBuffer, this.rc);
   }

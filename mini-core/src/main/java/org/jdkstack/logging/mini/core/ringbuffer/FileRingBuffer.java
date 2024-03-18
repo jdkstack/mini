@@ -38,10 +38,6 @@ public class FileRingBuffer implements RingBuffer<File> {
    * @author admin
    */
   public FileRingBuffer(final File dir, final HandlerConfig rc) {
-    // 创建目录。
-    if (!dir.exists()) {
-      dir.mkdirs();
-    }
     final int size = Power2.power2(rc.getCapacity());
     this.mask = size - 1;
     this.rb = new File[size];
