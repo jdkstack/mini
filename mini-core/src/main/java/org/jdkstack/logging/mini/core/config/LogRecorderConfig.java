@@ -24,7 +24,7 @@ public class LogRecorderConfig implements RecorderConfig {
   /**
    * .
    */
-  private String name = "default";
+  private String name = Constants.DEFAULT;
   /**
    * .
    */

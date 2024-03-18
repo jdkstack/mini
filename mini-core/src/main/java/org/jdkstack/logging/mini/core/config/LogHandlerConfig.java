@@ -31,15 +31,15 @@ public class LogHandlerConfig implements HandlerConfig {
   /**
    * .
    */
-  private String prefix = "default";
+  private String prefix = Constants.DEFAULT;
   /**
    * .
    */
-  private String name = "default";
+  private String name = Constants.DEFAULT;
   /**
    * .
    */
-  private String fileName = "default";
+  private String fileName = Constants.DEFAULT;
 
   private int capacity = 16;
   /**
