@@ -26,16 +26,6 @@
       <groupId>org.hdrhistogram</groupId>
       <version>2.1.12</version>
     </dependency>
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-api</artifactId>
-      <version>2.23.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-      <version>2.23.1</version>
-    </dependency>
   </dependencies>
 
   <modelVersion>4.0.0</modelVersion>

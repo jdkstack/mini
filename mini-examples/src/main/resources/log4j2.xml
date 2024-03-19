@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+  <Appenders>
+    <RollingRandomAccessFile name="File" fileName="H:/log/app.log"
+      filePattern="./log/app-%d{yyyy-MM-dd HH-mm-ss}-.log">
+      <PatternLayout pattern="[%t] %l - %msg%n"/>
+      <Policies>
+        <!-- 每 5s 翻滚一次 -->
+        <!--<CronTriggeringPolicy schedule="0/5 * * * * ?"/>-->
+        <!--根据当前filePattern配置，日志文件每3分钟滚动一次-->
+        <!--<TimeBasedTriggeringPolicy interval="1"/>-->
+        <!--日志文件大于10 MB滚动一次-->
+       <SizeBasedTriggeringPolicy size="10000 MB"/>
+      </Policies>
+      <!--保存日志文件个数-->
+      <DefaultRolloverStrategy max="10"/>
+    </RollingRandomAccessFile>
+  </Appenders>
+  <Loggers>
+<!--
+    <AsyncLogger name="*"  level="trace" includeLocation="true">
+      <AppenderRef ref="File"/>
+    </AsyncLogger>
+-->
+
+    <Root level="trace" includeLocation="true">
+      <AppenderRef ref="File"/>
+    </Root>
+  </Loggers>
+</Configuration>
