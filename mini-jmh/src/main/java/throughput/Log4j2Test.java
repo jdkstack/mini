@@ -1,0 +1,38 @@
+package throughput;
+
+import static org.apache.logging.log4j.util.Unbox.box;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+
+//-D"Log4jContextSelector"="org.apache.logging.log4j.core.async.AsyncLoggerContextSelector"
+public class Log4j2Test {
+
+  private static Logger logger = LogManager.getLogger(Log4j2Test.class);
+
+
+  private static String customPattern = "[%d{yyyyMMdd HH:mm:ss,SSS}] %-5p [%-25.25c{1}:%-4L] - %m%n";
+
+  private static final Marker SQL_MARKER = MarkerManager.getMarker("SQL");
+  private static final Marker UPDATE_MARKER = MarkerManager.getMarker("SQL_UPDATE").setParents(SQL_MARKER);
+  private static final Marker QUERY_MARKER = MarkerManager.getMarker("SQL_QUERY").setParents(SQL_MARKER);
+
+  public static void main(String[] args) throws Exception {
+    for (int k = 0; k < 10; k++) {
+      long s = System.currentTimeMillis();
+      for (int i = 0; i < 1000000; i++) {
+        logger.info(
+            "BBBAAA12345678901234567890123456789012345678901234567890123456789012AAAA0123456781234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901212345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012AAAA{}",
+            box(0));
+      }
+      long e = System.currentTimeMillis();
+      System.out.println(e - s);
+    }
+    try {
+      Thread.sleep(10000000);
+    } catch (InterruptedException ex) {
+      throw new RuntimeException(ex);
+    }
+  }
+}
