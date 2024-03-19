@@ -13,7 +13,7 @@ public class ThroughputTest {
   public static void main(final String[] args) throws Exception {
     final String name = "mt";
     final String resultFile = "./file.log";
-    final int threadCount = 2;
+    final int threadCount = 1;
     System.out.printf("Starting %s %s (%d)...%n", ThroughputTest.class.getSimpleName(), name, threadCount);
     System.out.println("Warming up...");
     final long t1 = System.nanoTime();
