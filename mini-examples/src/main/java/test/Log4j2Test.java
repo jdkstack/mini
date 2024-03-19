@@ -1,10 +1,10 @@
 package test;
 
-import static org.apache.logging.log4j.util.Unbox.box;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+import org.apache.logging.log4j.util.Unbox;
 
 //-D"Log4jContextSelector"="org.apache.logging.log4j.core.async.AsyncLoggerContextSelector"
 public class Log4j2Test {
