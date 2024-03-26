@@ -3,6 +3,8 @@ package org.jdkstack.logging.mini.core.thread;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
+import org.jdkstack.logging.mini.api.record.Record;
+import org.jdkstack.logging.mini.core.record.LogRecord;
 
 /**
  * 自定义线程,便于系统内线程的监控.
@@ -27,6 +29,8 @@ public final class LogProduceThread extends Thread {
   private final AtomicLong methodCounter = new AtomicLong(0L);
   /** 单个方法内每个日志级别分别计数. */
   private final Map<String, AtomicLong> maps = new HashMap<>(16);
+  /** 当使用同步方式时，共享一个Record对象. */
+  private final Record record = new LogRecord();
 
   /**
    * 线程开始运行的时间(毫秒).
@@ -102,5 +106,9 @@ public final class LogProduceThread extends Thread {
     final StringBuilder result = ringBuffer[MASK & current++];
     result.setLength(0);
     return result;
+  }
+
+  public Record getRecord() {
+    return record;
   }
 }
