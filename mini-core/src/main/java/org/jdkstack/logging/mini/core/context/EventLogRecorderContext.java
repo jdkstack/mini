@@ -26,7 +26,6 @@ import org.jdkstack.logging.mini.core.config.LogRecorderConfiguration;
 import org.jdkstack.logging.mini.core.config.LogRecorderContextConfiguration;
 import org.jdkstack.logging.mini.core.lifecycle.LifecycleBase;
 import org.jdkstack.logging.mini.core.monitor.ThreadMonitor;
-import org.jdkstack.logging.mini.core.record.LogRecord;
 import org.jdkstack.logging.mini.core.record.RecordEventFactory;
 import org.jdkstack.logging.mini.core.ringbuffer.RingBufferLogWorkHandler;
 import org.jdkstack.logging.mini.core.thread.LogConsumeThread;
@@ -47,14 +46,12 @@ public class EventLogRecorderContext extends LifecycleBase implements LogRecorde
   private final Configuration configuration = new LogRecorderConfiguration();
   /** Recorder共享配置. */
   private final ContextConfiguration contextConfiguration = new LogRecorderContextConfiguration();
-  /** 当使用同步方式时，共享一个Record对象. */
-  private final ThreadLocal<Record> rtl = new ThreadLocal<>();
-  /** 当使用异步方式时，共享多个Record对象. */
-  private Disruptor<Record> disruptor = null;
   /** 监控每一个线程对象. */
   private final ThreadMonitor threadMonitor = new ThreadMonitor();
   /** 堆栈<=3600个不会扩容. */
   private Map<Integer, StackTraceElement[]> stackTraces = new HashMap<>(4800);
+  /** 当使用异步方式时，共享多个Record对象. */
+  private Disruptor<Record> disruptor = null;
 
   /**
    * .
@@ -312,13 +309,13 @@ public class EventLogRecorderContext extends LifecycleBase implements LogRecorde
     String state = contextConfiguration.getState();
     switch (state) {
       case "synchronous":
-        synchronous(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
+        synchronous(index, logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
         break;
       case "asynchronous":
         if (LifecycleState.STARTED == getState()) {
           asynchronous(index, logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
         } else {
-          synchronous(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
+          synchronous(index, logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown);
         }
         break;
       default:
@@ -357,7 +354,8 @@ public class EventLogRecorderContext extends LifecycleBase implements LogRecorde
   }
 
   private void synchronous(String logLevel, String dateTime, String message, String name, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5, Object arg6, Object arg7, Object arg8, Object arg9, Throwable thrown) {
-    Record record = getLogRecord();
+    LogProduceThread logProduceThread = ThreadLocalTool.getLogProduceThread();
+    Record record = logProduceThread.getRecord();
     try {
       this.produce(logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown, record);
       this.consume(record);
@@ -366,13 +364,23 @@ public class EventLogRecorderContext extends LifecycleBase implements LogRecorde
     }
   }
 
-  private Record getLogRecord() {
-    Record result = rtl.get();
-    if (result == null) {
-      result = new LogRecord();
-      rtl.set(result);
+  private void synchronous(int index, String logLevel, String dateTime, String message, String name, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5, Object arg6, Object arg7, Object arg8, Object arg9, Throwable thrown) {
+    LogProduceThread logProduceThread = ThreadLocalTool.getLogProduceThread();
+    Record record = logProduceThread.getRecord();
+    try {
+      StackTraceElement[] stackTraceElements = this.stackTraces.get(index);
+      if (stackTraceElements == null) {
+        Throwable t = new Throwable();
+        this.stackTraces.put(index, t.getStackTrace());
+        stackTraceElements = this.stackTraces.get(index);
+      }
+      // 调用栈共6个元素，调用链开始位置是5。
+      StackTraceElement stackTraceElement = stackTraceElements[5];
+      this.produce(stackTraceElement, logLevel, dateTime, message, name, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, thrown, record);
+      this.consume(record);
+    } finally {
+      record.clear();
     }
-    return result;
   }
 
   @Override
