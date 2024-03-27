@@ -15,9 +15,8 @@ public class Examples {
     for (int k = 0; k < 10; k++) {
       final long s = System.currentTimeMillis();
       for (int i = 0; i < 1000000; i++) {
-        final int j = i;
         //threadPoolExecutor.submit(() -> LOG.log(23, Constants.FATAL, message, StringBuilderPool.box(j)));
-        LOG.log(Constants.FATAL, message, StringBuilderPool.box(i));
+        LOG.log(Constants.FATAL, message, StringBuilderPool.box(0));
         // 第一个参数是当前行，当传递当前行时会输出堆栈信息。
         //LOG.log(26, Constants.FATAL, message, StringBuilderPool.box(i));
       }
