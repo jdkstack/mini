@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
   <Appenders>
-    <RollingRandomAccessFile name="File" fileName="H:/log/app.log"
+    <RollingRandomAccessFile name="File" fileName="./log/app.log"
       filePattern="./log/app-%d{yyyy-MM-dd HH-mm-ss}-.log">
       <PatternLayout pattern="[%t] %l - %msg%n"/>
       <Policies>
