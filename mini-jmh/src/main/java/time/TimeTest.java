@@ -52,7 +52,7 @@ public class TimeTest {
     List<Histogram> responseTime = new ArrayList<>(1);
     List<Histogram> latencyTime = new ArrayList<>(1);
     // 正式测试一分钟业务方法。
-    final long testTime = TimeUnit.MINUTES.toMillis(4);
+    final long testTime = TimeUnit.MINUTES.toMillis(1);
     //
     final int count = eps / threadCount;
     runLatencyTest(testTime, count, serviceTime, responseTime, latencyTime, threadCount);

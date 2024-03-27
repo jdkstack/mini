@@ -68,50 +68,12 @@ public class EventLogRecorderContext extends LifecycleBase implements LogRecorde
         //
         break;
       case "asynchronous":
-        getRecordDisruptor();
+        start();
         break;
       default:
         throw new RuntimeException("不支持。");
     }
     this.setState(LifecycleState.INITIALIZED);
-  }
-
-  private void getRecordDisruptor() {
-    // 对象工厂。
-    final EventFactory<Record> eventFactory = new RecordEventFactory();
-    // 生产者使用多线程模式。
-    final ProducerType producerType = ProducerType.MULTI;
-    // 等待策略。
-    final WaitStrategy waitStrategy = new BusySpinWaitStrategy();
-    // 创建disruptor。
-    this.disruptor = new Disruptor<>(eventFactory, contextConfiguration.getRingBufferSize(), new LogConsumeThreadFactory("default-log-consume", null), producerType, waitStrategy);
-    // 添加异常处理。
-    final ExceptionHandler<Record> errorHandler = new ExceptionHandler<Record>() {
-      @Override
-      public void handleEventException(Throwable ignore, long sequence, Record event) {
-        //
-      }
-
-      @Override
-      public void handleOnStartException(Throwable ignore) {
-        //
-      }
-
-      @Override
-      public void handleOnShutdownException(Throwable ignore) {
-        //
-      }
-    };
-    this.disruptor.setDefaultExceptionHandler(errorHandler);
-    // 使用多消费者。
-    RingBufferLogWorkHandler[] workHandlers = new RingBufferLogWorkHandler[contextConfiguration.getConsumers()];
-    for (int i = 0; i < workHandlers.length; i++) {
-      workHandlers[i] = new RingBufferLogWorkHandler(this);
-    }
-    // 使用多消费者。
-    this.disruptor.handleEventsWithWorkerPool(workHandlers);
-    // 启动disruptor。
-    this.disruptor.start();
   }
 
   @Override
@@ -384,10 +346,54 @@ public class EventLogRecorderContext extends LifecycleBase implements LogRecorde
   }
 
   @Override
+  public void start() {
+    this.setState(LifecycleState.STARTING);
+    // 对象工厂。
+    final EventFactory<Record> eventFactory = new RecordEventFactory();
+    // 生产者使用多线程模式。
+    final ProducerType producerType = ProducerType.MULTI;
+    // 等待策略。
+    final WaitStrategy waitStrategy = new BusySpinWaitStrategy();
+    // 创建disruptor。
+    this.disruptor = new Disruptor<>(eventFactory, contextConfiguration.getRingBufferSize(), new LogConsumeThreadFactory("default-log-consume", null), producerType, waitStrategy);
+    // 添加异常处理。
+    final ExceptionHandler<Record> errorHandler = new ExceptionHandler<>() {
+      @Override
+      public void handleEventException(Throwable ignore, long sequence, Record event) {
+        //
+      }
+
+      @Override
+      public void handleOnStartException(Throwable ignore) {
+        //
+      }
+
+      @Override
+      public void handleOnShutdownException(Throwable ignore) {
+        //
+      }
+    };
+    this.disruptor.setDefaultExceptionHandler(errorHandler);
+    // 使用多消费者。
+    RingBufferLogWorkHandler[] workHandlers = new RingBufferLogWorkHandler[contextConfiguration.getConsumers()];
+    for (int i = 0; i < workHandlers.length; i++) {
+      workHandlers[i] = new RingBufferLogWorkHandler(this);
+    }
+    // 使用多消费者。
+    this.disruptor.handleEventsWithWorkerPool(workHandlers);
+    // 启动disruptor。
+    this.disruptor.start();
+    this.setState(LifecycleState.STARTED);
+  }
+
+  @Override
   public void shutdown() {
-    this.setState(LifecycleState.STOPPING);
-    this.disruptor.shutdown();
-    this.setState(LifecycleState.STOPPED);
+    if (this.disruptor != null) {
+      this.setState(LifecycleState.STOPPING);
+      this.disruptor.shutdown();
+      this.disruptor = null;
+      this.setState(LifecycleState.STOPPED);
+    }
   }
 
   @Override

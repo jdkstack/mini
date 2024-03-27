@@ -106,6 +106,11 @@ public class EventLogRecorderContextFactory implements LogRecorderContextFactory
   }
 
   @Override
+  public void start() {
+    this.context.start();
+  }
+
+  @Override
   public void shutdown() {
     this.context.shutdown();
   }

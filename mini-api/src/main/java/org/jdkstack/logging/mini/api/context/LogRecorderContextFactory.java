@@ -33,6 +33,8 @@ public interface LogRecorderContextFactory {
 
   void addLevel(String name, int value);
 
+  void start();
+
   void shutdown();
 
   Monitor threadMonitor();
