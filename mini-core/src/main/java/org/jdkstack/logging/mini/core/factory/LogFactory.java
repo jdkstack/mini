@@ -179,6 +179,10 @@ public final class LogFactory implements Factory {
     FACTORY.addLevel(name, value);
   }
 
+  public static void start() {
+    FACTORY.start();
+  }
+
   public static void shutdown() {
     FACTORY.shutdown();
   }

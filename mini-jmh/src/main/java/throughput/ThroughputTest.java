@@ -11,25 +11,21 @@ public class ThroughputTest {
   private static final Recorder LOG = LogFactory.getRecorder(ThroughputTest.class);
 
   public static void main(final String[] args) throws Exception {
-    final String name = "mt";
-    final String resultFile = "./file.log";
-    final int threadCount = 1;
-    System.out.printf("Starting %s %s (%d)...%n", ThroughputTest.class.getSimpleName(), name, threadCount);
-    System.out.println("Warming up...");
+    System.out.printf("Warmup start %s %s (%d)...%n", ThroughputTest.class.getSimpleName(), "warming up......", 2);
     final long t1 = System.nanoTime();
-    multiThread2(name, threadCount, resultFile);
+    multiThread();
     System.out.printf("Warmup complete in %.1f seconds%n", (System.nanoTime() - t1) / (1000.0 * 1000.0 * 1000.0));
     System.out.println("Waiting 10 seconds...");
     Thread.sleep(10000);
-    System.out.printf("Starting %s %s (%d)...%n", ThroughputTest.class.getSimpleName(), name, threadCount);
-    System.out.println("Main test...");
+    final int threadCount = 1;
+    System.out.printf("Starting %s %s (%d)...%n", ThroughputTest.class.getSimpleName(), "Main test...", threadCount);
     final long t2 = System.nanoTime();
-    multiThread(name, threadCount, resultFile);
+    multiThread(threadCount);
     System.out.printf("Main test complete in %.1f seconds%n", (System.nanoTime() - t2) / (1000.0 * 1000.0 * 1000.0));
     Thread.sleep(99999);
   }
 
-  private static void multiThread2(String name, int threadCount, String resultFile) throws InterruptedException {
+  private static void multiThread() throws InterruptedException {
     final Histogram warmupHist = createHistogram();
     final long stop = System.nanoTime() + TimeUnit.MINUTES.toNanos(1);
     final Runnable run1 = () -> {
@@ -55,7 +51,7 @@ public class ThroughputTest {
     thread2.join();
   }
 
-  public static void multiThread(final String name, final int threadCount, final String resultFile) throws Exception {
+  public static void multiThread(final int threadCount) throws Exception {
     final Histogram[] histograms = new Histogram[threadCount];
     for (int i = 0; i < histograms.length; i++) {
       histograms[i] = createHistogram();
