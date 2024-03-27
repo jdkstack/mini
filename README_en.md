@@ -30,12 +30,29 @@ Core features:
 Directory structure:
 
 ```java
-mini-api (interface)
-mini-core (implements)
-mini-extension (extension)
-mini-examples (examples)
-mini-jmh (jmh)
-mini-distribution(distribution)
+mini-
+
+api(interface)
+
+mini-
+
+core(implements)
+
+mini-
+
+extension(extension)
+
+mini-
+
+examples(examples)
+
+mini-
+
+jmh(jmh)
+
+mini-
+
+distribution(distribution)
 ```
 
 # **Attention:**

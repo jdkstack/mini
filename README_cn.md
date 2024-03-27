@@ -30,12 +30,29 @@
 目录结构：
 
 ```java
-mini-api (接口)
-mini-core (实现)
-mini-extension (扩展)
-mini-examples (例子)
-mini-jmh (测试)
-mini-distribution(分发包)
+mini-
+
+api(接口)
+
+mini-
+
+core(实现)
+
+mini-
+
+extension(扩展)
+
+mini-
+
+examples(例子)
+
+mini-
+
+jmh(测试)
+
+mini-
+
+distribution(分发包)
 ```
 
 # **注意:**
