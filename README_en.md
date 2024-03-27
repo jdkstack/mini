@@ -5,7 +5,7 @@ Core features:
 1. Only RandomAccess File and MappedByteBuffer are supported for writing log files.
 2. The high-performance open-source library com.lmax.disruptor.
 3. Log messages support 9 parameters and 1 exception parameter.
-4. Log messages support JSON text and plain text.
+4. Log messages support json text and plain text.
 5. GarbageCollection-Free,not create temporary object objects, String, char arrays, byte arrays.
 6. Log messages support multi-threaded produce and consume.
 7. Split the log file based on the number of lines and file size.
@@ -16,11 +16,16 @@ Core features:
 12. Not support MDC.
 13. Not support NDC。
 14. Not support exception stack。
-15. Not support location。
+15. Support location。
 16. Not support web manage。
 17. Not support distributed。
 18. Not support storage backend to store configuration information。
 19. Only handle event logs. Only application logs(diagnostic logs and audit logs).
+20. Incompatible with any existing log libraries and frameworks, including but not limited to Log4j, Logback, etc.
+21. The throughput is higher than Log4j2 and the latency is lower than Log4j2.
+22. Support web servers such as Tomcat.
+23. Support extension.
+24. Support log backup and log compression.
 
 Directory structure:
 
