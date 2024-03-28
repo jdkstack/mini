@@ -357,7 +357,7 @@ public class EventLogRecorderContext extends LifecycleBase implements LogRecorde
     // 创建disruptor。
     this.disruptor = new Disruptor<>(eventFactory, contextConfiguration.getRingBufferSize(), new LogConsumeThreadFactory("default-log-consume", null), producerType, waitStrategy);
     // 添加异常处理。
-    final ExceptionHandler<Record> errorHandler = new ExceptionHandler<>() {
+    final ExceptionHandler<Record> errorHandler = new ExceptionHandler<Record>() {
       @Override
       public void handleEventException(Throwable ignore, long sequence, Record event) {
         //
